@@ -1,49 +1,103 @@
 import type { Config } from 'tailwindcss';
 import plugin from 'tailwindcss/plugin';
-import { typography } from './app/ui/typography';
+import { createTypographyUtilities } from './lib/utils';
 
-const config: Config = {
-    content: [
-        './pages/**/*.{js,ts,jsx,tsx,mdx}',
-        './components/**/*.{js,ts,jsx,tsx,mdx}',
-        './app/**/*.{js,ts,jsx,tsx,mdx}',
-    ],
-    theme: {
-        screens: {
-            'media-sm': '550px',
-            'media-md': '991px',
-        },
-        container: {
-            center: true,
-            padding: '16px',
-            screens: {
-                md: '1200px',
-            },
-        },
-        colors: {
-            'blue-500': '#3F37C9',
-            'blue-900': '#091E5A',
-            gray: {
-                1: '#F1F1F1',
-                2: '#E2E3E6',
-                3: '#C3C8CC',
-                4: '#A9AEB2',
-                5: '#90949A',
-                6: '#707378',
-            },
-            white: '#fff',
-            black: {
-                1: '#313736',
-                2: '#1D2322',
-                3: '#0B0F0E',
-            },
-        },
-        extend: {},
+const config = {
+  darkMode: ['class'],
+  content: [
+    './pages/**/*.{ts,tsx}',
+    './components/**/*.{ts,tsx}',
+    './app/**/*.{ts,tsx}',
+    './src/**/*.{ts,tsx}',
+  ],
+  prefix: '',
+  theme: {
+    container: {
+      center: true,
+      padding: '2rem',
+      screens: {
+        '2xl': '1400px',
+      },
     },
-    plugins: [
-        plugin(({ addUtilities }) => {
-            addUtilities(typography);
-        }),
-    ],
-};
+    extend: {
+      colors: {
+        border: 'hsl(var(--border))',
+        input: 'hsl(var(--input))',
+        ring: 'hsl(var(--ring))',
+        background: 'hsl(var(--background))',
+        foreground: 'hsl(var(--foreground))',
+        primary: {
+          '1': 'hsl(var(--primary-1))',
+          '2': 'hsl(var(--primary-2))',
+          '3': 'hsl(var(--primary-3))',
+        },
+        black: {
+          '1': 'hsl(var(--black-1))',
+          '2': 'hsl(var(--black-2))',
+          '3': 'hsl(var(--black-3))',
+        },
+        'gray': {
+          '1': 'hsl(var(--gray-1))',
+        },
+        'd-gray': {
+          '1': 'hsl(var(--d-gray-1))',
+        },
+        secondary: {
+          DEFAULT: 'hsl(var(--secondary))',
+          foreground: 'hsl(var(--secondary-foreground))',
+        },
+        destructive: {
+          DEFAULT: 'hsl(var(--destructive))',
+          foreground: 'hsl(var(--destructive-foreground))',
+        },
+        muted: {
+          DEFAULT: 'hsl(var(--muted))',
+          foreground: 'hsl(var(--muted-foreground))',
+        },
+        accent: {
+          DEFAULT: 'hsl(var(--accent))',
+          foreground: 'hsl(var(--accent-foreground))',
+        },
+        popover: {
+          DEFAULT: 'hsl(var(--popover))',
+          foreground: 'hsl(var(--popover-foreground))',
+        },
+        card: {
+          DEFAULT: 'hsl(var(--card))',
+          foreground: 'hsl(var(--card-foreground))',
+        },
+      },
+      borderRadius: {
+        lg: 'var(--radius)',
+        md: 'calc(var(--radius) - 2px)',
+        sm: 'calc(var(--radius) - 4px)',
+      },
+      keyframes: {
+        'accordion-down': {
+          from: { height: '0' },
+          to: { height: 'var(--radix-accordion-content-height)' },
+        },
+        'accordion-up': {
+          from: { height: 'var(--radix-accordion-content-height)' },
+          to: { height: '0' },
+        },
+      },
+      animation: {
+        'accordion-down': 'accordion-down 0.2s ease-out',
+        'accordion-up': 'accordion-up 0.2s ease-out',
+      },
+    },
+  },
+  plugins: [
+    require('tailwindcss-animate'),
+    plugin(({ addUtilities }) => {
+      addUtilities(
+        createTypographyUtilities({
+          fontSizeRange: [12, 13, 14, 16, 18, 20, 24, 28, 32, 36, 48, 52],
+        })
+      );
+    }),
+  ],
+} satisfies Config;
+
 export default config;
