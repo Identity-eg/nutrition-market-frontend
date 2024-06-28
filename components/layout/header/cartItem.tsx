@@ -1,8 +1,9 @@
 import Link from "next/link";
-// UI
+
 import { SheetClose } from "@/components/ui/sheet";
-// Utils
+
 import { useDeleteCartItem, TCartItem } from "@/apis/cart";
+import Image from "next/image";
 // import { DrawerClose } from '../UI/drawer';
 
 export default function CartSideItem({ _id, amount, product }: TCartItem) {
@@ -13,7 +14,7 @@ export default function CartSideItem({ _id, amount, product }: TCartItem) {
     <li key={_id} className="relative flex gap-4 py-6">
       {/* <LoadingOverlay visible={loadDelete} /> */}
       <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
-        <img
+        <Image
           src={product.images[0]}
           alt={product.name}
           className="h-full w-full object-contain object-center p-2"
