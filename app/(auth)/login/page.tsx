@@ -91,9 +91,8 @@ export default function LoginPage() {
                   <FormLabel>Email</FormLabel>
                   <FormControl>
                     <Input
-                      type='email'
                       required
-                      placeholder='m@example.com'
+                      placeholder='Enter your email address'
                       {...field}
                     />
                   </FormControl>
@@ -109,7 +108,7 @@ export default function LoginPage() {
                   <div className='flex items-center'>
                     <FormLabel>Password</FormLabel>
                     <Link
-                      href='#'
+                      href='/forgot-password'
                       className='ml-auto inline-block text-sm underline'
                     >
                       Forgot your password?

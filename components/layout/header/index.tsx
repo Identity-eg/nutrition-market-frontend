@@ -2,17 +2,15 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
-import { ShoppingCart } from 'lucide-react';
-
+// UI
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 import { Input } from '@/components/ui/input';
 import { ProfileDropdown } from './profileDropDown';
-
+import { CartSidebar } from './cartSidebar';
+// Utils
 import biovacLogo from '@/assets/logo.png';
 import { useAuthStore } from '@/store/auth';
-import { CartSidebar } from './cartSidebar';
-
 
 export default function HeaderLayout() {
   const isAuthenticated = useAuthStore((state) => state.isAuthenticated);

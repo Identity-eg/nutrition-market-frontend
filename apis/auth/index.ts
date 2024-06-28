@@ -26,7 +26,7 @@ export function useLogin() {
   return useMutation({ mutationFn: login });
 }
 
-// ######################## Login ############################
+// ######################## Register ############################
 const register = async (user: {
   name: string;
   email: string;
@@ -64,9 +64,31 @@ const logout = async () => {
 };
 
 export function useLogout() {
-  const logOutUser = useAuthStore(state => state.logUserOut)
+  const logOutUser = useAuthStore((state) => state.logUserOut);
   return useMutation({
     mutationFn: logout,
     onSuccess: logOutUser,
   });
+}
+
+// ##################### FORGOT PASSWORD #######################
+type TForgotPasswordResponse = {
+  message: string;
+};
+
+const forgotPassword = async ({
+  email,
+}: {
+  email: string;
+}): Promise<TForgotPasswordResponse> => {
+  const { data } = await request({
+    url: '/auth/forgot-password',
+    method: 'POST',
+    data: { email },
+  });
+  return data;
+};
+
+export function useForgotPassword() {
+  return useMutation({ mutationFn: forgotPassword });
 }
