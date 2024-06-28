@@ -1,15 +1,15 @@
-'use client';
+"use client";
 
-import { useEffect } from 'react';
-import Link from 'next/link';
-import { useRouter } from 'next/navigation';
-import { Loader2 } from 'lucide-react';
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { z } from 'zod';
+import { useEffect } from "react";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { Loader2 } from "lucide-react";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
 // UI
-import { Button } from '@/components/ui/button';
-import { Checkbox } from '@/components/ui/checkbox';
+import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
 import {
   Form,
   FormControl,
@@ -18,26 +18,22 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from '@/components/ui/form';
-import { Input } from '@/components/ui/input';
-import {
-  Card,
-  CardDescription,
-  CardTitle,
-} from '@/components/ui/card';
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { Card, CardDescription, CardTitle } from "@/components/ui/card";
 // Utils
-import { useLogin } from '@/apis/auth';
-import { useAuthStore } from '@/store/auth';
+import { useLogin } from "@/apis/auth";
+import { useAuthStore } from "@/store/auth";
 
 const loginSchema = z.object({
   email: z
     .string()
     .min(1, {
-      message: 'Email is required',
+      message: "Email is required",
     })
-    .email('Please enter a valid email address'),
+    .email("Please enter a valid email address"),
   password: z.string().min(1, {
-    message: 'Password is required',
+    message: "Password is required",
   }),
   rememberMe: z.boolean(),
 });
@@ -45,11 +41,11 @@ const loginSchema = z.object({
 export default function LoginPage() {
   const router = useRouter();
   const authenticateUser = useAuthStore((state) => state.authenticateUser);
-  const from = '/';
+  const from = "/";
   const form = useForm<z.infer<typeof loginSchema>>({
     defaultValues: {
-      email: 'amr@tawfik.com',
-      password: '123456',
+      email: "amr@tawfik.com",
+      password: "123456",
       rememberMe: false,
     },
     resolver: zodResolver(loginSchema),
@@ -59,11 +55,11 @@ export default function LoginPage() {
 
   useEffect(() => {
     localStorage.setItem(
-      'remember-me',
-      JSON.stringify(form.watch('rememberMe'))
+      "remember-me",
+      JSON.stringify(form.watch("rememberMe"))
     );
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [form.watch('rememberMe')]);
+  }, [form.watch("rememberMe")]);
 
   function onSubmit(values: z.infer<typeof loginSchema>) {
     loginMutation.mutate(values, {
@@ -75,24 +71,24 @@ export default function LoginPage() {
   }
 
   return (
-    <section className='min-h-[70vh] flex items-center justify-center'>
-      <Card className='w-[500px] p-8'>
-        <CardTitle className='typography-EB24'>login</CardTitle>
-        <CardDescription className='mt-1'>
+    <section className="min-h-[70vh] flex items-center justify-center">
+      <Card className="w-[500px] p-8">
+        <CardTitle className="typography-B24 mb-[12px]">Login</CardTitle>
+        <CardDescription className="mb-[32px]">
           Enter your email below to login to your account
         </CardDescription>
-        <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-4 mt-6'>
+        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
           <Form {...form}>
             <FormField
               control={form.control}
-              name='email'
+              name="email"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Email</FormLabel>
                   <FormControl>
                     <Input
                       required
-                      placeholder='Enter your email address'
+                      placeholder="Enter your email address"
                       {...field}
                     />
                   </FormControl>
@@ -102,20 +98,20 @@ export default function LoginPage() {
             />
             <FormField
               control={form.control}
-              name='password'
+              name="password"
               render={({ field }) => (
                 <FormItem>
-                  <div className='flex items-center'>
+                  <div className="flex items-center">
                     <FormLabel>Password</FormLabel>
                     <Link
-                      href='/forgot-password'
-                      className='ml-auto inline-block text-sm underline'
+                      href="/forgot-password"
+                      className="ml-auto inline-block text-sm underline"
                     >
                       Forgot your password?
                     </Link>
                   </div>
                   <FormControl>
-                    <Input type='password' {...field} />
+                    <Input type="password" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -123,18 +119,18 @@ export default function LoginPage() {
             />
             <FormField
               control={form.control}
-              name='rememberMe'
+              name="rememberMe"
               render={({ field }) => (
-                <FormItem className='flex flex-row items-start space-x-3 space-y-0'>
+                <FormItem className="flex flex-row items-start space-x-3 space-y-0">
                   <FormControl>
                     <Checkbox
                       checked={field.value}
                       onCheckedChange={field.onChange}
                     />
                   </FormControl>
-                  <div className='space-y-1 leading-none'>
+                  <div className="space-y-1 leading-none">
                     <FormLabel>Remember Me</FormLabel>
-                    <FormDescription className='text-xs'>
+                    <FormDescription className="text-xs">
                       You can save your data so you don’t need to login again.
                     </FormDescription>
                   </div>
@@ -143,22 +139,22 @@ export default function LoginPage() {
             />
           </Form>
           <Button
-            type='submit'
+            type="submit"
             disabled={loginMutation.isPending}
-            className='w-full'
+            className="w-full"
           >
             {loginMutation.isPending ? (
               <>
-                <Loader2 className='mr-2 h-4 w-4 animate-spin' />
+                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                 Please wait
               </>
             ) : (
-              'Sign in'
+              "Sign in"
             )}
           </Button>
-          <p className='text-gray-6 typography-R14'>
-            Don’t have an account?{' '}
-            <Link className='text-black-3 typography-M14' href='/signup'>
+          <p className="text-gray-6 typography-R14">
+            Don’t have an account?{" "}
+            <Link className="text-black-3 typography-M14" href="/signup">
               Sign up
             </Link>
           </p>

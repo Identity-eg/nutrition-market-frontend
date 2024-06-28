@@ -1,13 +1,13 @@
-'use client';
+"use client";
 
-import Link from 'next/link';
-import { useRouter } from 'next/navigation';
-import { useForm } from 'react-hook-form';
-import { Loader2 } from 'lucide-react';
-import { z } from 'zod';
-import { zodResolver } from '@hookform/resolvers/zod';
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useForm } from "react-hook-form";
+import { Loader2 } from "lucide-react";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
 // UI
-import { Button } from '@/components/ui/button';
+import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
@@ -15,25 +15,25 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from '@/components/ui/form';
-import { Card, CardDescription, CardTitle } from '@/components/ui/card';
-import { Input } from '@/components/ui/input';
+} from "@/components/ui/form";
+import { Card, CardDescription, CardTitle } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
 // Utils
-import { useAuthStore } from '@/store/auth';
-import { useRegister } from '@/apis/auth';
+import { useAuthStore } from "@/store/auth";
+import { useRegister } from "@/apis/auth";
 
 const registerSchema = z.object({
   name: z.string().min(1, {
-    message: 'Name is required',
+    message: "Name is required",
   }),
   email: z
     .string()
     .min(1, {
-      message: 'Email is required',
+      message: "Email is required",
     })
-    .email('Please enter a valid email address'),
+    .email("Please enter a valid email address"),
   password: z.string().min(1, {
-    message: 'Password is required',
+    message: "Password is required",
   }),
   rememberMe: z.boolean(),
 });
@@ -41,12 +41,12 @@ const registerSchema = z.object({
 export default function SignupPage() {
   const router = useRouter();
   const authenticateUser = useAuthStore((state) => state.authenticateUser);
-  const from = '/';
+  const from = "/";
   const form = useForm<z.infer<typeof registerSchema>>({
     defaultValues: {
-      name: '',
-      email: '',
-      password: '',
+      name: "",
+      email: "",
+      password: "",
       rememberMe: false,
     },
     resolver: zodResolver(registerSchema),
@@ -63,23 +63,25 @@ export default function SignupPage() {
     });
   }
   return (
-    <section className='min-h-[70vh] flex items-center justify-center'>
-      <Card className='w-[500px] p-8'>
-        <CardTitle className='typography-EB24'>create an account</CardTitle>
-        <CardDescription className='mt-1'>
+    <section className="min-h-[70vh] flex items-center justify-center">
+      <Card className="w-[500px] p-8">
+        <CardTitle className="typography-B24 mb-[12px]">
+          Create an account
+        </CardTitle>
+        <CardDescription className="mb-[32px]">
           Enter your information to create an account
         </CardDescription>
 
-        <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-4 mt-6'>
+        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
           <Form {...form}>
             <FormField
               control={form.control}
-              name='name'
+              name="name"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Name</FormLabel>
                   <FormControl>
-                    <Input type='text' placeholder='John Doe' {...field} />
+                    <Input type="text" placeholder="John Doe" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -87,15 +89,15 @@ export default function SignupPage() {
             />
             <FormField
               control={form.control}
-              name='email'
+              name="email"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Email</FormLabel>
                   <FormControl>
                     <Input
-                      type='email'
+                      type="email"
                       required
-                      placeholder='m@example.com'
+                      placeholder="m@example.com"
                       {...field}
                     />
                   </FormControl>
@@ -105,12 +107,12 @@ export default function SignupPage() {
             />
             <FormField
               control={form.control}
-              name='password'
+              name="password"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Password</FormLabel>
                   <FormControl>
-                    <Input type='password' {...field} />
+                    <Input type="password" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -119,22 +121,22 @@ export default function SignupPage() {
           </Form>
 
           <Button
-            type='submit'
+            type="submit"
             disabled={registerMutation.isPending}
-            className='w-full'
+            className="w-full"
           >
             {registerMutation.isPending ? (
               <>
-                <Loader2 className='mr-2 h-4 w-4 animate-spin' />
+                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                 Please wait
               </>
             ) : (
-              'Register'
+              "Register"
             )}
           </Button>
-          <p className='text-gray-6 typography-R14'>
-            Already have an account?{' '}
-            <Link href='/login' className='text-black-3 typography-M14'>
+          <p className="text-gray-6 typography-R14">
+            Already have an account?{" "}
+            <Link href="/login" className="text-black-3 typography-M14">
               Log in
             </Link>
           </p>
