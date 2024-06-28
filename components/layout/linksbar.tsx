@@ -3,7 +3,7 @@ import Link from "next/link";
 
 export function Linksbar() {
   return (
-    <div className="hidden md:block">
+    <div className="hidden media-md:block">
       <div className="container flex items-center">
         {navLinks.map((link) => (
           <Link

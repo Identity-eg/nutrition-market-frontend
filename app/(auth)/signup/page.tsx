@@ -6,7 +6,7 @@ import { useForm } from "react-hook-form";
 import { Loader2 } from "lucide-react";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-// UI
+
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -16,11 +16,11 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { Card, CardDescription, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-// Utils
+
 import { useAuthStore } from "@/store/auth";
 import { useRegister } from "@/apis/auth";
+import CardAuthWrapper from "../card-auth-wrapper";
 
 const registerSchema = z.object({
   name: z.string().min(1, {
@@ -63,85 +63,79 @@ export default function SignupPage() {
     });
   }
   return (
-    <section className="min-h-[70vh] flex items-center justify-center">
-      <Card className="w-[500px] p-8">
-        <CardTitle className="typography-B24 mb-[12px]">
-          Create an account
-        </CardTitle>
-        <CardDescription className="mb-[32px]">
-          Enter your information to create an account
-        </CardDescription>
-
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-          <Form {...form}>
-            <FormField
-              control={form.control}
-              name="name"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Name</FormLabel>
-                  <FormControl>
-                    <Input type="text" placeholder="John Doe" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="email"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Email</FormLabel>
-                  <FormControl>
-                    <Input
-                      type="email"
-                      required
-                      placeholder="m@example.com"
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="password"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Password</FormLabel>
-                  <FormControl>
-                    <Input type="password" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-          </Form>
-
-          <Button
-            type="submit"
-            disabled={registerMutation.isPending}
-            className="w-full"
-          >
-            {registerMutation.isPending ? (
-              <>
-                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                Please wait
-              </>
-            ) : (
-              "Register"
+    <CardAuthWrapper
+      description="Enter your information to create an account"
+      title="Create an account"
+    >
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+        <Form {...form}>
+          <FormField
+            control={form.control}
+            name="name"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Name</FormLabel>
+                <FormControl>
+                  <Input type="text" placeholder="John Doe" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
             )}
-          </Button>
-          <p className="text-gray-6 typography-R14">
-            Already have an account?{" "}
-            <Link href="/login" className="text-black-3 typography-M14">
-              Log in
-            </Link>
-          </p>
-        </form>
-      </Card>
-    </section>
+          />
+          <FormField
+            control={form.control}
+            name="email"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Email</FormLabel>
+                <FormControl>
+                  <Input
+                    type="email"
+                    required
+                    placeholder="m@example.com"
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="password"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Password</FormLabel>
+                <FormControl>
+                  <Input type="password" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </Form>
+
+        <Button
+          type="submit"
+          disabled={registerMutation.isPending}
+          className="w-full"
+        >
+          {registerMutation.isPending ? (
+            <>
+              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+              Please wait
+            </>
+          ) : (
+            "Register"
+          )}
+        </Button>
+        <p className="text-gray-6 typography-R14">
+          Already have an account?{" "}
+          <Link href="/login" className="text-black-3 typography-M14">
+            Log in
+          </Link>
+        </p>
+      </form>
+    </CardAuthWrapper>
   );
 }

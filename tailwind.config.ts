@@ -15,10 +15,15 @@ const config = {
   theme: {
     container: {
       center: true,
-      padding: "2rem",
+      padding: { DEFAULT: "1rem", "media-md": "1.5rem" },
       screens: {
-        "2xl": "1400px",
+        "2xl": "1201px",
       },
+    },
+    screens: {
+      "media-sm": "600px",
+      "media-md": "768px",
+      "media-lg": "1200px",
     },
     colors,
     extend: {

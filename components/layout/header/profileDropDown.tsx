@@ -23,11 +23,11 @@ export function ProfileDropdown() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <div className="flex h-12 items-center gap-2 rounded-md border border-gray-2 px-4 py-2 text-sm font-semibold hover:bg-accent hover:text-accent-foreground cursor-pointer">
+        <div className="flex h-12 items-center gap-2 rounded-md border border-gray-50 px-4 py-2 text-sm font-semibold hover:bg-accent hover:text-accent-foreground cursor-pointer">
           <UserIcon />
           <div className="flex flex-col max-w-20">
-            <span className="text-xs text-gray-6">Welcome</span>
-            <span className="capitalize text-xs text-black-3 line-clamp-1">
+            <span className="typography-R14 text-gray-100">Welcome</span>
+            <span className="capitalize typography-SM14 text-black line-clamp-1">
               {userData?.name.split(" ")[0]}
             </span>
           </div>
@@ -42,7 +42,7 @@ export function ProfileDropdown() {
             <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>
           </DropdownMenuItem>
           <DropdownMenuItem>
-            my orders
+            My orders
             <DropdownMenuShortcut>⌘B</DropdownMenuShortcut>
           </DropdownMenuItem>
           <DropdownMenuSub>
@@ -59,7 +59,7 @@ export function ProfileDropdown() {
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
         <DropdownMenuItem
-          className="text-destructive focus:bg-destructive/5 focus:text-destructive"
+          className="text-red-500 focus:bg-red-30 focus:text-red-500"
           onClick={() => logoutMutation.mutate()}
         >
           Log out
