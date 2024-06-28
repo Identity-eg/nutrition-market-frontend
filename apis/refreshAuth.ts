@@ -1,4 +1,4 @@
-import { refreshAccessTokenFn } from './auth';
+import { refreshAccessTokenFn } from "./auth";
 
 export const refreshAuth = async (failedRequest: any) => {
   const { accessToken } = await refreshAccessTokenFn();

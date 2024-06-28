@@ -4,9 +4,9 @@ import {
   useMutation,
   useQuery,
   useQueryClient,
-} from '@tanstack/react-query';
-import { request } from '../client';
-import { TUser } from '@/global';
+} from "@tanstack/react-query";
+import { request } from "../client";
+import { TUser } from "@/global";
 
 // ####################### Get Users #######################
 type GetUsersReturnType = {
@@ -25,8 +25,8 @@ const getUsers = async ({
   const params = { page: pageParam, ...rest };
 
   const { data } = await request({
-    url: 'users',
-    method: 'GET',
+    url: "users",
+    method: "GET",
     params,
   });
   return data;
@@ -34,7 +34,7 @@ const getUsers = async ({
 
 export function useGetUsers(props?: any) {
   return useInfiniteQuery({
-    queryKey: ['get-users', props],
+    queryKey: ["get-users", props],
     queryFn: ({ pageParam }) => getUsers({ pageParam, ...props }),
     placeholderData: keepPreviousData,
     initialPageParam: 1,
@@ -59,14 +59,14 @@ export const viewUser = async ({
 }): Promise<GetUserReturnType> => {
   const { data } = await request({
     url: `users/${id}`,
-    method: 'GET',
+    method: "GET",
   });
   return data;
 };
 
 export function useViewUser(props: { id: string | undefined }) {
   return useQuery({
-    queryKey: ['single-user', props],
+    queryKey: ["single-user", props],
     queryFn: () => viewUser(props),
     select: (data) => data.user,
     enabled: !!props.id,
@@ -83,7 +83,7 @@ const updateUser = async ({
 }) => {
   const { data } = await request({
     url: `users/${id}`,
-    method: 'PUT',
+    method: "PUT",
     data: userData,
   });
   return data;
@@ -104,8 +104,8 @@ const blockUser = async ({
   id: string | undefined;
 }) => {
   const { data } = await request({
-    url: 'users/block',
-    method: 'PUT',
+    url: "users/block",
+    method: "PUT",
     data: { id, blocked },
   });
   return data;
@@ -117,7 +117,7 @@ export function useBlockUser() {
     mutationFn: blockUser,
     onSettled: () => {
       // parameters: data, error, variables, context
-      queryClient.invalidateQueries({ queryKey: ['get-users'] });
+      queryClient.invalidateQueries({ queryKey: ["get-users"] });
     },
   });
 }

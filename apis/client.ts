@@ -1,7 +1,7 @@
-import axios from 'axios';
-import createAuthRefreshInterceptor from 'axios-auth-refresh';
-import { refreshAuth } from './refreshAuth';
-import { useAuthStore } from '@/store/auth';
+import axios from "axios";
+import createAuthRefreshInterceptor from "axios-auth-refresh";
+import { refreshAuth } from "./refreshAuth";
+import { useAuthStore } from "@/store/auth";
 
 const baseURL = process.env.NEXT_PUBLIC_API_URL;
 

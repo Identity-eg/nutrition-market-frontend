@@ -4,9 +4,9 @@ import {
   useMutation,
   useQuery,
   useQueryClient,
-} from '@tanstack/react-query';
-import { request } from '../client';
-import { TProduct } from '@/types';
+} from "@tanstack/react-query";
+import { request } from "../client";
+import { TProduct } from "@/types";
 
 // ####################### Get Products #######################
 type GetProductsReturnType = {
@@ -25,16 +25,16 @@ const getProducts = async ({
   const params = { page: pageParam, ...rest };
 
   const { data } = await request({
-    url: 'products',
-    method: 'GET',
-    params
+    url: "products",
+    method: "GET",
+    params,
   });
   return data;
 };
 
 export function useGetProducts(props?: any) {
   return useInfiniteQuery({
-    queryKey: ['get-products', props],
+    queryKey: ["get-products", props],
     queryFn: ({ pageParam }) => getProducts({ pageParam, ...props }),
     placeholderData: keepPreviousData,
     initialPageParam: 1,
@@ -59,14 +59,14 @@ export const viewProduct = async ({
 }): Promise<GetProductReturnType> => {
   const { data } = await request({
     url: `products/${id}`,
-    method: 'GET',
+    method: "GET",
   });
   return data;
 };
 
 export function useViewProduct(props: { id: string | undefined }) {
   return useQuery({
-    queryKey: ['single-product', props],
+    queryKey: ["single-product", props],
     queryFn: () => viewProduct(props),
     select: (data) => data.product,
     enabled: !!props.id,
@@ -81,7 +81,7 @@ const createProduct = async ({
 }) => {
   const { data } = await request({
     url: `products`,
-    method: 'POST',
+    method: "POST",
     data: productData,
   });
   return data;
@@ -103,7 +103,7 @@ const updateProduct = async ({
 }) => {
   const { data } = await request({
     url: `products/${id}`,
-    method: 'PUT',
+    method: "PUT",
     data: productData,
   });
   return data;
@@ -123,7 +123,7 @@ const deleteProduct = async ({
 }): Promise<{ msg: string }> => {
   const { data } = await request({
     url: `products/${id}`,
-    method: 'DELETE',
+    method: "DELETE",
   });
   return data;
 };
@@ -135,7 +135,7 @@ export function useDeleteProduct() {
     onSettled: () => {
       // parameters: data, error, variables, context
       queryClient.invalidateQueries({
-        queryKey: ['get-products'],
+        queryKey: ["get-products"],
       });
     },
   });
@@ -145,7 +145,7 @@ export function useDeleteProduct() {
 const uploadImage = async ({ formData }: { formData: FormData }) => {
   const { data } = await request({
     url: `products/uploadImage`,
-    method: 'POST',
+    method: "POST",
     data: formData,
   });
   return data;

@@ -1,4 +1,4 @@
-import { LogOutIcon, UserIcon } from 'lucide-react';
+import { LogOutIcon, UserIcon } from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -12,10 +12,10 @@ import {
   DropdownMenuSubContent,
   DropdownMenuSubTrigger,
   DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
+} from "@/components/ui/dropdown-menu";
 
-import { useAuthStore } from '@/store/auth';
-import { useLogout } from '@/apis/auth';
+import { useAuthStore } from "@/store/auth";
+import { useLogout } from "@/apis/auth";
 
 export function ProfileDropdown() {
   const userData = useAuthStore((state) => state.userData);
@@ -23,17 +23,17 @@ export function ProfileDropdown() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <div className='flex h-12 items-center gap-2 rounded-md border border-gray-2 px-4 py-2 text-sm font-semibold hover:bg-accent hover:text-accent-foreground cursor-pointer'>
+        <div className="flex h-12 items-center gap-2 rounded-md border border-gray-2 px-4 py-2 text-sm font-semibold hover:bg-accent hover:text-accent-foreground cursor-pointer">
           <UserIcon />
-          <div className='flex flex-col max-w-20'>
-            <span className='text-xs text-gray-6'>Welcome</span>
-            <span className='capitalize text-xs text-black-3 line-clamp-1'>
-              {userData?.name.split(' ')[0]}
+          <div className="flex flex-col max-w-20">
+            <span className="text-xs text-gray-6">Welcome</span>
+            <span className="capitalize text-xs text-black-3 line-clamp-1">
+              {userData?.name.split(" ")[0]}
             </span>
           </div>
         </div>
       </DropdownMenuTrigger>
-      <DropdownMenuContent className='w-52'>
+      <DropdownMenuContent className="w-52">
         <DropdownMenuLabel>My Account</DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
@@ -59,7 +59,7 @@ export function ProfileDropdown() {
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
         <DropdownMenuItem
-          className='text-destructive focus:bg-destructive/5 focus:text-destructive'
+          className="text-destructive focus:bg-destructive/5 focus:text-destructive"
           onClick={() => logoutMutation.mutate()}
         >
           Log out

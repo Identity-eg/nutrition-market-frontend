@@ -1,8 +1,8 @@
-import { useMutation, useQuery } from '@tanstack/react-query';
-import { jwtDecode } from 'jwt-decode';
-import { request } from '../client';
-import { useAuthStore } from '@/store/auth';
-import { TUser } from '@/types';
+import { useMutation, useQuery } from "@tanstack/react-query";
+import { jwtDecode } from "jwt-decode";
+import { request } from "../client";
+import { useAuthStore } from "@/store/auth";
+import { TUser } from "@/types";
 
 // ######################## Login ############################
 export type TLoginResponse = {
@@ -15,8 +15,8 @@ const login = async (user: {
   password: string;
 }): Promise<TLoginResponse> => {
   const { data } = await request({
-    url: '/auth/login',
-    method: 'POST',
+    url: "/auth/login",
+    method: "POST",
     data: user,
   });
   return data;
@@ -33,8 +33,8 @@ const register = async (user: {
   password: string;
 }): Promise<TLoginResponse> => {
   const { data } = await request({
-    url: '/auth/register',
-    method: 'POST',
+    url: "/auth/register",
+    method: "POST",
     data: user,
   });
   return data;
@@ -46,7 +46,7 @@ export function useRegister() {
 
 // ######################## Refresh Token #####################
 export const refreshAccessTokenFn = async () => {
-  const { data } = await request({ url: 'auth/refresh', method: 'GET' });
+  const { data } = await request({ url: "auth/refresh", method: "GET" });
   if (data) {
     const user = jwtDecode<TUser>(data.accessToken);
     useAuthStore.getState().authenticateUser({
@@ -59,7 +59,7 @@ export const refreshAccessTokenFn = async () => {
 
 // ######################## LogOut ############################
 const logout = async () => {
-  const { data } = await request({ url: '/auth/logout' });
+  const { data } = await request({ url: "/auth/logout" });
   return data;
 };
 
@@ -82,8 +82,8 @@ const forgotPassword = async ({
   email: string;
 }): Promise<TForgotPasswordResponse> => {
   const { data } = await request({
-    url: '/auth/forgot-password',
-    method: 'POST',
+    url: "/auth/forgot-password",
+    method: "POST",
     data: { email },
   });
   return data;

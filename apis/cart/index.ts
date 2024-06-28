@@ -1,6 +1,6 @@
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { request } from '../client';
-import { TProduct } from '@/types';
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { request } from "../client";
+import { TProduct } from "@/types";
 
 export type TCartItem = {
   _id: string;
@@ -27,11 +27,11 @@ export type TCart = {
 // ######################### Get Cart #########################
 export function useGetCart() {
   return useQuery({
-    queryKey: ['get-cart'],
+    queryKey: ["get-cart"],
     queryFn: async (): Promise<{ cart: TCart }> => {
       const { data } = await request({
-        url: '/carts',
-        method: 'GET',
+        url: "/carts",
+        method: "GET",
       });
       return data;
     },
@@ -54,12 +54,12 @@ export function useAddToCart() {
     }): Promise<{ cart: TCart }> => {
       const { data } = await request({
         url: `/carts`,
-        method: 'POST',
+        method: "POST",
         data: cartData,
       });
       return data;
     },
-    onSuccess: () => queryClient.invalidateQueries({ queryKey: ['get-cart'] }),
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["get-cart"] }),
   });
 }
 // ######################### Increase Item By One #########################
@@ -70,11 +70,11 @@ export function useIncreaseItemByOne() {
     mutationFn: async (itemId: string): Promise<{ cart: TCart }> => {
       const { data } = await request({
         url: `/carts/${itemId}/increase-one`,
-        method: 'POST',
+        method: "POST",
       });
       return data;
     },
-    onSuccess: () => queryClient.invalidateQueries({ queryKey: ['get-cart'] }),
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["get-cart"] }),
   });
 }
 
@@ -86,11 +86,11 @@ export function useReduceItemByOne() {
     mutationFn: async (itemId: string): Promise<{ cart: TCart }> => {
       const { data } = await request({
         url: `/carts/${itemId}/reduce-one`,
-        method: 'POST',
+        method: "POST",
       });
       return data;
     },
-    onSuccess: () => queryClient.invalidateQueries({ queryKey: ['get-cart'] }),
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["get-cart"] }),
   });
 }
 
@@ -102,11 +102,11 @@ export function useDeleteCartItem() {
     mutationFn: async (itemId: string): Promise<{ cart: TCart }> => {
       const { data } = await request({
         url: `/carts/${itemId}`,
-        method: 'DELETE',
+        method: "DELETE",
       });
       return data;
     },
-    onSuccess: () => queryClient.invalidateQueries({ queryKey: ['get-cart'] }),
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["get-cart"] }),
   });
 }
 
@@ -118,10 +118,10 @@ export function useDeleteCart() {
     mutationFn: async (): Promise<{ cart: TCart }> => {
       const { data } = await request({
         url: `/carts`,
-        method: 'DELETE',
+        method: "DELETE",
       });
       return data;
     },
-    onSuccess: () => queryClient.invalidateQueries({ queryKey: ['get-cart'] }),
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["get-cart"] }),
   });
 }

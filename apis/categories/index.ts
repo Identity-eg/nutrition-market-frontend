@@ -1,18 +1,18 @@
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { request } from '../client';
-import { TCategory } from '@/global';
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { request } from "../client";
+import { TCategory } from "@/global";
 
 // ####################### Get Categories #######################
 const getCategories = async (): Promise<TCategory[]> => {
   const { data } = await request({
     url: `categories`,
-    method: 'GET',
+    method: "GET",
   });
   return data;
 };
 export function useGetCategories() {
   return useQuery({
-    queryKey: ['get-categories'],
+    queryKey: ["get-categories"],
     queryFn: getCategories,
   });
 }
@@ -27,14 +27,14 @@ export const viewCategory = async ({
 }): Promise<GetCategoryReturnType> => {
   const { data } = await request({
     url: `categories/${id}`,
-    method: 'GET',
+    method: "GET",
   });
   return data;
 };
 
 export function useViewCategory(props: { id: string | undefined }) {
   return useQuery({
-    queryKey: ['single-category', props],
+    queryKey: ["single-category", props],
     queryFn: () => viewCategory(props),
     select: (data) => data.category,
     enabled: !!props.id,
@@ -49,7 +49,7 @@ const createCategory = async ({
 }) => {
   const { data } = await request({
     url: `categories`,
-    method: 'POST',
+    method: "POST",
     data: categoryData,
   });
   return data;
@@ -71,7 +71,7 @@ const updateCategory = async ({
 }) => {
   const { data } = await request({
     url: `categories/${id}`,
-    method: 'PUT',
+    method: "PUT",
     data: categoryData,
   });
   return data;
@@ -91,7 +91,7 @@ const deleteCategory = async ({
 }): Promise<{ msg: string }> => {
   const { data } = await request({
     url: `categories/${id}`,
-    method: 'DELETE',
+    method: "DELETE",
   });
   return data;
 };
@@ -102,7 +102,7 @@ export function useDeleteCategory() {
     mutationFn: deleteCategory,
     onSettled: () => {
       // parameters: data, error, variables, context
-      queryClient.invalidateQueries({ queryKey: ['get-categories'] });
+      queryClient.invalidateQueries({ queryKey: ["get-categories"] });
     },
   });
 }

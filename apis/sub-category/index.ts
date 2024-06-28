@@ -1,6 +1,6 @@
-import { useQuery } from '@tanstack/react-query';
-import qs from 'query-string';
-import { request } from '../client';
+import { useQuery } from "@tanstack/react-query";
+import qs from "query-string";
+import { request } from "../client";
 
 // ####################### Get Categories #######################
 const getSubCategories = async (props: { parent?: string }) => {
@@ -10,15 +10,15 @@ const getSubCategories = async (props: { parent?: string }) => {
   });
   const { data } = await request({
     url: `sub-categories?${queryStr}`,
-    method: 'GET',
+    method: "GET",
   });
   return data;
 };
 
 export function useGetSubCategories(props: { parent?: string } = {}) {
   return useQuery({
-    queryKey: ['get-sub-categories', props],
+    queryKey: ["get-sub-categories", props],
     queryFn: () => getSubCategories(props),
-    enabled: !!props.parent
+    enabled: !!props.parent,
   });
 }

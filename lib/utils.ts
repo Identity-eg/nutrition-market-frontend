@@ -1,8 +1,8 @@
-import { type ClassValue, clsx } from "clsx"
-import { twMerge } from "tailwind-merge"
+import { type ClassValue, clsx } from "clsx";
+import { twMerge } from "tailwind-merge";
 
 export function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(inputs))
+  return twMerge(clsx(inputs));
 }
 
 export const createTypographyUtilities = ({
@@ -12,12 +12,12 @@ export const createTypographyUtilities = ({
 }) => {
   const sizesRange = fontSizeRange.map((size) => {
     const fontWeights = [
-      { w: 800, n: 'EB' },
-      { w: 700, n: 'B' },
-      { w: 600, n: 'SB' },
-      { w: 500, n: 'M' },
-      { w: 400, n: 'R' },
-      { w: 300, n: 'L' },
+      { w: 800, n: "EB" },
+      { w: 700, n: "B" },
+      { w: 600, n: "SB" },
+      { w: 500, n: "M" },
+      { w: 400, n: "R" },
+      { w: 300, n: "L" },
     ];
     const utilities = fontWeights.map((weight) => {
       return {

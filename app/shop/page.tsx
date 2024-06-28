@@ -1,7 +1,7 @@
-'use client';
+"use client";
 
-import { useGetProducts } from '@/apis/products';
-import ShoppingItem from './components/shoppingItem';
+import { useGetProducts } from "@/apis/products";
+import ShoppingItem from "./components/shoppingItem";
 
 export default function ShopPage() {
   const productsQuery = useGetProducts();

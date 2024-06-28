@@ -4,9 +4,9 @@ import {
   useMutation,
   useQuery,
   useQueryClient,
-} from '@tanstack/react-query';
-import { request } from '../client';
-import { TOrder } from '@/global';
+} from "@tanstack/react-query";
+import { request } from "../client";
+import { TOrder } from "@/global";
 
 // ####################### Get Orders #######################
 type GetOrdersReturnType = {
@@ -24,8 +24,8 @@ const getOrders = async ({
 }): Promise<GetOrdersReturnType> => {
   const params = { page: pageParam, ...rest };
   const { data } = await request({
-    url: 'orders',
-    method: 'GET',
+    url: "orders",
+    method: "GET",
     params,
   });
   return data;
@@ -33,7 +33,7 @@ const getOrders = async ({
 
 export function useGetOrders(props?: any) {
   return useInfiniteQuery({
-    queryKey: ['get-orders', props],
+    queryKey: ["get-orders", props],
     queryFn: ({ pageParam }) => getOrders({ pageParam, ...props }),
     placeholderData: keepPreviousData,
     initialPageParam: 1,
@@ -58,14 +58,14 @@ export const viewOrder = async ({
 }): Promise<GetOrderReturnType> => {
   const { data } = await request({
     url: `orders/${id}`,
-    method: 'GET',
+    method: "GET",
   });
   return data;
 };
 
 export function useViewOrder(props: { id: string | undefined }) {
   return useQuery({
-    queryKey: ['single-order', props],
+    queryKey: ["single-order", props],
     queryFn: () => viewOrder(props),
     select: (data) => data.order,
     enabled: !!props.id,
@@ -80,7 +80,7 @@ const createOrder = async ({
 }) => {
   const { data } = await request({
     url: `orders`,
-    method: 'POST',
+    method: "POST",
     data: orderData,
   });
   return data;
@@ -102,7 +102,7 @@ const updateOrder = async ({
 }) => {
   const { data } = await request({
     url: `orders/${id}`,
-    method: 'PUT',
+    method: "PUT",
     data: orderData,
   });
   return data;
@@ -122,7 +122,7 @@ const deleteOrder = async ({
 }): Promise<{ msg: string }> => {
   const { data } = await request({
     url: `orders/${id}`,
-    method: 'DELETE',
+    method: "DELETE",
   });
   return data;
 };
@@ -133,7 +133,7 @@ export function useDeleteOrder() {
     mutationFn: deleteOrder,
     onSettled: () => {
       // parameters: data, error, variables, context
-      queryClient.invalidateQueries({ queryKey: ['get-orders'] });
+      queryClient.invalidateQueries({ queryKey: ["get-orders"] });
     },
   });
 }
