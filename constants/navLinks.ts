@@ -1,11 +1,4 @@
-import {
-  Home,
-  Layers3,
-  MessagesSquare,
-  Package,
-  ShoppingCart,
-  Users,
-} from "lucide-react";
+import { Home, Layers3, Package, ShoppingCart, Users } from "lucide-react";
 
 export const navLinks = [
   { id: 1, label: "Home", path: "/", icon: Home },

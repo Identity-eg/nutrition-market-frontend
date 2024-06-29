@@ -1,16 +1,31 @@
-import { NextResponse } from 'next/server';
-import type { NextRequest } from 'next/server';
-import { privateRouteMiddleware } from './middlewares/auth';
-import { refreshAccessTokenFn } from './apis/auth';
+import { NextResponse } from "next/server";
+import type { NextRequest } from "next/server";
+import { PRIVATE_ROUTES, UNAUTHENTICATED_ROUTES } from "./constants/auth";
 
-// This function can be marked `async` if using `await` inside
-export async function middleware(request: NextRequest) {
-  let response = privateRouteMiddleware(request);
+export async function middleware(request: NextRequest, response: NextResponse) {
+  const { cookies, nextUrl, url } = request;
+  const isLoggedIn = cookies.get("ident-auth-flag")?.value === "true";
+
+  if (
+    UNAUTHENTICATED_ROUTES.some((route) => nextUrl.pathname.startsWith(route))
+  ) {
+    if (isLoggedIn) {
+      return NextResponse.redirect(new URL("/", url));
+    }
+  }
+
+  if (PRIVATE_ROUTES.some((route) => nextUrl.pathname.startsWith(route))) {
+    if (!isLoggedIn && nextUrl.searchParams.get("from") !== "login") {
+      return NextResponse.redirect(
+        new URL(`/login?from=${nextUrl.pathname.substring(1)}`, url)
+      );
+    }
+  }
+
   if (response && response instanceof NextResponse) return response;
   return NextResponse.next();
 }
 
-// See "Matching Paths" below to learn more
-// export const config = {
-//   matcher: '/*',
-// };
+export const config = {
+  matcher: ["/((?!api|_next/static|_next/image|favicon.ico).*)"],
+};

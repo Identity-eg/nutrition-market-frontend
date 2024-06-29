@@ -2,7 +2,7 @@
 
 import { useEffect } from "react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { Loader2 } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -40,8 +40,9 @@ const loginSchema = z.object({
 
 export default function LoginPage() {
   const router = useRouter();
+  const searchParams = useSearchParams();
   const authenticateUser = useAuthStore((state) => state.authenticateUser);
-  const from = "/";
+  const from = searchParams.get("from");
   const form = useForm<z.infer<typeof loginSchema>>({
     defaultValues: {
       email: "amr@tawfik.com",
@@ -65,7 +66,8 @@ export default function LoginPage() {
     loginMutation.mutate(values, {
       onSuccess: (data) => {
         authenticateUser(data);
-        router.replace(from);
+        router.replace(from ? `${from}?from=login` : "/");
+        router.refresh();
       },
     });
   }

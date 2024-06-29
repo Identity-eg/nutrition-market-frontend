@@ -16,8 +16,10 @@ import {
 
 import { useAuthStore } from "@/store/auth";
 import { useLogout } from "@/apis/auth";
+import { useRouter } from "next/navigation";
 
 export function ProfileDropdown() {
+  const router = useRouter();
   const userData = useAuthStore((state) => state.userData);
   const logoutMutation = useLogout();
   return (
@@ -60,7 +62,11 @@ export function ProfileDropdown() {
         <DropdownMenuSeparator />
         <DropdownMenuItem
           className="text-red-500 focus:bg-red-30 focus:text-red-500"
-          onClick={() => logoutMutation.mutate()}
+          onClick={() => {
+            logoutMutation.mutate();
+            router.push("/");
+            router.refresh();
+          }}
         >
           Log out
           <DropdownMenuShortcut>
