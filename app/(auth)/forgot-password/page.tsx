@@ -44,7 +44,7 @@ export default function ForgotPasswordPage() {
   }
 
   if (forgotPasswordMutation.isSuccess) {
-    return <CheckEmail />;
+    return <CheckEmail email={form.watch('email')} />;
   }
 
   return (

@@ -20,10 +20,10 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import CardAuthWrapper from "../card-auth-wrapper";
 
 import { useLogin } from "@/apis/auth";
 import { useAuthStore } from "@/store/auth";
-import CardAuthWrapper from "../card-auth-wrapper";
 
 const loginSchema = z.object({
   email: z
@@ -45,7 +45,7 @@ export default function LoginPage() {
   const from = searchParams.get("from");
   const form = useForm<z.infer<typeof loginSchema>>({
     defaultValues: {
-      email: "amr@tawfik.com",
+      email: "mazen@amr.com",
       password: "123456",
       rememberMe: false,
     },

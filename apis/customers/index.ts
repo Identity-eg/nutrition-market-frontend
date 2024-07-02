@@ -6,7 +6,7 @@ import {
   useQueryClient,
 } from "@tanstack/react-query";
 import { request } from "../client";
-import { TUser } from "@/global";
+import { TUser } from "@/types/apis";
 
 // ####################### Get Users #######################
 type GetUsersReturnType = {

@@ -1,6 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { request } from "../client";
-import { TCategory } from "@/global";
+import { TCategory } from "@/types/apis";
 
 // ####################### Get Categories #######################
 const getCategories = async (): Promise<TCategory[]> => {
