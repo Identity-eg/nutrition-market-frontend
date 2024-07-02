@@ -1,6 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { request } from "../client";
-import { TProduct } from "@/types";
+import { TProduct } from "@/types/apis";
 
 export type TCartItem = {
   _id: string;
