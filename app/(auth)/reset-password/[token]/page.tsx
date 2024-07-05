@@ -1,6 +1,6 @@
 'use client';
 
-import { useRouter } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -12,13 +12,14 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 
 import { useResetPassword } from "@/apis/auth";
+import { useToast } from "@/components/ui/use-toast";
 
 const resetSchema = z.object({
   password: z.string().min(1, {
     message: "Password is required",
   }),
   confirmPassword: z.string().min(1, {
-    message: "Password is required",
+    message: "Confirm Password is required",
   }),
 }).refine(
   (values) => {
@@ -32,6 +33,10 @@ const resetSchema = z.object({
 
 export default function ResetPasswordPage() {
   const router = useRouter();
+  const { token } = useParams<{ token: string }>();
+
+  const { toast } = useToast()
+
   // const authenticateUser = useAuthStore((state) => state.authenticateUser);
   const form = useForm<z.infer<typeof resetSchema>>({
     defaultValues: {
@@ -44,8 +49,12 @@ export default function ResetPasswordPage() {
   const resetPasswordMutation = useResetPassword();
 
   function onSubmit(values: z.infer<typeof resetSchema>) {
-    resetPasswordMutation.mutate({ ...values, token: '' }, {
+    resetPasswordMutation.mutate({ ...values, token }, {
       onSuccess: (data) => {
+        toast({
+          title: data.msg,
+        });
+        router.push('/login')
       },
     });
   }
@@ -62,7 +71,7 @@ export default function ResetPasswordPage() {
             name="password"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Password</FormLabel>
+                <FormLabel>New Password</FormLabel>
                 <FormControl>
                   <Input
                     type='password'

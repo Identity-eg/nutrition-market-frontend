@@ -1,5 +1,6 @@
 "use client";
 
+import { toast } from "@/components/ui/use-toast";
 // Since QueryClientProvider relies on useContext under the hood, we have to put 'use client' on top
 import {
   isServer,
@@ -15,6 +16,32 @@ function makeQueryClient() {
         // above 0 to avoid refetching immediately on the client
         staleTime: 60 * 1000,
         retry: false,
+      },
+      mutations: {
+        onSuccess: (data) => {
+          if (typeof data === 'object' && data !== null && 'msg' in data) {
+            if (typeof data.msg === 'string') {
+              toast({
+                title: data.msg,
+              });
+            }
+          }
+        },
+        onError: (error) => {
+          if (error.code === 'ERR_NETWORK') {
+            toast({
+              variant: 'destructive',
+              title: 'Uh oh! Something went wrong.',
+              description: 'There was a problem with your Network connection!',
+            });
+          } else {
+            toast({
+              variant: 'destructive',
+              title: error.response?.data.msg,
+              description: 'Uh oh! Something went wrong.',
+            });
+          }
+        },
       },
     },
   });

@@ -5,6 +5,7 @@ import Providers from "./providers";
 import Header from "../components/layout/header";
 import { Topbar } from "../components/layout/topbar";
 import { Linksbar } from "../components/layout/linksbar";
+import { Toaster } from "@/components/ui/toaster";
 
 import "./globals.css";
 
@@ -30,7 +31,8 @@ export default function RootLayout({
           <Topbar />
           <Header />
           <Linksbar />
-          <div className="container">{children}</div>
+          <main className="container">{children}</main>
+          <Toaster />
         </Providers>
       </body>
     </html>

@@ -66,7 +66,7 @@ export function useLogout() {
 
 // ##################### FORGOT PASSWORD #######################
 type TForgotPasswordResponse = {
-  message: string;
+  msg: string;
 };
 
 const forgotPassword = async ({ email }: { email: string }): Promise<TForgotPasswordResponse> => {
@@ -84,7 +84,7 @@ export function useForgotPassword() {
 
 // ##################### RESET PASSWORD #######################
 type TResetPasswordResponse = {
-  message: string;
+  msg: string;
 };
 
 const resetPassword = async ({
@@ -98,7 +98,7 @@ const resetPassword = async ({
 }): Promise<TResetPasswordResponse> => {
   const { data } = await request({
     url: `/auth/reset-password/${token}`,
-    method: 'POST',
+    method: 'PUT',
     data: { password, confirmPassword },
   });
   return data;
