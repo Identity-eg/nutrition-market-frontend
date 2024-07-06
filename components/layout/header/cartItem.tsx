@@ -1,8 +1,8 @@
 import Link from "next/link";
 
-import { SheetClose } from "@/components/ui/sheet";
+import { SheetClose } from "components/ui/sheet";
 
-import { useDeleteCartItem, TCartItem } from "@/apis/cart";
+import { useDeleteCartItem, TCartItem } from "apis/cart";
 import Image from "next/image";
 // import { DrawerClose } from '../UI/drawer';
 

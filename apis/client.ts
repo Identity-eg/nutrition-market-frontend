@@ -1,30 +1,47 @@
-import axios from "axios";
-import createAuthRefreshInterceptor from "axios-auth-refresh";
-import { refreshAuth } from "./refreshAuth";
-import { useAuthStore } from "@/store/auth";
+'use server';
+
+import { cookies } from 'next/headers';
+import { getCredential } from './helpers';
 
 const baseURL = process.env.NEXT_PUBLIC_API_URL;
 
-export const client = axios.create({
-  baseURL,
-  withCredentials: true,
-});
+type TOptions =
+	| (Omit<RequestInit, 'body'> & {
+			url: string;
+			body?: number | string | { [x: string]: string };
+	  })
+	| undefined;
 
-export const setTokenToRequestHeader = (token: string) => {
-  client.defaults.headers.common.Authorization = `Bearer ${token}`;
+export const request = async ({ ...options }: TOptions) => {
+	const credential = await getCredential();
+
+	const defaultHeaders = {
+		...(credential?.accessToken && {
+			Authorization: `Bearer ${credential.accessToken}`,
+		}),
+		cookie: cookies().toString(),
+		'Content-Type': 'application/json',
+	};
+
+	try {
+		const res = await fetch(baseURL + options.url, {
+			credentials: 'include',
+			...options,
+
+			headers: { ...defaultHeaders, ...options.headers },
+			body: options.body ? JSON.stringify(options.body) : undefined,
+		});
+
+		if (!res.ok) {
+			const data = await res.json();
+			throw new Error(data.msg);
+		}
+		return res;
+	} catch (err) {
+		if ((err as Error).name === 'SyntaxError') {
+			throw new Error('Something went wrong');
+		}
+		throw new Error((err as Error).message);
+	}
 };
 
-export const removeTokenFromRequestHeader = () => {
-  delete client.defaults.headers.common.Authorization;
-};
-
-createAuthRefreshInterceptor(client, refreshAuth, {
-  statusCodes: [403],
-  pauseInstanceWhileRefreshing: true,
-});
-
-export const request = ({ ...options }) => {
-  const accessToken = useAuthStore.getState().accessToken;
-  client.defaults.headers.common.Authorization = `Bearer ${accessToken}`;
-  return client(options);
-};

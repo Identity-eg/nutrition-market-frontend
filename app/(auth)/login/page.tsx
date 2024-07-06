@@ -8,8 +8,8 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 
-import { Button } from "@/components/ui/button";
-import { Checkbox } from "@/components/ui/checkbox";
+import { Button } from "components/ui/button";
+import { Checkbox } from "components/ui/checkbox";
 import {
   Form,
   FormControl,
@@ -18,12 +18,12 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
+} from "components/ui/form";
+import { Input } from "components/ui/input";
 import CardAuthWrapper from "../card-auth-wrapper";
 
-import { useLogin } from "@/apis/auth";
-import { useAuthStore } from "@/store/auth";
+import { useLogin } from "apis/auth";
+import { useAuthStore } from "store/auth";
 
 const loginSchema = z.object({
   email: z
@@ -67,7 +67,6 @@ export default function LoginPage() {
       onSuccess: (data) => {
         authenticateUser(data);
         router.replace(from ? `${from}?from=login` : "/");
-        router.refresh();
       },
     });
   }
@@ -137,6 +136,7 @@ export default function LoginPage() {
               </FormItem>
             )}
           />
+          <FormMessage>{loginMutation.error?.message}</FormMessage>
         </Form>
         <Button
           type="submit"

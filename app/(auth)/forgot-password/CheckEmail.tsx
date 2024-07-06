@@ -1,6 +1,6 @@
-import { useForgotPassword } from "@/apis/auth";
-import { Button } from "@/components/ui/button";
-import { Separator } from "@/components/ui/separator";
+import { useForgotPassword } from "apis/auth";
+import { Button } from "components/ui/button";
+import { Separator } from "components/ui/separator";
 import { MailPlusIcon } from "lucide-react";
 
 export default function CheckEmail({ email }: { email: string }) {

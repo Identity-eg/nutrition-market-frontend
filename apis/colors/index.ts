@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { request } from "../client";
+import { request } from "apis/client";
 
 // ####################### Get Colors #######################
 const getColors = async () => {

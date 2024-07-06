@@ -1,31 +1,19 @@
-import { NextResponse } from "next/server";
-import type { NextRequest } from "next/server";
-import { PRIVATE_ROUTES, UNAUTHENTICATED_ROUTES } from "./constants/auth";
+import {
+	privateRoutesMiddleware,
+	refreshToken,
+	unAuthenticatedRoutesMiddleware,
+} from 'middlewares/auth';
+import { chain } from 'middlewares/chain';
 
-export async function middleware(request: NextRequest, response: NextResponse) {
-  const { cookies, nextUrl, url } = request;
-  const isLoggedIn = cookies.get("ident-auth-flag")?.value === "true";
+const middlewares = [
+	refreshToken,
+	privateRoutesMiddleware,
+	unAuthenticatedRoutesMiddleware,
+];
 
-  if (
-    UNAUTHENTICATED_ROUTES.some((route) => nextUrl.pathname.startsWith(route))
-  ) {
-    if (isLoggedIn) {
-      return NextResponse.redirect(new URL("/", url));
-    }
-  }
-
-  if (PRIVATE_ROUTES.some((route) => nextUrl.pathname.startsWith(route))) {
-    if (!isLoggedIn && nextUrl.searchParams.get("from") !== "login") {
-      return NextResponse.redirect(
-        new URL(`/login?from=${nextUrl.pathname.substring(1)}`, url)
-      );
-    }
-  }
-
-  if (response && response instanceof NextResponse) return response;
-  return NextResponse.next();
-}
+export default chain(middlewares);
 
 export const config = {
-  matcher: ["/((?!api|_next/static|_next/image|favicon.ico).*)"],
+	matcher: ['/((?!api|_next/static|_next/image|favicon.ico).*)'],
 };
+

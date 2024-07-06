@@ -5,8 +5,8 @@ import {
 	useQuery,
 	useQueryClient,
 } from '@tanstack/react-query';
-import { request } from '../client';
-import { TProduct } from '@/types/apis';
+import { request } from 'apis/client';
+import { TProduct } from 'types/product';
 
 // ####################### Get Products #######################
 type GetProductsReturnType = {
@@ -154,3 +154,4 @@ const uploadImage = async ({ formData }: { formData: FormData }) => {
 export function useUploadImage() {
 	return useMutation({ mutationFn: uploadImage, retry: false });
 }
+

@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ShoppingCartIcon } from "lucide-react";
 // UI
-import { Button } from "@/components/ui/button";
+import { Button } from "components/ui/button";
 import {
   Sheet,
   SheetClose,
@@ -12,10 +12,10 @@ import {
   SheetHeader,
   SheetTitle,
   SheetTrigger,
-} from "@/components/ui/sheet";
+} from "components/ui/sheet";
 import CartSideItem from "./cartItem";
 // Utils
-import { useGetCart } from "@/apis/cart";
+import { useGetCart } from "apis/cart";
 
 export function CartSidebar() {
   const cartQuery = useGetCart();

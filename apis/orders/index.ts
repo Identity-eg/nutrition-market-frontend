@@ -6,7 +6,7 @@ import {
   useQueryClient,
 } from "@tanstack/react-query";
 import { request } from "../client";
-import { TOrder } from "@/types/apis";
+import { TOrder } from "types/order";
 
 // ####################### Get Orders #######################
 type GetOrdersReturnType = {
