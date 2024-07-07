@@ -5,7 +5,7 @@ import Providers from "./providers";
 import Header from "../components/layout/header";
 import { Topbar } from "../components/layout/topbar";
 import { Linksbar } from "../components/layout/linksbar";
-import { Toaster } from "@/components/ui/toaster";
+import { Toaster } from "components/ui/toaster";
 
 import "./globals.css";
 

@@ -1,6 +1,6 @@
 "use client";
 
-import { toast } from "@/components/ui/use-toast";
+import { toast } from "components/ui/use-toast";
 // Since QueryClientProvider relies on useContext under the hood, we have to put 'use client' on top
 import {
   isServer,

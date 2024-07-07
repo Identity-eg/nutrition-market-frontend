@@ -42,9 +42,12 @@ export const refreshToken = (middleware: CustomMiddleware) => {
 			!credential &&
 			cookies().get(process.env.REFRESH_TOKEN_NAME ?? '')?.value
 		) {
-			const { accessToken } = await refreshAccessTokenFn();
+			const data = await refreshAccessTokenFn();
 
-			request.cookies.set(process.env.ACCESS_TOKEN_NAME ?? '', accessToken);
+			request.cookies.set(
+				process.env.ACCESS_TOKEN_NAME ?? '',
+				data?.accessToken ?? ''
+			);
 			response = NextResponse.next({
 				request: {
 					headers: request.headers,
@@ -52,7 +55,7 @@ export const refreshToken = (middleware: CustomMiddleware) => {
 			});
 			response.cookies.set(
 				process.env.ACCESS_TOKEN_NAME ?? '',
-				accessToken,
+				data?.accessToken ?? '',
 				ACCESS_COOKIE_OPTIONS
 			);
 		}
@@ -81,4 +84,3 @@ export function privateRoutesMiddleware(middleware: CustomMiddleware) {
 		return middleware(request, event, response);
 	};
 }
-

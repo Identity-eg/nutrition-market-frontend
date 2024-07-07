@@ -1,4 +1,4 @@
-import { Card, CardDescription, CardTitle } from "@/components/ui/card";
+import { Card, CardDescription, CardTitle } from "components/ui/card";
 import type { ReactNode } from "react";
 
 type TCardAuthWrapper = {
