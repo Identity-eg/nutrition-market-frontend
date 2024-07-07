@@ -7,7 +7,7 @@ import {
 	ACCESS_COOKIE_OPTIONS,
 	REFRESH_COOKIE_OPTIONS,
 } from 'constants/auth';
-import { TUser } from 'types/apis';
+import { TUser } from 'types/user';
 
 export type TLoginResponse = {
 	accessToken: string;
