@@ -23,7 +23,7 @@ export default function SortBy() {
 				</span>
 				<Select>
 					<SelectTrigger className="w-[180px]">
-						<SelectValue placeholder="Theme" />
+						<SelectValue placeholder="Select" />
 					</SelectTrigger>
 					<SelectContent>
 						<SelectItem value="light">Light</SelectItem>
