@@ -9,28 +9,6 @@ import { request } from 'apis/client';
 import { TProduct } from 'types/product';
 
 // ####################### Get Products #######################
-type GetProductsReturnType = {
-	currentPage: number;
-	lastPage: number;
-	products: TProduct[];
-	totalCount: number;
-};
-
-const getProducts = async ({
-	pageParam,
-	...rest
-}: {
-	pageParam: number;
-}): Promise<GetProductsReturnType> => {
-	const params = { page: pageParam, ...rest };
-
-	const { data } = await request({
-		url: 'products',
-		method: 'GET',
-		params,
-	});
-	return data;
-};
 
 export function useGetProducts(props?: any) {
 	return useInfiniteQuery({

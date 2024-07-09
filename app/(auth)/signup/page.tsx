@@ -2,10 +2,10 @@
 
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { Loader2 } from 'lucide-react';
 import { z } from 'zod';
-import { zodResolver } from '@hookform/resolvers/zod';
 
 import { Button } from 'components/ui/button';
 import {
@@ -57,7 +57,6 @@ export default function SignupPage() {
 	function onSubmit(values: z.infer<typeof registerSchema>) {
 		registerMutation.mutate(values, {
 			onSuccess: data => {
-				authenticateUser(data);
 				router.replace(from);
 			},
 		});

@@ -6,22 +6,18 @@ import {
 	AccordionItem,
 	AccordionTrigger,
 } from 'components/ui/accordion';
-import {
-	Command,
-	CommandGroup,
-	CommandInput,
-	CommandItem,
-	CommandList,
-	CommandSeparator,
-} from 'components/ui/command';
+import { Checkbox } from 'components/ui/checkbox';
+
 import { Separator } from 'components/ui/separator';
-import { APP_COMPANIES } from 'constants';
-import { DOSAGE_FORMS } from 'constants';
-import { cn } from 'lib/utils';
-import { CheckIcon } from 'lucide-react';
-import React from 'react';
+import { APP_COMPANIES } from 'constants/index';
+import Link from 'next/link';
+import { useRouter, useSearchParams } from 'next/navigation';
 
 export default function FilterProducts() {
+	const searchParams = new URLSearchParams(useSearchParams());
+	const router = useRouter();
+	const company = searchParams.getAll('company');
+
 	return (
 		<article className="hidden rounded-lg border border-gray-50 p-4 media-md:block">
 			<h4 className="mb-4 capitalize typography-B16">filter option</h4>
@@ -32,62 +28,42 @@ export default function FilterProducts() {
 				className="w-full">
 				<AccordionItem value="company">
 					<AccordionTrigger className="typography-B13">
-						company
+						Company
 					</AccordionTrigger>
-					<AccordionContent>
-						<Command>
-							<CommandList>
-								<CommandGroup>
-									{APP_COMPANIES.map(form => ({
-										label: form,
-										value: form,
-									})).map(option => {
-										// const isSelected = searchParams.has(
-										// 	column?.id ?? '',
-										// 	option.value
-										// );
-										return (
-											<CommandItem
-												key={option.value}
-												value={option.value}
-												onSelect={() => {}}
-												className="px-0">
-												<div
-													className={cn(
-														'mr-2 flex h-4 w-4 items-center justify-center rounded-sm border border-green-500',
-														false
-															? 'bg-green-500 text-white'
-															: 'opacity-50 [&_svg]:invisible'
-													)}>
-													<CheckIcon className={cn('h-4 w-4')} />
-												</div>
-												{option.icon && (
-													<option.icon className="text-muted-foreground mr-2 h-4 w-4" />
-												)}
-												<span>{option.label}</span>
-											</CommandItem>
-										);
-									})}
-								</CommandGroup>
-								{/* {selectedValues && selectedValues.length > 0 && ( */}
-								<>
-									<CommandSeparator />
-									<CommandGroup>
-										<CommandItem
-											onSelect={() => {}}
-											className="justify-center text-center">
-											Clear filters
-										</CommandItem>
-									</CommandGroup>
-								</>
-								{/* )} */}
-							</CommandList>
-						</Command>
+					<AccordionContent className="space-y-2">
+						{APP_COMPANIES.map(company => ({
+							label: company,
+							value: company,
+						})).map(option => {
+							return (
+								<div
+									key={option.label}
+									className="flex items-center gap-2 text-gray-400 typography-R13 has-[[data-state=checked]]:text-black has-[[data-state=checked]]:typography-SB13">
+									<Checkbox
+										id={option.label}
+										onCheckedChange={checked => {
+											if (checked) {
+												searchParams.append('company', option.value);
+											} else {
+												searchParams.delete('company', option.value);
+											}
+											router.push(`?${searchParams.toString()}`);
+										}}
+										checked={company.includes(option.value)}
+									/>
+									<label
+										htmlFor={option.label}
+										className="inline-block cursor-pointer">
+										<span className="capitalize">{option.label}</span>
+									</label>
+								</div>
+							);
+						})}
 					</AccordionContent>
 				</AccordionItem>
 				<AccordionItem value="dosageForm">
 					<AccordionTrigger className="typography-B13">
-						dosage form
+						Dosage form
 					</AccordionTrigger>
 					<AccordionContent>
 						Yes. It comes with default styles that matches the other
@@ -96,7 +72,7 @@ export default function FilterProducts() {
 				</AccordionItem>
 				<AccordionItem value="category">
 					<AccordionTrigger className="typography-B13">
-						category
+						Category
 					</AccordionTrigger>
 					<AccordionContent>
 						Yes. It's animated by default, but you can disable it if you prefer.
@@ -106,3 +82,4 @@ export default function FilterProducts() {
 		</article>
 	);
 }
+

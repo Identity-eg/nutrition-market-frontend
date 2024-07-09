@@ -3,13 +3,10 @@
 import { request } from 'apis/client';
 import { redirect } from 'next/navigation';
 import { cookies } from 'next/headers';
-import {
-	ACCESS_COOKIE_OPTIONS,
-	REFRESH_COOKIE_OPTIONS,
-} from 'constants/auth';
+import { ACCESS_COOKIE_OPTIONS, REFRESH_COOKIE_OPTIONS } from 'constants/auth';
 import { TUser } from 'types/user';
 
-export type TLoginResponse = {
+type TLoginResponse = {
 	accessToken: string;
 	refreshToken: string;
 	user: TUser;
@@ -79,7 +76,17 @@ export const register = async (user: {
 		body: user,
 	});
 	const data = await res.json();
+	cookies().set(
+		process.env.ACCESS_TOKEN_NAME ?? '',
+		data.accessToken,
+		ACCESS_COOKIE_OPTIONS
+	);
 
+	cookies().set(
+		process.env.REFRESH_TOKEN_NAME ?? '',
+		data.refreshToken,
+		REFRESH_COOKIE_OPTIONS
+	);
 	return data;
 };
 
