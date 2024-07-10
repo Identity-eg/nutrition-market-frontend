@@ -24,13 +24,11 @@ export const login = async (user: {
 	email: string;
 	password: string;
 }): Promise<TLoginResponse> => {
-	const res = await request({
+	const data = await request({
 		url: '/auth/login',
 		method: 'POST',
 		body: user,
 	});
-
-	const data = await res.json();
 
 	cookies().set(
 		process.env.ACCESS_TOKEN_NAME ?? '',
@@ -56,8 +54,7 @@ export const logout = async () => {
 
 export const refreshAccessTokenFn = async () => {
 	try {
-		const res = await request({ url: '/auth/refresh', method: 'GET' });
-		const data = await res.json();
+		const data = await request({ url: '/auth/refresh', method: 'GET' });
 
 		return data;
 	} catch {
@@ -70,12 +67,11 @@ export const register = async (user: {
 	email: string;
 	password: string;
 }): Promise<TLoginResponse> => {
-	const res = await request({
+	const data = await request({
 		url: '/auth/register',
 		method: 'POST',
 		body: user,
 	});
-	const data = await res.json();
 	cookies().set(
 		process.env.ACCESS_TOKEN_NAME ?? '',
 		data.accessToken,
@@ -95,13 +91,12 @@ export const forgotPassword = async ({
 }: {
 	email: string;
 }): Promise<TForgotPasswordResponse> => {
-	const res = await request({
+	const data = await request({
 		url: '/auth/forgot-password',
 		method: 'POST',
 		body: { email },
 	});
 
-	const data = await res.json();
 	return data;
 };
 
@@ -114,13 +109,12 @@ export const resetPassword = async ({
 	confirmPassword: string;
 	token: string;
 }): Promise<TResetPasswordResponse> => {
-	const res = await request({
+	const data = await request({
 		url: `/auth/reset-password/${token}`,
 		method: 'PUT',
 		body: { password, confirmPassword },
 	});
 
-	const data = await res.json();
 	return data;
 };
 

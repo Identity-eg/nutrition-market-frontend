@@ -22,7 +22,7 @@ export default function SortBy() {
 					sort by :
 				</span>
 				<Select>
-					<SelectTrigger className="w-[180px]">
+					<SelectTrigger className="w-48">
 						<SelectValue placeholder="Select" />
 					</SelectTrigger>
 					<SelectContent>
@@ -43,6 +43,7 @@ export default function SortBy() {
 					className={gridLayout ? 'bg-green-500' : 'bg-white'}
 					onClick={() => setGridLayout(true)}>
 					<LayoutGridIcon
+						size={20}
 						className={cn('text-green-500', { 'text-white': gridLayout })}
 					/>
 				</Button>

@@ -1,11 +1,5 @@
 'use server';
-import {
-	keepPreviousData,
-	useInfiniteQuery,
-	useMutation,
-	useQuery,
-	useQueryClient,
-} from '@tanstack/react-query';
+
 import { request } from 'apis/client';
 import { TProduct } from 'types/product';
 

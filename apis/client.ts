@@ -36,7 +36,7 @@ export const request = async ({ ...options }: TOptions) => {
 			const data = await res.json();
 			throw new Error(data.msg);
 		}
-		return res;
+		return await res.json();
 	} catch (err) {
 		if ((err as Error).name === 'SyntaxError') {
 			throw new Error('Something went wrong');
@@ -44,4 +44,3 @@ export const request = async ({ ...options }: TOptions) => {
 		throw new Error((err as Error).message);
 	}
 };
-

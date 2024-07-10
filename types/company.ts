@@ -1,4 +1,4 @@
-export type TCategory = {
+export type TCompany = {
 	_id: string;
 	name: string;
 	slug: string;
@@ -7,6 +7,7 @@ export type TCategory = {
 	updatedAt: string;
 };
 
-export type GetCategoriesReturnType = {
-	categories: TCategory[];
+export type GetCompaniesReturnType = {
+	companies: TCompany[];
 };
+

@@ -23,7 +23,6 @@ import { Input } from 'components/ui/input';
 import CardAuthWrapper from '../card-auth-wrapper';
 
 import { useLogin } from 'apis/auth';
-import { useAuthStore } from 'store/auth';
 
 const loginSchema = z.object({
 	email: z
@@ -41,7 +40,6 @@ const loginSchema = z.object({
 export default function LoginPage() {
 	const router = useRouter();
 	const searchParams = useSearchParams();
-	const authenticateUser = useAuthStore(state => state.authenticateUser);
 	const from = searchParams.get('from');
 	const form = useForm<z.infer<typeof loginSchema>>({
 		defaultValues: {
