@@ -30,7 +30,7 @@ export default function FacetedFilter({
 		<AccordionItem value={value}>
 			<AccordionTrigger className="typography-B13">{title}</AccordionTrigger>
 			<AccordionContent className="space-y-2">
-				{options.map(option => {
+				{options?.map(option => {
 					return (
 						<div
 							key={option.label}
@@ -59,3 +59,4 @@ export default function FacetedFilter({
 		</AccordionItem>
 	);
 }
+

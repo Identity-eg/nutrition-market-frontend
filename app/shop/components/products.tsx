@@ -7,8 +7,6 @@ export default async function Products({
 }: {
 	searchParams: TSearchParams;
 }) {
-	
-
 	return (
 		<article className="col-span-2 media-md:col-span-1">
 			<ShoppingItem
