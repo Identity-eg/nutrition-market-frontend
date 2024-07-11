@@ -14,7 +14,7 @@ import {
 } from 'components/ui/accordion';
 import { Checkbox } from 'components/ui/checkbox';
 import Reviews from './reviews';
-import { BeanOff, DnaOff, WheatOff } from 'lucide-react';
+import { BeanOff, BookOpenText, DnaOff, Heart, WheatOff } from 'lucide-react';
 // import { Button } from '@/app/ui/components/button';
 
 export default function ProductPage() {
@@ -137,16 +137,22 @@ export default function ProductPage() {
 						type="multiple"
 						className="w-full">
 						<AccordionItem value="company">
-							<AccordionTrigger className="typography-B13">
-								Key Benfits
+							<AccordionTrigger className="typography-B14">
+								<span className="flex items-center gap-2">
+									<Heart size={20} />
+									Key Benfits
+								</span>
 							</AccordionTrigger>
 							<AccordionContent className="space-y-2">
 								aaaaaaaa
 							</AccordionContent>
 						</AccordionItem>
 						<AccordionItem value="dosageForm">
-							<AccordionTrigger className="typography-B13">
-								Description
+							<AccordionTrigger className="typography-B14">
+								<span className="flex items-center gap-2">
+									<BookOpenText size={20} />
+									Description
+								</span>
 							</AccordionTrigger>
 							<AccordionContent>
 								Helps improve nitric oxide levels in the body <br />
