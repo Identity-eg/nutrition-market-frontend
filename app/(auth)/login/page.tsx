@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useTransition } from 'react';
+import { useTransition } from 'react';
 import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { Loader2 } from 'lucide-react';
@@ -9,11 +9,9 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 
 import { Button } from 'components/ui/button';
-import { Checkbox } from 'components/ui/checkbox';
 import {
 	Form,
 	FormControl,
-	FormDescription,
 	FormField,
 	FormItem,
 	FormLabel,
@@ -57,8 +55,8 @@ export default function LoginPage() {
 	function onSubmit(values: z.infer<typeof loginSchema>) {
 		startTransition(() => {
 			loginMutation.mutate(values, {
-				onSuccess: data => {
-					router.replace(from ? `${from}?from=login` : '/');
+				onSuccess: () => {
+					router.replace(from ?? '/');
 				},
 			});
 		});
@@ -67,12 +65,10 @@ export default function LoginPage() {
 	return (
 		<CardAuthWrapper
 			description="Enter your email below to login to your account"
-			title="Login"
-		>
+			title="Login">
 			<form
 				onSubmit={form.handleSubmit(onSubmit)}
-				className="space-y-8"
-			>
+				className="space-y-8">
 				<Form {...form}>
 					<FormField
 						control={form.control}
@@ -100,8 +96,7 @@ export default function LoginPage() {
 									<FormLabel>Password</FormLabel>
 									<Link
 										href="/forgot-password"
-										className="ml-auto inline-block text-sm underline"
-									>
+										className="ml-auto inline-block text-sm underline">
 										Forgot password?
 									</Link>
 								</div>
@@ -119,8 +114,7 @@ export default function LoginPage() {
 				<Button
 					type="submit"
 					disabled={isPending}
-					className="w-full"
-				>
+					className="w-full">
 					{isPending ? (
 						<>
 							<Loader2 className="mr-2 h-4 w-4 animate-spin" />
@@ -134,8 +128,7 @@ export default function LoginPage() {
 					Don’t have an account?{' '}
 					<Link
 						className="text-black-3 typography-M14"
-						href="/signup"
-					>
+						href="/signup">
 						Sign up
 					</Link>
 				</p>

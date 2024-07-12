@@ -30,12 +30,11 @@ export default function CheckEmail({ email }: { email: string }) {
 			<div>
 				<Separator />
 				<p className="typography-R14">
-					Didn't recieve email?
+					Didn&apos;t recieve email?
 					<Button
 						className="px-0 text-green-500 underline underline-offset-1"
 						variant="link"
-						onClick={onResend}
-					>
+						onClick={onResend}>
 						Click to resend
 					</Button>
 				</p>

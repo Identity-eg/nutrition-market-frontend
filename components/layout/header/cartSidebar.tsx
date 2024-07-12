@@ -25,8 +25,7 @@ export function CartSidebar() {
 				<Button
 					size="sm"
 					variant="secondary"
-					className="flex gap-2"
-				>
+					className="flex gap-2">
 					<ShoppingCartIcon />
 					<span>{cartQuery.data?.totalItems ?? 0}</span>
 				</Button>
@@ -81,16 +80,14 @@ export function CartSidebar() {
 									<SheetClose asChild>
 										<Button
 											variant="destructive"
-											asChild
-										>
+											asChild>
 											<Link href="/checkout">Checkout</Link>
 										</Button>
 									</SheetClose>
 									<SheetClose asChild>
 										<Button
 											variant="outline"
-											asChild
-										>
+											asChild>
 											<Link href="/cart">View Cart</Link>
 										</Button>
 									</SheetClose>
@@ -101,8 +98,7 @@ export function CartSidebar() {
 										<SheetClose asChild>
 											<Link
 												href="/products"
-												className="text-neutral-800 hover:text-neutral-700 font-medium"
-											>
+												className="text-neutral-800 hover:text-neutral-700 font-medium">
 												Continue Shopping
 												<span aria-hidden="true"> &rarr;</span>
 											</Link>

@@ -17,11 +17,7 @@ type AddToCartButtonProp = {
 	// productId: TProduct<string>['_id'];
 };
 
-const AddToCartButton = ({
-	amount = 1,
-	colorId,
-	productId,
-}: AddToCartButtonProp) => {
+const AddToCartButton = () => {
 	// const { mutate: addToCart, isPending, isSuccess } = useAddToCart();
 	const [isAddedEnd, setIsAddedEnd] = useState(false);
 	const isPending = false;
@@ -47,8 +43,7 @@ const AddToCartButton = ({
 			// 		productId,
 			// 	})
 			// }
-			className={`relative flex w-full flex-1 items-center justify-center capitalize`}
-		>
+			className={`relative flex w-full flex-1 items-center justify-center capitalize`}>
 			{isPending ? (
 				<Circle
 					size={10}

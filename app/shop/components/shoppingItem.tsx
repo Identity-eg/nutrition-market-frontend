@@ -5,14 +5,10 @@ import { TProduct } from 'types/product';
 
 export default function ShoppingItem({
 	name,
-	description,
-	price,
 	images,
 	numReviews,
 	_id,
 }: TProduct) {
-	console.log(images[0].url);
-
 	return (
 		<div className="group flex flex-col border-r p-4">
 			<div className="relative mb-2 flex flex-col overflow-hidden">
@@ -23,8 +19,7 @@ export default function ShoppingItem({
 				)}
 				<Link
 					href={`/products/${_id}`}
-					className="mx-auto"
-				>
+					className="mx-auto">
 					<Image
 						className="h-[230px] w-[230px] cursor-pointer object-contain transition-all duration-300 group-hover:scale-110"
 						src={images[0].url}

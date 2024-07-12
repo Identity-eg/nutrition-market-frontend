@@ -2,7 +2,6 @@ import Price from './price';
 import RatingStars from '../rating-stars';
 import Image from 'next/image';
 import Sale from './sale';
-import vitaminD3Image from 'assets/vitamin-d3.png';
 import Link from 'next/link';
 import AddToCartButton from './add-to-cart-btn';
 import { TProduct } from 'types/product';
@@ -16,8 +15,7 @@ const CardItem = ({ name, price, images, averageRating, _id }: TProduct) => {
 			<div className="relative mb-2 flex w-full items-center justify-center self-center overflow-hidden rounded-sm bg-gray-20">
 				<Link
 					href={`/shop/${_id}`}
-					className="md:w-48 md:h-48 flex aspect-square h-40 w-40 items-center justify-center"
-				>
+					className="md:w-48 md:h-48 flex aspect-square h-40 w-40 items-center justify-center">
 					<Image
 						className="aspect-square w-4/5 cursor-pointer object-contain p-2 transition duration-300 group-hover:scale-110"
 						src={primaryImage.url}
@@ -67,8 +65,7 @@ const CardItem = ({ name, price, images, averageRating, _id }: TProduct) => {
 			<div className="mb-2 flex flex-col gap-2">
 				<Link
 					className="text-blue-700 line-clamp-2 font-semibold capitalize"
-					href={`/shop/${_id}`}
-				>
+					href={`/shop/${_id}`}>
 					{name}
 				</Link>
 

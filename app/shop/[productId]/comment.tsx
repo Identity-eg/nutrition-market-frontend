@@ -10,12 +10,14 @@ import RatingStars from './rating-stars';
 import { Button } from 'components/ui/button';
 
 export default function Comment() {
+	const isRecommended = true;
+	const isEditable = true;
+	const isPending = false;
 	return (
 		<li
 			className={`flex items-start gap-2 px-4 pb-4 ${
-				false ? 'opacity-50' : ''
-			}`}
-		>
+				isPending ? 'opacity-50' : ''
+			}`}>
 			<div className="w-full">
 				<div className="flex justify-between">
 					<h1 className="capitalize text-gray-800 typography-B16">title</h1>
@@ -36,7 +38,7 @@ export default function Comment() {
 				<p className="mb-6 flex-wrap typography-R16">This is a good product</p>
 				<div className="flex flex-col justify-between gap-4 media-md:flex-row media-md:items-center">
 					<p className="flex items-center gap-2 text-gray-200 typography-R14">
-						{true ? (
+						{isRecommended ? (
 							<>
 								<CircleCheck size={16} /> Yes, I recommend this product
 							</>
@@ -48,7 +50,7 @@ export default function Comment() {
 						)}
 					</p>
 
-					{true && (
+					{isEditable && (
 						<div className="flex gap-2">
 							<Button
 								variant="secondary-white"

@@ -1,6 +1,4 @@
 import React from 'react';
-import RatingStars from './rating-stars';
-import { CheckCircle, Divide } from 'lucide-react';
 import Comment from './comment';
 import Image from 'next/image';
 
@@ -19,7 +17,7 @@ export default function ReviewsList() {
 		</div>
 	) : (
 		<ul className="flex flex-col gap-4 [&>*:not(:last-child)]:border-b [&>*:not(:last-child)]:border-gray-50">
-			{[1, 2, 3, 4]?.map(review => <Comment />)}
+			{[1, 2, 3, 4]?.map(review => <Comment key={review} />)}
 		</ul>
 	);
 }

@@ -18,7 +18,6 @@ import {
 } from 'components/ui/form';
 import { Input } from 'components/ui/input';
 
-import { useAuthStore } from 'store/auth';
 import { useRegister } from 'apis/auth';
 import CardAuthWrapper from '../card-auth-wrapper';
 
@@ -40,7 +39,6 @@ const registerSchema = z.object({
 
 export default function SignupPage() {
 	const router = useRouter();
-	const authenticateUser = useAuthStore(state => state.authenticateUser);
 	const from = '/';
 	const form = useForm<z.infer<typeof registerSchema>>({
 		defaultValues: {
@@ -56,7 +54,7 @@ export default function SignupPage() {
 
 	function onSubmit(values: z.infer<typeof registerSchema>) {
 		registerMutation.mutate(values, {
-			onSuccess: data => {
+			onSuccess: () => {
 				router.replace(from);
 			},
 		});
@@ -64,12 +62,10 @@ export default function SignupPage() {
 	return (
 		<CardAuthWrapper
 			description="Enter your information to create an account"
-			title="Create an account"
-		>
+			title="Create an account">
 			<form
 				onSubmit={form.handleSubmit(onSubmit)}
-				className="space-y-8"
-			>
+				className="space-y-8">
 				<Form {...form}>
 					<FormField
 						control={form.control}
@@ -127,8 +123,7 @@ export default function SignupPage() {
 				<Button
 					type="submit"
 					disabled={registerMutation.isPending}
-					className="w-full"
-				>
+					className="w-full">
 					{registerMutation.isPending ? (
 						<>
 							<Loader2 className="mr-2 h-4 w-4 animate-spin" />
@@ -142,8 +137,7 @@ export default function SignupPage() {
 					Already have an account?{' '}
 					<Link
 						href="/login"
-						className="text-black-3 typography-M14"
-					>
+						className="text-black-3 typography-M14">
 						Log in
 					</Link>
 				</p>

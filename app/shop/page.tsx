@@ -1,6 +1,4 @@
-import qs from 'qs';
 import { Suspense } from 'react';
-import { getProducts, TParams } from 'apis/server/products';
 import SortBy from './components/sortBy';
 import FilterProducts from './components/filter';
 import Products from './components/products';

@@ -31,7 +31,6 @@ export function Inputs() {
 
 	const submitFilters = () => {
 		if (!from && !to && priceUrl) {
-			console.log('inside');
 			manipulatedSearchParam.delete('price');
 			router.push(`?${manipulatedSearchParam.toString()}`);
 		}

@@ -74,7 +74,7 @@ export function privateRoutesMiddleware(middleware: CustomMiddleware) {
 		const credential = await getCredential(cookies);
 
 		if (PRIVATE_ROUTES.some(route => nextUrl.pathname.startsWith(route))) {
-			if (!credential && nextUrl.searchParams.get('from') !== 'login') {
+			if (!credential) {
 				return NextResponse.redirect(
 					new URL(`/login?from=${nextUrl.pathname.substring(1)}`, url)
 				);

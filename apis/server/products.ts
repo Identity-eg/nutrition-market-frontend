@@ -27,7 +27,6 @@ export const getProducts = async ({
 	...params
 }: TParams): Promise<GetProductsReturnType> => {
 	const queryString = qs.stringify(params, { skipNulls: true });
-	console.log({ url: `/products?${queryString}` });
 	const data = await request({
 		url: `/products?${queryString}`,
 		method: 'GET',

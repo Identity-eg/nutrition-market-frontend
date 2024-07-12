@@ -18,8 +18,7 @@ export default function Reviews() {
 					<div className="flex items-center gap-2">
 						<CircleProgress
 							precentage={80}
-							strokeWidth={4}
-						>
+							strokeWidth={4}>
 							<span className="typography-SB16">4.8</span>
 						</CircleProgress>
 						<div className="flex flex-col gap-2">
@@ -33,8 +32,7 @@ export default function Reviews() {
 					{[5, 4, 3, 2, 1].map(el => (
 						<div
 							key={el}
-							className="mb-2 flex items-center gap-4"
-						>
+							className="mb-2 flex items-center gap-4">
 							<p className="flex items-center gap-2">
 								{el}
 								<StarIcon
@@ -60,8 +58,7 @@ export default function Reviews() {
 					<Accordion
 						type="multiple"
 						defaultValue={['rating']}
-						className="w-full"
-					>
+						className="w-full">
 						<FacetedFilter
 							title="Rating"
 							value="rating"

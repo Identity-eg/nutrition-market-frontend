@@ -97,8 +97,7 @@ export default function ProductPage() {
 
 							<Link
 								className="hover:underline"
-								href="#"
-							>
+								href="#">
 								write a review
 							</Link>
 						</div>
@@ -137,8 +136,7 @@ export default function ProductPage() {
 
 					<Accordion
 						type="multiple"
-						className="w-full"
-					>
+						className="w-full">
 						<AccordionItem value="company">
 							<AccordionTrigger className="typography-B14">
 								<span className="flex items-center gap-2">
@@ -171,14 +169,13 @@ export default function ProductPage() {
 					<h3 className="typography-M16">Related products</h3>
 					<Link
 						className="typography-R14 hover:underline"
-						href="/shop"
-					>
+						href="/shop">
 						See all
 					</Link>
 				</div>
 				<div className="mb-10 flex items-center gap-4">
 					{[1, 1, 1, 1].map(card => (
-						<CardItem />
+						<CardItem key={card} />
 					))}
 				</div>
 			</div>

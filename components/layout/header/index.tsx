@@ -5,7 +5,6 @@ import { Button } from 'components/ui/button';
 import { Separator } from 'components/ui/separator';
 import { Input } from 'components/ui/input';
 import { ProfileDropdown } from './profileDropDown';
-import { CartSidebar } from './cartSidebar';
 // Utils
 import biovacLogo from 'assets/logo.png';
 import { getCredential } from 'apis/helpers';
@@ -20,8 +19,7 @@ export default async function HeaderLayout() {
 					<div className="flex w-1/2 items-center gap-4">
 						<Link
 							href="/"
-							className="w-36"
-						>
+							className="w-36">
 							<Image
 								className="h-full w-full"
 								alt="Biovac pharmacy supplements"
@@ -44,8 +42,7 @@ export default async function HeaderLayout() {
 						) : (
 							<Button
 								asChild
-								size="sm"
-							>
+								size="sm">
 								<Link href="/login">Login</Link>
 							</Button>
 						)}

@@ -7,14 +7,13 @@ import Image from 'next/image';
 // import { DrawerClose } from '../UI/drawer';
 
 export default function CartSideItem({ _id, amount, product }: TCartItem) {
-	const { mutate: deleteItem, isPending: loadDelete } = useDeleteCartItem();
+	const { mutate: deleteItem } = useDeleteCartItem();
 	console.log('CartSideItem run');
 
 	return (
 		<li
 			key={_id}
-			className="relative flex gap-4 py-6"
-		>
+			className="relative flex gap-4 py-6">
 			{/* <LoadingOverlay visible={loadDelete} /> */}
 			<div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
 				<Image
@@ -30,8 +29,7 @@ export default function CartSideItem({ _id, amount, product }: TCartItem) {
 						<SheetClose asChild>
 							<Link
 								href={`/products/${product._id}`}
-								className="line-clamp-2"
-							>
+								className="line-clamp-2">
 								{product.name}
 							</Link>
 						</SheetClose>
@@ -49,8 +47,7 @@ export default function CartSideItem({ _id, amount, product }: TCartItem) {
 					<button
 						type="button"
 						className="font-medium text-red-600 hover:text-red-500"
-						onClick={() => deleteItem(_id)}
-					>
+						onClick={() => deleteItem(_id)}>
 						Remove
 					</button>
 				</div>
