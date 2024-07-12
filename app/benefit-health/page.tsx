@@ -1,5 +1,3 @@
 export default function BenefitHealthPage() {
-  return (
-    <div>BenefitsHealth</div>
-  )
+	return <div>BenefitsHealth</div>;
 }

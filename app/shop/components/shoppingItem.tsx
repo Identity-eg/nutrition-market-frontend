@@ -23,7 +23,8 @@ export default function ShoppingItem({
 				)}
 				<Link
 					href={`/products/${_id}`}
-					className="mx-auto">
+					className="mx-auto"
+				>
 					<Image
 						className="h-[230px] w-[230px] cursor-pointer object-contain transition-all duration-300 group-hover:scale-110"
 						src={images[0].url}

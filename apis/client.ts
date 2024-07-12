@@ -7,7 +7,7 @@ const baseURL = process.env.NEXT_PUBLIC_API_URL;
 
 type TOptions =
 	| (Omit<RequestInit, 'body'> & {
-			url: string;
+			url: `/${string}`;
 			body?: number | string | { [x: string]: string };
 	  })
 	| undefined;

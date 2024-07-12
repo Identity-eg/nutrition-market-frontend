@@ -28,7 +28,7 @@ export default function FacetedFilter({
 	const facet = searchParams.getAll(value);
 	return (
 		<AccordionItem value={value}>
-			<AccordionTrigger className="typography-B13">{title}</AccordionTrigger>
+			<AccordionTrigger className="typography-M14">{title}</AccordionTrigger>
 			<AccordionContent className="space-y-2">
 				{options?.map(option => {
 					return (
@@ -59,4 +59,3 @@ export default function FacetedFilter({
 		</AccordionItem>
 	);
 }
-

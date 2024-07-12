@@ -41,7 +41,8 @@ export default function SortBy() {
 					variant="outline"
 					size="icon"
 					className={gridLayout ? 'bg-green-500' : 'bg-white'}
-					onClick={() => setGridLayout(true)}>
+					onClick={() => setGridLayout(true)}
+				>
 					<LayoutGridIcon
 						size={20}
 						className={cn('text-green-500', { 'text-white': gridLayout })}
@@ -51,7 +52,8 @@ export default function SortBy() {
 					variant="outline"
 					size="icon"
 					className={gridLayout ? 'bg-white' : 'bg-green-500'}
-					onClick={() => setGridLayout(false)}>
+					onClick={() => setGridLayout(false)}
+				>
 					<MenuIcon
 						className={cn('text-white', { 'text-green-500': gridLayout })}
 					/>

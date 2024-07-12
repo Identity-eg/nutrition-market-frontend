@@ -12,7 +12,7 @@ import { getCredential } from 'apis/helpers';
 
 export default async function HeaderLayout() {
 	const credential = await getCredential();
-  credential?.payload.name
+	credential?.payload.name;
 	return (
 		<>
 			<nav className="border-b border-gray-50">
@@ -20,7 +20,8 @@ export default async function HeaderLayout() {
 					<div className="flex w-1/2 items-center gap-4">
 						<Link
 							href="/"
-							className="w-36">
+							className="w-36"
+						>
 							<Image
 								className="h-full w-full"
 								alt="Biovac pharmacy supplements"
@@ -43,7 +44,8 @@ export default async function HeaderLayout() {
 						) : (
 							<Button
 								asChild
-								size="sm">
+								size="sm"
+							>
 								<Link href="/login">Login</Link>
 							</Button>
 						)}
@@ -53,4 +55,3 @@ export default async function HeaderLayout() {
 		</>
 	);
 }
-

@@ -33,4 +33,3 @@ export type TOrder = {
 	createdAt: string;
 	updatedAt: string;
 };
-

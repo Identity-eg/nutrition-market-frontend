@@ -22,4 +22,3 @@ export const REFRESH_COOKIE_OPTIONS: Partial<ResponseCookie> = {
 	secure: false,
 	maxAge: 60 * 60 * 24,
 };
-

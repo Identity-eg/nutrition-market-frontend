@@ -21,4 +21,3 @@ export type TProduct = {
 	createdAt: string;
 	updatedAt: string;
 };
-

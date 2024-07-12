@@ -11,4 +11,3 @@ export const getCart = async () => {
 		return { err: (err as Error).message };
 	}
 };
-

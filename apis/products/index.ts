@@ -132,4 +132,3 @@ const uploadImage = async ({ formData }: { formData: FormData }) => {
 export function useUploadImage() {
 	return useMutation({ mutationFn: uploadImage, retry: false });
 }
-

@@ -71,7 +71,8 @@ export function ProfileDropdown({ credential }: TProfileDropdownProps) {
 					className="text-red-500 focus:bg-red-30 focus:text-red-500"
 					onClick={() => {
 						logoutMutation.mutate();
-					}}>
+					}}
+				>
 					Log out
 					<DropdownMenuShortcut>
 						<LogOutIcon size={16} />
@@ -81,4 +82,3 @@ export function ProfileDropdown({ credential }: TProfileDropdownProps) {
 		</DropdownMenu>
 	);
 }
-

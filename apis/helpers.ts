@@ -26,4 +26,3 @@ export const getCredential = async (
 		return;
 	}
 };
-

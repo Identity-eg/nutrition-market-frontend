@@ -1,4 +1,4 @@
-export const APP_COMPANIES = ["polygon", "biovac", "test"] as const;
+export const APP_COMPANIES = ['polygon', 'biovac', 'test'] as const;
 
 export const DOSAGE_FORMS = [
 	'film_coated_tablets',
@@ -16,10 +16,9 @@ export const DOSAGE_FORMS = [
 ] as const;
 
 export const ORDER_STATUS = [
-  "pending",
-  "processing",
-  "shipping",
-  "delivered",
-  "canceled",
+	'pending',
+	'processing',
+	'shipping',
+	'delivered',
+	'canceled',
 ] as const;
-

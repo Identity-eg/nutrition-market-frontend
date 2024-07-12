@@ -116,4 +116,3 @@ export function useDeleteCart() {
 		onSuccess: () => queryClient.invalidateQueries({ queryKey: ['get-cart'] }),
 	});
 }
-

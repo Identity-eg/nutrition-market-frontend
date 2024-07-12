@@ -10,4 +10,3 @@ export type TCompany = {
 export type GetCompaniesReturnType = {
 	companies: TCompany[];
 };
-

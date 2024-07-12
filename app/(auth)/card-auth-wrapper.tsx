@@ -1,22 +1,22 @@
-import { Card, CardDescription, CardTitle } from "components/ui/card";
-import type { ReactNode } from "react";
+import { Card, CardDescription, CardTitle } from 'components/ui/card';
+import type { ReactNode } from 'react';
 
 type TCardAuthWrapper = {
-  title: string;
-  description: string;
-  children: ReactNode;
+	title: string;
+	description: string;
+	children: ReactNode;
 };
 
 export default function CardAuthWrapper({
-  title,
-  description,
-  children,
+	title,
+	description,
+	children,
 }: TCardAuthWrapper) {
-  return (
-    <Card className=" border-0 p-0 media-md:border media-md:p-8 media-md:max-w-[500px] w-full">
-      <CardTitle className="typography-B24 mb-[12px]">{title}</CardTitle>
-      <CardDescription className="mb-[32px]">{description}</CardDescription>
-      {children}
-    </Card>
-  );
+	return (
+		<Card className="w-full border-0 p-0 media-md:max-w-[500px] media-md:border media-md:p-8">
+			<CardTitle className="mb-[12px] typography-B24">{title}</CardTitle>
+			<CardDescription className="mb-[32px]">{description}</CardDescription>
+			{children}
+		</Card>
+	);
 }

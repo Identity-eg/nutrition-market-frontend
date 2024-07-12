@@ -5,4 +5,3 @@ declare module '@tanstack/react-query' {
 		defaultError: AxiosError<{ msg: string }>;
 	}
 }
-

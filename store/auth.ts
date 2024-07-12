@@ -29,4 +29,3 @@ export const setAccessTokenToStore = (accessToken: string) =>
 
 export const removeAccessTokenFromStore = () =>
 	useAuthStore.setState({ accessToken: null });
-

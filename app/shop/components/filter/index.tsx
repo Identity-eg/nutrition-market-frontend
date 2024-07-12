@@ -1,10 +1,17 @@
-import { Accordion } from 'components/ui/accordion';
+import {
+	Accordion,
+	AccordionContent,
+	AccordionItem,
+	AccordionTrigger,
+} from 'components/ui/accordion';
 import { Separator } from 'components/ui/separator';
 import FacetedFilter from './facetedFilter';
 
 import { DOSAGE_FORMS } from 'constants/index';
 import { getCompanies } from 'apis/server/company';
 import { getCategories } from 'apis/server/category';
+import { ClearAllBtn } from './clear-all-btn';
+import { Inputs } from './inputs';
 
 export default async function FilterProducts() {
 	const { companies } = await getCompanies();
@@ -12,7 +19,11 @@ export default async function FilterProducts() {
 
 	return (
 		<article className="hidden rounded-lg border border-gray-50 p-4 media-md:block">
-			<h4 className="mb-4 capitalize typography-B16">filter option</h4>
+			<div className="mb-4 flex items-center justify-between">
+				<h4 className="capitalize typography-B16">filter option</h4>
+				<ClearAllBtn />
+			</div>
+
 			<Separator />
 
 			<Accordion
@@ -25,7 +36,7 @@ export default async function FilterProducts() {
 				/>
 				<FacetedFilter
 					title="Dosage form"
-					value="dosageForm"
+					value="itemForm"
 					options={DOSAGE_FORMS.map(f => ({ label: f, value: f }))}
 				/>
 
@@ -36,6 +47,13 @@ export default async function FilterProducts() {
 						categories?.map(c => ({ label: c.name, value: c._id })) ?? []
 					}
 				/>
+
+				<AccordionItem value={'price'}>
+					<AccordionTrigger className="typography-M14">Price</AccordionTrigger>
+					<AccordionContent className="space-y-2">
+						<Inputs />
+					</AccordionContent>
+				</AccordionItem>
 			</Accordion>
 		</article>
 	);

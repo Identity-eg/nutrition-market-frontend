@@ -96,7 +96,8 @@ export default function ProductPage() {
 
 							<Link
 								className="hover:underline"
-								href="#">
+								href="#"
+							>
 								write a review
 							</Link>
 						</div>
@@ -135,7 +136,8 @@ export default function ProductPage() {
 
 					<Accordion
 						type="multiple"
-						className="w-full">
+						className="w-full"
+					>
 						<AccordionItem value="company">
 							<AccordionTrigger className="typography-B14">
 								<span className="flex items-center gap-2">
@@ -167,4 +169,3 @@ export default function ProductPage() {
 		</>
 	);
 }
-

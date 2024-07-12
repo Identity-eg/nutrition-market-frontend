@@ -35,4 +35,3 @@ export function useForgotPassword() {
 export function useResetPassword() {
 	return useMutation({ mutationFn: resetPassword });
 }
-
