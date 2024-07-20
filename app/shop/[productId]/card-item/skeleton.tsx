@@ -1,17 +1,10 @@
 'use client';
 
-import { motion } from 'framer-motion';
 export default function ProductCardSkeleton() {
 	return (
-		<motion.div
-			initial={{ opacity: 0 }}
-			animate={{
-				opacity: 100,
-			}}
-			transition={{ ease: 'easeInOut', duration: 0.5 }}
+		<div
 			role="status"
-			className="rounded-md bg-white p-4"
-		>
+			className="rounded-md bg-white p-4">
 			<div className="h-full animate-pulse">
 				<div className="flex h-full flex-col gap-5">
 					<div className="image h-[200px] w-full rounded bg-gray-200" />
@@ -23,6 +16,6 @@ export default function ProductCardSkeleton() {
 					<div className="button mb-auto h-[40px] w-full rounded bg-gray-200" />
 				</div>
 			</div>
-		</motion.div>
+		</div>
 	);
 }
