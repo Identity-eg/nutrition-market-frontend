@@ -13,7 +13,7 @@ export default function ShopPage({
 	return (
 		<section className="grid grid-cols-[278px,1fr] gap-x-6 gap-y-8">
 			<SortBy />
-			<FilterProducts />
+			<FilterProducts searchParams={searchParams} />
 			<Suspense fallback={'Loading...'}>
 				<Products searchParams={searchParams} />
 			</Suspense>

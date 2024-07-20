@@ -34,3 +34,32 @@ export const getProducts = async ({
 
 	return data;
 };
+
+export type TSimilarProductsProps = {
+	productId: string;
+	limit?: string;
+};
+
+export const getSimilarProducts = async ({
+	productId,
+	limit = '4',
+}: TSimilarProductsProps): Promise<Pick<GetProductsReturnType, 'products'>> => {
+	const data = await request({
+		url: `/products/${productId}/similar?limit=${limit}`,
+		method: 'GET',
+	});
+
+	return data;
+};
+
+export const getSingleProduct = async ({
+	productId,
+}: {
+	productId: string | undefined;
+}): Promise<Pick<GetProductsReturnType, 'products'>['products'][number]> => {
+	const { product } = await request({
+		url: `/products/${productId}`,
+		method: 'GET',
+	});
+	return product;
+};
