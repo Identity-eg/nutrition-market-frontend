@@ -4,7 +4,7 @@ import { request } from '../client';
 // ####################### Get Brands #######################
 const getBrands = async () => {
 	const { data } = await request({
-		url: `brands`,
+		url: `/brands`,
 		method: 'GET',
 	});
 	return data;

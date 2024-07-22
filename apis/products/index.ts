@@ -36,7 +36,7 @@ export const viewProduct = async ({
 	id: string | undefined;
 }): Promise<GetProductReturnType> => {
 	const { data } = await request({
-		url: `products/${id}`,
+		url: `/products/${id}`,
 		method: 'GET',
 	});
 	return data;

@@ -7,8 +7,44 @@ import { Separator } from 'components/ui/separator';
 import { Accordion } from 'components/ui/accordion';
 import { Progress } from 'components/ui/progress';
 import FacetedFilter from 'app/shop/components/filter/facetedFilter';
+import { TProduct } from 'types/product';
 
-export default function Reviews() {
+export default function Reviews({
+	averageRating,
+	reviewsNumbers,
+}: {
+	averageRating: TProduct['averageRating'];
+	reviewsNumbers: TProduct['numReviews'];
+}) {
+	const ratingPrecentage = (averageRating / 5) * 100;
+
+	{
+		/* {Array.from({ length: 5 }, (el, i) => (
+            <div key={i} className="flex items-center gap-4 mb-2">
+              <h3>{i + 1} star</h3>
+              <div className="h-2 bg-gray-200 rounded-full w-36">
+                <div
+                  className={`h-full bg-yellow-500 rounded-full`}
+                  style={{
+                    width: `${Math.trunc(
+                      (ratingObj[i + 1] / allRating.length) * 100 || 0
+                    )}%`,
+                  }}
+                ></div>
+              </div>
+              <h3>
+                {Math.trunc((ratingObj[i + 1] / allRating.length) * 100 || 0)}%
+              </h3>
+            </div>
+          ))} */
+	}
+
+	// const allRating = reviews?.map((el) => el.rating);
+	// const ratingObj = allRating?.reduce(
+	//   (acc, el, i) => ((acc[el] = acc[el] + 1 || 1), acc),
+	//   {}
+	// );
+
 	return (
 		<div>
 			<h3 className="mb-6 typography-M16">What Others Are Saying</h3>
@@ -17,13 +53,17 @@ export default function Reviews() {
 				<div className="flex flex-col justify-between gap-4">
 					<div className="flex items-center gap-2">
 						<CircleProgress
-							precentage={80}
+							precentage={ratingPrecentage}
 							strokeWidth={4}>
-							<span className="typography-SB16">4.8</span>
+							<span className="typography-SB16">{averageRating}</span>
 						</CircleProgress>
 						<div className="flex flex-col gap-2">
-							<RatingStars averageRating={4} />
-							<p className="typography-R14">From 1,25k reviews</p>
+							<RatingStars averageRating={averageRating} />
+							{reviewsNumbers ? (
+								<p className="typography-R14">From {reviewsNumbers} reviews</p>
+							) : (
+								<p className="typography-R14">No reviews</p>
+							)}
 						</div>
 					</div>
 					<Button>Write a review</Button>
@@ -50,7 +90,7 @@ export default function Reviews() {
 					))}
 				</div>
 			</div>
-			<div className="grid grid-cols-[1fr_3fr] gap-4">
+			<div className="grid-cols-[1fr_3fr] gap-4 media-md:grid">
 				<article className="hidden h-[500px] rounded-lg border border-gray-50 p-4 media-md:block">
 					<h4 className="mb-4 capitalize typography-B16">Reviews Filter</h4>
 					<Separator />

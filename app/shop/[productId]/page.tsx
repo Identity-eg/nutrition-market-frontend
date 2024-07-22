@@ -16,6 +16,7 @@ import { BeanOff, BookOpenText, DnaOff, Heart, WheatOff } from 'lucide-react';
 import SimilarProducts from './similar-products';
 import { getSingleProduct } from 'apis/server/products';
 import ProductImages from './product-images';
+import parse from 'html-react-parser';
 
 export default async function ProductPage({
 	params,
@@ -23,6 +24,21 @@ export default async function ProductPage({
 	params: { productId: string };
 }) {
 	const product = await getSingleProduct({ productId: params.productId });
+
+	const accordionToDisplay = [
+		{
+			id: '1',
+			icon: <BookOpenText size={20} />,
+			displayName: 'Description',
+			name: 'description',
+		},
+		{
+			id: '2',
+			icon: <BookOpenText size={20} />,
+			displayName: 'How to use',
+			name: 'directionOfUse',
+		},
+	] as const;
 
 	return (
 		<>
@@ -109,43 +125,42 @@ export default async function ProductPage({
 
 						<div className="mt-auto flex w-[80%] gap-2">
 							<Button className="w-full">Add to cart</Button>
-							<Counter itemAmount={1} />
+							<Counter />
 						</div>
 					</div>
 
 					<Accordion
 						type="multiple"
 						className="w-full">
-						<AccordionItem value="company">
-							<AccordionTrigger className="typography-B14">
-								<span className="flex items-center gap-2">
-									<Heart size={20} />
-									Key Benfits
-								</span>
-							</AccordionTrigger>
-							<AccordionContent className="space-y-2">
-								aaaaaaaa
-							</AccordionContent>
-						</AccordionItem>
-						<AccordionItem value="dosageForm">
-							<AccordionTrigger className="typography-B14">
-								<span className="flex items-center gap-2">
-									<BookOpenText size={20} />
-									Description
-								</span>
-							</AccordionTrigger>
-							<AccordionContent>
-								Helps improve nitric oxide levels in the body <br />
-								Supports improved energy, endurance & performance
-							</AccordionContent>
-						</AccordionItem>
+						{accordionToDisplay.map(category => {
+							if (!product[category.name]) return;
+
+							return (
+								<AccordionItem
+									key={product.description}
+									value={category.name}>
+									<AccordionTrigger className="typography-B14">
+										<span className="flex items-center gap-2">
+											{category.icon}
+											{category.displayName}
+										</span>
+									</AccordionTrigger>
+									<AccordionContent>
+										{parse(product[category.name])}
+									</AccordionContent>
+								</AccordionItem>
+							);
+						})}
 					</Accordion>
 				</div>
 			</div>
 
 			<SimilarProducts productId={params.productId} />
 
-			<Reviews />
+			<Reviews
+				averageRating={product.averageRating}
+				reviewsNumbers={product.numReviews}
+			/>
 		</>
 	);
 }

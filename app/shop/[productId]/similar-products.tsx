@@ -12,7 +12,7 @@ export default async function SimilarProducts({
 
 	return (
 		<div>
-			<div className="mb-6 flex items-center justify-between">
+			<div className="flex items-center justify-between mb-6">
 				<h3 className="typography-M16">Related products</h3>
 				<Link
 					className="typography-R14 hover:underline"
@@ -20,7 +20,9 @@ export default async function SimilarProducts({
 					See all
 				</Link>
 			</div>
-			<div className="mb-10 flex items-center gap-4">
+			<div
+				style={{ gridTemplateColumns: 'repeat(auto-fill, minmax(240px, 1fr))' }}
+				className="grid gap-4 mb-10">
 				{products.map(product => (
 					<CardItem
 						key={product._id}

@@ -1,29 +1,22 @@
-import { Button } from 'components/ui/button';
+'use client';
 
-type TIncreaseDecreaseButtons = {
-	itemAmount: number;
-	onIncrease: () => void;
-	onDecrease: () => void;
-};
+import { useState } from 'react';
 
-export default function Counter({
-	itemAmount,
-	onIncrease,
-	onDecrease,
-}: TIncreaseDecreaseButtons) {
+export default function Counter() {
+	const [count, setCount] = useState<number>(1);
 	return (
-		<div className="flex items-center gap-6 rounded-md border border-gray-40 px-4">
+		<div className="flex max-w-[107px] items-center gap-6 rounded-md border border-gray-40 px-4">
 			<span
 				className="cursor-pointer"
-				onClick={onDecrease}
-			>
+				onClick={() =>
+					count > 1 && setCount(prev => (prev >= 1 ? prev - 1 : prev))
+				}>
 				-
 			</span>
-			<h3>{itemAmount}</h3>
+			<h3>{count}</h3>
 			<span
-				onClick={onIncrease}
-				className="cursor-pointer text-green-500"
-			>
+				onClick={() => setCount(prev => prev + 1)}
+				className="cursor-pointer text-green-500">
 				+
 			</span>
 		</div>

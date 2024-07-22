@@ -1,5 +1,6 @@
-import { APP_COMPANIES, DOSAGE_FORMS } from 'constants/index';
 import { TCategory } from 'types/category';
+import { TCompany } from './company';
+import { TDosageForm } from './dosage-form';
 
 export type TProduct = {
 	_id: string;
@@ -7,9 +8,13 @@ export type TProduct = {
 	slug: string;
 	images: { url: string; name: string; size: number }[];
 	description: string;
-	nutritionFacts: string;
-	company: (typeof APP_COMPANIES)[number];
-	itemForm: (typeof DOSAGE_FORMS)[number];
+	nutritionFacts: TNutritionFacts;
+	company: Partial<TCompany>;
+	dosageForm: Partial<TDosageForm>;
+	directionOfUse: string;
+	warnings: string;
+	storageConditions: string;
+	NFSA_REG_NO: string;
 	category: Partial<TCategory>[];
 	freeShipping: boolean;
 	numReviews: number;
@@ -20,4 +25,17 @@ export type TProduct = {
 	sold: number;
 	createdAt: string;
 	updatedAt: string;
+};
+
+export type TNutritionFacts = {
+	servingSize: string;
+	servingPerContainer: string;
+	ingredients: {
+		name: string;
+		amountPerServing: string;
+		dailyValue: string;
+	};
+	otherIngredients: {
+		name: string;
+	};
 };

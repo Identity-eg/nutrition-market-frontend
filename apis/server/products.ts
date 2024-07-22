@@ -20,7 +20,7 @@ export type TParams = {
 	price: string;
 	company: string;
 	category: string;
-	itemForm: string;
+	dosageForm: string;
 };
 
 export const getProducts = async ({
