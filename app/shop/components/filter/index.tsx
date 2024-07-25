@@ -4,14 +4,14 @@ import {
 	AccordionItem,
 	AccordionTrigger,
 } from 'components/ui/accordion';
-import FacetedFilter from './facetedFilter';
+import FacetedFilter from './faceted-filter';
 
-import { DOSAGE_FORMS } from 'constants/index';
 import { getCompanies } from 'apis/server/company';
 import { getCategories } from 'apis/server/category';
 import { ClearAllBtn } from './clear-all-btn';
 import { Inputs } from './inputs';
 import { TSearchParams } from 'app/shop/page';
+import { getDosageForms } from 'apis/server/dosageForm';
 
 export default async function FilterProducts({
 	searchParams,
@@ -20,12 +20,13 @@ export default async function FilterProducts({
 }) {
 	const { companies } = await getCompanies();
 	const { categories } = await getCategories();
+	const { dosageForms } = await getDosageForms();
 
 	const keys = Object.keys(searchParams);
 
 	return (
-		<article className="self-start hidden border rounded-lg border-gray-50 media-md:block">
-			<div className="flex items-center justify-between p-4 pb-4 border-b shadow-sm border-gray-50">
+		<article className="hidden self-start rounded-lg border border-gray-50 media-md:block">
+			<div className="flex items-center justify-between border-b border-gray-50 p-4 pb-4 shadow-sm">
 				<h4 className="capitalize typography-B16">filter option</h4>
 				<ClearAllBtn />
 			</div>
@@ -45,7 +46,9 @@ export default async function FilterProducts({
 					<FacetedFilter
 						title="Dosage form"
 						value="itemForm"
-						options={DOSAGE_FORMS.map(f => ({ label: f, value: f }))}
+						options={
+							dosageForms?.map(f => ({ label: f.name, value: f._id })) ?? []
+						}
 					/>
 
 					<FacetedFilter

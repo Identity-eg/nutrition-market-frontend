@@ -99,14 +99,14 @@ export default function Reviews({
 						type="multiple"
 						defaultValue={['rating']}
 						className="w-full">
-						<FacetedFilter
+						{/* <FacetedFilter
 							title="Rating"
 							value="rating"
 							options={['5', '4', '3', '2', '1'].map(el => ({
 								label: el,
 								value: el,
 							}))}
-						/>
+						/> */}
 					</Accordion>
 				</article>
 				<ReviewsList />

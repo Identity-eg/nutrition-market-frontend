@@ -1,6 +1,7 @@
 import { TCategory } from 'types/category';
 import { TCompany } from './company';
 import { TDosageForm } from './dosage-form';
+import { TUser } from './user';
 
 export type TProduct = {
 	_id: string;
@@ -38,4 +39,14 @@ export type TNutritionFacts = {
 	otherIngredients: {
 		name: string;
 	};
+};
+
+export type TReview = {
+	rating: number;
+	comment: string;
+	user: Partial<TUser>;
+	product: string;
+	_id: string;
+	createdAt: string;
+	updatedAt: string;
 };

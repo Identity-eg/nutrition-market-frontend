@@ -11,6 +11,11 @@ type GetProductsReturnType = {
 	totalCount: number;
 };
 
+type GetProductReviewsReturnType = {
+	reviews: TProduct[];
+	count: number;
+};
+
 export type TParams = {
 	name: string;
 	sort: string;
@@ -53,6 +58,18 @@ export const getSimilarProducts = async ({
 };
 
 export const getSingleProduct = async ({
+	productId,
+}: {
+	productId: string | undefined;
+}): Promise<Pick<GetProductsReturnType, 'products'>['products'][number]> => {
+	const { product } = await request({
+		url: `/products/${productId}`,
+		method: 'GET',
+	});
+	return product;
+};
+
+export const geProductReviews = async ({
 	productId,
 }: {
 	productId: string | undefined;
