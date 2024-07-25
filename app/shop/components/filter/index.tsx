@@ -45,7 +45,7 @@ export default async function FilterProducts({
 					/>
 					<FacetedFilter
 						title="Dosage form"
-						value="itemForm"
+						value="dosageForm"
 						options={
 							dosageForms?.map(f => ({ label: f.name, value: f._id })) ?? []
 						}

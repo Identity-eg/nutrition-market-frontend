@@ -6,7 +6,6 @@ import ReviewsList from './reviews-list';
 import { Separator } from 'components/ui/separator';
 import { Accordion } from 'components/ui/accordion';
 import { Progress } from 'components/ui/progress';
-import FacetedFilter from 'app/shop/components/filter/facetedFilter';
 import { TProduct } from 'types/product';
 
 export default function Reviews({
