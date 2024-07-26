@@ -11,7 +11,7 @@ export default function ShopPage({
 	searchParams: TSearchParams;
 }) {
 	return (
-		<section className="grid grid-cols-[278px,1fr] gap-x-6 gap-y-8">
+		<section className='container grid grid-cols-[278px,1fr] gap-x-6 gap-y-8'>
 			<SortBy />
 			<FilterProducts searchParams={searchParams} />
 			<Suspense fallback={'Loading...'}>

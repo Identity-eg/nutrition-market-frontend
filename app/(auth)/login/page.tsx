@@ -64,22 +64,22 @@ export default function LoginPage() {
 
 	return (
 		<CardAuthWrapper
-			description="Enter your email below to login to your account"
-			title="Login">
+			description='Enter your email below to login to your account'
+			title='Login'>
 			<form
 				onSubmit={form.handleSubmit(onSubmit)}
-				className="space-y-8">
+				className='space-y-8'>
 				<Form {...form}>
 					<FormField
 						control={form.control}
-						name="email"
+						name='email'
 						render={({ field }) => (
 							<FormItem>
 								<FormLabel>Email</FormLabel>
 								<FormControl>
 									<Input
 										required
-										placeholder="Enter your email address"
+										placeholder='Enter your email address'
 										{...field}
 									/>
 								</FormControl>
@@ -89,20 +89,20 @@ export default function LoginPage() {
 					/>
 					<FormField
 						control={form.control}
-						name="password"
+						name='password'
 						render={({ field }) => (
 							<FormItem>
-								<div className="flex items-center">
+								<div className='flex items-center'>
 									<FormLabel>Password</FormLabel>
 									<Link
-										href="/forgot-password"
-										className="ml-auto inline-block text-sm underline">
+										href='/forgot-password'
+										className='inline-block ml-auto text-sm underline'>
 										Forgot password?
 									</Link>
 								</div>
 								<FormControl>
 									<Input
-										type="password"
+										type='password'
 										{...field}
 									/>
 								</FormControl>
@@ -112,23 +112,23 @@ export default function LoginPage() {
 					/>
 				</Form>
 				<Button
-					type="submit"
+					type='submit'
 					disabled={isPending}
-					className="w-full">
+					className='w-full'>
 					{isPending ? (
 						<>
-							<Loader2 className="mr-2 h-4 w-4 animate-spin" />
+							<Loader2 className='w-4 h-4 mr-2 animate-spin' />
 							Please wait
 						</>
 					) : (
 						'Sign in'
 					)}
 				</Button>
-				<p className="text-gray-6 typography-R14">
+				<p className='text-gray-6 typography-R14'>
 					Don’t have an account?{' '}
 					<Link
-						className="text-black-3 typography-M14"
-						href="/signup">
+						className='text-black-3 typography-M14'
+						href='/signup'>
 						Sign up
 					</Link>
 				</p>

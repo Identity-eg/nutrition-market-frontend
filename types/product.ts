@@ -40,13 +40,3 @@ export type TNutritionFacts = {
 		name: string;
 	};
 };
-
-export type TReview = {
-	rating: number;
-	comment: string;
-	user: Partial<TUser>;
-	product: string;
-	_id: string;
-	createdAt: string;
-	updatedAt: string;
-};

@@ -1,4 +1,3 @@
-
 export const ORDER_STATUS = [
 	'pending',
 	'processing',
@@ -6,3 +5,7 @@ export const ORDER_STATUS = [
 	'delivered',
 	'canceled',
 ] as const;
+
+export const IMAGES_PATHS = {
+	hero: 'hero',
+} as const;

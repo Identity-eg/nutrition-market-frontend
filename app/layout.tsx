@@ -24,7 +24,6 @@ export default function RootLayout({
 }: Readonly<{
 	children: React.ReactNode;
 }>) {
-	console.log();
 	return (
 		<html lang="en">
 			<body className={`text-black ${inter.className}`}>
@@ -32,7 +31,7 @@ export default function RootLayout({
 					<Topbar />
 					<Header />
 					<Linksbar />
-					<main className="container py-6">{children}</main>
+					<main>{children}</main>
 					<Toaster />
 				</Providers>
 			</body>
