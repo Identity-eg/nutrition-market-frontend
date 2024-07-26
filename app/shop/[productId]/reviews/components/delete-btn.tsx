@@ -5,7 +5,7 @@ import { Button } from 'components/ui/button';
 import { Trash2 } from 'lucide-react';
 import { useTransition } from 'react';
 
-export function DeleteBtn({ reviewId }: { reviewId: string }) {
+export default function DeleteBtn({ reviewId }: { reviewId: string }) {
 	const [isPending, startTransition] = useTransition();
 	const deleteReview = useDeleteReview();
 	return (

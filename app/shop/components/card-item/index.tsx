@@ -1,5 +1,5 @@
 import Price from './price';
-import { RatingStars } from '../rating-stars';
+import { RatingStars } from '../../[productId]/components/rating-stars';
 import Image from 'next/image';
 import Sale from './sale';
 import Link from 'next/link';

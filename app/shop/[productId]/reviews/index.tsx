@@ -1,13 +1,12 @@
 import { Button } from 'components/ui/button';
-import { RatingStars } from './rating-stars';
-import CircleProgress from './circle-progress';
-import ReviewsList from './reviews-list';
+import { RatingStars } from '../components/rating-stars';
+import CircleProgress from './components/circle-progress';
+import ReviewsList from './list';
 import { Progress } from 'components/ui/progress';
 import { TProduct } from 'types/product';
 import { getReviews } from 'apis/server/reviews';
-import Link from 'next/link';
-import { CheckCircle, CheckCircle2, StarIcon } from 'lucide-react';
-import ReviewForm from './review-form';
+import { StarIcon } from 'lucide-react';
+import ReviewForm from './form';
 import { getCredential } from 'apis/helpers';
 import { Separator } from 'components/ui/separator';
 
@@ -34,29 +33,27 @@ export default async function Reviews({
 	);
 
 	return (
-		<div>
+		<section>
 			<h3 className='mb-6 typography-M16'>What Others Are Saying</h3>
 
 			<div className='grid-cols-[1fr_2fr] gap-4 media-md:grid'>
-				<article className='hidden self-start rounded-lg border border-gray-50 p-4 media-md:block'>
-					<div className='mb-6 flex flex-col justify-between gap-4'>
-						<div className='flex items-center gap-2'>
-							<CircleProgress
-								circleSize={72}
-								precentage={ratingPrecentage}
-								strokeWidth={4}>
-								<span className='typography-SB16'>
-									{averageRating.toFixed(1)}
-								</span>
-							</CircleProgress>
-							<div className='flex flex-col gap-2'>
-								<RatingStars averageRating={averageRating} />
-								{count ? (
-									<p className='typography-R14'>From {count} reviews</p>
-								) : (
-									<p className='typography-R14'>No reviews</p>
-								)}
-							</div>
+				<article className='hidden gap-y-6 self-start rounded-lg border border-gray-50 p-4 media-md:flex media-md:flex-col'>
+					<div className='flex items-center gap-2'>
+						<CircleProgress
+							circleSize={72}
+							precentage={ratingPrecentage}
+							strokeWidth={4}>
+							<span className='typography-SB16'>
+								{averageRating.toFixed(1)}
+							</span>
+						</CircleProgress>
+						<div className='flex flex-col gap-2'>
+							<RatingStars averageRating={averageRating} />
+							{count ? (
+								<p className='typography-R14'>From {count} reviews</p>
+							) : (
+								<p className='typography-R14'>No reviews</p>
+							)}
 						</div>
 					</div>
 
@@ -91,6 +88,6 @@ export default async function Reviews({
 
 				<ReviewsList productId={productId} />
 			</div>
-		</div>
+		</section>
 	);
 }

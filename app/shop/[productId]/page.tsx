@@ -2,9 +2,9 @@ import React from 'react';
 import Link from 'next/link';
 import { Button } from 'components/ui/button';
 
-import {RatingStars} from './rating-stars';
+import { RatingStars } from './components/rating-stars';
 import { Separator } from 'components/ui/separator';
-import Counter from './counter';
+import Counter from './components/counter';
 import {
 	Accordion,
 	AccordionContent,
@@ -15,7 +15,7 @@ import Reviews from './reviews';
 import { BeanOff, BookOpenText, DnaOff, Heart, WheatOff } from 'lucide-react';
 import SimilarProducts from './similar-products';
 import { getSingleProduct } from 'apis/server/products';
-import ProductImages from './product-images';
+import ProductImages from './images';
 import parse from 'html-react-parser';
 
 export default async function ProductPage({
@@ -42,27 +42,27 @@ export default async function ProductPage({
 
 	return (
 		<div className='container py-10'>
-			<div className='grid grid-cols-2 mb-24'>
-				<div className='flex flex-col justify-center gap-6 p-6 border-r in self-baseline border-gray-50'>
+			<div className='mb-24 grid grid-cols-2'>
+				<div className='in flex flex-col justify-center gap-6 self-baseline border-r border-gray-50 p-6'>
 					<ProductImages images={product.images} />
 
 					<div>
 						<p className='mb-4 typography-B16'>Allergen notice</p>
 						<div className='flex gap-4 text-green-500'>
 							<div className='flex flex-col items-center justify-center'>
-								<div className='p-4 mb-2 border border-green-500 rounded-full'>
+								<div className='mb-2 rounded-full border border-green-500 p-4'>
 									<BeanOff />
 								</div>
 								<span className='typography-M13'>Soy-free</span>
 							</div>
 							<div className='flex flex-col items-center justify-center'>
-								<div className='p-4 mb-2 border border-green-500 rounded-full'>
+								<div className='mb-2 rounded-full border border-green-500 p-4'>
 									<WheatOff />
 								</div>
 								<span className='typography-M13'>Gluten-free</span>
 							</div>
 							<div className='flex flex-col items-center justify-center'>
-								<div className='p-4 mb-2 border border-green-500 rounded-full'>
+								<div className='mb-2 rounded-full border border-green-500 p-4'>
 									<DnaOff />
 								</div>
 								<span className='typography-M13'>No-gmo</span>
@@ -75,7 +75,7 @@ export default async function ProductPage({
 					<div className='mb-8 border-b border-gray-50 pb-[12px]'>
 						<h2 className='mb-1 typography-SB24'>{product.name}</h2>
 
-						<div className='flex items-center gap-4 mb-6 text-gray-200 typography-R14'>
+						<div className='mb-6 flex items-center gap-4 text-gray-200 typography-R14'>
 							<RatingStars averageRating={product.averageRating} />
 
 							<Separator
@@ -109,7 +109,7 @@ export default async function ProductPage({
 								<Button variant='ghost-green'>60 Caps</Button>
 								<Button variant='outline'>
 									30 Caps
-									<div className='px-2 ml-2 text-white bg-red-500 rounded-full typography-R14'>
+									<div className='ml-2 rounded-full bg-red-500 px-2 text-white typography-R14'>
 										Save 80 EGP
 									</div>
 								</Button>

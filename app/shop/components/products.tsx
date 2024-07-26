@@ -2,7 +2,7 @@ import qs from 'qs';
 import React from 'react';
 import { getProducts, TParams } from 'apis/server/products';
 import { TSearchParams } from '../page';
-import CardItem from '../[productId]/card-item';
+import CardItem from './card-item';
 
 export default async function Products({
 	searchParams,

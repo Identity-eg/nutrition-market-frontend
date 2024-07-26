@@ -1,10 +1,14 @@
 'use client';
 
-import { useEffect, useState, useTransition } from 'react';
-import { useForm } from 'react-hook-form';
+import { Fragment, useEffect, useState, useTransition } from 'react';
+import Link from 'next/link';
 import { CheckCircle2, LoaderCircle } from 'lucide-react';
+import { useForm } from 'react-hook-form';
+import { z } from 'zod';
+import { zodResolver } from '@hookform/resolvers/zod';
+// UI
 import { Button } from 'components/ui/button';
-import RatingField from './rating-field';
+import RatingField from './components/rating-field';
 import {
 	Form,
 	FormControl,
@@ -14,16 +18,12 @@ import {
 	FormMessage,
 } from 'components/ui/form';
 import { Input } from 'components/ui/input';
-import { cn } from 'lib/utils';
 import { Textarea } from 'components/ui/textarea';
-import { z } from 'zod';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { useAddReview } from 'apis/reviews';
-import { useMutation } from '@tanstack/react-query';
-import { useRouter } from 'next/navigation';
-import { getCredential } from 'apis/helpers';
-import Link from 'next/link';
 import { Separator } from 'components/ui/separator';
+// Utils
+import { cn } from 'lib/utils';
+import { getCredential } from 'apis/helpers';
+import { useAddReview } from 'apis/reviews';
 
 const reviewSchema = z
 	.object({
@@ -76,22 +76,22 @@ const ReviewForm = ({
 
 	if (hasUserReview) {
 		return isSuccessMsgAllowedToDisplay ? (
-			<>
+			<div>
 				<Separator className='mb-4 mt-8' />
 				<span className='flex gap-2 text-green-light-700 typography-M16'>
 					<CheckCircle2 />
 					Your review added successfully
 				</span>
-			</>
+			</div>
 		) : null;
 	}
 
 	if (!credential) {
 		return (
-			<>
-				<Separator className='my-8' />
+			<div className='space-y-8'>
+				<Separator />
 
-				<p className='mb-8 typography-SB18'>
+				<p className='typography-SB18'>
 					Review this product <br />
 					<span className='text-gray-200 typography-R14'>
 						Share your thoughts with other customers
@@ -103,13 +103,13 @@ const ReviewForm = ({
 					className='w-full capitalize'>
 					<Link href={`/login?from=shop/${productId}`}>Write a review</Link>
 				</Button>
-			</>
+			</div>
 		);
 	}
 
 	return (
-		<>
-			<Separator className='my-8' />
+		<div className='space-y-8'>
+			<Separator />
 
 			<p className='mb-8 typography-SB18'>
 				Review this product <br />
@@ -175,7 +175,8 @@ const ReviewForm = ({
 
 					<Button
 						type='submit'
-						className='w-full'>
+						className='w-full'
+						disabled={isPending}>
 						{isPending ? (
 							<>
 								<LoaderCircle className='mr-2 h-4 w-4 animate-spin' />
@@ -193,7 +194,7 @@ const ReviewForm = ({
 					)}
 				</Form>
 			</form>
-		</>
+		</div>
 	);
 };
 

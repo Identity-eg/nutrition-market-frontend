@@ -1,10 +1,11 @@
-import dayjs from 'dayjs';
 import { CheckCircle } from 'lucide-react';
+import dayjs from 'dayjs';
 
-import { RatingStars } from 'app/shop/[productId]/rating-stars';
-import { ManageButtons } from 'app/shop/[productId]/manage-buttons';
+import { RatingStars } from '../components/rating-stars';
+import ActionBtns from './components/action-btns';
 
 import type { TReview } from 'types/review';
+import { getCredential } from 'apis/helpers';
 
 export default async function Comment({
 	_id,
@@ -14,6 +15,10 @@ export default async function Comment({
 	rating,
 	createdAt,
 }: TReview) {
+	const credential = await getCredential();
+	const isMyReview = credential?.payload._id === user;
+	console.log({ title });
+
 	const formattedDate = dayjs(createdAt).format('MMMM D, YYYY hh:mm A');
 
 	return (
@@ -36,16 +41,10 @@ export default async function Comment({
 				className='mb-2'
 				averageRating={rating}
 			/>
-
 			<p className='mb-3 text-gray-200 typography-R12'>{formattedDate}</p>
-
 			<div className='flex flex-col justify-between gap-4 media-md:flex-row media-md:items-center'>
 				<p className='flex-wrap typography-R16'>{comment}</p>
-
-				<ManageButtons
-					reviewId={_id}
-					user={user}
-				/>
+				{isMyReview && <ActionBtns reviewId={_id} />}
 			</div>
 		</li>
 	);
