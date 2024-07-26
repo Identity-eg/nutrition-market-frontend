@@ -7,7 +7,7 @@ export const UNAUTHENTICATED_ROUTES = [
 	'/reset-password',
 ];
 
-export const PRIVATE_ROUTES = ['/shop'];
+export const PRIVATE_ROUTES = [];
 
 export const ACCESS_COOKIE_OPTIONS: Partial<ResponseCookie> = {
 	httpOnly: true,

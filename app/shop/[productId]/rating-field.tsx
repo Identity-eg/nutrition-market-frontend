@@ -1,28 +1,25 @@
-import React, { useState } from 'react';
 import { StarIcon } from 'lucide-react';
 import { ControllerRenderProps } from 'react-hook-form';
+import { cn } from 'lib/utils';
 
 export default function RatingField({
 	onChange,
 	value,
-}: ControllerRenderProps<any, 'rating'>) {
+}: ControllerRenderProps<{ [key: string]: string | number }, 'rating'>) {
 	return (
 		<>
-			<div className='flex gap-2 mb-1 text-gray-400'>
-				{[...Array(5)].map((star, i) => {
+			<div className='mb-1 flex gap-2 text-gray-40'>
+				{[...Array(5)].map((_, i) => {
 					const ratingValue = i + 1;
 					return (
 						<div
+							key={i}
 							onClick={() => onChange(ratingValue)}
-							className={
-								value && ratingValue <= value
-									? 'border-neutral-300 group cursor-pointer rounded-md border p-2'
-									: 'border-neutral-300 cursor-pointer rounded-md border p-2'
-							}
-							//   onMouseEnter={() => setHover(ratingValue)}
-							//   onMouseLeave={() => setHover(null)}
-						>
-							{value && ratingValue <= value ? (
+							className={cn(
+								'cursor-pointer rounded-md border border-gray-50 p-2',
+								value && ratingValue <= +value && 'group'
+							)}>
+							{value && ratingValue <= +value ? (
 								<StarIcon
 									fill='currentColor'
 									className='text-orange-400'
@@ -38,9 +35,8 @@ export default function RatingField({
 					);
 				})}
 			</div>
-			<div className='mb-6 text-sm text-gray-400'>
+			<div className='mb-6 text-gray-400 typography-R12'>
 				{value ? <p>Your rating is {value} star</p> : <p>Click To Rate</p>}
-				{/* <span className='text-red-500'>{errors.rating?.message}</span> */}
 			</div>
 		</>
 	);

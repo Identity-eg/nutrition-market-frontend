@@ -96,7 +96,7 @@ export default function LoginPage() {
 									<FormLabel>Password</FormLabel>
 									<Link
 										href='/forgot-password'
-										className='inline-block ml-auto text-sm underline'>
+										className='ml-auto inline-block text-sm underline'>
 										Forgot password?
 									</Link>
 								</div>
@@ -117,7 +117,7 @@ export default function LoginPage() {
 					className='w-full'>
 					{isPending ? (
 						<>
-							<Loader2 className='w-4 h-4 mr-2 animate-spin' />
+							<Loader2 className='mr-2 h-4 w-4 animate-spin' />
 							Please wait
 						</>
 					) : (

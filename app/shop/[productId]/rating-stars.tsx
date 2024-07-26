@@ -1,31 +1,43 @@
 import { StarHalf, StarIcon } from 'lucide-react';
+import React, { forwardRef, HtmlHTMLAttributes } from 'react';
 
-export default function RatingStars({ averageRating, size = 16 }) {
-	const rating = Array.from({ length: 5 }, (elem, i) => {
-		const halfNumber = i + 0.5; // [0.5, 1.5 , 2.5, 3.5 , 4.5]
-		return (
-			<span key={i}>
-				{averageRating >= i + 1 ? (
-					<StarIcon
-						fill="currentColor"
-						className="text-orange-400"
-						size={size}
-					/>
-				) : averageRating >= halfNumber ? (
-					<StarHalf
-						fill="currentColor"
-						className="text-orange-400"
-						size={size}
-					/>
-				) : (
-					<StarIcon
-						className="text-gray-100"
-						size={size}
-					/>
-				)}
-			</span>
-		);
-	});
-
-	return <div className="flex gap-[2px]">{rating}</div>;
+export interface SpanProps extends HtmlHTMLAttributes<HTMLSpanElement> {
+	averageRating: number;
+	size?: number;
 }
+
+export const RatingStars = forwardRef<HTMLSpanElement, SpanProps>(
+	({ size = 16, averageRating, className, ...props }, ref) => {
+		const rating = Array.from({ length: 5 }, (_, i) => {
+			const halfNumber = i + 0.5;
+			return (
+				<span
+					className={className}
+					key={i}
+					ref={ref}
+					{...props}>
+					{averageRating >= i + 1 ? (
+						<StarIcon
+							fill='currentColor'
+							className='text-orange-400'
+							size={size}
+						/>
+					) : averageRating >= halfNumber ? (
+						<StarHalf
+							fill='currentColor'
+							className='text-orange-400'
+							size={size}
+						/>
+					) : (
+						<StarIcon
+							className='text-gray-100'
+							size={size}
+						/>
+					)}
+				</span>
+			);
+		});
+
+		return <div className='flex gap-[2px]'>{rating}</div>;
+	}
+);

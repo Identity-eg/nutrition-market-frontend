@@ -2,7 +2,7 @@ import React from 'react';
 import Link from 'next/link';
 import { Button } from 'components/ui/button';
 
-import RatingStars from './rating-stars';
+import {RatingStars} from './rating-stars';
 import { Separator } from 'components/ui/separator';
 import Counter from './counter';
 import {

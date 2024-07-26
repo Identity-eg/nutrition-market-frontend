@@ -1,14 +1,15 @@
-import { Button, buttonVariants } from 'components/ui/button';
-import RatingStars from './rating-stars';
+import { Button } from 'components/ui/button';
+import { RatingStars } from './rating-stars';
 import CircleProgress from './circle-progress';
 import ReviewsList from './reviews-list';
 import { Progress } from 'components/ui/progress';
 import { TProduct } from 'types/product';
 import { getReviews } from 'apis/server/reviews';
 import Link from 'next/link';
-import { StarIcon } from 'lucide-react';
+import { CheckCircle, CheckCircle2, StarIcon } from 'lucide-react';
 import ReviewForm from './review-form';
 import { getCredential } from 'apis/helpers';
+import { Separator } from 'components/ui/separator';
 
 export default async function Reviews({
 	productId,
@@ -28,13 +29,17 @@ export default async function Reviews({
 		{}
 	);
 
+	const hasUserReview = reviews.some(
+		review => review.user === credential?.payload._id
+	);
+
 	return (
 		<div>
 			<h3 className='mb-6 typography-M16'>What Others Are Saying</h3>
 
 			<div className='grid-cols-[1fr_2fr] gap-4 media-md:grid'>
-				<article className='hidden p-4 border rounded-lg border-gray-50 media-md:block'>
-					<div className='flex flex-col justify-between gap-4 mb-6'>
+				<article className='hidden self-start rounded-lg border border-gray-50 p-4 media-md:block'>
+					<div className='mb-6 flex flex-col justify-between gap-4'>
 						<div className='flex items-center gap-2'>
 							<CircleProgress
 								circleSize={72}
@@ -55,11 +60,11 @@ export default async function Reviews({
 						</div>
 					</div>
 
-					<div className='mb-8 w-[80%] border-b border-gray-40 pb-8'>
+					<div className='w-[80%]'>
 						{[5, 4, 3, 2, 1].map((el, i) => (
 							<div
 								key={el}
-								className='flex items-center gap-4 mb-2'>
+								className='mb-2 flex items-center gap-4'>
 								<p className='flex items-center gap-2'>
 									{el}
 									<StarIcon
@@ -69,7 +74,7 @@ export default async function Reviews({
 									/>
 								</p>
 								<Progress
-									className='h-1 text-red-500 w-52'
+									className='h-1 w-52 text-red-500'
 									value={ratingObj[el] * 100 || 0}
 								/>
 								<p>{ratingObj[el] || 0}</p>
@@ -77,22 +82,11 @@ export default async function Reviews({
 						))}
 					</div>
 
-					<p className='mb-8 typography-SB18'>
-						Review this product <br />
-						<span className='text-gray-200 typography-R14'>
-							Share your thoughts with other customers
-						</span>
-					</p>
-
-					{credential ? (
-						<ReviewForm productId={productId} />
-					) : (
-						<Button
-							asChild
-							className='w-full capitalize'>
-							<Link href={`/login?from=shop/${productId}`}>Write a review</Link>
-						</Button>
-					)}
+					<ReviewForm
+						hasUserReview={hasUserReview}
+						credential={credential}
+						productId={productId}
+					/>
 				</article>
 
 				<ReviewsList productId={productId} />
