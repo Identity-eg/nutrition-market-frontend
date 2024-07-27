@@ -6,8 +6,8 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import { NumericField } from 'components/ui/numeric-field';
 
 export function Inputs() {
-	const [from, setFrom] = useState<string | undefined | ''>('');
-	const [to, setTo] = useState<string | undefined | ''>('');
+	const [from, setFrom] = useState<string>('');
+	const [to, setTo] = useState<string>('');
 
 	const searchParams = useSearchParams();
 	const manipulatedSearchParam = new URLSearchParams(searchParams);
@@ -57,40 +57,40 @@ export function Inputs() {
 
 	return (
 		<div>
-			<div className="mb-4 flex gap-[16px]">
-				<div className="flex flex-col gap-[4px]">
+			<div className='mb-4 flex gap-[16px]'>
+				<div className='flex flex-col gap-[4px]'>
 					<label
-						htmlFor="from"
-						className="text-gray-200 typography-R13">
+						htmlFor='from'
+						className='text-gray-200 typography-R13'>
 						From
 					</label>
 					<NumericField
-						id="from"
+						id='from'
 						value={from}
 						changeHandler={numericValue => {
 							setFrom(numericValue);
 						}}
-						className="h-[36px]"
+						className='h-[36px]'
 					/>
 				</div>
-				<div className="flex flex-col gap-[4px]">
+				<div className='flex flex-col gap-[4px]'>
 					<label
-						htmlFor="to"
-						className="text-gray-200 typography-R13">
+						htmlFor='to'
+						className='text-gray-200 typography-R13'>
 						To
 					</label>
 					<NumericField
-						id="to"
+						id='to'
 						value={to}
 						changeHandler={numericValue => {
 							setTo(numericValue);
 						}}
-						className="h-[36px]"
+						className='h-[36px]'
 					/>
 				</div>
 			</div>
 			<Button
-				className="w-full"
+				className='w-full'
 				size={'sm'}
 				onClick={submitFilters}>
 				Apply

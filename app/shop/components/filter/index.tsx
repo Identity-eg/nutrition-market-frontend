@@ -9,7 +9,7 @@ import FacetedFilter from './faceted-filter';
 import { getCompanies } from 'apis/server/company';
 import { getCategories } from 'apis/server/category';
 import { ClearAllBtn } from './clear-all-btn';
-import { Inputs } from './inputs';
+import { Inputs } from './price-inputs';
 import { TSearchParams } from 'app/shop/page';
 import { getDosageForms } from 'apis/server/dosageForm';
 
