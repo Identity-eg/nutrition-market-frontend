@@ -29,7 +29,7 @@ export default async function Reviews({
 	);
 
 	const hasUserReview = reviews.some(
-		review => review.user === credential?.payload._id
+		review => review.user._id === credential?.payload._id
 	);
 
 	return (

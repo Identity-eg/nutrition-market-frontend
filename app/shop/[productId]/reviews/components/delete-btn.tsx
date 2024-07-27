@@ -12,17 +12,14 @@ export default function DeleteBtn({ reviewId }: { reviewId: string }) {
 		<Button
 			data-state={isPending && 'deleting'}
 			variant='secondary-white'
+			size={'icon'}
 			className='text-red-300 hover:bg-red-30'
 			onClick={() => {
 				startTransition(() => {
 					deleteReview.mutate({ reviewId });
 				});
 			}}>
-			<Trash2
-				size={16}
-				className='mr-2'
-			/>
-			{isPending ? 'Deleting...' : 'Delete'}
+			<Trash2 size={16} />
 		</Button>
 	);
 }

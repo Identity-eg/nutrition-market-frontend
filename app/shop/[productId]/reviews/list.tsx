@@ -3,15 +3,16 @@ import ReviewItem from './item';
 import Image from 'next/image';
 import { getReviews } from 'apis/server/reviews';
 import { TProduct } from 'types/product';
+import { getCredential } from 'apis/helpers';
 
 export default async function ReviewsList({
 	productId,
 }: {
 	productId: TProduct['_id'];
 }) {
+	const credential = await getCredential();
 	const { reviews, count } = await getReviews({ productId });
-
-	// console.log({ reviews, count });
+	const currentUserId = credential?.payload?._id;
 
 	if (!count) {
 		return (
@@ -34,6 +35,7 @@ export default async function ReviewsList({
 		<ul className='flex flex-col gap-4 [&>*:not(:last-child)]:border-b [&>*:not(:last-child)]:border-gray-50'>
 			{reviews?.map(review => (
 				<ReviewItem
+					currentUserId={currentUserId}
 					key={review._id}
 					{...review}
 				/>

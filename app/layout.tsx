@@ -8,6 +8,7 @@ import { Linksbar } from '../components/layout/linksbar';
 import { Toaster } from 'components/ui/toaster';
 
 import './globals.css';
+import Footer from 'components/layout/footer';
 
 const inter = Inter({
 	subsets: ['latin'],
@@ -25,13 +26,14 @@ export default function RootLayout({
 	children: React.ReactNode;
 }>) {
 	return (
-		<html lang="en">
+		<html lang='en'>
 			<body className={`text-black ${inter.className}`}>
 				<Providers>
 					<Topbar />
 					<Header />
 					<Linksbar />
 					<main>{children}</main>
+					<Footer />
 					<Toaster />
 				</Providers>
 			</body>

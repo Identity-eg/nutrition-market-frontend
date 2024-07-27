@@ -1,6 +1,11 @@
 'use client';
 
-import { LogOutIcon, UserIcon } from 'lucide-react';
+import {
+	ChevronDown,
+	CircleUserRound,
+	LogOutIcon,
+	UserIcon,
+} from 'lucide-react';
 import {
 	DropdownMenu,
 	DropdownMenuContent,
@@ -32,17 +37,21 @@ export function ProfileDropdown({ credential }: TProfileDropdownProps) {
 	return (
 		<DropdownMenu>
 			<DropdownMenuTrigger asChild>
-				<div className="hover:bg-accent hover:text-accent-foreground flex h-12 cursor-pointer items-center gap-2 rounded-md border border-gray-50 px-4 py-2 text-sm font-semibold">
-					<UserIcon />
-					<div className="flex max-w-20 flex-col">
-						<span className="text-gray-100 typography-R14">Welcome</span>
-						<span className="typography-SM14 line-clamp-1 capitalize text-black">
+				<div className='flex cursor-pointer items-center gap-2 rounded-md text-sm font-semibold'>
+					<CircleUserRound className='text-green-500' />
+					<div className='flex max-w-20 flex-col items-start'>
+						<span className='text-gray-100 typography-R14'>Welcome</span>
+						<span className='line-clamp-1 flex items-center justify-center gap-1 capitalize text-black typography-M14'>
 							{credential.payload.name.split(' ')[0]}
+							<ChevronDown
+								strokeWidth={1.5}
+								size={16}
+							/>
 						</span>
 					</div>
 				</div>
 			</DropdownMenuTrigger>
-			<DropdownMenuContent className="w-52">
+			<DropdownMenuContent className='w-52'>
 				<DropdownMenuLabel>My Account</DropdownMenuLabel>
 				<DropdownMenuSeparator />
 				<DropdownMenuGroup>
@@ -68,11 +77,10 @@ export function ProfileDropdown({ credential }: TProfileDropdownProps) {
 				</DropdownMenuGroup>
 				<DropdownMenuSeparator />
 				<DropdownMenuItem
-					className="text-red-500 focus:bg-red-30 focus:text-red-500"
+					className='text-red-500 focus:bg-red-30 focus:text-red-500'
 					onClick={() => {
 						logoutMutation.mutate();
-					}}
-				>
+					}}>
 					Log out
 					<DropdownMenuShortcut>
 						<LogOutIcon size={16} />

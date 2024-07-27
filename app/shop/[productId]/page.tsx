@@ -12,7 +12,17 @@ import {
 	AccordionTrigger,
 } from 'components/ui/accordion';
 import Reviews from './reviews';
-import { BeanOff, BookOpenText, DnaOff, Heart, WheatOff } from 'lucide-react';
+import {
+	BeanOff,
+	BookOpenText,
+	Calendar,
+	Check,
+	CircleAlert,
+	CircleCheck,
+	DnaOff,
+	Heart,
+	WheatOff,
+} from 'lucide-react';
 import SimilarProducts from './similar-products';
 import { getSingleProduct } from 'apis/server/products';
 import ProductImages from './images';
@@ -28,44 +38,65 @@ export default async function ProductPage({
 	const accordionToDisplay = [
 		{
 			id: '1',
-			icon: <BookOpenText size={20} />,
+			icon: (
+				<CircleCheck
+					size={20}
+					strokeWidth={1.5}
+				/>
+			),
 			displayName: 'Description',
 			name: 'description',
 		},
 		{
 			id: '2',
-			icon: <BookOpenText size={20} />,
+			icon: (
+				<Calendar
+					size={20}
+					strokeWidth={1.5}
+				/>
+			),
 			displayName: 'How to use',
 			name: 'directionOfUse',
+		},
+		{
+			id: '3',
+			icon: (
+				<CircleAlert
+					size={20}
+					strokeWidth={1.5}
+				/>
+			),
+			displayName: 'Warnings',
+			name: 'warnings',
 		},
 	] as const;
 
 	return (
-		<div className='container py-10'>
-			<div className='mb-24 grid grid-cols-2'>
-				<div className='in flex flex-col justify-center gap-6 self-baseline border-r border-gray-50 p-6'>
+		<div className='container pb-10'>
+			<div className='grid grid-cols-2'>
+				<div className='flex flex-col justify-center gap-6 p-6 border-r in self-baseline border-gray-50'>
 					<ProductImages images={product.images} />
 
 					<div>
-						<p className='mb-4 typography-B16'>Allergen notice</p>
+						<p className='mb-4 typography-B18'>Allergen notice</p>
 						<div className='flex gap-4 text-green-500'>
 							<div className='flex flex-col items-center justify-center'>
-								<div className='mb-2 rounded-full border border-green-500 p-4'>
+								<div className='p-6 mb-2 border border-green-500 rounded-full'>
 									<BeanOff />
 								</div>
-								<span className='typography-M13'>Soy-free</span>
+								<span className='typography-M16'>Soy-free</span>
 							</div>
 							<div className='flex flex-col items-center justify-center'>
-								<div className='mb-2 rounded-full border border-green-500 p-4'>
+								<div className='p-6 mb-2 border border-green-500 rounded-full'>
 									<WheatOff />
 								</div>
-								<span className='typography-M13'>Gluten-free</span>
+								<span className='typography-M16'>Gluten-free</span>
 							</div>
 							<div className='flex flex-col items-center justify-center'>
-								<div className='mb-2 rounded-full border border-green-500 p-4'>
+								<div className='p-6 mb-2 border border-green-500 rounded-full'>
 									<DnaOff />
 								</div>
-								<span className='typography-M13'>No-gmo</span>
+								<span className='typography-M16'>No-gmo</span>
 							</div>
 						</div>
 					</div>
@@ -73,9 +104,11 @@ export default async function ProductPage({
 
 				<div className='p-6'>
 					<div className='mb-8 border-b border-gray-50 pb-[12px]'>
-						<h2 className='mb-1 typography-SB24'>{product.name}</h2>
+						<h2 className='mb-1 text-green-500 typography-SB32'>
+							{product.name}
+						</h2>
 
-						<div className='mb-6 flex items-center gap-4 text-gray-200 typography-R14'>
+						<div className='flex items-center gap-4 mb-6 text-gray-200 typography-R14'>
 							<RatingStars averageRating={product.averageRating} />
 
 							<Separator
@@ -97,8 +130,8 @@ export default async function ProductPage({
 							</Link>
 						</div>
 
-						<div className='text-green-500 typography-SB24'>
-							{product.price} <span className='typography-R14'>EGP</span>
+						<div className='text-[#bc6c25] typography-SB32'>
+							{product.price} <span className='typography-M16'>EGP</span>
 						</div>
 					</div>
 
@@ -109,17 +142,10 @@ export default async function ProductPage({
 								<Button variant='ghost-green'>60 Caps</Button>
 								<Button variant='outline'>
 									30 Caps
-									<div className='ml-2 rounded-full bg-red-500 px-2 text-white typography-R14'>
+									<div className='px-2 ml-2 text-white bg-red-500 rounded-full typography-R14'>
 										Save 80 EGP
 									</div>
 								</Button>
-							</div>
-						</div>
-						<div>
-							<h4 className='mb-2'>Concentration</h4>
-							<div className='flex items-center gap-[8px]'>
-								<Button variant='outline'>4000 IU</Button>
-								<Button variant='ghost-green'>6000 IU</Button>
 							</div>
 						</div>
 
@@ -139,13 +165,13 @@ export default async function ProductPage({
 								<AccordionItem
 									key={product.description}
 									value={category.name}>
-									<AccordionTrigger className='typography-B14'>
-										<span className='flex items-center gap-2'>
+									<AccordionTrigger className='typography-B16'>
+										<span className='flex items-center gap-2 text'>
 											{category.icon}
 											{category.displayName}
 										</span>
 									</AccordionTrigger>
-									<AccordionContent>
+									<AccordionContent className='leading-6 typography-R16'>
 										{parse(product[category.name])}
 									</AccordionContent>
 								</AccordionItem>
@@ -155,7 +181,11 @@ export default async function ProductPage({
 				</div>
 			</div>
 
+			<Separator className='mt-20 mb-6' />
+
 			<SimilarProducts productId={params.productId} />
+
+			<Separator className='mt-20 mb-6' />
 
 			<Reviews
 				productId={params.productId}

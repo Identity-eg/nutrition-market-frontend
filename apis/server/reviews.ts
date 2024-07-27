@@ -22,6 +22,10 @@ type TAddReviewProps = Pick<TReview, 'comment' | 'title' | 'rating'> & {
 	productId: string;
 };
 
+type TUpdateReviewProps = Pick<TReview, 'comment' | 'title' | 'rating'> & {
+	reviewId: string;
+};
+
 export const addReview = async ({ productId, ...rest }: TAddReviewProps) => {
 	const data = await request({
 		url: `/reviews`,
@@ -36,10 +40,34 @@ export const addReview = async ({ productId, ...rest }: TAddReviewProps) => {
 	return data;
 };
 
+export const getSingleReview = async ({ reviewId }: { reviewId: string }) => {
+	const data = await request({
+		url: `/reviews/${reviewId}`,
+	});
+
+	return data;
+};
+
 export const deleteReview = async ({ reviewId }: { reviewId: string }) => {
 	const data = await request({
 		url: `/reviews/${reviewId}`,
 		method: 'DELETE',
+	});
+
+	revalidatePath('/shop/[productId]', 'page');
+	return data;
+};
+
+export const updateReview = async ({
+	reviewId,
+	...rest
+}: TUpdateReviewProps) => {
+	const data = await request({
+		url: `/reviews/${reviewId}`,
+		method: 'PATCH',
+		body: {
+			...rest,
+		},
 	});
 
 	revalidatePath('/shop/[productId]', 'page');

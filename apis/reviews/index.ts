@@ -1,5 +1,10 @@
-import { useMutation } from '@tanstack/react-query';
-import { addReview, deleteReview } from 'apis/server/reviews';
+import { useMutation, useQuery } from '@tanstack/react-query';
+import {
+	addReview,
+	deleteReview,
+	getSingleReview,
+	updateReview,
+} from 'apis/server/reviews';
 
 export function useAddReview() {
 	return useMutation({
@@ -7,8 +12,21 @@ export function useAddReview() {
 	});
 }
 
+export function useGetSingleReview({ reviewId }: { reviewId: string }) {
+	return useQuery({
+		queryKey: ['review'],
+		queryFn: async () => await getSingleReview({ reviewId }),
+	});
+}
+
 export function useDeleteReview() {
 	return useMutation({
 		mutationFn: deleteReview,
+	});
+}
+
+export function useUpdateReview() {
+	return useMutation({
+		mutationFn: updateReview,
 	});
 }

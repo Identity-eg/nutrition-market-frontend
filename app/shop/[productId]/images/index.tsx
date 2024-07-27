@@ -15,20 +15,21 @@ export default function ProductImages({
 	);
 
 	return (
-		<div className="flex h-[500px] flex-col">
-			<div className="h-full content-center self-center">
+		<div className='flex flex-col gap-4'>
+			<div className='w-4/5 content-center self-center'>
 				<Image
-					width={220}
-					height={220}
-					alt="Product image"
+					width={1000}
+					height={1000}
+					className='pt-4'
+					alt='Product image'
 					src={displayedPhotoUrl}
 				/>
 			</div>
-			<div className="flex w-full gap-2 self-start border-b border-gray-50 pb-8">
+			<div className='flex w-full gap-2 self-start border-b border-gray-50 pb-8'>
 				{images?.map(image => (
 					<div
 						key={image.name}
-						className={`h-[70px] w-[70px] cursor-pointer overflow-hidden rounded-md border p-2 ${
+						className={`size-[90px] cursor-pointer overflow-hidden rounded-md border p-2 ${
 							image.url === displayedPhotoUrl
 								? 'border-green-400'
 								: 'border-gray-50'
@@ -37,11 +38,11 @@ export default function ProductImages({
 							setDisplayedPhotoUrl(image.url);
 						}}>
 						<Image
-							width={100}
-							height={100}
-							className="h-full w-full object-contain"
+							width={200}
+							height={200}
+							className='h-full w-full object-contain'
 							src={image.url}
-							alt=""
+							alt=''
 						/>
 					</div>
 				))}

@@ -23,14 +23,20 @@ export const RatingStars = forwardRef<HTMLSpanElement, SpanProps>(
 							size={size}
 						/>
 					) : averageRating >= halfNumber ? (
-						<StarHalf
-							fill='currentColor'
-							className='text-orange-400'
-							size={size}
-						/>
+						<div className='relative'>
+							<StarHalf
+								fill='currentColor'
+								className='text-orange-400'
+								size={size}
+							/>
+							<StarHalf
+								className='absolute inset-0 -scale-x-100 text-orange-400'
+								size={size}
+							/>
+						</div>
 					) : (
 						<StarIcon
-							className='text-gray-100'
+							className='text-gray-80'
 							size={size}
 						/>
 					)}
