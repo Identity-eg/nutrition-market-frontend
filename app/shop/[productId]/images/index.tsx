@@ -1,7 +1,7 @@
 'use client';
 
 import Image from 'next/image';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { TProduct } from 'types/product';
 
 export default function ProductImages({
@@ -10,17 +10,22 @@ export default function ProductImages({
 	images: Pick<TProduct, 'images'>['images'];
 }) {
 	const primaryImage = images[0];
+
 	const [displayedPhotoUrl, setDisplayedPhotoUrl] = useState<string>(
 		primaryImage.url
 	);
 
+	useEffect(() => {
+		setDisplayedPhotoUrl(primaryImage.url);
+	}, [primaryImage.url]);
+
 	return (
 		<div className='flex flex-col gap-4'>
-			<div className='w-4/5 content-center self-center'>
+			<div className='aspect-square w-full max-w-[500px] content-center self-center'>
 				<Image
 					width={1000}
 					height={1000}
-					className='pt-4'
+					className='h-full w-full object-contain pt-4'
 					alt='Product image'
 					src={displayedPhotoUrl}
 				/>

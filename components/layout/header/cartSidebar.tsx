@@ -18,6 +18,7 @@ import CartSideItem from './cartItem';
 import { useGetCart } from 'apis/cart';
 
 export function CartSidebar() {
+	const isFound = true;
 	// const cartQuery = useGetCart();
 	return (
 		<Sheet>
@@ -40,7 +41,7 @@ export function CartSidebar() {
 						Make changes to your profile here. Click save when you&apos;re done.
 					</SheetDescription>
 				</SheetHeader>
-				{true ? (
+				{isFound ? (
 					<div className='mt-8 flex flex-col items-center justify-center gap-y-8'>
 						<Image
 							src='noCartFound.svg'

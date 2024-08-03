@@ -15,6 +15,7 @@ export type TProduct = {
 	directionOfUse: string;
 	warnings: string;
 	storageConditions: string;
+	variants: TVariant[];
 	NFSA_REG_NO: string;
 	category: Partial<TCategory>[];
 	freeShipping: boolean;
@@ -39,4 +40,15 @@ export type TNutritionFacts = {
 	otherIngredients: {
 		name: string;
 	};
+};
+
+export type TVariant = {
+	_id: string;
+	name: string;
+	unitCount: number;
+	flavor: string;
+	price: number;
+	images: TProduct['images'];
+	createdAt: string;
+	updatedAt: string;
 };

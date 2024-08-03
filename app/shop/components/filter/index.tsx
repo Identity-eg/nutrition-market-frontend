@@ -18,52 +18,63 @@ export default async function FilterProducts({
 }: {
 	searchParams: TSearchParams;
 }) {
-	const { companies } = await getCompanies();
-	const { categories } = await getCategories();
-	const { dosageForms } = await getDosageForms();
+	const [companies, categories, dosageForms] = await Promise.all([
+		getCompanies(),
+		getCategories(),
+		getDosageForms(),
+	]);
 
 	const keys = Object.keys(searchParams);
 
 	return (
-		<article className="hidden self-start rounded-lg border border-gray-50 media-md:block">
-			<div className="flex items-center justify-between border-b border-gray-50 p-4 pb-4 shadow-sm">
-				<h4 className="capitalize typography-B16">filter option</h4>
+		<article className='hidden self-start rounded-lg border border-gray-50 media-md:block'>
+			<div className='flex items-center justify-between border-b border-gray-50 p-4 pb-4 shadow-sm'>
+				<h4 className='capitalize typography-B16'>filter option</h4>
 				<ClearAllBtn />
 			</div>
 
-			<div className="h-[60vh] overflow-y-auto overflow-x-hidden p-4 pt-0">
+			<div className='h-[60vh] overflow-y-auto overflow-x-hidden p-4 pt-0'>
 				<Accordion
 					defaultValue={keys}
-					type="multiple"
-					className="w-full [&>*:last-child]:border-0">
+					type='multiple'
+					className='w-full [&>*:last-child]:border-0'>
 					<FacetedFilter
-						title="Company"
-						value="company"
+						title='Company'
+						value='company'
 						options={
-							companies?.map(c => ({ label: c.name, value: c._id })) ?? []
+							companies?.companies.map(c => ({
+								label: c.name,
+								value: c._id,
+							})) ?? []
 						}
 					/>
 					<FacetedFilter
-						title="Dosage form"
-						value="dosageForm"
+						title='Dosage form'
+						value='dosageForm'
 						options={
-							dosageForms?.map(f => ({ label: f.name, value: f._id })) ?? []
+							dosageForms?.dosageForms.map(f => ({
+								label: f.name,
+								value: f._id,
+							})) ?? []
 						}
 					/>
 
 					<FacetedFilter
-						title="Category"
-						value="category"
+						title='Category'
+						value='category'
 						options={
-							categories?.map(c => ({ label: c.name, value: c._id })) ?? []
+							categories?.categories.map(c => ({
+								label: c.name,
+								value: c._id,
+							})) ?? []
 						}
 					/>
 
 					<AccordionItem value={'price'}>
-						<AccordionTrigger className="typography-M14">
+						<AccordionTrigger className='typography-M14'>
 							Price
 						</AccordionTrigger>
-						<AccordionContent className="space-y-2">
+						<AccordionContent className='space-y-2'>
 							<Inputs />
 						</AccordionContent>
 					</AccordionItem>

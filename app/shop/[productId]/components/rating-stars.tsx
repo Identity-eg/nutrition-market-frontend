@@ -47,3 +47,5 @@ export const RatingStars = forwardRef<HTMLSpanElement, SpanProps>(
 		return <div className='flex gap-[2px]'>{rating}</div>;
 	}
 );
+
+RatingStars.displayName = 'RatingStars';

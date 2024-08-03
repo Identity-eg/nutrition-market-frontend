@@ -14,7 +14,9 @@ export default function ShopPage({
 		<section className='container grid grid-cols-[278px,1fr] gap-x-6 gap-y-8'>
 			<SortBy />
 			<FilterProducts searchParams={searchParams} />
-			<Suspense fallback={'Loading...'}>
+			<Suspense
+				key={JSON.stringify(searchParams)}
+				fallback={'Loading...'}>
 				<Products searchParams={searchParams} />
 			</Suspense>
 		</section>
