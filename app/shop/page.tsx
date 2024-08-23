@@ -11,7 +11,7 @@ export default function ShopPage({
 	searchParams: TSearchParams;
 }) {
 	return (
-		<section className='container grid grid-cols-[278px,1fr] gap-x-6 gap-y-8'>
+		<section className='container grid grid-cols-[278px,1fr] gap-x-6 gap-y-8 py-12'>
 			<SortBy />
 			<FilterProducts searchParams={searchParams} />
 			<Suspense

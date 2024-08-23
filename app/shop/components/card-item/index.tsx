@@ -1,23 +1,24 @@
-import Price from './price';
 import { RatingStars } from '../../[productId]/components/rating-stars';
 import Image from 'next/image';
 import Sale from './sale';
 import Link from 'next/link';
-import AddToCartButton from './add-to-cart-btn';
 import { TProduct } from 'types/product';
+import AddToCartButton from './add-to-cart-btn';
+import Price from './price';
 
-const CardItem = ({ name, price, images, averageRating, _id }: TProduct) => {
-	const primaryImage = images?.[0];
+const CardItem = ({ variants, averageRating, _id }: TProduct) => {
+	const defaltVariant = variants[0];
+	const primaryImage = defaltVariant.images?.[0];
 	return (
-		<div className='relative flex flex-col p-6 bg-white border rounded-md group border-gray-50 media-md:p-4'>
-			<Sale price={price} />
+		<div className='group relative flex flex-col rounded-md border border-gray-50 bg-white p-6 media-md:p-4'>
+			<Sale price={defaltVariant.price} />
 
-			<div className='relative flex items-center self-center justify-center w-full mb-2 overflow-hidden rounded-sm bg-gray-20'>
+			<div className='relative mb-2 flex w-full items-center justify-center self-center overflow-hidden rounded-sm bg-gray-20'>
 				<Link
 					href={`/shop/${_id}`}
-					className='flex items-center justify-center w-40 h-40 md:w-48 md:h-48 aspect-square'>
+					className='md:w-48 md:h-48 flex aspect-square h-40 w-40 items-center justify-center'>
 					<Image
-						className='object-contain w-4/5 p-2 transition duration-300 cursor-pointer aspect-square group-hover:scale-110 mix-blend-multiply'
+						className='aspect-square w-4/5 cursor-pointer object-contain p-2 mix-blend-multiply transition duration-300 group-hover:scale-110'
 						src={primaryImage.url}
 						alt={primaryImage.name}
 						width={300}
@@ -25,7 +26,7 @@ const CardItem = ({ name, price, images, averageRating, _id }: TProduct) => {
 					/>
 				</Link>
 
-				<div className='absolute top-0 flex flex-col gap-2 text-gray-500 transition-all duration-300 -right-10 group-hover:right-0'>
+				<div className='absolute -right-10 top-0 flex flex-col gap-2 text-gray-500 transition-all duration-300 group-hover:right-0'>
 					{/* <QuickViewButton
 						name={name}
 						images={images}
@@ -62,26 +63,29 @@ const CardItem = ({ name, price, images, averageRating, _id }: TProduct) => {
 				</div>
 			</div>
 
-			<div className='flex flex-col gap-2 mb-2'>
+			<div className='mb-2 flex flex-col gap-2'>
 				<Link
-					className='font-semibold text-blue-700 capitalize line-clamp-2'
+					className='text-blue-700 line-clamp-2 font-semibold capitalize'
 					href={`/shop/${_id}`}>
-					{name}
+					{defaltVariant.name}
 				</Link>
 
 				<div className='flex items-center gap-2'>
-					<div className='flex text-yellow-500'>
+					<div className='text-yellow-500 flex'>
 						<RatingStars averageRating={averageRating} />
 					</div>
 				</div>
 			</div>
 
-			<Price price={price} />
+			<Price
+				price={defaltVariant.price}
+				priceAfterDiscount={defaltVariant.priceAfterDiscount}
+			/>
 
-			<div className='w-full mt-auto'>
+			<div className='mt-auto w-full'>
 				<AddToCartButton
-				// colorId={colors[0]._id}
-				// productId={_id}
+					productId={_id}
+					variantId={defaltVariant._id}
 				/>
 			</div>
 		</div>

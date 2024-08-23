@@ -1,5 +1,6 @@
+'use client';
+
 import React from 'react';
-import qs from 'qs';
 import {
 	Pagination,
 	PaginationContent,
@@ -7,9 +8,8 @@ import {
 	PaginationPrevious,
 	PaginationLink,
 	PaginationNext,
-	PaginationEllipsis,
 } from 'components/ui/pagination';
-import { TSearchParams } from 'app/shop/page';
+import { useSearchParams } from 'next/navigation';
 
 const PAGINATION_DISPLAYED_LIMIT = 4;
 const MIDDLE_INDEX = Math.floor(PAGINATION_DISPLAYED_LIMIT / 2);
@@ -17,24 +17,24 @@ const MIDDLE_INDEX = Math.floor(PAGINATION_DISPLAYED_LIMIT / 2);
 export function PaginationContainer({
 	lastPage,
 	currentPage,
-	searchParams,
 }: {
-	searchParams: TSearchParams;
 	currentPage: number;
 	lastPage: number;
 }) {
-	const offset =
-		+searchParams.page >= MIDDLE_INDEX ? +searchParams.page - MIDDLE_INDEX : 0;
+	const sp = useSearchParams();
+	const pageParam = sp?.get('page') ?? '';
 
-	const sp = new URLSearchParams(searchParams);
+	const offset = +pageParam >= MIDDLE_INDEX ? +pageParam - MIDDLE_INDEX : 0;
+
+	const manipulatedSp = new URLSearchParams(sp);
 
 	const setPage = (value: string | number) => {
 		if (value === 1) {
-			sp.delete('page');
+			manipulatedSp.delete('page');
 		} else {
-			sp.set('page', String(value));
+			manipulatedSp.set('page', String(value));
 		}
-		return `?${sp.toString()}`;
+		return `?${manipulatedSp.toString()}`;
 	};
 
 	return (

@@ -1,13 +1,9 @@
 import { TCategory } from 'types/category';
 import { TCompany } from './company';
 import { TDosageForm } from './dosage-form';
-import { TUser } from './user';
 
 export type TProduct = {
 	_id: string;
-	name: string;
-	slug: string;
-	images: { url: string; name: string; size: number }[];
 	description: string;
 	nutritionFacts: TNutritionFacts;
 	company: Partial<TCompany>;
@@ -21,10 +17,7 @@ export type TProduct = {
 	freeShipping: boolean;
 	numReviews: number;
 	averageRating: number;
-	price: number;
-	quantity: number;
 	featured: boolean;
-	sold: number;
 	createdAt: string;
 	updatedAt: string;
 };
@@ -45,10 +38,13 @@ export type TNutritionFacts = {
 export type TVariant = {
 	_id: string;
 	name: string;
+	slug: string;
 	unitCount: number;
+	quantity: number;
 	flavor: string;
 	price: number;
-	images: TProduct['images'];
+	priceAfterDiscount: number;
+	images: { url: string; name: string; size: number }[];
 	createdAt: string;
 	updatedAt: string;
 };

@@ -1,27 +1,31 @@
-import { formatPrice } from 'lib/format-price';
-import { cn } from 'lib/utils';
-
+import { cn, convertToReadableNumber } from 'lib/utils';
 import { HtmlHTMLAttributes } from 'react';
-import { TProduct } from 'types/product';
+import {  TVariant } from 'types/product';
 
-type TPriceProps = Pick<TProduct, 'price'> & HtmlHTMLAttributes<HTMLDivElement>;
+type PriceProp = Pick<TVariant, 'price' | 'priceAfterDiscount'> & {
+	isForPage?: boolean;
+} & HtmlHTMLAttributes<HTMLDivElement>;
 
-const Price = ({ price }: TPriceProps) => {
-	const isDiscount = false;
+export default function Price({
+	priceAfterDiscount,
+	price,
+	isForPage = false,
+	className,
+}: PriceProp) {
 	return (
-		<div className={cn('mb-4 flex flex-wrap items-center gap-2')}>
-			<span className={`flex justify-start items-end gap-1 font-semibold text-gray-900`}>
-				{/* {formatPrice(null || price)} */}
-				{formatPrice(price)}
-				<span className='font-medium typography-R12'>EGP</span>
+		<div className={cn('mb-4 flex flex-wrap items-center gap-2', className)}>
+			<span
+				className={`flex justify-start gap-1 text-[#bc6c25] typography-SB20 ${
+					isForPage ? 'typography-SB24' : 'typography-M16'
+				}`}>
+				{convertToReadableNumber(priceAfterDiscount || price)}
+				<span className='typography-B14'>EGP</span>
 			</span>
-			{isDiscount ? (
-				<p className='flex items-start gap-1 line-through text-neutral-500 typography-R14'>
-					{formatPrice(price)}
+			{priceAfterDiscount ? (
+				<p className='flex items-start gap-1 text-gray-400 line-through typography-R16'>
+					{convertToReadableNumber(price)}
 				</p>
 			) : undefined}
 		</div>
 	);
-};
-
-export default Price;
+}

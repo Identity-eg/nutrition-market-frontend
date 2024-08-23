@@ -15,34 +15,23 @@ import {
 } from 'components/ui/sheet';
 import CartSideItem from './cartItem';
 // Utils
-import { useGetCart } from 'apis/cart';
+import { CartBtn } from './cart-btn';
+import { getCart } from 'apis/server/cart';
+import { Separator } from 'components/ui/separator';
 
-export function CartSidebar() {
-	const isFound = true;
-	// const cartQuery = useGetCart();
+export async function CartSidebar() {
+	const cart = await getCart();
 	return (
 		<Sheet>
 			<SheetTrigger className='relative flex items-center gap-2 text-green-500'>
-				<div className='relative'>
-					<ShoppingBasket />
-					<span className='absolute -top-3/4 right-1/2 flex size-[18px] translate-x-1/2 items-center justify-center rounded-full bg-[#dda15e] text-white typography-M12'>
-						2
-					</span>
-				</div>
-				<div className='flex flex-col items-start typography-M14'>
-					<p className='text-black'>Cart</p>
-					<p className='text-[#bc6c25]'>299 EGP</p>
-				</div>
+				<CartBtn />
 			</SheetTrigger>
 			<SheetContent>
 				<SheetHeader>
 					<SheetTitle className='capitalize'>shopping cart</SheetTitle>
-					<SheetDescription>
-						Make changes to your profile here. Click save when you&apos;re done.
-					</SheetDescription>
 				</SheetHeader>
-				{isFound ? (
-					<div className='mt-8 flex flex-col items-center justify-center gap-y-8'>
+				{'err' in cart ? (
+					<div className='flex flex-col items-center justify-center mt-8 gap-y-8'>
 						<Image
 							src='noCartFound.svg'
 							className='w-1/5'
@@ -56,16 +45,19 @@ export function CartSidebar() {
 					</div>
 				) : (
 					<div className='grid h-[calc(100vh-160px)] grid-rows-[1fr,auto,auto] gap-4'>
-						<ul className='divide-y divide-gray-200 overflow-y-auto'>
-							{/* {cartQuery.data.items?.map(item => (
-								<CartSideItem
-									key={item._id}
-									{...item}
-								/>
-							))} */}
+						<ul className='divide-y divide-gray-50'>
+							{cart?.items?.map(item => {
+								console.log({ item });
+								return (
+									<CartSideItem
+										key={item._id}    
+										{...item}
+									/>
+								);
+							})}
 						</ul>
 
-						<hr />
+						<Separator />
 
 						{/* Footer */}
 						<SheetFooter>
@@ -73,7 +65,7 @@ export function CartSidebar() {
 								<div className='flex justify-between gap-2 text-base font-medium text-gray-900'>
 									<div>
 										<p>Subtotal</p>
-										<p className='mt-0.5 text-sm text-gray-500'>
+										<p className='mt-0.5 text-gray-300 typography-R14'>
 											Shipping and taxes calculated at checkout.
 										</p>
 									</div>
@@ -82,9 +74,7 @@ export function CartSidebar() {
 
 								<div className='grid grid-cols-2 gap-4'>
 									<SheetClose asChild>
-										<Button
-											variant='destructive'
-											asChild>
+										<Button asChild>
 											<Link href='/checkout'>Checkout</Link>
 										</Button>
 									</SheetClose>
@@ -96,13 +86,13 @@ export function CartSidebar() {
 										</Button>
 									</SheetClose>
 								</div>
-								<div className='flex justify-center text-center text-sm text-gray-500'>
+								<div className='flex justify-center text-sm text-center text-gray-500'>
 									<p>
-										or
+										or{' '}
 										<SheetClose asChild>
 											<Link
 												href='/products'
-												className='text-neutral-800 hover:text-neutral-700 font-medium'>
+												className='font-medium text-neutral-800 hover:text-neutral-700'>
 												Continue Shopping
 												<span aria-hidden='true'> &rarr;</span>
 											</Link>

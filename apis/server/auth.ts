@@ -42,6 +42,12 @@ export const login = async (user: {
 		REFRESH_COOKIE_OPTIONS
 	);
 
+	if (data && cookies().get(process.env.CART_ID ?? '')) {
+		await request({
+			url: '/carts/sync',
+		});
+	}
+	cookies().delete(process.env.CART_ID ?? '');
 	return data;
 };
 

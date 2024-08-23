@@ -22,11 +22,14 @@ import {
 
 import { TSearchParams } from 'app/shop/page';
 import { RatingStars } from 'app/shop/[productId]/components/rating-stars';
-import Counter from 'app/shop/[productId]/components/counter';
 import Reviews from 'app/shop/[productId]/reviews';
 import SimilarProducts from 'app/shop/[productId]/similar-products';
 import ProductImages from 'app/shop/[productId]/images';
 import { TVariant } from 'types/product';
+import AddToCartButton from '../components/card-item/add-to-cart-btn';
+import { convertToReadableNumber } from 'lib/utils';
+import Price from '../components/card-item/price';
+import ActionBtns from './components/action-btns';
 
 const accordionToDisplay = [
 	{
@@ -76,6 +79,8 @@ export default async function ProductPage({
 
 	const product = await getSingleProduct({ productId: params.productId });
 
+	const defaultVariant = product.variants[0];
+
 	const setVariant = (variantId: string) => {
 		if (!variantId) {
 			manipulatedSp.delete('variant');
@@ -96,28 +101,28 @@ export default async function ProductPage({
 	return (
 		<div className='container pb-10'>
 			<div className='grid grid-cols-2'>
-				<div className='in flex flex-col justify-center gap-6 self-baseline border-r border-gray-50 p-6'>
+				<div className='flex flex-col justify-center gap-6 p-6 border-r in self-baseline border-gray-50'>
 					<ProductImages
-						images={variantsObj[variantId]?.images ?? product.images}
+						images={variantsObj[variantId]?.images || defaultVariant.images}
 					/>
 
 					<div>
 						<p className='mb-4 typography-B18'>Allergen notice</p>
 						<div className='flex gap-4 text-green-500'>
 							<div className='flex flex-col items-center justify-center'>
-								<div className='mb-2 rounded-full border border-green-500 p-6'>
+								<div className='p-6 mb-2 border border-green-500 rounded-full'>
 									<BeanOff />
 								</div>
 								<span className='typography-M16'>Soy-free</span>
 							</div>
 							<div className='flex flex-col items-center justify-center'>
-								<div className='mb-2 rounded-full border border-green-500 p-6'>
+								<div className='p-6 mb-2 border border-green-500 rounded-full'>
 									<WheatOff />
 								</div>
 								<span className='typography-M16'>Gluten-free</span>
 							</div>
 							<div className='flex flex-col items-center justify-center'>
-								<div className='mb-2 rounded-full border border-green-500 p-6'>
+								<div className='p-6 mb-2 border border-green-500 rounded-full'>
 									<DnaOff />
 								</div>
 								<span className='typography-M16'>No-gmo</span>
@@ -129,10 +134,10 @@ export default async function ProductPage({
 				<div className='p-6'>
 					<div className='mb-8 border-b border-gray-50 pb-[12px]'>
 						<h2 className='mb-1 text-green-500 typography-SB32'>
-							{variantsObj[variantId]?.name ?? product.name}
+							{variantsObj[variantId]?.name || defaultVariant.name}
 						</h2>
 
-						<div className='mb-6 flex items-center gap-4 text-gray-200 typography-R14'>
+						<div className='flex items-center gap-4 mb-6 text-gray-200 typography-R14'>
 							<RatingStars averageRating={product.averageRating} />
 
 							<Separator
@@ -153,32 +158,27 @@ export default async function ProductPage({
 								write a review
 							</Link>
 						</div>
-
-						<div className='text-[#bc6c25] typography-SB32'>
-							{variantsObj[variantId]?.price ?? product.price}{' '}
-							<span className='typography-M16'>EGP</span>
-						</div>
+						<Price
+							price={variantsObj[variantId]?.price || defaultVariant.price}
+							priceAfterDiscount={
+								variantsObj[variantId]?.priceAfterDiscount ||
+								defaultVariant.priceAfterDiscount
+							}
+						/>
 					</div>
 
 					<div className='flex h-[350px] flex-col border-b border-gray-50 pb-8'>
 						<div className='mb-[20px]'>
 							<h4 className='mb-2'>Count</h4>
 							<div className='flex items-center gap-[8px]'>
-								<Button
-									asChild
-									variant={variantId ? 'outline' : 'ghost-green'}>
-									<Link
-										prefetch
-										href={setVariant('')}>
-										{product.nutritionFacts.servingPerContainer} Caps
-									</Link>
-								</Button>
 								{product.variants.map(variant => (
 									<Button
 										key={variant._id}
 										asChild
 										variant={
-											variantId === variant._id ? 'ghost-green' : 'outline'
+											(variantId ?? defaultVariant._id) === variant._id
+												? 'ghost-green'
+												: 'outline'
 										}>
 										<Link
 											prefetch
@@ -190,10 +190,13 @@ export default async function ProductPage({
 							</div>
 						</div>
 
-						<div className='mt-auto flex w-[80%] gap-2'>
-							<Button className='w-full'>Add to cart</Button>
-							<Counter />
-						</div>
+						<ActionBtns
+							productId={product._id}
+							variantId={variantId || defaultVariant._id}
+							quantity={
+								variantsObj[variantId]?.quantity || defaultVariant.quantity
+							}
+						/>
 					</div>
 
 					<Accordion
@@ -207,7 +210,7 @@ export default async function ProductPage({
 									key={product.description}
 									value={category.name}>
 									<AccordionTrigger className='typography-B16'>
-										<span className='text flex items-center gap-2'>
+										<span className='flex items-center gap-2 text'>
 											{category.icon}
 											{category.displayName}
 										</span>
@@ -222,11 +225,11 @@ export default async function ProductPage({
 				</div>
 			</div>
 
-			<Separator className='mb-6 mt-20' />
+			<Separator className='mt-20 mb-6' />
 
 			<SimilarProducts productId={params.productId} />
 
-			<Separator className='mb-6 mt-20' />
+			<Separator className='mt-20 mb-6' />
 
 			<Reviews
 				productId={params.productId}

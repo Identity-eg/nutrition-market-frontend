@@ -32,7 +32,6 @@ export default async function Products({
 			</div>
 			{lastPage > 1 && (
 				<PaginationContainer
-					searchParams={searchParams}
 					lastPage={lastPage}
 					currentPage={currentPage}
 				/>
