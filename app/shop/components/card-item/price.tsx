@@ -1,6 +1,6 @@
 import { cn, convertToReadableNumber } from 'lib/utils';
 import { HtmlHTMLAttributes } from 'react';
-import {  TVariant } from 'types/product';
+import { TVariant } from 'types/product';
 
 type PriceProp = Pick<TVariant, 'price' | 'priceAfterDiscount'> & {
 	isForPage?: boolean;
