@@ -25,9 +25,6 @@ import { RatingStars } from 'app/shop/[productId]/components/rating-stars';
 import Reviews from 'app/shop/[productId]/reviews';
 import SimilarProducts from 'app/shop/[productId]/similar-products';
 import ProductImages from 'app/shop/[productId]/images';
-import { TVariant } from 'types/product';
-import AddToCartButton from '../components/card-item/add-to-cart-btn';
-import { convertToReadableNumber } from 'lib/utils';
 import Price from '../components/card-item/price';
 import ActionBtns from './components/action-btns';
 
@@ -79,50 +76,41 @@ export default async function ProductPage({
 
 	const product = await getSingleProduct({ productId: params.productId });
 
-	const defaultVariant = product.variants[0];
+	const variant =
+		product.variants.find(v => v._id === variantId) ?? product.variants[0];
 
-	const setVariant = (variantId: string) => {
+	function setVariant(variantId: string) {
 		if (!variantId) {
 			manipulatedSp.delete('variant');
 		} else {
 			manipulatedSp.set('variant', variantId);
 		}
 		return `?${manipulatedSp.toString()}`;
-	};
-
-	const variantsObj: Record<string, TVariant> = product.variants.reduce(
-		(acc, variant) => {
-			acc[variant._id] = variant;
-			return acc;
-		},
-		{} as Record<string, TVariant>
-	);
+	}
 
 	return (
 		<div className='container pb-10'>
 			<div className='grid grid-cols-2'>
-				<div className='flex flex-col justify-center gap-6 p-6 border-r in self-baseline border-gray-50'>
-					<ProductImages
-						images={variantsObj[variantId]?.images || defaultVariant.images}
-					/>
+				<div className='in flex flex-col justify-center gap-6 self-baseline border-r border-gray-50 p-6'>
+					<ProductImages images={variant.images} />
 
 					<div>
 						<p className='mb-4 typography-B18'>Allergen notice</p>
 						<div className='flex gap-4 text-green-500'>
 							<div className='flex flex-col items-center justify-center'>
-								<div className='p-6 mb-2 border border-green-500 rounded-full'>
+								<div className='mb-2 rounded-full border border-green-500 p-6'>
 									<BeanOff />
 								</div>
 								<span className='typography-M16'>Soy-free</span>
 							</div>
 							<div className='flex flex-col items-center justify-center'>
-								<div className='p-6 mb-2 border border-green-500 rounded-full'>
+								<div className='mb-2 rounded-full border border-green-500 p-6'>
 									<WheatOff />
 								</div>
 								<span className='typography-M16'>Gluten-free</span>
 							</div>
 							<div className='flex flex-col items-center justify-center'>
-								<div className='p-6 mb-2 border border-green-500 rounded-full'>
+								<div className='mb-2 rounded-full border border-green-500 p-6'>
 									<DnaOff />
 								</div>
 								<span className='typography-M16'>No-gmo</span>
@@ -134,10 +122,10 @@ export default async function ProductPage({
 				<div className='p-6'>
 					<div className='mb-8 border-b border-gray-50 pb-[12px]'>
 						<h2 className='mb-1 text-green-500 typography-SB32'>
-							{variantsObj[variantId]?.name || defaultVariant.name}
+							{variant.name}
 						</h2>
 
-						<div className='flex items-center gap-4 mb-6 text-gray-200 typography-R14'>
+						<div className='mb-6 flex items-center gap-4 text-gray-200 typography-R14'>
 							<RatingStars averageRating={product.averageRating} />
 
 							<Separator
@@ -159,11 +147,8 @@ export default async function ProductPage({
 							</Link>
 						</div>
 						<Price
-							price={variantsObj[variantId]?.price || defaultVariant.price}
-							priceAfterDiscount={
-								variantsObj[variantId]?.priceAfterDiscount ||
-								defaultVariant.priceAfterDiscount
-							}
+							price={variant.price}
+							priceAfterDiscount={variant.priceAfterDiscount}
 						/>
 					</div>
 
@@ -171,19 +156,17 @@ export default async function ProductPage({
 						<div className='mb-[20px]'>
 							<h4 className='mb-2'>Count</h4>
 							<div className='flex items-center gap-[8px]'>
-								{product.variants.map(variant => (
+								{product.variants.map(va => (
 									<Button
-										key={variant._id}
+										key={va._id}
 										asChild
 										variant={
-											(variantId ?? defaultVariant._id) === variant._id
-												? 'ghost-green'
-												: 'outline'
+											variant._id === va._id ? 'ghost-green' : 'outline'
 										}>
 										<Link
 											prefetch
-											href={setVariant(variant._id)}>
-											{variant.unitCount} Caps
+											href={setVariant(va._id)}>
+											{va.unitCount} Caps
 										</Link>
 									</Button>
 								))}
@@ -192,10 +175,8 @@ export default async function ProductPage({
 
 						<ActionBtns
 							productId={product._id}
-							variantId={variantId || defaultVariant._id}
-							quantity={
-								variantsObj[variantId]?.quantity || defaultVariant.quantity
-							}
+							variantId={variant._id}
+							quantity={variant.quantity}
 						/>
 					</div>
 
@@ -210,7 +191,7 @@ export default async function ProductPage({
 									key={product.description}
 									value={category.name}>
 									<AccordionTrigger className='typography-B16'>
-										<span className='flex items-center gap-2 text'>
+										<span className='text flex items-center gap-2'>
 											{category.icon}
 											{category.displayName}
 										</span>
@@ -225,11 +206,11 @@ export default async function ProductPage({
 				</div>
 			</div>
 
-			<Separator className='mt-20 mb-6' />
+			<Separator className='mb-6 mt-20' />
 
 			<SimilarProducts productId={params.productId} />
 
-			<Separator className='mt-20 mb-6' />
+			<Separator className='mb-6 mt-20' />
 
 			<Reviews
 				productId={params.productId}

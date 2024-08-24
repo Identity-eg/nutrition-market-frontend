@@ -43,6 +43,9 @@ export default function FacetedFilter({
 									} else {
 										searchParams.delete(value, option.value);
 									}
+									if (searchParams.get('page')) {
+										searchParams.set('page', '1');
+									}
 									router.push(`?${searchParams.toString()}`);
 								}}
 								checked={facet.includes(option.value)}
