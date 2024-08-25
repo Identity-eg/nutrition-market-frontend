@@ -1,17 +1,33 @@
 'use client';
 
+import React from 'react';
 import { useDeleteCartItem } from 'apis/cart';
+import { cn } from 'lib/utils';
 import { X } from 'lucide-react';
 
-export function DeleteCartItemBtn({ itemId }: { itemId: string }) {
+export interface ButtonProps
+	extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+	itemId: string;
+}
+
+export const DeleteCartItemBtn = React.forwardRef<
+	HTMLButtonElement,
+	ButtonProps
+>(({ className, itemId, ...props }, ref) => {
 	const deleteCartItem = useDeleteCartItem();
 	return (
-		<div
+		<button
+			{...props}
+			ref={ref}
 			onClick={() => {
 				deleteCartItem.mutate({ itemId });
 			}}
-			className='absolute left-0 top-0 flex size-[18px] -translate-x-1/2 -translate-y-1/2 cursor-pointer items-center justify-center rounded-full bg-gray-300 text-white'>
+			className={cn(
+				'absolute left-0 top-0 flex size-[18px] -translate-x-1/2 -translate-y-1/2 cursor-pointer items-center justify-center rounded-full bg-gray-300 text-white',
+				className
+			)}>
 			<X size={14} />
-		</div>
+		</button>
 	);
-}
+});
+DeleteCartItemBtn.displayName = 'DeleteCartItemBtn';

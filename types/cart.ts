@@ -17,7 +17,7 @@ export type TCartItem = {
 
 export type TCart = {
 	_id: string;
-	user: string;
+	user: string | undefined;
 	items: TCartItem[];
 	totalItems: number;
 	totalPrice: number;

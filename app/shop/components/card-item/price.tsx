@@ -2,9 +2,12 @@ import { cn, convertToReadableNumber } from 'lib/utils';
 import { HtmlHTMLAttributes } from 'react';
 import { TVariant } from 'types/product';
 
-type PriceProp = Pick<TVariant, 'price' | 'priceAfterDiscount'> & {
+interface PriceProp
+	extends Pick<TVariant, 'price'>,
+		HtmlHTMLAttributes<HTMLDivElement> {
 	isForPage?: boolean;
-} & HtmlHTMLAttributes<HTMLDivElement>;
+	priceAfterDiscount?: number;
+}
 
 export default function Price({
 	priceAfterDiscount,

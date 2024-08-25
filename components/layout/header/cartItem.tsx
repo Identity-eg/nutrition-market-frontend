@@ -20,7 +20,7 @@ export default function CartSideItem({
 	return (
 		<li
 			key={_id}
-			className='relative flex gap-4 py-6'>
+			className='flex gap-4 py-6'>
 			<div className='w-20 space-y-2'>
 				<div className='relative aspect-square h-auto w-full flex-shrink-0 rounded-md bg-gray-30'>
 					<Image
@@ -32,7 +32,10 @@ export default function CartSideItem({
 					/>
 					<DeleteCartItemBtn itemId={_id} />
 				</div>
-				<IncDecBtn amount={amount} />
+				<IncDecBtn
+					amount={amount}
+					itemId={_id}
+				/>
 			</div>
 
 			<div className='flex w-full flex-col justify-between'>

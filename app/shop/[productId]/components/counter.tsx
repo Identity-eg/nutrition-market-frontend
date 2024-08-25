@@ -17,7 +17,7 @@ export function Counter({
 			<h3>{count}</h3>
 			<span
 				onClick={increaseByOne}
-				className='cursor-pointer text-green-500'>
+				className='cursor-pointer text-green-light-700'>
 				+
 			</span>
 		</div>
