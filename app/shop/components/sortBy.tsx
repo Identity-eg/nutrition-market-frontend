@@ -9,7 +9,6 @@ import {
 } from 'components/ui/select';
 import { SORT_OPTIONS } from 'constants/index';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { useEffect, useState } from 'react';
 
 export default function SortBy() {
 	const router = useRouter();
@@ -19,7 +18,7 @@ export default function SortBy() {
 	return (
 		<article className='col-span-2 flex w-auto justify-between gap-x-4 media-sm:justify-self-end'>
 			<div className='flex items-center justify-center gap-x-4'>
-				<span className='capitalize text-gray-100 typography-M13'>
+				<span className={'capitalize text-gray-100 typography-M13'}>
 					sort by :
 				</span>
 				<Select

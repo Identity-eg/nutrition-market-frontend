@@ -17,7 +17,7 @@
       }
 
       .cls-2 {
-        stroke: #be1e2d;
+        stroke: green;
       }
     </style>
   </defs>

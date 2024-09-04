@@ -10,18 +10,18 @@ const CardItem = ({ variants, averageRating, _id }: TProduct) => {
 	const defaltVariant = variants[0];
 	const primaryImage = defaltVariant.images?.[0];
 	return (
-		<div className='group relative flex flex-col rounded-md border border-gray-50 bg-white p-6 media-md:p-4'>
+		<div className='relative flex flex-col p-6 bg-white border rounded-md group border-gray-50 media-md:p-4'>
 			<Sale
 				price={defaltVariant.price}
 				priceAfterDiscount={defaltVariant.priceAfterDiscount}
 			/>
 
-			<div className='relative mb-2 flex w-full items-center justify-center self-center overflow-hidden rounded-sm bg-gray-20'>
+			<div className='relative flex items-center self-center justify-center w-full mb-2 overflow-hidden rounded-sm bg-gray-20'>
 				<Link
 					href={`/shop/${_id}`}
-					className='md:w-48 md:h-48 flex aspect-square h-40 w-40 items-center justify-center'>
+					className='flex items-center justify-center w-40 h-40 md:w-48 md:h-48 aspect-square'>
 					<Image
-						className='aspect-square w-4/5 cursor-pointer object-contain p-2 mix-blend-multiply transition duration-300 group-hover:scale-110'
+						className='object-contain w-4/5 p-2 transition duration-300 cursor-pointer aspect-square mix-blend-multiply group-hover:scale-110'
 						src={primaryImage.url}
 						alt={primaryImage.name}
 						width={300}
@@ -29,7 +29,7 @@ const CardItem = ({ variants, averageRating, _id }: TProduct) => {
 					/>
 				</Link>
 
-				<div className='absolute -right-10 top-0 flex flex-col gap-2 text-gray-500 transition-all duration-300 group-hover:right-0'>
+				<div className='absolute top-0 flex flex-col gap-2 text-gray-500 transition-all duration-300 -right-10 group-hover:right-0'>
 					{/* <QuickViewButton
 						name={name}
 						images={images}
@@ -66,27 +66,27 @@ const CardItem = ({ variants, averageRating, _id }: TProduct) => {
 				</div>
 			</div>
 
-			<div className='mb-2 flex flex-col gap-2'>
-				<Link
-					className='text-blue-700 line-clamp-2 font-semibold capitalize'
-					href={`/shop/${_id}`}>
-					{defaltVariant.name}
-				</Link>
+			<Link
+				className='mb-2 line-clamp-2 typography-M16'
+				href={`/shop/${_id}`}>
+				{defaltVariant.name}
+			</Link>
 
-				<RatingStars averageRating={averageRating} />
-			</div>
+			<RatingStars
+				averageRating={averageRating}
+				className='mb-4'
+			/>
 
 			<Price
+				finalPriceClassName='typography-SB18'
 				price={defaltVariant.price}
 				priceAfterDiscount={defaltVariant.priceAfterDiscount}
 			/>
 
-			{/* <div className='w-full mt-auto'> */}
 			<AddToCartButton
 				productId={_id}
 				variantId={defaltVariant._id}
 			/>
-			{/* </div> */}
 		</div>
 	);
 };

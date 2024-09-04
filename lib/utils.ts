@@ -1,9 +1,5 @@
 import { type ClassValue, clsx } from 'clsx';
-import { twMerge } from 'tailwind-merge';
-
-export function cn(...inputs: ClassValue[]) {
-	return twMerge(clsx(inputs));
-}
+import { extendTailwindMerge } from 'tailwind-merge';
 
 export const createTypographyUtilities = ({
 	fontSizeRange,
@@ -42,4 +38,22 @@ export function convertToReadableNumber(num: any) {
 	}
 
 	return num;
+}
+
+const customTwMerge = extendTailwindMerge<'typography'>({
+	extend: {
+		classGroups: {
+			typography: {
+				typography: Object.keys(
+					createTypographyUtilities({
+						fontSizeRange: [12, 13, 14, 16, 18, 20, 24, 28, 32, 36, 48, 52],
+					})
+				).map(k => k.replace('.typography-', '')),
+			},
+		},
+	},
+});
+
+export function cn(...inputs: ClassValue[]) {
+	return customTwMerge(clsx(inputs));
 }

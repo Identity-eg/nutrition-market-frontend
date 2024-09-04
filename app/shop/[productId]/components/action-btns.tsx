@@ -1,9 +1,8 @@
 'use client';
 
-import AddToCartButton from 'app/shop/components/card-item/add-to-cart-btn/add-to-cart-btn';
-import { Counter } from './counter';
 import { useState } from 'react';
-import { CircleAlert } from 'lucide-react';
+import { Counter } from './counter';
+import AddToCartButton from 'app/shop/components/card-item/add-to-cart-btn';
 
 export default function ActionBtns({
 	productId,

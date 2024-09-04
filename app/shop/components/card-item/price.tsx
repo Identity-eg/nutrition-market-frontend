@@ -7,27 +7,35 @@ interface PriceProp
 		HtmlHTMLAttributes<HTMLDivElement> {
 	isForPage?: boolean;
 	priceAfterDiscount?: number;
+	finalPriceClassName?: HtmlHTMLAttributes<HTMLSpanElement>['className'];
+	previousPriceClassName?: HtmlHTMLAttributes<HTMLSpanElement>['className'];
 }
 
 export default function Price({
 	priceAfterDiscount,
 	price,
-	isForPage = false,
+	finalPriceClassName,
+	previousPriceClassName,
 	className,
 }: PriceProp) {
 	return (
 		<div className={cn('mb-4 flex flex-wrap items-center gap-2', className)}>
 			<span
-				className={`flex justify-start gap-1 text-[#bc6c25] typography-SB20 ${
-					isForPage ? 'typography-SB24' : 'typography-M16'
-				}`}>
+				className={cn(
+					'flex justify-start gap-1 text-[#bc6c25] typography-SB20',
+					finalPriceClassName
+				)}>
 				{convertToReadableNumber(priceAfterDiscount || price)}
-				<span className='typography-B14'>EGP</span>
+				<span>EGP</span>
 			</span>
 			{priceAfterDiscount ? (
-				<p className='flex items-start gap-1 text-gray-400 line-through typography-R16'>
+				<span
+					className={cn(
+						'flex items-start gap-1 text-gray-400 line-through typography-R16',
+						previousPriceClassName
+					)}>
 					{convertToReadableNumber(price)}
-				</p>
+				</span>
 			) : undefined}
 		</div>
 	);

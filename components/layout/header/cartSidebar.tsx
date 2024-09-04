@@ -17,6 +17,7 @@ import CartSideItem from './cartItem';
 import { CartBtn } from './cart-btn';
 import { getCart } from 'apis/server/cart';
 import { Separator } from 'components/ui/separator';
+import noCartFound from 'assets/no-cart-found.svg';
 import Price from 'app/shop/components/card-item/price';
 
 export async function CartSidebar() {
@@ -34,21 +35,19 @@ export async function CartSidebar() {
 				</SheetHeader>
 
 				{isCartEmpty ? (
-					<div className='mt-8 flex flex-col items-center justify-center gap-y-8'>
+					<div className='mt-8 flex flex-col items-center justify-center gap-y-4'>
 						<Image
-							src='noCartFound.svg'
+							src={noCartFound}
 							className='w-1/5'
 							alt='No products found in cart'
 							width={500}
 							height={500}
 						/>
-						<h1 className='text-center text-gray-800'>
-							No products found in your cart
-						</h1>
+						<h1 className='text-center text-gray-800'>Your cart is empty</h1>
 					</div>
 				) : (
 					<>
-						<ul className='relative flex-1 divide-y divide-gray-50 overflow-x-visible'>
+						<ul className='relative flex-1 divide-y divide-gray-50 overflow-y-auto'>
 							{cart?.items?.map(item => {
 								return (
 									<CartSideItem
@@ -70,8 +69,8 @@ export async function CartSidebar() {
 									</p>
 								</div>
 								<Price
+									finalPriceClassName='typography-B18'
 									price={cart.totalPrice}
-									priceAfterDiscount={undefined}
 								/>
 							</div>
 

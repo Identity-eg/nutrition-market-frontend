@@ -21,26 +21,23 @@ export function IncDecBtn({
 			});
 		},
 	});
-	const { execute: decreaseItemByOneAction, result } =
-		useAction(decreaseItemByOne);
-
-	console.log({ result });
+	const { execute: decreaseItemByOneAction } = useAction(decreaseItemByOne);
 
 	return (
-		<div className='flex max-w-[107px] flex-grow items-center justify-center gap-6 rounded-md border border-gray-40 px-4'>
+		<div className='flex max-w-[107px] flex-1 items-center justify-between rounded-md border border-gray-40'>
 			<button
 				onClick={() => {
 					if (amount === 1) return;
 					decreaseItemByOneAction({ itemId });
 				}}
-				className='cursor-pointer'>
+				className='cursor-pointer px-2'>
 				-
 			</button>
 
 			<h3>{amount}</h3>
 			<button
 				onClick={() => increaseItemByOneAction({ itemId })}
-				className='cursor-pointer text-green-light-700'>
+				className='cursor-pointer px-2 text-green-light-700'>
 				+
 			</button>
 		</div>

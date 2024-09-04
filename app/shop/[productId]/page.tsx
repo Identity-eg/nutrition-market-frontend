@@ -4,6 +4,7 @@ import parse from 'html-react-parser';
 import {
 	BeanOff,
 	Calendar,
+	Circle,
 	CircleAlert,
 	CircleCheck,
 	DnaOff,
@@ -27,6 +28,7 @@ import SimilarProducts from 'app/shop/[productId]/similar-products';
 import ProductImages from 'app/shop/[productId]/images';
 import Price from '../components/card-item/price';
 import ActionBtns from './components/action-btns';
+import { cn } from 'lib/utils';
 
 const accordionToDisplay = [
 	{
@@ -121,8 +123,16 @@ export default async function ProductPage({
 
 				<div className='p-6'>
 					<div className='mb-8 border-b border-gray-50 pb-[12px]'>
-						<h2 className='mb-1 text-green-500 typography-SB32'>
+						<h2 className='mb-1 inline-block items-center justify-center text-green-500 typography-SB32'>
 							{variant.name}
+
+							<Circle
+								size={14}
+								className={cn(
+									'ml-4 inline-block rounded-full bg-green-light-500',
+									variant.quantity ? 'text-green-light-500' : 'text-red-500'
+								)}
+							/>
 						</h2>
 
 						<div className='mb-6 flex items-center gap-4 text-gray-200 typography-R14'>
@@ -147,6 +157,7 @@ export default async function ProductPage({
 							</Link>
 						</div>
 						<Price
+							finalPriceClassName='typography-SB24'
 							price={variant.price}
 							priceAfterDiscount={variant.priceAfterDiscount}
 						/>

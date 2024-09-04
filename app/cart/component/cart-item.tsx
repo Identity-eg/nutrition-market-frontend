@@ -40,7 +40,7 @@ export function CartItem({
 				<h3 className='flex justify-between gap-4'>
 					<Link
 						href={`/shop/${product._id}?variant=${selectedVariant._id}`}
-						className='mb-2 text-green-700 line-clamp-2 typography-SB18'>
+						className='mb-2 text-green-700 line-clamp-2 typography-SB16'>
 						{selectedVariant.name}
 					</Link>
 					<span className='flex items-center self-start justify-start gap-2 px-2 py-1 border rounded-md border-gray-40'>

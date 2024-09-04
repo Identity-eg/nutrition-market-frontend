@@ -4,6 +4,7 @@ import Image from 'next/image';
 import { getReviews } from 'apis/server/reviews';
 import { TProduct } from 'types/product';
 import { getCredential } from 'apis/helpers';
+import noReviewFound from 'assets/no-review-found.svg';
 
 export default async function ReviewsList({
 	productId,
@@ -16,14 +17,14 @@ export default async function ReviewsList({
 
 	if (!count) {
 		return (
-			<div className='flex h-full flex-col items-center justify-center gap-4'>
-				{/* <Image
+			<div className='flex flex-col items-center justify-center h-full gap-4'>
+				<Image
 					width={500}
 					height={500}
-					src={'imgReview'}
+					src={noReviewFound}
 					className='w-[8%]'
 					alt='No reviews on this product'
-				/> */}
+				/>
 				<h1 className='text-center text-gray-800'>
 					No reviews on this product
 				</h1>
