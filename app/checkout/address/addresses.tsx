@@ -10,7 +10,7 @@ export default function Addresses({ addresses }: { addresses: TAddress[] }) {
 		<RadioGroup
 			asChild
 			defaultValue={addresses[0]._id}
-			className='divide-y divide-gray-50'>
+			className='gap-0 divide-y divide-gray-50'>
 			<ul>
 				{addresses.map(add => (
 					<li
