@@ -6,10 +6,7 @@ import { revalidateTag } from 'next/cache';
 import { cookies } from 'next/headers';
 import { actionClient } from 'apis/action-clients';
 import { z } from 'zod';
-
-const Tags = {
-	cart: 'get-cart',
-} as const;
+import { Tags } from 'types/tags';
 
 export const getCart = async (): Promise<TCart> => {
 	const data = await request({

@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { cn, convertToReadableNumber } from 'lib/utils';
+import { Card } from 'components/ui/card';
 
 export function CartSummary({
 	totalPrice,
@@ -9,7 +10,7 @@ export function CartSummary({
 	isCartEmpty: boolean;
 }) {
 	return (
-		<div className='flex min-w-[380px] flex-col justify-between self-start rounded-lg border border-gray-40 bg-white p-6'>
+		<Card className='flex min-w-[380px] flex-col justify-between self-start  p-6'>
 			<h1 className='pb-4 mb-4 text-gray-800 capitalize border-b border-gray-40 typography-SB20'>
 				Product summary
 			</h1>
@@ -46,6 +47,6 @@ export function CartSummary({
 				)}>
 				Checkout
 			</Link>
-		</div>
+		</Card>
 	);
 }
