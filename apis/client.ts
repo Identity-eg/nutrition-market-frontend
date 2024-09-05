@@ -21,6 +21,9 @@ export const request = async ({ ...options }: TOptions) => {
 		}),
 		cookie: cookies().toString(),
 		'Content-Type': 'application/json',
+		...(process.env.NEXT_PUBLIC_API_KEY && {
+			'api-key': process.env.NEXT_PUBLIC_API_KEY,
+		}),
 	};
 
 	try {

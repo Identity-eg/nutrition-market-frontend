@@ -17,10 +17,11 @@ export const getCart = async (): Promise<TCart> => {
 	return data.cart;
 };
 
+// ##################### ADD ITEM TO CART ######################
 const addItemToCartSchema = z.object({
-	productId: z.string(),
+	productId: z.string().min(1, 'productId is required'),
 	amount: z.number(),
-	variantId: z.string(),
+	variantId: z.string().min(1, 'variantId is required'),
 });
 
 export const addItemToCart = actionClient.schema(addItemToCartSchema).action(
@@ -44,31 +45,54 @@ export const addItemToCart = actionClient.schema(addItemToCartSchema).action(
 	{ onSettled: () => revalidateTag(Tags.cart) }
 );
 
-export const deleteItemFromCart = async ({
-	itemId,
-}: {
-	itemId: string;
-}): Promise<{ msg: string; isCartEmpty?: boolean } | { err: string }> => {
-	try {
+// ##################### DELETE ITEM FROM CART ######################
+// export const deleteItemFromCart = async ({
+// 	itemId,
+// }: {
+// 	itemId: string;
+// }): Promise<{ msg: string; isCartEmpty?: boolean } | { err: string }> => {
+// 	try {
+// 		const data = await request({
+// 			url: `/carts/${itemId}`,
+// 			method: 'DELETE',
+// 		});
+
+// 		if (data?.isCartEmpty) {
+// 			cookies().delete(process.env.CART_ID ?? '');
+// 		}
+
+// 		return data;
+// 	} catch (err) {
+// 		return { err: (err as Error).message };
+// 	} finally {
+// 		revalidateTag(Tags.cart);
+// 	}
+// };
+const itemOperationSchema = z.object({
+	itemId: z.string().min(1, 'ItemId is required'),
+});
+export const deleteItemFromCart = actionClient.schema(itemOperationSchema).action(
+	async ({ parsedInput: { itemId } }) => {
 		const data = await request({
 			url: `/carts/${itemId}`,
 			method: 'DELETE',
 		});
 
-		if (data?.isCartEmpty) {
-			cookies().delete(process.env.CART_ID ?? '');
-		}
-
 		return data;
-	} catch (err) {
-		return { err: (err as Error).message };
-	} finally {
-		revalidateTag(Tags.cart);
+	},
+	{
+		onSuccess: data => {
+			if (data?.isCartEmpty) {
+				cookies().delete(process.env.CART_ID ?? '');
+			}
+		},
+		onSettled: () => revalidateTag(Tags.cart),
 	}
-};
+);
 
+// ##################### INCREASE & DECREASE BY ONE ######################
 const increaseDecreaseSchema = z.object({
-	itemId: z.string(),
+	itemId: z.string().min(1, 'ItemId is required'),
 });
 
 export const increaseItemByOne = actionClient
@@ -90,8 +114,7 @@ export const decreaseItemByOne = actionClient
 	.action(
 		async ({ parsedInput: { itemId } }) => {
 			const data = await request({
-				url: `/carts/${itemId}/reduce
-			-one`,
+				url: `/carts/${itemId}/reduce-one`,
 				method: 'POST',
 			});
 
