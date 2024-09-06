@@ -72,7 +72,7 @@ export default function AddressForm({
 	return (
 		<form
 			onSubmit={form.handleSubmit(onSubmit)}
-			className='pt-6 space-y-8'>
+			className='space-y-8 pt-6'>
 			<Form {...form}>
 				<FormField
 					control={form.control}
@@ -84,7 +84,6 @@ export default function AddressForm({
 								<Input
 									size='sm'
 									variant='outline'
-									required
 									placeholder='e.g. Mohamed'
 									{...field}
 								/>
@@ -103,7 +102,6 @@ export default function AddressForm({
 								<Input
 									size='sm'
 									variant='outline'
-									required
 									placeholder='e.g. Mohamed'
 									{...field}
 								/>
@@ -121,7 +119,6 @@ export default function AddressForm({
 								<FormLabel>Phone Number</FormLabel>
 								<FormControl>
 									<NumericField
-										required
 										type='number'
 										placeholder='e.g. 01234567891'
 										{...field}
@@ -140,7 +137,6 @@ export default function AddressForm({
 								<FormControl>
 									<NumericField
 										type='number'
-										required
 										{...field}
 									/>
 								</FormControl>
@@ -154,7 +150,7 @@ export default function AddressForm({
 						control={form.control}
 						name='governorate'
 						render={({ field }) => (
-							<FormItem className='flex flex-col w-full'>
+							<FormItem className='flex w-full flex-col'>
 								<FormLabel>City</FormLabel>
 								<FormControl>
 									<Popover>
@@ -172,7 +168,7 @@ export default function AddressForm({
 																language => language.value === field.value
 															)?.label
 														: 'Select city'}
-													<ChevronsUpDown className='w-4 h-4 ml-2 opacity-50 shrink-0' />
+													<ChevronsUpDown className='ml-2 h-4 w-4 shrink-0 opacity-50' />
 												</Button>
 											</FormControl>
 										</PopoverTrigger>
@@ -214,7 +210,7 @@ export default function AddressForm({
 						control={form.control}
 						name='district'
 						render={({ field }) => (
-							<FormItem className='flex flex-col w-full'>
+							<FormItem className='flex w-full flex-col'>
 								<FormLabel>Area</FormLabel>
 								<FormControl>
 									<Popover>
@@ -232,7 +228,7 @@ export default function AddressForm({
 																language => language.value === field.value
 															)?.label
 														: 'Select area'}
-													<ChevronsUpDown className='w-4 h-4 ml-2 opacity-50 shrink-0' />
+													<ChevronsUpDown className='ml-2 h-4 w-4 shrink-0 opacity-50' />
 												</Button>
 											</FormControl>
 										</PopoverTrigger>
@@ -281,7 +277,6 @@ export default function AddressForm({
 								<Input
 									size='sm'
 									variant='outline'
-									required
 									placeholder='Street name or special landmark'
 									{...field}
 								/>
@@ -301,7 +296,6 @@ export default function AddressForm({
 									<Input
 										size='sm'
 										variant='outline'
-										required
 										{...field}
 									/>
 								</FormControl>
@@ -319,7 +313,6 @@ export default function AddressForm({
 									<Input
 										size='sm'
 										variant='outline'
-										required
 										{...field}
 									/>
 								</FormControl>
@@ -335,7 +328,7 @@ export default function AddressForm({
 				disabled={isPending}>
 				{isPending ? (
 					<>
-						<Loader2 className='w-4 h-4 mr-2 animate-spin' />
+						<Loader2 className='mr-2 h-4 w-4 animate-spin' />
 						Please wait
 					</>
 				) : (

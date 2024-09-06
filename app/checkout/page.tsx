@@ -1,4 +1,4 @@
-import { CartSummary } from 'app/cart/component/cart-summary';
+import { CartSummary } from 'app/cart/components/cart-summary';
 import ShippingAddress from './address';
 import { getUserAddresses } from 'apis/server/address';
 

@@ -93,7 +93,7 @@ export async function CartSidebar() {
 									or{' '}
 									<SheetClose asChild>
 										<Link
-											href='/products'
+											href='/shop'
 											className='text-neutral-800 hover:text-neutral-700 font-medium'>
 											Continue Shopping
 											<span aria-hidden='true'> &rarr;</span>
