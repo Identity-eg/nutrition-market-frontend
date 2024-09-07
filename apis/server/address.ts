@@ -13,7 +13,7 @@ const addAddressSchema = z.object({
 	phone: z.number(),
 	additionalPhone: z.number(),
 	governorate: z.string(),
-	district: z.string(),
+	city: z.string(),
 	street: z.string(),
 	buildingNo: z.string(),
 	floor: z.string(),

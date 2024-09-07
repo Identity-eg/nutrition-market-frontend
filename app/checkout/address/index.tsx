@@ -8,34 +8,42 @@ import Addresses from './addresses';
 import { TAddress } from 'types/address';
 import { useState } from 'react';
 import AddressForm from './form';
+import { TGovernorate } from 'types/egypt';
 
 export default function ShippingAddress({
+	governorates,
 	addresses,
 }: {
+	governorates: TGovernorate[];
 	addresses: TAddress[];
 }) {
-	const [isAddingAddressMode, setIsAddingAddressMode] = useState(
-		addresses.length === 0
-	);
+	const isUserHasAddress = addresses.length !== 0;
+	const [isInFormMode, setIsInFormMode] = useState(!isUserHasAddress);
 
 	return (
 		<Card className='p-6'>
 			<div className='flex justify-between typography-SB20'>
 				Shipping Address
-				<Button
-					onClick={() => setIsAddingAddressMode(true)}
-					aria-label='Add new address'
-					variant='outline'
-					className='rounded-full size-8'
-					size='icon'>
-					<Plus size={16} />
-				</Button>
+				{!isInFormMode && (
+					<Button
+						onClick={() => setIsInFormMode(true)}
+						aria-label='Add new address'
+						variant='primary'
+						className='size-8 rounded-full'
+						size='icon'>
+						<Plus size={16} />
+					</Button>
+				)}
 			</div>
-			{isAddingAddressMode ? (
-				<AddressForm cancelAddingMode={() => setIsAddingAddressMode(false)} />
-			) : (
-				<Addresses addresses={addresses} />
+
+			{isInFormMode && (
+				<AddressForm
+					governorates={governorates}
+					isUserHasAddress={isUserHasAddress}
+					cancelAddingMode={() => setIsInFormMode(false)}
+				/>
 			)}
+			{!isInFormMode && isUserHasAddress && <Addresses addresses={addresses} />}
 		</Card>
 	);
 }

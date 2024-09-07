@@ -12,23 +12,23 @@ export default function Addresses({ addresses }: { addresses: TAddress[] }) {
 			defaultValue={addresses[0]._id}
 			className='gap-0 divide-y divide-gray-50'>
 			<ul>
-				{addresses.map(add => (
+				{addresses.map(addr => (
 					<li
-						key={add._id}
+						key={addr._id}
 						className='flex items-center justify-between py-6 last:pb-0'>
 						<div className='flex items-center gap-4'>
 							<RadioGroupItem
-								value={add._id}
-								id={add._id}
+								value={addr._id}
+								id={addr._id}
 							/>
-							<Label htmlFor={add._id}>
+							<Label htmlFor={addr._id}>
 								<h4 className='mb-3 typography-SB16'>
-									{`${add.firstName} ${add.lastName}`}
+									{`${addr.firstName} ${addr.lastName}`}
 								</h4>
 								<p className='mb-2 text-gray-400 typography-R14'>
-									{`${add.street} - ${add.district} - ${add.governorate}`}
+									{`${addr.street} - ${addr.city} - ${addr.governorate}`}
 								</p>
-								<p className='text-gray-400 typography-R14'>{add.phone}</p>
+								<p className='text-gray-400 typography-R14'>{addr.phone}</p>
 							</Label>
 						</div>
 						<Button

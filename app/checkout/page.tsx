@@ -1,9 +1,12 @@
-import { CartSummary } from 'app/cart/components/cart-summary';
 import ShippingAddress from './address';
 import { getUserAddresses } from 'apis/server/address';
+import { CheckoutSummary } from './checkout-summary';
+import { getGovernorates } from 'apis/server/egypt';
+import PaymentMethod from './payment-method';
 
 export default async function CheckoutPage() {
 	const addresses = await getUserAddresses();
+	const governorates = await getGovernorates();
 
 	return (
 		<div className='relative'>
@@ -16,12 +19,15 @@ export default async function CheckoutPage() {
 					</p>
 				</div>
 				<div className='flex gap-8'>
-					<div className='flex-1 self-start'>
-						<ShippingAddress addresses={addresses} />
+					<div className='flex-1 space-y-4 self-start'>
+						<ShippingAddress
+							governorates={governorates}
+							addresses={addresses}
+						/>
 
-						{/* <ShippingAddress /> */}
+						<PaymentMethod />
 					</div>
-					<CartSummary
+					<CheckoutSummary
 						isCartEmpty={false}
 						totalPrice={2000}
 					/>

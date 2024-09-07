@@ -24,9 +24,12 @@ import {
 	CommandItem,
 	CommandList,
 } from 'components/ui/command';
-import { NumericField } from 'components/ui/numeric-field';
 import { useAction } from 'next-safe-action/hooks';
 import { addAddress } from 'apis/server/address';
+import { useToast } from 'components/ui/use-toast';
+import { TGovernorate } from 'types/egypt';
+import { getCities } from 'apis/server/egypt';
+import { useState } from 'react';
 
 export const addAddressSchema = z.object({
 	firstName: z.string(),
@@ -34,45 +37,54 @@ export const addAddressSchema = z.object({
 	phone: z.coerce.number(),
 	additionalPhone: z.coerce.number(),
 	governorate: z.string(),
-	district: z.string(),
+	city: z.string(),
 	street: z.string(),
 	buildingNo: z.string(),
 	floor: z.string(),
 });
 
-const languages = [
-	{ label: 'Egypt', value: 'Egypt' },
-	{ label: 'French', value: 'French' },
-	{ label: 'German', value: 'German' },
-	{ label: 'Spanish', value: 'Spanish' },
-	{ label: 'Portuguese', value: 'Portuguese' },
-	{ label: 'Russian', value: 'Russian' },
-	{ label: 'Japanese', value: 'Japanese' },
-	{ label: 'Korean', value: 'Korean' },
-	{ label: 'Chinese', value: 'Chinese' },
-] as const;
 
 export default function AddressForm({
+	governorates,
+	isUserHasAddress,
 	cancelAddingMode,
 }: {
+	governorates: TGovernorate[];
+	isUserHasAddress: boolean;
 	cancelAddingMode: () => void;
 }) {
+	const [isGovMenuOpen, setIsGovMenuOpen] = useState(false);
+	const [isCityMenuOpen, setIsCityMenuOpen] = useState(false);
+
+	const { toast } = useToast();
 	const { execute, isPending } = useAction(addAddress, {
 		onSuccess: cancelAddingMode,
+		onError: ({ error }) => {
+			toast({
+				variant: 'destructive',
+				title: 'Server Error',
+				description: error.serverError,
+			});
+		},
 	});
+	const {
+		execute: getCitiesAction,
+		result: { data: cities },
+	} = useAction(getCities);
 
 	const form = useForm<z.infer<typeof addAddressSchema>>({
 		resolver: zodResolver(addAddressSchema),
 	});
 
 	function onSubmit(values: z.infer<typeof addAddressSchema>) {
+		console.log({ values });
 		execute(values);
 	}
 
 	return (
 		<form
 			onSubmit={form.handleSubmit(onSubmit)}
-			className='space-y-8 pt-6'>
+			className='pt-6 space-y-8'>
 			<Form {...form}>
 				<FormField
 					control={form.control}
@@ -118,7 +130,9 @@ export default function AddressForm({
 							<FormItem className='flex flex-col'>
 								<FormLabel>Phone Number</FormLabel>
 								<FormControl>
-									<NumericField
+									<Input
+										variant='outline'
+										size='sm'
 										type='number'
 										placeholder='e.g. 01234567891'
 										{...field}
@@ -135,7 +149,9 @@ export default function AddressForm({
 							<FormItem className='flex flex-col'>
 								<FormLabel>Additional Phone</FormLabel>
 								<FormControl>
-									<NumericField
+									<Input
+										variant='outline'
+										size='sm'
 										type='number'
 										{...field}
 									/>
@@ -145,15 +161,17 @@ export default function AddressForm({
 						)}
 					/>
 				</div>
-				<div className='flex gap-4'>
+				<div className='flex w-3/4 gap-4'>
 					<FormField
 						control={form.control}
 						name='governorate'
 						render={({ field }) => (
-							<FormItem className='flex w-full flex-col'>
-								<FormLabel>City</FormLabel>
+							<FormItem className='flex flex-col w-full'>
+								<FormLabel>Governorate</FormLabel>
 								<FormControl>
-									<Popover>
+									<Popover
+										open={isGovMenuOpen}
+										onOpenChange={setIsGovMenuOpen}>
 										<PopoverTrigger asChild>
 											<FormControl>
 												<Button
@@ -161,39 +179,60 @@ export default function AddressForm({
 													role='combobox'
 													className={cn(
 														'w-full justify-between',
-														!field.value && 'text-muted-foreground'
+														!field.value && 'text-gray-100'
 													)}>
 													{field.value
-														? languages.find(
-																language => language.value === field.value
-															)?.label
-														: 'Select city'}
-													<ChevronsUpDown className='ml-2 h-4 w-4 shrink-0 opacity-50' />
+														? governorates.find(
+																governorate =>
+																	governorate.governorate_name_en ===
+																	field.value
+															)?.governorate_name_en
+														: 'Select...'}
+													<ChevronsUpDown className='w-4 h-4 ml-2 opacity-50 shrink-0' />
 												</Button>
 											</FormControl>
 										</PopoverTrigger>
-										<PopoverContent className='w-[200px] p-0'>
+										<PopoverContent className='w-[257px] p-0'>
 											<Command>
-												<CommandInput placeholder='Search city...' />
+												<CommandInput placeholder='Search governorate...' />
 												<CommandList>
-													<CommandEmpty>No language found.</CommandEmpty>
+													<CommandEmpty>No governorates found.</CommandEmpty>
 													<CommandGroup>
-														{languages.map(language => (
+														{governorates.map(governorate => (
 															<CommandItem
-																value={language.label}
-																key={language.value}
-																onSelect={() => {
-																	form.setValue('governorate', language.value);
+																value={governorate.governorate_name_en}
+																key={governorate.id}
+																onSelect={value => {
+																	const isSameValue =
+																		form.getValues('governorate') === value;
+																	const isCityHasValue = form.getValues('city');
+
+																	if (isSameValue) {
+																		setIsGovMenuOpen(false);
+																		return;
+																	}
+
+																	form.setValue(
+																		'governorate',
+																		governorate.governorate_name_en
+																	);
+
+																	if (isCityHasValue) {
+																		form.setValue('city', '');
+																	}
+																	getCitiesAction({ govId: governorate.id });
+																	setIsGovMenuOpen(false);
 																}}>
 																<Check
 																	className={cn(
 																		'mr-2 h-4 w-4',
-																		language.value === field.value
+																		governorate.governorate_name_en ===
+																			field.value
 																			? 'opacity-100'
 																			: 'opacity-0'
 																	)}
 																/>
-																{language.label}
+																{governorate.governorate_name_en}
 															</CommandItem>
 														))}
 													</CommandGroup>
@@ -208,63 +247,68 @@ export default function AddressForm({
 					/>
 					<FormField
 						control={form.control}
-						name='district'
-						render={({ field }) => (
-							<FormItem className='flex w-full flex-col'>
-								<FormLabel>Area</FormLabel>
-								<FormControl>
-									<Popover>
-										<PopoverTrigger asChild>
-											<FormControl>
-												<Button
-													variant='outline'
-													role='combobox'
-													className={cn(
-														'w-full justify-between',
-														!field.value && 'text-muted-foreground'
-													)}>
-													{field.value
-														? languages.find(
-																language => language.value === field.value
-															)?.label
-														: 'Select area'}
-													<ChevronsUpDown className='ml-2 h-4 w-4 shrink-0 opacity-50' />
-												</Button>
-											</FormControl>
-										</PopoverTrigger>
-										<PopoverContent className='w-[200px] p-0'>
-											<Command>
-												<CommandInput placeholder='Search city...' />
-												<CommandList>
-													<CommandEmpty>No language found.</CommandEmpty>
-													<CommandGroup>
-														{languages.map(language => (
-															<CommandItem
-																value={language.label}
-																key={language.value}
-																onSelect={() => {
-																	form.setValue('district', language.value);
-																}}>
-																<Check
-																	className={cn(
-																		'mr-2 h-4 w-4',
-																		language.value === field.value
-																			? 'opacity-100'
-																			: 'opacity-0'
-																	)}
-																/>
-																{language.label}
-															</CommandItem>
-														))}
-													</CommandGroup>
-												</CommandList>
-											</Command>
-										</PopoverContent>
-									</Popover>
-								</FormControl>
-								<FormMessage />
-							</FormItem>
-						)}
+						name='city'
+						render={({ field }) => {
+							return (
+								<FormItem className='flex flex-col w-full'>
+									<FormLabel>City</FormLabel>
+									<FormControl>
+										<Popover
+											open={isCityMenuOpen}
+											onOpenChange={setIsCityMenuOpen}>
+											<PopoverTrigger asChild>
+												<FormControl>
+													<Button
+														variant='outline'
+														role='combobox'
+														className={cn(
+															'w-full justify-between',
+															!field.value && 'text-gray-100'
+														)}>
+														{field.value
+															? cities?.find(
+																	city => city.city_name_en === field.value
+																)?.city_name_en
+															: 'Select...'}
+														<ChevronsUpDown className='w-4 h-4 ml-2 opacity-50 shrink-0' />
+													</Button>
+												</FormControl>
+											</PopoverTrigger>
+											<PopoverContent className='w-[257px] p-0'>
+												<Command>
+													<CommandInput placeholder='Search city...' />
+													<CommandList>
+														<CommandEmpty>No Cities found.</CommandEmpty>
+														<CommandGroup>
+															{cities?.map(city => (
+																<CommandItem
+																	value={city.city_name_en}
+																	key={city.city_name_en}
+																	onSelect={() => {
+																		form.setValue('city', city.city_name_en);
+																		setIsCityMenuOpen(false);
+																	}}>
+																	<Check
+																		className={cn(
+																			'mr-2 h-4 w-4',
+																			city.city_name_en === field.value
+																				? 'opacity-100'
+																				: 'opacity-0'
+																		)}
+																	/>
+																	{city.city_name_en}
+																</CommandItem>
+															))}
+														</CommandGroup>
+													</CommandList>
+												</Command>
+											</PopoverContent>
+										</Popover>
+									</FormControl>
+									<FormMessage />
+								</FormItem>
+							);
+						}}
 					/>
 				</div>
 				<FormField
@@ -328,18 +372,20 @@ export default function AddressForm({
 				disabled={isPending}>
 				{isPending ? (
 					<>
-						<Loader2 className='mr-2 h-4 w-4 animate-spin' />
+						<Loader2 className='w-4 h-4 mr-2 animate-spin' />
 						Please wait
 					</>
 				) : (
 					'Save Address'
 				)}
 			</Button>
-			<Button
-				onClick={cancelAddingMode}
-				variant='secondary-gray'>
-				Cancel
-			</Button>
+			{isUserHasAddress && (
+				<Button
+					onClick={cancelAddingMode}
+					variant='secondary-gray'>
+					Cancel
+				</Button>
+			)}
 		</form>
 	);
 }

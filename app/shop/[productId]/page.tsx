@@ -129,8 +129,10 @@ export default async function ProductPage({
 							<Circle
 								size={14}
 								className={cn(
-									'ml-4 inline-block rounded-full bg-green-light-500',
-									variant.quantity ? 'text-green-light-500' : 'text-red-500'
+									'ml-4 inline-block rounded-full',
+									variant.quantity > 0
+										? 'bg-green-light-500 text-green-light-500'
+										: 'bg-red-500 text-red-500'
 								)}
 							/>
 						</h2>

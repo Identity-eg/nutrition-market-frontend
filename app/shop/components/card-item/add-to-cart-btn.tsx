@@ -4,15 +4,17 @@ import { addItemToCart } from 'apis/server/cart';
 import { useEffect, useState } from 'react';
 import { useAction } from 'next-safe-action/hooks';
 import { Button } from 'components/ui/button';
-import { Check, Circle } from 'lucide-react';
+import { Check, Circle, CircleX } from 'lucide-react';
 import { useToast } from 'components/ui/use-toast';
 
 const AddToCartButton = ({
+	quantity,
 	resetCount,
 	productId,
 	variantId,
 	amount = 1,
 }: {
+	quantity: number;
 	resetCount?: () => void;
 	productId: string;
 	variantId?: string;
@@ -47,6 +49,18 @@ const AddToCartButton = ({
 		}
 	}, [hasSucceeded]);
 
+	if (quantity === 0) {
+		return (
+			<Button
+				disabled
+				variant='secondary-gray'
+				className='relative flex w-full flex-1 items-center justify-center gap-2 capitalize text-red-500'>
+				<CircleX size={16} />
+				Out of stock
+			</Button>
+		);
+	}
+
 	return (
 		<Button
 			onClick={() => {
@@ -54,7 +68,7 @@ const AddToCartButton = ({
 				execute({ amount, productId, variantId: variantId ?? '' });
 			}}
 			type='submit'
-			className='relative flex items-center justify-center flex-1 w-full capitalize'>
+			className='relative flex w-full flex-1 items-center justify-center capitalize'>
 			{isPending ? (
 				<Circle
 					size={10}

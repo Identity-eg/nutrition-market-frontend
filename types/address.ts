@@ -5,7 +5,7 @@ export type TAddress = {
 	phone: number;
 	additionalPhone: number;
 	governorate: string;
-	district: string;
+	city: string;
 	street: string;
 	buildingNo: string;
 	floor: string;
