@@ -1,6 +1,5 @@
 import { actionClient } from 'apis/action-clients';
 import { request } from 'apis/client';
-import { redirect } from 'next/navigation';
 import { z } from 'zod';
 
 const paySchema = z.object({
@@ -21,7 +20,6 @@ export const pay = actionClient
 				paymentMethodId,
 			},
 		});
-		
 
 		return data;
 	});

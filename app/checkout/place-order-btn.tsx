@@ -23,9 +23,11 @@ export function PlaceOrderBtn({
 			});
 		},
 		onSuccess: ({ data }) => {
-			window.location.assign(
-				`https://accept.paymob.com/unifiedcheckout/?publicKey=${process.env.NEXT_PUBLIC_PAYMOB_PK}&clientSecret=${data?.clientSecret}`
-			);
+			if (data?.clientSecret) {
+				window.location.assign(
+					`https://accept.paymob.com/unifiedcheckout/?publicKey=${process.env.NEXT_PUBLIC_PAYMOB_PK}&clientSecret=${data?.clientSecret}`
+				);
+			}
 		},
 	});
 
