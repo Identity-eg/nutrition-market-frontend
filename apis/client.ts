@@ -8,7 +8,8 @@ const baseURL = process.env.NEXT_PUBLIC_API_URL;
 type TOptions =
 	| (Omit<RequestInit, 'body'> & {
 			url: `/${string}`;
-			body?: number | string | { [x: string]: string | number | boolean };
+			body?: number | string | { [x: string]: any };
+			baseUrl?: string;
 	  })
 	| undefined;
 
@@ -26,8 +27,10 @@ export const request = async ({ ...options }: TOptions) => {
 		}),
 	};
 
+	const finalBaseUrl = options.baseUrl ?? baseURL;
+
 	try {
-		const res = await fetch(baseURL + options.url, {
+		const res = await fetch(finalBaseUrl + options.url, {
 			credentials: 'include',
 			...options,
 

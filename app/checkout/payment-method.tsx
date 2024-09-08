@@ -1,7 +1,7 @@
 import { Card } from 'components/ui/card';
 import { Label } from 'components/ui/label';
 import { RadioGroup, RadioGroupItem } from 'components/ui/radio';
-import React from 'react';
+import React, { Dispatch } from 'react';
 
 const PAYMENT_METHODS = [
 	{
@@ -14,12 +14,17 @@ const PAYMENT_METHODS = [
 	},
 ];
 
-export default function PaymentMethod() {
+export default function PaymentMethod({
+	setPaymentMethodId,
+}: {
+	setPaymentMethodId: Dispatch<React.SetStateAction<string>>;
+}) {
 	return (
 		<Card className='p-6'>
 			<div className='mb-6 typography-SB20'>Payment method</div>
 			<RadioGroup
 				asChild
+				onValueChange={pId => setPaymentMethodId(pId)}
 				defaultValue={PAYMENT_METHODS[0].id}>
 				<ul className='space-y-4'>
 					{PAYMENT_METHODS.map(method => (

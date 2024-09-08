@@ -5,11 +5,18 @@ import { Pencil } from 'lucide-react';
 import React from 'react';
 import { TAddress } from 'types/address';
 
-export default function Addresses({ addresses }: { addresses: TAddress[] }) {
+export default function Addresses({
+	setAddressId,
+	addresses,
+}: {
+	setAddressId: (add: string) => void;
+	addresses: TAddress[];
+}) {
 	return (
 		<RadioGroup
 			asChild
 			defaultValue={addresses[0]._id}
+			onValueChange={addrId => setAddressId(addrId)}
 			className='gap-0 divide-y divide-gray-50'>
 			<ul>
 				{addresses.map(addr => (

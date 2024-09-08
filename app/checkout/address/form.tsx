@@ -34,6 +34,12 @@ import { useState } from 'react';
 export const addAddressSchema = z.object({
 	firstName: z.string(),
 	lastName: z.string(),
+	email: z
+		.string()
+		.min(1, {
+			message: 'Email is required',
+		})
+		.email('Please enter a valid email address'),
 	phone: z.coerce.number(),
 	additionalPhone: z.coerce.number(),
 	governorate: z.string(),
@@ -43,12 +49,13 @@ export const addAddressSchema = z.object({
 	floor: z.string(),
 });
 
-
 export default function AddressForm({
+	userEmail,
 	governorates,
 	isUserHasAddress,
 	cancelAddingMode,
 }: {
+	userEmail: string;
 	governorates: TGovernorate[];
 	isUserHasAddress: boolean;
 	cancelAddingMode: () => void;
@@ -73,6 +80,9 @@ export default function AddressForm({
 	} = useAction(getCities);
 
 	const form = useForm<z.infer<typeof addAddressSchema>>({
+		defaultValues: {
+			email: userEmail,
+		},
 		resolver: zodResolver(addAddressSchema),
 	});
 
@@ -84,37 +94,57 @@ export default function AddressForm({
 	return (
 		<form
 			onSubmit={form.handleSubmit(onSubmit)}
-			className='pt-6 space-y-8'>
+			className='space-y-8 pt-6'>
 			<Form {...form}>
+				<div className='flex w-full gap-4'>
+					<FormField
+						control={form.control}
+						name='firstName'
+						render={({ field }) => (
+							<FormItem className='flex w-full flex-col'>
+								<FormLabel>First Name</FormLabel>
+								<FormControl>
+									<Input
+										size='sm'
+										variant='outline'
+										placeholder='e.g. Mohamed'
+										{...field}
+									/>
+								</FormControl>
+								<FormMessage />
+							</FormItem>
+						)}
+					/>
+					<FormField
+						control={form.control}
+						name='lastName'
+						render={({ field }) => (
+							<FormItem className='flex w-full flex-col'>
+								<FormLabel>Last Name</FormLabel>
+								<FormControl>
+									<Input
+										size='sm'
+										variant='outline'
+										placeholder='e.g. Mohamed'
+										{...field}
+									/>
+								</FormControl>
+								<FormMessage />
+							</FormItem>
+						)}
+					/>
+				</div>
 				<FormField
 					control={form.control}
-					name='firstName'
+					name='email'
 					render={({ field }) => (
-						<FormItem className='flex flex-col'>
-							<FormLabel>First Name</FormLabel>
+						<FormItem className='flex w-full flex-col'>
+							<FormLabel>Email</FormLabel>
 							<FormControl className='w-[50%]'>
 								<Input
 									size='sm'
 									variant='outline'
-									placeholder='e.g. Mohamed'
-									{...field}
-								/>
-							</FormControl>
-							<FormMessage />
-						</FormItem>
-					)}
-				/>
-				<FormField
-					control={form.control}
-					name='lastName'
-					render={({ field }) => (
-						<FormItem className='flex flex-col'>
-							<FormLabel>Last Name</FormLabel>
-							<FormControl className='w-[50%]'>
-								<Input
-									size='sm'
-									variant='outline'
-									placeholder='e.g. Mohamed'
+									placeholder='e.g. john@doe.com'
 									{...field}
 								/>
 							</FormControl>
@@ -166,7 +196,7 @@ export default function AddressForm({
 						control={form.control}
 						name='governorate'
 						render={({ field }) => (
-							<FormItem className='flex flex-col w-full'>
+							<FormItem className='flex w-full flex-col'>
 								<FormLabel>Governorate</FormLabel>
 								<FormControl>
 									<Popover
@@ -188,7 +218,7 @@ export default function AddressForm({
 																	field.value
 															)?.governorate_name_en
 														: 'Select...'}
-													<ChevronsUpDown className='w-4 h-4 ml-2 opacity-50 shrink-0' />
+													<ChevronsUpDown className='ml-2 h-4 w-4 shrink-0 opacity-50' />
 												</Button>
 											</FormControl>
 										</PopoverTrigger>
@@ -250,7 +280,7 @@ export default function AddressForm({
 						name='city'
 						render={({ field }) => {
 							return (
-								<FormItem className='flex flex-col w-full'>
+								<FormItem className='flex w-full flex-col'>
 									<FormLabel>City</FormLabel>
 									<FormControl>
 										<Popover
@@ -270,7 +300,7 @@ export default function AddressForm({
 																	city => city.city_name_en === field.value
 																)?.city_name_en
 															: 'Select...'}
-														<ChevronsUpDown className='w-4 h-4 ml-2 opacity-50 shrink-0' />
+														<ChevronsUpDown className='ml-2 h-4 w-4 shrink-0 opacity-50' />
 													</Button>
 												</FormControl>
 											</PopoverTrigger>
@@ -372,7 +402,7 @@ export default function AddressForm({
 				disabled={isPending}>
 				{isPending ? (
 					<>
-						<Loader2 className='w-4 h-4 mr-2 animate-spin' />
+						<Loader2 className='mr-2 h-4 w-4 animate-spin' />
 						Please wait
 					</>
 				) : (

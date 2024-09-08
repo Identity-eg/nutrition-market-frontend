@@ -11,6 +11,12 @@ const addAddressSchema = z.object({
 	firstName: z.string(),
 	lastName: z.string(),
 	phone: z.number(),
+	email: z
+		.string()
+		.min(1, {
+			message: 'Email is required',
+		})
+		.email('Please enter a valid email address'),
 	additionalPhone: z.number(),
 	governorate: z.string(),
 	city: z.string(),
@@ -21,7 +27,7 @@ const addAddressSchema = z.object({
 
 export const getUserAddresses = async (): Promise<TAddress[]> => {
 	const data = await request({
-		url: '/users/address',
+		url: '/addresses',
 		method: 'GET',
 		next: { tags: [Tags.addresses] },
 	});
@@ -31,7 +37,7 @@ export const getUserAddresses = async (): Promise<TAddress[]> => {
 export const addAddress = actionClient.schema(addAddressSchema).action(
 	async ({ parsedInput: addressData }) => {
 		const data = await request({
-			url: '/users/address',
+			url: '/addresses',
 			body: {
 				...addressData,
 			},
