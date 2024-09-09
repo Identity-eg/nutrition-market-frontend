@@ -32,21 +32,25 @@ import { getCities } from 'apis/server/egypt';
 import { useState } from 'react';
 
 export const addAddressSchema = z.object({
-	firstName: z.string(),
-	lastName: z.string(),
+	firstName: z.string().min(1, 'First name is required'),
+	lastName: z.string().min(1, 'Last name is required'),
 	email: z
 		.string()
 		.min(1, {
 			message: 'Email is required',
 		})
 		.email('Please enter a valid email address'),
-	phone: z.coerce.number(),
-	additionalPhone: z.coerce.number(),
-	governorate: z.string(),
-	city: z.string(),
-	street: z.string(),
-	buildingNo: z.string(),
-	floor: z.string(),
+	phone: z.coerce.number({
+		invalid_type_error: 'Phone is required',
+	}),
+	additionalPhone: z.coerce.number({
+		invalid_type_error: 'Additional phone is required',
+	}),
+	governorate: z.string().min(1, 'Governorate is required'),
+	city: z.string().min(1, 'City is required'),
+	street: z.string().min(1, 'Street is required'),
+	buildingNo: z.string().min(1, 'Building number is required'),
+	floor: z.string().optional(),
 });
 
 export default function AddressForm({
