@@ -22,8 +22,8 @@ import { Textarea } from 'components/ui/textarea';
 import { Separator } from 'components/ui/separator';
 // Utils
 import { cn } from 'lib/utils';
-import { getCredential } from 'apis/helpers';
 import { useAddReview } from 'apis/reviews';
+import { TUser } from 'types/user';
 
 const reviewSchema = z
 	.object({
@@ -34,12 +34,12 @@ const reviewSchema = z
 	.required({ title: true });
 
 const ReviewForm = ({
-	credential,
+	user,
 	hasUserReview,
 	productId,
 }: {
 	hasUserReview: boolean;
-	credential: Awaited<ReturnType<typeof getCredential>>;
+	user?: TUser;
 	productId: string;
 }) => {
 	const [isSuccessMsgAllowedToDisplay, setIsSuccessMsgAllowedToDisplay] =
@@ -86,7 +86,7 @@ const ReviewForm = ({
 		) : null;
 	}
 
-	if (!credential) {
+	if (!user) {
 		return (
 			<div className='space-y-8'>
 				<Separator />

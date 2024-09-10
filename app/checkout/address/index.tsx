@@ -15,7 +15,7 @@ export default function ShippingAddress({
 	addresses,
 }: {
 	setAddressId: Dispatch<React.SetStateAction<string>>;
-	userEmail: string;
+	userEmail?: string;
 	governorates: TGovernorate[];
 	addresses: TAddress[];
 }) {

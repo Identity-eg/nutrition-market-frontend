@@ -15,7 +15,7 @@ export default function Container({
 	addresses,
 }: {
 	cart: TCart;
-	userEmail: string;
+	userEmail?: string;
 	governorates: TGovernorate[];
 	addresses: TAddress[];
 }) {

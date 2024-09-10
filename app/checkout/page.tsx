@@ -24,7 +24,7 @@ export default async function CheckoutPage() {
 					cart={cart}
 					addresses={addresses}
 					governorates={governorates}
-					userEmail={user.email}
+					userEmail={user?.email}
 				/>
 			</div>
 		</div>

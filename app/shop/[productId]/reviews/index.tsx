@@ -1,4 +1,3 @@
-import { Button } from 'components/ui/button';
 import { RatingStars } from '../components/rating-stars';
 import CircleProgress from './components/circle-progress';
 import ReviewsList from './list';
@@ -7,8 +6,7 @@ import { TProduct } from 'types/product';
 import { getReviews } from 'apis/server/reviews';
 import { StarIcon } from 'lucide-react';
 import ReviewForm from './form';
-import { getCredential } from 'apis/helpers';
-import { Separator } from 'components/ui/separator';
+import { getMe } from 'apis/server/user';
 
 export default async function Reviews({
 	productId,
@@ -20,7 +18,7 @@ export default async function Reviews({
 	const ratingPrecentage = (averageRating / 5) * 100;
 
 	const { reviews, count } = await getReviews({ productId });
-	const credential = await getCredential();
+	const user = await getMe();
 
 	const allRating = reviews?.map(el => el.rating);
 	const ratingObj = allRating?.reduce(
@@ -28,9 +26,7 @@ export default async function Reviews({
 		{}
 	);
 
-	const hasUserReview = reviews.some(
-		review => review.user._id === credential?.payload._id
-	);
+	const hasUserReview = reviews.some(review => review.user._id === user?._id);
 
 	return (
 		<section>
@@ -81,7 +77,7 @@ export default async function Reviews({
 
 					<ReviewForm
 						hasUserReview={hasUserReview}
-						credential={credential}
+						user={user}
 						productId={productId}
 					/>
 				</article>

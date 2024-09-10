@@ -55,7 +55,7 @@ export default function AddressForm({
 	isUserHasAddress,
 	cancelAddingMode,
 }: {
-	userEmail: string;
+	userEmail?: string;
 	governorates: TGovernorate[];
 	isUserHasAddress: boolean;
 	cancelAddingMode: () => void;
@@ -87,7 +87,6 @@ export default function AddressForm({
 	});
 
 	function onSubmit(values: z.infer<typeof addAddressSchema>) {
-		console.log({ values });
 		execute(values);
 	}
 

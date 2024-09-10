@@ -9,8 +9,16 @@ const PAYMENT_METHODS = [
 		name: 'Cash on delivery',
 	},
 	{
-		id: '4827863',
+		id: '3922403',
 		name: 'Online Master Card',
+	},
+	{
+		id: '4830078',
+		name: 'Kiosk',
+	},
+	{
+		id: '3925355',
+		name: 'Mobile Wallet',
 	},
 ];
 

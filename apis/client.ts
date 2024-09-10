@@ -1,7 +1,7 @@
 'use server';
 
 import { cookies } from 'next/headers';
-import { getCredential } from './helpers';
+import { getAccessToken } from './helpers';
 
 const baseURL = process.env.NEXT_PUBLIC_API_URL;
 
@@ -14,11 +14,11 @@ type TOptions =
 	| undefined;
 
 export const request = async ({ ...options }: TOptions) => {
-	const credential = await getCredential();
+	const accessToken = await getAccessToken();
 
 	const defaultHeaders = {
-		...(credential?.accessToken && {
-			Authorization: `Bearer ${credential.accessToken}`,
+		...(accessToken && {
+			Authorization: `Bearer ${accessToken}`,
 		}),
 		cookie: cookies().toString(),
 		'Content-Type': 'application/json',
