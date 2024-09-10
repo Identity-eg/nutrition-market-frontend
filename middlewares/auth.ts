@@ -7,7 +7,7 @@ import {
 	UNAUTHENTICATED_ROUTES,
 } from 'constants/auth';
 
-import { getCredential } from 'apis/helpers';
+import { getAccessToken } from 'apis/helpers';
 import { refreshAccessTokenFn } from 'apis/server/auth';
 
 import { CustomMiddleware } from 'middlewares/chain';
@@ -19,11 +19,11 @@ export function unAuthenticatedRoutesMiddleware(middleware: CustomMiddleware) {
 		response: NextResponse
 	) => {
 		const { nextUrl, url, cookies } = request;
-		const credential = await getCredential(cookies);
+		const accessToken = await getAccessToken(cookies);
 		if (
 			UNAUTHENTICATED_ROUTES.some(route => nextUrl.pathname.startsWith(route))
 		) {
-			if (credential) {
+			if (accessToken) {
 				return NextResponse.redirect(new URL('/', url));
 			}
 		}
@@ -37,9 +37,9 @@ export const refreshToken = (middleware: CustomMiddleware) => {
 		event: NextFetchEvent,
 		response: NextResponse
 	) => {
-		const credential = await getCredential();
+		const accessToken = await getAccessToken();
 		if (
-			!credential &&
+			!accessToken &&
 			cookies().get(process.env.REFRESH_TOKEN_NAME ?? '')?.value
 		) {
 			const data = await refreshAccessTokenFn();
@@ -71,10 +71,10 @@ export function privateRoutesMiddleware(middleware: CustomMiddleware) {
 		response: NextResponse
 	) => {
 		const { nextUrl, url, cookies } = request;
-		const credential = await getCredential(cookies);
+		const accessToken = await getAccessToken(cookies);
 
 		if (PRIVATE_ROUTES.some(route => nextUrl.pathname.startsWith(route))) {
-			if (!credential) {
+			if (!accessToken) {
 				return NextResponse.redirect(
 					new URL(`/login?from=${nextUrl.pathname.substring(1)}`, url)
 				);

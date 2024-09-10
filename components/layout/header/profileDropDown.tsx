@@ -1,11 +1,6 @@
 'use client';
 
-import {
-	ChevronDown,
-	CircleUserRound,
-	LogOutIcon,
-	UserIcon,
-} from 'lucide-react';
+import { ChevronDown, CircleUserRound, LogOutIcon } from 'lucide-react';
 import {
 	DropdownMenu,
 	DropdownMenuContent,
@@ -22,17 +17,10 @@ import {
 } from 'components/ui/dropdown-menu';
 
 import { useLogout } from 'apis/auth';
-import { JWTPayload } from 'jose';
 import { TUser } from 'types/user';
+import Link from 'next/link';
 
-type TProfileDropdownProps = {
-	credential: {
-		accessToken: string;
-		payload: TUser & JWTPayload;
-	};
-};
-
-export function ProfileDropdown({ credential }: TProfileDropdownProps) {
+export function ProfileDropdown({ user }: { user: TUser }) {
 	const logoutMutation = useLogout();
 	return (
 		<DropdownMenu>
@@ -42,7 +30,7 @@ export function ProfileDropdown({ credential }: TProfileDropdownProps) {
 					<div className='flex max-w-20 flex-col items-start'>
 						<span className='text-gray-100 typography-R14'>Welcome</span>
 						<span className='line-clamp-1 flex items-center justify-center gap-1 capitalize text-black typography-M14'>
-							{credential.payload.name.split(' ')[0]}
+							{user.name.split(' ')[0]}
 							<ChevronDown
 								strokeWidth={1.5}
 								size={16}
@@ -59,9 +47,11 @@ export function ProfileDropdown({ credential }: TProfileDropdownProps) {
 						Profile
 						<DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>
 					</DropdownMenuItem>
-					<DropdownMenuItem>
-						My orders
-						<DropdownMenuShortcut>⌘B</DropdownMenuShortcut>
+					<DropdownMenuItem asChild>
+						<Link href='/orders'>
+							My orders
+							<DropdownMenuShortcut>⌘B</DropdownMenuShortcut>
+						</Link>
 					</DropdownMenuItem>
 					<DropdownMenuSub>
 						<DropdownMenuSubTrigger>Invite users</DropdownMenuSubTrigger>

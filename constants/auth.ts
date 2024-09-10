@@ -7,11 +7,11 @@ export const UNAUTHENTICATED_ROUTES = [
 	'/reset-password',
 ];
 
-export const PRIVATE_ROUTES = ['/checkout'];
+export const PRIVATE_ROUTES = ['/checkout', '/orders'];
 
 export const ACCESS_COOKIE_OPTIONS: Partial<ResponseCookie> = {
 	httpOnly: true,
-	sameSite: 'strict',
+	sameSite: 'lax',
 	secure: false,
 	maxAge: 60 * 30,
 };

@@ -7,12 +7,11 @@ import { Input } from 'components/ui/input';
 import { ProfileDropdown } from './profileDropDown';
 // Utils
 import biovacLogo from 'assets/logo.png';
-import { getCredential } from 'apis/helpers';
 import { CartSidebar } from './cartSidebar';
+import { getMe } from 'apis/server/user';
 
 export default async function HeaderLayout() {
-	const credential = await getCredential();
-	credential?.payload.name;
+	const user = await getMe();
 	return (
 		<>
 			<nav className='border-b border-gray-50'>
@@ -38,8 +37,8 @@ export default async function HeaderLayout() {
 							orientation='vertical'
 							className='h-6'
 						/>
-						{credential?.accessToken ? (
-							<ProfileDropdown credential={credential} />
+						{user ? (
+							<ProfileDropdown user={user} />
 						) : (
 							<Button
 								asChild
