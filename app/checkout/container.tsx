@@ -19,7 +19,7 @@ export default function Container({
 	governorates: TGovernorate[];
 	addresses: TAddress[];
 }) {
-	const [addressId, setAddressId] = useState(addresses[0]._id);
+	const [addressId, setAddressId] = useState(addresses[0]?._id ?? '');
 	const [paymentMethodId, setPaymentMethodId] = useState('1');
 
 	return (
