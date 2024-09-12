@@ -32,11 +32,10 @@ export const createTypographyUtilities = ({
 	return flattenedObject;
 };
 
-export function convertToReadableNumber(num: any) {
+export function convertToReadableNumber(num: number) {
 	if (num && !isNaN(num)) {
-		return parseInt(num, 10)?.toLocaleString();
+		return parseInt(String(num), 10)?.toLocaleString();
 	}
-
 	return num;
 }
 

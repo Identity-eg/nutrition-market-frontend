@@ -2,14 +2,14 @@ import { Button } from 'components/ui/button';
 import { Label } from 'components/ui/label';
 import { RadioGroup, RadioGroupItem } from 'components/ui/radio';
 import { Pencil } from 'lucide-react';
-import React from 'react';
+import { Dispatch } from 'react';
 import { TAddress } from 'types/address';
 
 export default function Addresses({
 	setAddressId,
 	addresses,
 }: {
-	setAddressId: (add: string) => void;
+	setAddressId: Dispatch<React.SetStateAction<string>>;
 	addresses: TAddress[];
 }) {
 	return (

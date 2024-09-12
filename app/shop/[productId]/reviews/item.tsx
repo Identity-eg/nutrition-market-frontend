@@ -7,9 +7,8 @@ import { RatingStars } from '../components/rating-stars';
 import ActionBtns from './components/action-btns';
 
 import type { TReview } from 'types/review';
-import { Suspense, useState } from 'react';
+import { useState } from 'react';
 import { EditableForm } from './editable-form';
-import { useGetSingleReview } from 'apis/reviews';
 import { Avatar, AvatarFallback } from 'components/ui/avatar';
 import {
 	Tooltip,

@@ -15,35 +15,34 @@ export default function CircleProgress({
 	const dashArray = radius * Math.PI * 2;
 	const dashOffset = dashArray - (dashArray * precentage) / 100;
 	return (
-		<div className="relative">
+		<div className='relative'>
 			<svg
 				style={{ height: circleSize, width: circleSize }}
-				viewBox={`0 0 ${circleSize} ${circleSize}`}
-			>
+				viewBox={`0 0 ${circleSize} ${circleSize}`}>
 				<circle
-					className="text-gray-50"
+					className='text-gray-50'
 					strokeWidth={strokeWidth}
-					stroke="currentColor"
-					fill="transparent"
+					stroke='currentColor'
+					fill='transparent'
 					r={radius}
 					cx={circleSize / 2}
 					cy={circleSize / 2}
 				/>
 				<circle
 					transform={`rotate(-90 ${circleSize / 2} ${circleSize / 2})`}
-					className="text-green-500"
+					className='text-green-500'
 					strokeWidth={strokeWidth}
 					strokeDasharray={dashArray}
 					strokeDashoffset={dashOffset}
-					strokeLinecap="round"
-					stroke="currentColor"
-					fill="transparent"
+					strokeLinecap='round'
+					stroke='currentColor'
+					fill='transparent'
 					r={radius}
 					cx={circleSize / 2}
 					cy={circleSize / 2}
 				/>
 			</svg>
-			<div className="absolute bottom-1/2 right-1/2 translate-x-1/2 translate-y-1/2">
+			<div className='absolute bottom-1/2 right-1/2 translate-x-1/2 translate-y-1/2'>
 				{children}
 			</div>
 		</div>

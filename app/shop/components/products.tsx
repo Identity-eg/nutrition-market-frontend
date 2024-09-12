@@ -5,16 +5,13 @@ import { TSearchParams } from '../page';
 import CardItem from './card-item';
 import { PaginationContainer } from './pagination-container';
 
-const PAGE_SIZE = 12;
-
 export default async function Products({
 	searchParams,
 }: {
 	searchParams: TSearchParams;
 }) {
 	const queryParams = qs.parse(searchParams) as TParams;
-	const { products, lastPage, currentPage, totalCount } =
-		await getProducts(queryParams);
+	const { products, lastPage, currentPage } = await getProducts(queryParams);
 
 	return (
 		<article>

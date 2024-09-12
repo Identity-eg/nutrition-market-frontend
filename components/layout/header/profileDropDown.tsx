@@ -30,7 +30,7 @@ export function ProfileDropdown({ user }: { user: TUser }) {
 					<div className='flex max-w-20 flex-col items-start'>
 						<span className='text-gray-100 typography-R14'>Welcome</span>
 						<span className='line-clamp-1 flex items-center justify-center gap-1 capitalize text-black typography-M14'>
-							{user.name.split(' ')[0]}
+							{user.firstName}
 							<ChevronDown
 								strokeWidth={1.5}
 								size={16}

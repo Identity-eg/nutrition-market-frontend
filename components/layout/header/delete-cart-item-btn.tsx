@@ -23,7 +23,7 @@ export const DeleteCartItemBtn = React.forwardRef<
 				deleteCartItem.mutate({ itemId });
 			}}
 			className={cn(
-				'absolute right-0 top-0 flex size-[18px] translate-x-1/2 -translate-y-1/2 cursor-pointer items-center justify-center rounded-full bg-gray-300 text-white',
+				'absolute right-0 top-0 flex size-[18px] -translate-y-1/2 translate-x-1/2 cursor-pointer items-center justify-center rounded-full bg-gray-300 text-white',
 				className
 			)}>
 			<X size={14} />

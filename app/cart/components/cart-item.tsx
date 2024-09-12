@@ -26,24 +26,24 @@ export function CartItem({
 					itemId={_id}
 				/>
 			</div>
-			<div className='relative flex-shrink-0 rounded-md aspect-square size-24 bg-gray-30'>
+			<div className='relative aspect-square size-24 flex-shrink-0 rounded-md bg-gray-30'>
 				<Image
 					src={selectedVariant.images[0].url}
 					width={500}
 					height={500}
 					alt={selectedVariant.name}
-					className='object-contain object-center w-full h-full p-2 mix-blend-multiply'
+					className='h-full w-full object-contain object-center p-2 mix-blend-multiply'
 				/>
 			</div>
 
-			<div className='flex flex-col justify-between w-full gap-4'>
+			<div className='flex w-full flex-col justify-between gap-4'>
 				<h3 className='flex justify-between gap-4'>
 					<Link
 						href={`/shop/${product._id}?variant=${selectedVariant._id}`}
-						className='mb-2 text-green-700 line-clamp-2 typography-SB16'>
+						className='mb-2 line-clamp-2 text-green-700 typography-SB16'>
 						{selectedVariant.name}
 					</Link>
-					<span className='flex items-center self-start justify-start gap-2 px-2 py-1 border rounded-md border-gray-40'>
+					<span className='flex items-center justify-start gap-2 self-start rounded-md border border-gray-40 px-2 py-1'>
 						{selectedVariant.unitCount} <Pill size={16} />
 					</span>
 				</h3>
@@ -51,7 +51,10 @@ export function CartItem({
 					<span className='text-green-light-700 typography-SB18'>
 						{totalPrice} EGP
 					</span>
-					<IncDecBtn amount={amount} itemId={_id} />
+					<IncDecBtn
+						amount={amount}
+						itemId={_id}
+					/>
 				</div>
 			</div>
 		</li>

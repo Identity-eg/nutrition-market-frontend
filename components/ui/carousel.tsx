@@ -157,8 +157,8 @@ const Carousel = React.forwardRef<
 					ref={ref}
 					onKeyDownCapture={handleKeyDown}
 					className={cn('relative', className)}
-					role="region"
-					aria-roledescription="carousel"
+					role='region'
+					aria-roledescription='carousel'
 					{...props}>
 					{children}
 				</div>
@@ -177,7 +177,7 @@ const CarouselContent = React.forwardRef<
 	return (
 		<div
 			ref={carouselRef}
-			className="overflow-hidden">
+			className='overflow-hidden'>
 			<div
 				ref={ref}
 				className={cn(
@@ -201,8 +201,8 @@ const CarouselItem = React.forwardRef<
 	return (
 		<div
 			ref={ref}
-			role="group"
-			aria-roledescription="slide"
+			role='group'
+			aria-roledescription='slide'
 			className={cn(
 				'min-w-0 shrink-0 grow-0 basis-full',
 				orientation === 'horizontal' ? 'pl-4' : 'pt-4',
@@ -235,8 +235,8 @@ const CarouselPrevious = React.forwardRef<
 			disabled={!canScrollPrev}
 			onClick={scrollPrev}
 			{...props}>
-			<ArrowLeft className="w-4 h-4" />
-			<span className="sr-only">Previous slide</span>
+			<ArrowLeft className='h-4 w-4' />
+			<span className='sr-only'>Previous slide</span>
 		</Button>
 	);
 });
@@ -263,8 +263,8 @@ const CarouselNext = React.forwardRef<
 			disabled={!canScrollNext}
 			onClick={scrollNext}
 			{...props}>
-			<ArrowRight className="w-4 h-4" />
-			<span className="sr-only">Next slide</span>
+			<ArrowRight className='h-4 w-4' />
+			<span className='sr-only'>Next slide</span>
 		</Button>
 	);
 });

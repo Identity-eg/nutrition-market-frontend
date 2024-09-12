@@ -1,7 +1,6 @@
 'use client';
 
 import * as React from 'react';
-import { type DialogProps } from '@radix-ui/react-dialog';
 import { Command as CommandPrimitive } from 'cmdk';
 import { Search } from 'lucide-react';
 
@@ -15,15 +14,13 @@ const Command = React.forwardRef<
 	<CommandPrimitive
 		ref={ref}
 		className={cn(
-			'flex h-full border-gray-40 w-full flex-col overflow-hidden rounded-md bg-white text-black',
+			'flex h-full w-full flex-col overflow-hidden rounded-md border-gray-40 bg-white text-black',
 			className
 		)}
 		{...props}
 	/>
 ));
 Command.displayName = CommandPrimitive.displayName;
-
-interface CommandDialogProps extends DialogProps {}
 
 // const CommandDialog = ({ children, ...props }: CommandDialogProps) => {
 // 	return (
@@ -41,14 +38,12 @@ const CommandInput = React.forwardRef<
 	React.ElementRef<typeof CommandPrimitive.Input>,
 	React.ComponentPropsWithoutRef<typeof CommandPrimitive.Input>
 >(({ className, ...props }, ref) => (
-	<div
-		className='flex items-center px-3 border-b border-gray-40'
-		cmdk-input-wrapper=''>
-		<Search className='w-4 h-4 mr-2 opacity-50 shrink-0' />
+	<div className='flex items-center border-b border-gray-40 px-3'>
+		<Search className='mr-2 h-4 w-4 shrink-0 opacity-50' />
 		<CommandPrimitive.Input
 			ref={ref}
 			className={cn(
-				'flex h-11 w-full rounded-md bg-white py-3 text-sm outline-none placeholder:text-muted-foreground disabled:cursor-not-allowed disabled:opacity-50',
+				'placeholder:text-muted-foreground flex h-11 w-full rounded-md bg-white py-3 text-sm outline-none disabled:cursor-not-allowed disabled:opacity-50',
 				className
 			)}
 			{...props}
@@ -77,7 +72,7 @@ const CommandEmpty = React.forwardRef<
 >((props, ref) => (
 	<CommandPrimitive.Empty
 		ref={ref}
-		className='py-6 text-sm text-center'
+		className='py-6 text-center text-sm'
 		{...props}
 	/>
 ));
@@ -91,7 +86,7 @@ const CommandGroup = React.forwardRef<
 	<CommandPrimitive.Group
 		ref={ref}
 		className={cn(
-			'overflow-hidden border-gray-40 p-1 text-black [&_[cmdk-group-heading]]:px-2 [&_[cmdk-group-heading]]:py-1.5 [&_[cmdk-group-heading]]:typography-M12 [&_[cmdk-group-heading]]:text-black',
+			'overflow-hidden border-gray-40 p-1 text-black [&_[cmdk-group-heading]]:px-2 [&_[cmdk-group-heading]]:py-1.5 [&_[cmdk-group-heading]]:text-black [&_[cmdk-group-heading]]:typography-M12',
 			className
 		)}
 		{...props}
@@ -135,7 +130,7 @@ const CommandShortcut = ({
 	return (
 		<span
 			className={cn(
-				'ml-auto text-xs tracking-widest text-muted-foreground',
+				'text-muted-foreground ml-auto text-xs tracking-widest',
 				className
 			)}
 			{...props}

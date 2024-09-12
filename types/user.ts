@@ -1,6 +1,7 @@
 export type TUser = {
 	_id: string;
-	name: string;
+	firstName: string;
+	lastName: string;
 	email: string;
 	role: 'admin' | 'user';
 	ordersCount: number;

@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { CheckIcon, CopyIcon } from 'lucide-react';
 
 export function CopyBtn({ orderId }: { orderId: string }) {
-	const [textWillCopied, setTextWillCopied] = useState(orderId ?? 123456);
+	const [textWillCopied] = useState(orderId ?? 123456);
 	const [isCopied, setIsCopied] = useState(false);
 
 	const copyOrderId = () => {

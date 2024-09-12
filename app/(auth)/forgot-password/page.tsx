@@ -49,23 +49,23 @@ export default function ForgotPasswordPage() {
 
 	return (
 		<CardAuthWrapper
-			description="You can request a password reset below. We will send a security code to
-        the email address, please make sure it is correct."
-			title="Recover your password">
+			description='You can request a password reset below. We will send a security code to
+        the email address, please make sure it is correct.'
+			title='Recover your password'>
 			<form
 				onSubmit={form.handleSubmit(onSubmit)}
-				className="space-y-8">
+				className='space-y-8'>
 				<Form {...form}>
 					<FormField
 						control={form.control}
-						name="email"
+						name='email'
 						render={({ field }) => (
 							<FormItem>
 								<FormLabel>Email</FormLabel>
 								<FormControl>
 									<Input
 										required
-										placeholder="Enter your email address"
+										placeholder='Enter your email address'
 										{...field}
 									/>
 								</FormControl>
@@ -75,12 +75,12 @@ export default function ForgotPasswordPage() {
 					/>
 				</Form>
 				<Button
-					type="submit"
+					type='submit'
 					disabled={forgotPasswordMutation.isPending}
-					className="w-full capitalize">
+					className='w-full capitalize'>
 					{forgotPasswordMutation.isPending ? (
 						<>
-							<Loader2 className="mr-2 h-4 w-4 animate-spin" />
+							<Loader2 className='mr-2 h-4 w-4 animate-spin' />
 							please wait
 						</>
 					) : (

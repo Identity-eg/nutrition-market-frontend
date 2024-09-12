@@ -73,22 +73,22 @@ export default function ResetPasswordPage() {
 
 	return (
 		<CardAuthWrapper
-			title="Reset Your password"
-			description="Create your new password to login to your account">
+			title='Reset Your password'
+			description='Create your new password to login to your account'>
 			<form
 				onSubmit={form.handleSubmit(onSubmit)}
-				className="space-y-8">
+				className='space-y-8'>
 				<Form {...form}>
 					<FormField
 						control={form.control}
-						name="password"
+						name='password'
 						render={({ field }) => (
 							<FormItem>
 								<FormLabel>New Password</FormLabel>
 								<FormControl>
 									<Input
-										type="password"
-										placeholder="Enter your Password"
+										type='password'
+										placeholder='Enter your Password'
 										{...field}
 									/>
 								</FormControl>
@@ -98,15 +98,15 @@ export default function ResetPasswordPage() {
 					/>
 					<FormField
 						control={form.control}
-						name="confirmPassword"
+						name='confirmPassword'
 						render={({ field }) => (
 							<FormItem>
 								<FormLabel>Confirm Password</FormLabel>
 
 								<FormControl>
 									<Input
-										type="password"
-										placeholder="Confirm Your password"
+										type='password'
+										placeholder='Confirm Your password'
 										{...field}
 									/>
 								</FormControl>
@@ -116,12 +116,12 @@ export default function ResetPasswordPage() {
 					/>
 				</Form>
 				<Button
-					type="submit"
+					type='submit'
 					disabled={resetPasswordMutation.isPending}
-					className="w-full">
+					className='w-full'>
 					{resetPasswordMutation.isPending ? (
 						<>
-							<Loader2 className="mr-2 h-4 w-4 animate-spin" />
+							<Loader2 className='mr-2 h-4 w-4 animate-spin' />
 							Please wait
 						</>
 					) : (

@@ -3,8 +3,6 @@ import { TCartItem } from 'types/cart';
 import { convertToReadableNumber } from 'lib/utils';
 
 export default function CheckoutCartItem({
-	amount,
-	product,
 	_id,
 	totalProductPrice,
 	selectedVariant,

@@ -15,7 +15,7 @@ export function ClearAllBtn() {
 	return (
 		<Link
 			href={pathname}
-			className="text-red-500 typography-M12">
+			className='text-red-500 typography-M12'>
 			Clear all
 		</Link>
 	);

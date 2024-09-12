@@ -14,7 +14,7 @@ export default async function Hero() {
 	return (
 		<CarouselWrapper opts={{ loop: true }}>
 			<CarouselContent className='-ml-0'>
-				{images.map((img, i) => (
+				{images.map(img => (
 					<CarouselItem
 						key={img._id}
 						className='sm:h-[60vh] h-[50vh] pl-0'>

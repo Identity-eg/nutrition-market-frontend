@@ -19,7 +19,7 @@ import { Input } from 'components/ui/input';
 import { Textarea } from 'components/ui/textarea';
 // Utils
 import { cn } from 'lib/utils';
-import { useAddReview, useUpdateReview } from 'apis/reviews';
+import { useUpdateReview } from 'apis/reviews';
 import { TReview } from 'types/review';
 import { useTransition } from 'react';
 

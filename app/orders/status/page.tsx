@@ -1,10 +1,9 @@
 import { Button } from 'components/ui/button';
-import { CopyIcon, MoveLeftIcon, TruckIcon } from 'lucide-react';
+import { MoveLeftIcon, TruckIcon } from 'lucide-react';
 import Link from 'next/link';
 import createOrderPng from 'assets/createOrder.png';
 import Image from 'next/image';
 import { CopyBtn } from './copy-btn';
-import crypto from 'crypto';
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 

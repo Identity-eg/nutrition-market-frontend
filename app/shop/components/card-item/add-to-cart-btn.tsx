@@ -22,21 +22,18 @@ const AddToCartButton = ({
 }) => {
 	const { toast } = useToast();
 	const [isAddedEnd, setIsAddedEnd] = useState(false);
-	const { execute, isPending, hasSucceeded, result } = useAction(
-		addItemToCart,
-		{
-			onSuccess: () => {
-				resetCount?.();
-			},
-			onError: ({ error }) => {
-				toast({
-					variant: 'destructive',
-					title: 'Server Error',
-					description: error.serverError,
-				});
-			},
-		}
-	);
+	const { execute, isPending, hasSucceeded } = useAction(addItemToCart, {
+		onSuccess: () => {
+			resetCount?.();
+		},
+		onError: ({ error }) => {
+			toast({
+				variant: 'destructive',
+				title: 'Server Error',
+				description: error.serverError,
+			});
+		},
+	});
 
 	useEffect(() => {
 		setIsAddedEnd(false);

@@ -22,7 +22,7 @@ export default async function Reviews({
 
 	const allRating = reviews?.map(el => el.rating);
 	const ratingObj = allRating?.reduce(
-		(acc, el, i) => ((acc[el] = acc[el] + 1 || 1), acc),
+		(acc, el) => ((acc[el] = acc[el] + 1 || 1), acc),
 		{}
 	);
 
