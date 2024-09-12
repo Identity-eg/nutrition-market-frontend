@@ -17,7 +17,7 @@ import {
 	TooltipTrigger,
 } from 'components/ui/tooltip';
 
-export default function Comment({
+export function Comment({
 	_id,
 	user,
 	title,
@@ -47,12 +47,12 @@ export default function Comment({
 		<li className='flex gap-2 px-4 pb-4 [&:has(button[data-state=deleting])]:animate-pulse'>
 			<Avatar className='size-10'>
 				<AvatarFallback className='bg-gray-30 capitalize text-gray-400 typography-R14'>
-					{user.name?.[0]}
+					{user.firstName?.[0]}
 				</AvatarFallback>
 			</Avatar>
 			<div className='flex-1'>
 				<div className='mb-4 mt-2 flex items-center gap-2'>
-					<p className='capitalize typography-M16'>{user.name}</p>
+					<p className='capitalize typography-M16'>{user.firstName}</p>
 					<TooltipProvider>
 						<Tooltip delayDuration={0}>
 							<TooltipTrigger>

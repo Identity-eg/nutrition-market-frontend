@@ -1,7 +1,7 @@
 import { createSafeActionClient } from 'next-safe-action';
 
 export const actionClient = createSafeActionClient({
-	handleReturnedServerError(error, utils) {
+	handleServerError(error) {
 		return error.message;
 	},
 });

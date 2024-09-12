@@ -1,5 +1,5 @@
 import React from 'react';
-import ReviewItem from './item';
+import { Comment } from './comment';
 import Image from 'next/image';
 import { getReviews } from 'apis/server/reviews';
 import { TProduct } from 'types/product';
@@ -34,7 +34,7 @@ export default async function ReviewsList({
 	return (
 		<ul className='flex flex-col gap-4 [&>*:not(:last-child)]:border-b [&>*:not(:last-child)]:border-gray-50'>
 			{reviews?.map(review => (
-				<ReviewItem
+				<Comment
 					currentUserId={user?._id}
 					key={review._id}
 					{...review}

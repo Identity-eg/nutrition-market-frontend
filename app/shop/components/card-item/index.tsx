@@ -84,6 +84,7 @@ const CardItem = ({ variants, averageRating, _id }: TProduct) => {
 			/>
 
 			<AddToCartButton
+				quantity={defaltVariant.quantity}
 				productId={_id}
 				variantId={defaltVariant._id}
 			/>
