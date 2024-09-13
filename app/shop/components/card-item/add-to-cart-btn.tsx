@@ -51,7 +51,7 @@ const AddToCartButton = ({
 			<Button
 				disabled
 				variant='secondary-gray'
-				className='relative flex w-full flex-1 items-center justify-center gap-2 capitalize text-red-500'>
+				className='relative w-full flex-1 gap-2 capitalize text-red-500'>
 				<CircleX size={16} />
 				Out of stock
 			</Button>
@@ -65,7 +65,7 @@ const AddToCartButton = ({
 				execute({ amount, productId, variantId: variantId ?? '' });
 			}}
 			type='submit'
-			className='relative flex w-full flex-1 items-center justify-center capitalize'>
+			className='relative mt-auto w-full justify-center self-end capitalize'>
 			{isPending ? (
 				<Circle
 					size={10}

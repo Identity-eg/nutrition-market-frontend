@@ -2,13 +2,11 @@ import React from 'react';
 import Link from 'next/link';
 import parse from 'html-react-parser';
 import {
-	BeanOff,
 	Calendar,
 	Circle,
 	CircleAlert,
 	CircleCheck,
-	DnaOff,
-	WheatOff,
+	RefrigeratorIcon,
 } from 'lucide-react';
 import { getSingleProduct } from 'apis/server/products';
 
@@ -29,6 +27,9 @@ import ProductImages from 'app/shop/[productId]/images';
 import Price from '../components/card-item/price';
 import ActionBtns from './components/action-btns';
 import { cn } from 'lib/utils';
+import { NutritionFacts } from './nutrition-facts';
+import Allergen from './allergen';
+import OtherIngredients from './other-ingredients';
 
 const accordionToDisplay = [
 	{
@@ -64,6 +65,17 @@ const accordionToDisplay = [
 		displayName: 'Warnings',
 		name: 'warnings',
 	},
+	{
+		id: '4',
+		icon: (
+			<RefrigeratorIcon
+				size={20}
+				strokeWidth={1.5}
+			/>
+		),
+		displayName: 'Storage condition',
+		name: 'storageConditions',
+	},
 ] as const;
 
 export default async function ProductPage({
@@ -77,6 +89,7 @@ export default async function ProductPage({
 	const manipulatedSp = new URLSearchParams(searchParams);
 
 	const product = await getSingleProduct({ productId: params.productId });
+	console.log({ desc: product.description });
 
 	const variant =
 		product.variants.find(v => v._id === variantId) ?? product.variants[0];
@@ -95,30 +108,11 @@ export default async function ProductPage({
 			<div className='grid grid-cols-2'>
 				<div className='in flex flex-col justify-center gap-6 self-baseline border-r border-gray-50 p-6'>
 					<ProductImages images={variant.images} />
-
-					<div>
-						<p className='mb-4 typography-B18'>Allergen notice</p>
-						<div className='flex gap-4 text-green-500'>
-							<div className='flex flex-col items-center justify-center'>
-								<div className='mb-2 rounded-full border border-green-500 p-6'>
-									<BeanOff />
-								</div>
-								<span className='typography-M16'>Soy-free</span>
-							</div>
-							<div className='flex flex-col items-center justify-center'>
-								<div className='mb-2 rounded-full border border-green-500 p-6'>
-									<WheatOff />
-								</div>
-								<span className='typography-M16'>Gluten-free</span>
-							</div>
-							<div className='flex flex-col items-center justify-center'>
-								<div className='mb-2 rounded-full border border-green-500 p-6'>
-									<DnaOff />
-								</div>
-								<span className='typography-M16'>No-gmo</span>
-							</div>
-						</div>
-					</div>
+					<Allergen />
+					<NutritionFacts nutritionFacts={product.nutritionFacts} />
+					<OtherIngredients
+						otherIngredients={product.nutritionFacts.otherIngredients}
+					/>
 				</div>
 
 				<div className='p-6'>
@@ -209,7 +203,7 @@ export default async function ProductPage({
 											{category.displayName}
 										</span>
 									</AccordionTrigger>
-									<AccordionContent className='leading-6 typography-R16'>
+									<AccordionContent className='leading-6 typography-R16 [&>ul]:ml-6 [&>ul]:list-disc'>
 										{parse(product[category.name])}
 									</AccordionContent>
 								</AccordionItem>

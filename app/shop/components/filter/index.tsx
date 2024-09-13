@@ -12,6 +12,7 @@ import { ClearAllBtn } from './clear-all-btn';
 import { Inputs } from './price-inputs';
 import { TSearchParams } from 'app/shop/page';
 import { getDosageForms } from 'apis/server/dosageForm';
+import { object } from 'zod';
 
 export default async function FilterProducts({
 	searchParams,
@@ -24,7 +25,12 @@ export default async function FilterProducts({
 		getDosageForms(),
 	]);
 
-	const keys = Object.keys(searchParams);
+	const FilterKeys = {
+		company: 'company',
+		dosageForm: 'dosageForm',
+		category: 'category',
+		price: 'price',
+	} as const;
 
 	return (
 		<article className='hidden self-start rounded-lg border border-gray-50 media-md:block'>
@@ -35,12 +41,12 @@ export default async function FilterProducts({
 
 			<div className='h-[60vh] overflow-y-auto overflow-x-hidden p-4 pt-0'>
 				<Accordion
-					defaultValue={keys}
+					defaultValue={Object.keys(FilterKeys)}
 					type='multiple'
 					className='w-full [&>*:last-child]:border-0'>
 					<FacetedFilter
 						title='Company'
-						value='company'
+						value={FilterKeys.company}
 						options={
 							companies?.companies.map(c => ({
 								label: c.name,
@@ -50,7 +56,7 @@ export default async function FilterProducts({
 					/>
 					<FacetedFilter
 						title='Dosage form'
-						value='dosageForm'
+						value={FilterKeys.dosageForm}
 						options={
 							dosageForms?.dosageForms.map(f => ({
 								label: f.name,
@@ -61,7 +67,7 @@ export default async function FilterProducts({
 
 					<FacetedFilter
 						title='Category'
-						value='category'
+						value={FilterKeys.category}
 						options={
 							categories?.categories.map(c => ({
 								label: c.name,
@@ -70,7 +76,7 @@ export default async function FilterProducts({
 						}
 					/>
 
-					<AccordionItem value={'price'}>
+					<AccordionItem value={FilterKeys.price}>
 						<AccordionTrigger className='typography-M14'>
 							Price
 						</AccordionTrigger>

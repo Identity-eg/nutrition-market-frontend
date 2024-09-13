@@ -26,13 +26,14 @@ export type TNutritionFacts = {
 	servingSize: string;
 	servingPerContainer: string;
 	ingredients: {
+		_id: string;
 		name: string;
 		amountPerServing: string;
 		dailyValue: string;
-	};
+	}[];
 	otherIngredients: {
 		name: string;
-	};
+	}[];
 };
 
 export type TVariant = {

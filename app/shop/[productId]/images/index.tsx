@@ -7,7 +7,7 @@ import { TProduct } from 'types/product';
 export default function ProductImages({
 	images,
 }: {
-	images: Pick<TProduct, 'images'>['images'];
+	images: Pick<TProduct, 'variants'>['variants'][number]['images'];
 }) {
 	const primaryImage = images[0];
 
@@ -20,7 +20,7 @@ export default function ProductImages({
 	}, [primaryImage.url]);
 
 	return (
-		<div className='flex flex-col gap-4'>
+		<div className='flex flex-col gap-4 border-b border-gray-50 pb-8'>
 			<div className='aspect-square w-full max-w-[500px] content-center self-center'>
 				<Image
 					width={1000}
@@ -30,7 +30,7 @@ export default function ProductImages({
 					src={displayedPhotoUrl}
 				/>
 			</div>
-			<div className='flex w-full gap-2 self-start border-b border-gray-50 pb-8'>
+			<div className='flex w-full gap-2 self-start'>
 				{images?.map(image => (
 					<div
 						key={image.name}
