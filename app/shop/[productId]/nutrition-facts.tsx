@@ -1,13 +1,13 @@
 import { TProduct } from 'types/product';
-// import {
-// 	Table,
-// 	TableBody,
-// 	TableCaption,
-// 	TableCell,
-// 	TableHead,
-// 	TableHeader,
-// 	TableRow,
-// } from 'components/ui/table';
+import {
+	Table,
+	TableBody,
+	TableCaption,
+	TableCell,
+	TableHead,
+	TableHeader,
+	TableRow,
+} from 'components/ui/table';
 
 export function NutritionFacts({
 	nutritionFacts,
@@ -46,7 +46,7 @@ export function NutritionFacts({
 									.filter(([col]) => col !== '_id')
 									.map(([_, value]) => (
 										<td
-											className='p-1'
+											className='p-2 typography-R14'
 											key={value}>
 											{value}
 										</td>
@@ -57,6 +57,27 @@ export function NutritionFacts({
 				</tbody>
 			</table>
 		</div>
+		// <>
+		// 	<p className='mb-4 typography-B18'>Nutrition Facts</p>
+		// 	<Table>
+		// 		<TableHeader>
+		// 			<TableRow className='border-gray-50'>
+		// 				<TableHead className=''></TableHead>
+		// 				<TableHead className="typography-B18">Amount Per Serving</TableHead>
+		// 				<TableHead className="typography-B18">Daily Value (%)</TableHead>
+		// 			</TableRow>
+		// 		</TableHeader>
+		// 		<TableBody>
+		// 			{nutritionFacts.ingredients.map(ing => (
+		// 				<TableRow className='border-gray-50'>
+		// 					<TableCell className='font-medium'>{ing.name}</TableCell>
+		// 					<TableCell>{ing.amountPerServing}</TableCell>
+		// 					<TableCell>{ing.dailyValue}</TableCell>
+		// 				</TableRow>
+		// 			))}
+		// 		</TableBody>
+		// 	</Table>
+		// </>
 	);
 }
 

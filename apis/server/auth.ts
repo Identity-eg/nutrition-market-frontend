@@ -1,15 +1,15 @@
 'use server';
 
-import { request } from 'apis/client';
+import { actionClient } from 'apis/action-clients';
 import { redirect } from 'next/navigation';
 import { cookies } from 'next/headers';
 import { ACCESS_COOKIE_OPTIONS, REFRESH_COOKIE_OPTIONS } from 'constants/auth';
-import { TUser } from 'types/user';
+import { z } from 'zod';
+import { request } from 'apis/client';
 
 type TLoginResponse = {
 	accessToken: string;
 	refreshToken: string;
-	user: TUser;
 };
 
 type TForgotPasswordResponse = {
@@ -20,36 +20,84 @@ type TResetPasswordResponse = {
 	msg: string;
 };
 
-export const login = async (user: {
-	email: string;
-	password: string;
-}): Promise<TLoginResponse> => {
-	const data = await request({
-		url: '/auth/login',
-		method: 'POST',
-		body: user,
+const loginSchema = z.object({
+	email: z
+		.string()
+		.min(1, {
+			message: 'Email is required',
+		})
+		.email('Please enter a valid email address'),
+	password: z
+		.string()
+		.min(1, { message: 'Password is required' })
+		.min(6, { message: 'Password must be greater than 6 characters' }),
+});
+
+export const login = actionClient
+	.schema(loginSchema)
+	.action(async ({ parsedInput: userData }) => {
+		const data = await request({
+			url: '/auth/login',
+			body: userData,
+			method: 'POST',
+		});
+		cookies().set(
+			process.env.ACCESS_TOKEN_NAME ?? '',
+			data.accessToken,
+			ACCESS_COOKIE_OPTIONS
+		);
+
+		cookies().set(
+			process.env.REFRESH_TOKEN_NAME ?? '',
+			data.refreshToken,
+			REFRESH_COOKIE_OPTIONS
+		);
+
+		if (data && cookies().get(process.env.CART_ID ?? '')) {
+			await request({
+				url: '/carts/sync',
+			});
+		}
+		cookies().delete(process.env.CART_ID ?? '');
+		return data;
 	});
 
-	cookies().set(
-		process.env.ACCESS_TOKEN_NAME ?? '',
-		data.accessToken,
-		ACCESS_COOKIE_OPTIONS
-	);
+const registerSchema = z.object({
+	firstName: z.string().min(1, { message: 'First Name is required' }),
+	lastName: z.string().min(1, { message: 'Last Name is required' }),
+	email: z
+		.string()
+		.min(1, {
+			message: 'Email is required',
+		})
+		.email('Please enter a valid email address'),
+	password: z
+		.string()
+		.min(1, { message: 'Password is required' })
+		.min(6, { message: 'Password must be greater than 6 characters' }),
+});
 
-	cookies().set(
-		process.env.REFRESH_TOKEN_NAME ?? '',
-		data.refreshToken,
-		REFRESH_COOKIE_OPTIONS
-	);
-
-	if (data && cookies().get(process.env.CART_ID ?? '')) {
-		await request({
-			url: '/carts/sync',
+export const register = actionClient
+	.schema(registerSchema)
+	.action(async ({ parsedInput: userData }) => {
+		const data = await request({
+			url: '/auth/register',
+			body: userData,
+			method: 'POST',
 		});
-	}
-	cookies().delete(process.env.CART_ID ?? '');
-	return data;
-};
+		cookies().set(
+			process.env.ACCESS_TOKEN_NAME ?? '',
+			data.accessToken,
+			ACCESS_COOKIE_OPTIONS
+		);
+
+		cookies().set(
+			process.env.REFRESH_TOKEN_NAME ?? '',
+			data.refreshToken,
+			REFRESH_COOKIE_OPTIONS
+		);
+		return data;
+	});
 
 export const logout = async () => {
 	await request({ url: '/auth/logout' });
@@ -61,35 +109,10 @@ export const logout = async () => {
 export const refreshAccessTokenFn = async () => {
 	try {
 		const data = await request({ url: '/auth/refresh', method: 'GET' });
-
 		return data;
 	} catch {
 		logout;
 	}
-};
-
-export const register = async (user: {
-	name: string;
-	email: string;
-	password: string;
-}): Promise<TLoginResponse> => {
-	const data = await request({
-		url: '/auth/register',
-		method: 'POST',
-		body: user,
-	});
-	cookies().set(
-		process.env.ACCESS_TOKEN_NAME ?? '',
-		data.accessToken,
-		ACCESS_COOKIE_OPTIONS
-	);
-
-	cookies().set(
-		process.env.REFRESH_TOKEN_NAME ?? '',
-		data.refreshToken,
-		REFRESH_COOKIE_OPTIONS
-	);
-	return data;
 };
 
 export const forgotPassword = async ({

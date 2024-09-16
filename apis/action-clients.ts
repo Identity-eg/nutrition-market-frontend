@@ -1,7 +1,10 @@
 import { createSafeActionClient } from 'next-safe-action';
 
 export const actionClient = createSafeActionClient({
-	handleServerError(error) {
-		return error.message;
+	// Can also be an async function.
+	handleServerError(e, utils) {
+		// You can access these properties inside the `utils` object.
+		// const { clientInput, bindArgsClientInputs, metadata, ctx } = utils;
+		return e.message || 'Oh no, something went wrong!';
 	},
 });

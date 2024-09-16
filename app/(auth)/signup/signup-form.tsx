@@ -17,11 +17,16 @@ import {
 } from 'components/ui/form';
 import { Input } from 'components/ui/input';
 
-import { useRegister } from 'apis/auth';
+import { useAction } from 'next-safe-action/hooks';
+import { register } from 'apis/server/auth';
+import { toast } from 'components/ui/use-toast';
 
 const registerSchema = z.object({
-	name: z.string().min(1, {
-		message: 'Name is required',
+	firstName: z.string().min(1, {
+		message: 'First name is required',
+	}),
+	lastName: z.string().min(1, {
+		message: 'Last name is required',
 	}),
 	email: z
 		.string()
@@ -29,9 +34,12 @@ const registerSchema = z.object({
 			message: 'Email is required',
 		})
 		.email('Please enter a valid email address'),
-	password: z.string().min(1, {
-		message: 'Password is required',
-	}),
+	password: z
+		.string()
+		.min(1, {
+			message: 'Password is required',
+		})
+		.min(6, { message: 'Password must be at least 6 characters' }),
 	rememberMe: z.boolean(),
 });
 export function SignupForm() {
@@ -39,7 +47,8 @@ export function SignupForm() {
 	const from = '/';
 	const form = useForm<z.infer<typeof registerSchema>>({
 		defaultValues: {
-			name: '',
+			firstName: '',
+			lastName: '',
 			email: '',
 			password: '',
 			rememberMe: false,
@@ -47,37 +56,61 @@ export function SignupForm() {
 		resolver: zodResolver(registerSchema),
 	});
 
-	const registerMutation = useRegister();
+	const { execute, isPending } = useAction(register, {
+		onSuccess: () => router.replace(from),
+		onError: ({ error }) => {
+			toast({
+				variant: 'destructive',
+				title: 'Server Error',
+				description: error.serverError,
+			});
+		},
+	});
 
 	function onSubmit(values: z.infer<typeof registerSchema>) {
-		registerMutation.mutate(values, {
-			onSuccess: () => {
-				router.replace(from);
-			},
-		});
+		execute(values);
 	}
 	return (
 		<form
 			onSubmit={form.handleSubmit(onSubmit)}
 			className='space-y-8'>
 			<Form {...form}>
-				<FormField
-					control={form.control}
-					name='name'
-					render={({ field }) => (
-						<FormItem>
-							<FormLabel>Name</FormLabel>
-							<FormControl>
-								<Input
-									type='text'
-									placeholder='John Doe'
-									{...field}
-								/>
-							</FormControl>
-							<FormMessage />
-						</FormItem>
-					)}
-				/>
+				<div className='grid grid-cols-2 gap-x-4'>
+					<FormField
+						control={form.control}
+						name='firstName'
+						render={({ field }) => (
+							<FormItem>
+								<FormLabel>First Name</FormLabel>
+								<FormControl>
+									<Input
+										type='text'
+										placeholder='John'
+										{...field}
+									/>
+								</FormControl>
+								<FormMessage />
+							</FormItem>
+						)}
+					/>
+					<FormField
+						control={form.control}
+						name='lastName'
+						render={({ field }) => (
+							<FormItem>
+								<FormLabel>Last Name</FormLabel>
+								<FormControl>
+									<Input
+										type='text'
+										placeholder='Doe'
+										{...field}
+									/>
+								</FormControl>
+								<FormMessage />
+							</FormItem>
+						)}
+					/>
+				</div>
 				<FormField
 					control={form.control}
 					name='email'
@@ -87,7 +120,6 @@ export function SignupForm() {
 							<FormControl>
 								<Input
 									type='email'
-									required
 									placeholder='m@example.com'
 									{...field}
 								/>
@@ -116,9 +148,9 @@ export function SignupForm() {
 
 			<Button
 				type='submit'
-				disabled={registerMutation.isPending}
+				disabled={isPending}
 				className='w-full'>
-				{registerMutation.isPending ? (
+				{isPending ? (
 					<>
 						<Loader2 className='mr-2 h-4 w-4 animate-spin' />
 						Please wait

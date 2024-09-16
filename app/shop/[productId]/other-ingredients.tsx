@@ -9,7 +9,9 @@ export default function OtherIngredients({
 	return (
 		<div>
 			<p className='mb-4 typography-B18'>Other Ingredients</p>
-			<span>{otherIngredients.map(ing => ing.name).join(', ')}</span>
+			<span className='typography-R14'>
+				{otherIngredients.map(ing => ing.name).join(', ')}
+			</span>
 		</div>
 	);
 }

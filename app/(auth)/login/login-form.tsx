@@ -1,12 +1,12 @@
 'use client';
 
-import { useTransition } from 'react';
 import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { Loader2 } from 'lucide-react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
+import { useAction } from 'next-safe-action/hooks';
 
 import { Button } from 'components/ui/button';
 import {
@@ -18,7 +18,9 @@ import {
 	FormMessage,
 } from 'components/ui/form';
 import { Input } from 'components/ui/input';
-import { useLogin } from 'apis/auth';
+import { toast } from 'components/ui/use-toast';
+
+import { login } from 'apis/server/auth';
 
 const loginSchema = z.object({
 	email: z
@@ -46,18 +48,19 @@ export function LoginForm() {
 		resolver: zodResolver(loginSchema),
 	});
 
-	const [isPending, startTransition] = useTransition();
-
-	const loginMutation = useLogin();
+	const { execute, isPending } = useAction(login, {
+		onSuccess: () => router.replace(from ?? '/'),
+		onError: ({ error }) => {
+			toast({
+				variant: 'destructive',
+				title: 'Server Error',
+				description: error.serverError,
+			});
+		},
+	});
 
 	function onSubmit(values: z.infer<typeof loginSchema>) {
-		startTransition(() => {
-			loginMutation.mutate(values, {
-				onSuccess: () => {
-					router.replace(from ?? '/');
-				},
-			});
-		});
+		execute(values);
 	}
 	return (
 		<form
