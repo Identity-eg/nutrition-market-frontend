@@ -117,9 +117,8 @@ export default async function ProductPage({
 
 				<div className='p-6'>
 					<div className='mb-8 border-b border-gray-50 pb-[12px]'>
-						<h2 className='mb-1 inline-block items-center justify-center text-green-500 typography-SB32'>
+						<h2 className='items-center justify-center text-green-500 typography-SB32'>
 							{variant.name}
-
 							<Circle
 								size={14}
 								className={cn(
@@ -130,6 +129,14 @@ export default async function ProductPage({
 								)}
 							/>
 						</h2>
+						<span className='mb-4 inline-block typography-R13'>
+							by{' '}
+							<Link
+								href={`/shop?company=${product.company._id}`}
+								className='rounded-md text-green-500 underline typography-SB13'>
+								{product.company.name}
+							</Link>
+						</span>
 
 						<div className='mb-6 flex items-center gap-4 text-gray-200 typography-R14'>
 							<RatingStars averageRating={product.averageRating} />

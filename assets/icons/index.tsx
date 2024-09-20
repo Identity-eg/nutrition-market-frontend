@@ -14,14 +14,12 @@ const Icon = forwardRef<HTMLElement, IconProps>((props, ref) => {
 		<i
 			className={cn(`line-clamp-[1em] flex size-[24px]`, className)}
 			{...rest}
-			ref={ref}
-		>
+			ref={ref}>
 			<svg
-				preserveAspectRatio="none"
-				viewBox={`0 0 ${viewBox} ${viewBox}`}
-			>
+				preserveAspectRatio='none'
+				viewBox={`0 0 ${viewBox} ${viewBox}`}>
 				<path
-					fill="currentColor"
+					fill='currentColor'
 					d={icons[name]}
 				/>
 			</svg>
