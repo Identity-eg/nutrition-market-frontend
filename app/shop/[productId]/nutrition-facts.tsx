@@ -46,7 +46,7 @@ export function NutritionFacts({
 									.filter(([col]) => col !== '_id')
 									.map(([_, value]) => (
 										<td
-											className='p-2 typography-R14'
+											className='p-2 typography-R14 first:w-1/3'
 											key={value}>
 											{value}
 										</td>

@@ -1,7 +1,8 @@
+import { redirect } from 'next/navigation';
 import { convertToReadableNumber } from 'lib/utils';
 import { Card } from 'components/ui/card';
-import CheckoutCartItem from './checkout-cart-item';
-import { PlaceOrderBtn } from './place-order-btn';
+import CheckoutCartItem from 'app/checkout/checkout-cart-item';
+import { PlaceOrderBtn } from 'app/checkout/place-order-btn';
 import { TCart } from 'types/cart';
 
 export function CheckoutSummary({
@@ -13,12 +14,13 @@ export function CheckoutSummary({
 	paymentMethodId: string;
 	addressId: string;
 }) {
+	if (cart?.items.length === 0) redirect('/');
 	return (
-		<Card className='flex max-w-[380px] flex-col justify-between self-start p-6'>
+		<Card className='flex max-w-[380px] flex-1 flex-col justify-between self-start p-6'>
 			<h1 className='mb-4 border-b border-gray-40 pb-4 capitalize text-gray-800 typography-SB20'>
 				Product summary
 			</h1>
-			<ul className='relative mb-4 flex-1 overflow-y-auto rounded-md border border-gray-40 bg-gray-20 p-4'>
+			<ul className='relative mb-4 flex-1 space-y-4 rounded-md border-b border-gray-40 pb-4'>
 				{cart?.items?.map(item => {
 					return (
 						<CheckoutCartItem
