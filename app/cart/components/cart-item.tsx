@@ -12,7 +12,7 @@ export function CartItem({
 	product,
 	_id,
 	totalProductPrice,
-	selectedVariant,
+	variant,
 }: TCartItem) {
 	const totalPrice = convertToReadableNumber(totalProductPrice);
 
@@ -28,10 +28,10 @@ export function CartItem({
 			</div>
 			<div className='relative aspect-square size-24 flex-shrink-0 rounded-md bg-gray-30'>
 				<Image
-					src={selectedVariant.images[0].url}
+					src={variant.images[0].url}
 					width={500}
 					height={500}
-					alt={selectedVariant.name}
+					alt={variant.name}
 					className='h-full w-full object-contain object-center p-2 mix-blend-multiply'
 				/>
 			</div>
@@ -39,12 +39,12 @@ export function CartItem({
 			<div className='flex w-full flex-col justify-between gap-4'>
 				<h3 className='flex justify-between gap-4'>
 					<Link
-						href={`/shop/${product._id}?variant=${selectedVariant._id}`}
+						href={`/shop/${product._id}?variant=${variant._id}`}
 						className='mb-2 line-clamp-2 text-green-700 typography-SB16'>
-						{selectedVariant.name}
+						{variant.name}
 					</Link>
 					<span className='flex items-center justify-start gap-2 self-start rounded-md border border-gray-40 px-2 py-1'>
-						{selectedVariant.unitCount} <Pill size={16} />
+						{variant.unitCount} <Pill size={16} />
 					</span>
 				</h3>
 				<div className='flex justify-between'>

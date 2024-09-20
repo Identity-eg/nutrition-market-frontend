@@ -13,7 +13,7 @@ export default function CartSideItem({
 	product,
 	_id,
 	totalProductPrice,
-	selectedVariant,
+	variant,
 }: TCartItem) {
 	const totalPrice = convertToReadableNumber(totalProductPrice);
 
@@ -24,10 +24,10 @@ export default function CartSideItem({
 			<div className='w-24 space-y-2'>
 				<div className='relative aspect-square h-auto w-full flex-shrink-0 rounded-md bg-gray-30'>
 					<Image
-						src={selectedVariant.images[0].url}
-						width={500}
-						height={500}
-						alt={selectedVariant.name}
+						src={variant.images[0].url}
+						width={70}
+						height={70}
+						alt={variant.name}
 						className='h-full w-full object-contain object-center p-2 mix-blend-multiply'
 					/>
 					<DeleteCartItemBtn itemId={_id} />
@@ -42,9 +42,9 @@ export default function CartSideItem({
 				<h3>
 					<SheetClose asChild>
 						<Link
-							href={`/shop/${product._id}?variant=${selectedVariant._id}`}
+							href={`/shop/${product._id}?variant=${variant._id}`}
 							className='line-clamp-2 text-green-700 typography-M16'>
-							{selectedVariant.name}
+							{variant.name}
 						</Link>
 					</SheetClose>
 				</h3>

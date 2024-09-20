@@ -89,10 +89,10 @@ export default async function ProductPage({
 	const manipulatedSp = new URLSearchParams(searchParams);
 
 	const product = await getSingleProduct({ productId: params.productId });
-	console.log({ desc: product.description });
 
 	const variant =
-		product.variants.find(v => v._id === variantId) ?? product.variants[0];
+		product.variants.find(v => v._id.toString() === variantId) ??
+		product.variants[0];
 
 	function setVariant(variantId: string) {
 		if (!variantId) {
@@ -106,7 +106,7 @@ export default async function ProductPage({
 	return (
 		<div className='container pb-10'>
 			<div className='grid grid-cols-2'>
-				<div className='in flex flex-col justify-center gap-6 self-baseline border-r border-gray-50 p-6'>
+				<div className='flex flex-col justify-center gap-10 self-baseline border-r border-gray-50 pr-6'>
 					<ProductImages images={variant.images} />
 					<Allergen />
 					<NutritionFacts nutritionFacts={product.nutritionFacts} />

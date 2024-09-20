@@ -24,8 +24,8 @@ const CardItem = ({ variants, averageRating, _id }: TProduct) => {
 						className='aspect-square w-4/5 cursor-pointer object-contain p-2 mix-blend-multiply transition duration-300 group-hover:scale-110'
 						src={primaryImage.url}
 						alt={primaryImage.name}
-						width={300}
-						height={300}
+						width={150}
+						height={150}
 					/>
 				</Link>
 

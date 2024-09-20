@@ -45,7 +45,7 @@ export type TVariant = {
 	flavor: string;
 	price: number;
 	priceAfterDiscount: number;
-	images: { url: string; name: string; size: number }[];
+	images: { url: string; name: string; size: number; _id: string }[];
 	createdAt: string;
 	updatedAt: string;
 };

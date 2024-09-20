@@ -3,7 +3,7 @@ import React from 'react';
 
 export default function Allergen() {
 	return (
-		<div className='border-b border-gray-50 pb-8'>
+		<div className='border-b border-gray-50 pb-10'>
 			<p className='mb-4 typography-B18'>Allergen notice</p>
 			<div className='flex gap-4 text-green-500'>
 				<div className='flex flex-col items-center justify-center'>

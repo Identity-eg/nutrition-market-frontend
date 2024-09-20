@@ -1,53 +1,50 @@
 'use client';
 
+import { useEffect, useState } from 'react';
 import Image from 'next/image';
-import React, { useEffect, useState } from 'react';
 import { TProduct } from 'types/product';
 
-export default function ProductImages({
-	images,
-}: {
-	images: Pick<TProduct, 'variants'>['variants'][number]['images'];
-}) {
+type Images = Pick<TProduct, 'variants'>['variants'][number]['images'];
+
+export default function ProductImages({ images }: { images: Images }) {
 	const primaryImage = images[0];
 
-	const [displayedPhotoUrl, setDisplayedPhotoUrl] = useState<string>(
-		primaryImage.url
-	);
+	const [displayedPhoto, setDisplayedPhoto] =
+		useState<Images[number]>(primaryImage);
 
 	useEffect(() => {
-		setDisplayedPhotoUrl(primaryImage.url);
-	}, [primaryImage.url]);
+		setDisplayedPhoto(primaryImage);
+	}, [primaryImage]);
 
 	return (
-		<div className='flex flex-col gap-4 border-b border-gray-50 pb-8'>
+		<div className='flex flex-col gap-4 border-b border-gray-50 pb-10'>
 			<div className='aspect-square w-full max-w-[500px] content-center self-center'>
 				<Image
-					width={1000}
-					height={1000}
+					width={500}
+					height={500}
 					className='h-full w-full object-contain pt-4'
 					alt='Product image'
-					src={displayedPhotoUrl}
+					src={displayedPhoto.url}
 				/>
 			</div>
 			<div className='flex w-full gap-2 self-start'>
 				{images?.map(image => (
 					<div
-						key={image.name}
+						key={image._id}
 						className={`size-[90px] cursor-pointer overflow-hidden rounded-md border p-2 ${
-							image.url === displayedPhotoUrl
+							image._id === displayedPhoto._id
 								? 'border-green-400'
 								: 'border-gray-50'
 						}`}
 						onClick={() => {
-							setDisplayedPhotoUrl(image.url);
+							setDisplayedPhoto(image);
 						}}>
 						<Image
-							width={200}
-							height={200}
+							width={80}
+							height={80}
 							className='h-full w-full object-contain'
 							src={image.url}
-							alt=''
+							alt='Another product photo'
 						/>
 					</div>
 				))}
