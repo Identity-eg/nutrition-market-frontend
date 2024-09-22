@@ -87,7 +87,7 @@ export default async function HomePage() {
 							return (
 								<CarouselItem
 									key={cat._id}
-									className='group basis-1/6 cursor-pointer'>
+									className='group basis-1/5 cursor-pointer'>
 									<Link href={`/shop?category=${cat._id}`}>
 										<Card className='flex aspect-square flex-col items-center justify-center gap-4 p-2 text-[#bc6c25]'>
 											<span className='transition-all group-hover:scale-110'>
@@ -109,8 +109,8 @@ export default async function HomePage() {
 					<div className='p-6'>
 						<Image
 							alt=''
-							width={450}
-							height={450}
+							width={400}
+							height={400}
 							className='mix-blend-multiply'
 							src={biotinImage}
 						/>
