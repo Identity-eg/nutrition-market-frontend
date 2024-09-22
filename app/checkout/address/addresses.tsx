@@ -1,16 +1,22 @@
+import { Dispatch } from 'react';
+import { Pencil } from 'lucide-react';
+
 import { Button } from 'components/ui/button';
 import { Label } from 'components/ui/label';
 import { RadioGroup, RadioGroupItem } from 'components/ui/radio';
-import { Pencil } from 'lucide-react';
-import { Dispatch } from 'react';
+
 import { TAddress } from 'types/address';
 
 export default function Addresses({
-	setAddressId,
 	addresses,
+	setAddressId,
+	setAddressToEdit,
+	openForm,
 }: {
-	setAddressId: Dispatch<React.SetStateAction<string>>;
 	addresses: TAddress[];
+	setAddressId: Dispatch<React.SetStateAction<string>>;
+	setAddressToEdit: Dispatch<React.SetStateAction<TAddress | undefined>>;
+	openForm: () => void;
 }) {
 	return (
 		<RadioGroup
@@ -40,7 +46,11 @@ export default function Addresses({
 						</div>
 						<Button
 							variant='outline'
-							className='gap-2'>
+							className='gap-2'
+							onClick={() => {
+								openForm();
+								setAddressToEdit(addr);
+							}}>
 							<Pencil size={16} />
 							Edit
 						</Button>

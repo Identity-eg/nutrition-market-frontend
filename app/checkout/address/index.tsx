@@ -21,6 +21,12 @@ export default function ShippingAddress({
 }) {
 	const isUserHasAddress = addresses.length !== 0;
 	const [isInFormMode, setIsInFormMode] = useState(!isUserHasAddress);
+	const [addressToEdit, setAddressToEdit] = useState<TAddress | undefined>(
+		undefined
+	);
+
+	const openForm = () => setIsInFormMode(true);
+	const closeForm = () => setIsInFormMode(false);
 
 	return (
 		<Card className='p-6'>
@@ -28,7 +34,7 @@ export default function ShippingAddress({
 				Shipping Address
 				{!isInFormMode && (
 					<Button
-						onClick={() => setIsInFormMode(true)}
+						onClick={openForm}
 						aria-label='Add new address'
 						variant='primary'
 						className='size-8 rounded-full'
@@ -43,13 +49,17 @@ export default function ShippingAddress({
 					userEmail={userEmail}
 					governorates={governorates}
 					isUserHasAddress={isUserHasAddress}
-					cancelAddingMode={() => setIsInFormMode(false)}
+					addressToEdit={addressToEdit}
+					setAddressToEdit={setAddressToEdit}
+					closeForm={closeForm}
 				/>
 			)}
 			{!isInFormMode && isUserHasAddress && (
 				<Addresses
 					setAddressId={setAddressId}
 					addresses={addresses}
+					setAddressToEdit={setAddressToEdit}
+					openForm={openForm}
 				/>
 			)}
 		</Card>

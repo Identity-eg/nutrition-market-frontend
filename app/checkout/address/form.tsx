@@ -25,11 +25,13 @@ import {
 	CommandList,
 } from 'components/ui/command';
 import { useAction } from 'next-safe-action/hooks';
-import { addAddress } from 'apis/server/address';
+import { addAddress, updateAddress } from 'apis/server/address';
 import { useToast } from 'components/ui/use-toast';
 import { TGovernorate } from 'types/egypt';
 import { getCities } from 'apis/server/egypt';
-import { useState } from 'react';
+import { Dispatch, useEffect, useState } from 'react';
+import { TAddress } from 'types/address';
+import { getDirtyFields } from 'lib/getDirtyValues';
 
 export const addAddressSchema = z.object({
 	firstName: z.string().min(1, 'First name is required'),
@@ -57,27 +59,44 @@ export default function AddressForm({
 	userEmail,
 	governorates,
 	isUserHasAddress,
-	cancelAddingMode,
+	addressToEdit,
+	setAddressToEdit,
+	closeForm,
 }: {
 	userEmail?: string;
 	governorates: TGovernorate[];
 	isUserHasAddress: boolean;
-	cancelAddingMode: () => void;
+	addressToEdit?: TAddress;
+	setAddressToEdit: Dispatch<React.SetStateAction<TAddress | undefined>>;
+	closeForm: () => void;
 }) {
 	const [isGovMenuOpen, setIsGovMenuOpen] = useState(false);
 	const [isCityMenuOpen, setIsCityMenuOpen] = useState(false);
 
 	const { toast } = useToast();
-	const { execute, isPending } = useAction(addAddress, {
-		onSuccess: cancelAddingMode,
-		onError: ({ error }) => {
-			toast({
-				variant: 'destructive',
-				title: 'Server Error',
-				description: error.serverError,
-			});
-		},
-	});
+	const { execute: addAddressAction, isPending: isAddAddressPending } =
+		useAction(addAddress, {
+			onSuccess: closeForm,
+			onError: ({ error }) => {
+				toast({
+					variant: 'destructive',
+					title: 'Server Error',
+					description: error.serverError,
+				});
+			},
+		});
+	const { execute: updateAddressAction, isPending: isUpdateAddressPending } =
+		useAction(updateAddress, {
+			onSuccess: closeForm,
+			onError: ({ error }) => {
+				toast({
+					variant: 'destructive',
+					title: 'Server Error',
+					description: error.serverError,
+				});
+			},
+		});
+
 	const {
 		execute: getCitiesAction,
 		result: { data: cities },
@@ -85,13 +104,38 @@ export default function AddressForm({
 
 	const form = useForm<z.infer<typeof addAddressSchema>>({
 		defaultValues: {
-			email: userEmail,
+			firstName: addressToEdit?.firstName ?? '',
+			lastName: addressToEdit?.lastName ?? '',
+			email: addressToEdit?.email ?? userEmail,
+			phone: addressToEdit?.phone ?? undefined,
+			additionalPhone: addressToEdit?.additionalPhone ?? undefined,
+			governorate: addressToEdit?.governorate ?? '',
+			city: addressToEdit?.city ?? '',
+			street: addressToEdit?.street ?? '',
+			buildingNo: addressToEdit?.buildingNo ?? '',
+			floor: addressToEdit?.floor ?? '',
 		},
 		resolver: zodResolver(addAddressSchema),
 	});
 
+	useEffect(() => {
+		if (addressToEdit) {
+			const gov = governorates.find(
+				governorate =>
+					governorate.governorate_name_en === addressToEdit.governorate
+			)!;
+
+			getCitiesAction({ govId: gov.id });
+		}
+	}, [addressToEdit]);
+
 	function onSubmit(values: z.infer<typeof addAddressSchema>) {
-		execute(values);
+		if (addressToEdit) {
+			const dirtyValues = getDirtyFields(values, form.formState.dirtyFields);
+			updateAddressAction({ addressId: addressToEdit._id, ...dirtyValues });
+		} else {
+			addAddressAction(values);
+		}
 	}
 
 	return (
@@ -402,19 +446,28 @@ export default function AddressForm({
 			<Button
 				type='submit'
 				className='mr-2'
-				disabled={isPending}>
-				{isPending ? (
+				disabled={
+					isAddAddressPending ||
+					isUpdateAddressPending ||
+					!form.formState.isDirty
+				}>
+				{isAddAddressPending || isUpdateAddressPending ? (
 					<>
 						<Loader2 className='mr-2 h-4 w-4 animate-spin' />
 						Please wait
 					</>
+				) : addressToEdit ? (
+					'Edit Address'
 				) : (
 					'Save Address'
 				)}
 			</Button>
 			{isUserHasAddress && (
 				<Button
-					onClick={cancelAddingMode}
+					onClick={() => {
+						setAddressToEdit(undefined);
+						closeForm();
+					}}
 					variant='secondary-gray'>
 					Cancel
 				</Button>
