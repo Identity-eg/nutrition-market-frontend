@@ -12,11 +12,10 @@ export default async function Products({
 }) {
 	const queryParams = qs.parse(searchParams) as TParams;
 	const { products, lastPage, currentPage } = await getProducts(queryParams);
-
 	return (
 		<article>
 			<div
-				className='col-span-2 grid gap-4 self-baseline media-md:col-span-1'
+				className='grid col-span-2 gap-4 self-baseline media-md:col-span-1'
 				style={{
 					gridTemplateColumns: 'repeat(auto-fill, minmax(250px, 1fr))',
 				}}>
