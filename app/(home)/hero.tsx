@@ -48,14 +48,14 @@ export default async function Hero() {
 					</CarouselItem>
 				))}
 			</CarouselContent>
-			<CarouselPrevious
+			{/* <CarouselPrevious
 				variant='ghost-green'
 				className='invisible left-[550px] media-sm:visible'
 			/>
 			<CarouselNext
 				variant='ghost-green'
 				className='invisible right-[550px] media-sm:visible'
-			/>
+			/> */}
 			<CarouselDots className='bottom-6' />
 		</CarouselWrapper>
 	);
