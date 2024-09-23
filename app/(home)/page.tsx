@@ -36,7 +36,7 @@ export default async function HomePage() {
 		<section>
 			<Hero />
 			<div className='bg-green-500'>
-				<div className='container flex justify-between py-6 text-white'>
+				<div className='container flex justify-evenly py-3 text-white'>
 					<div className='flex gap-2'>
 						<HandshakeIcon
 							className='text-[#dda15e]'

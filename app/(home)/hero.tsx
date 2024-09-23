@@ -22,7 +22,7 @@ export default async function Hero() {
 						key={img._id}
 						className='relative h-[45vh] pl-0'>
 						<div className='container absolute inset-0 flex flex-col justify-center'>
-							<h3 className='mb-2 max-w-[20ch] leading-tight text-green-700 typography-SB52'>
+							<h3 className='mb-2 max-w-[20ch] leading-tight text-green-700 typography-SB48'>
 								{img.title}
 							</h3>
 							<span className='mb-8 max-w-[40ch] opacity-80 typography-R18'>
@@ -48,8 +48,14 @@ export default async function Hero() {
 					</CarouselItem>
 				))}
 			</CarouselContent>
-			<CarouselPrevious className='sm:visible invisible left-8' />
-			<CarouselNext className='sm:visible invisible right-8' />
+			<CarouselPrevious
+				variant='ghost-green'
+				className='invisible left-[550px] media-sm:visible'
+			/>
+			<CarouselNext
+				variant='ghost-green'
+				className='invisible right-[550px] media-sm:visible'
+			/>
 			<CarouselDots className='bottom-6' />
 		</CarouselWrapper>
 	);
