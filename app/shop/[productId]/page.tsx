@@ -116,8 +116,8 @@ export default async function ProductPage({
 				</div>
 
 				<div className='p-6'>
-					<div className='mb-8 border-b border-gray-50 pb-[12px]'>
-						<h2 className='items-center justify-center text-green-500 typography-SB32'>
+					<div className='mb-4 border-b border-gray-50'>
+						<h2 className='mb-4 items-center justify-center text-green-500 typography-SB32'>
 							{variant.name}
 							<Circle
 								size={14}
@@ -129,42 +129,47 @@ export default async function ProductPage({
 								)}
 							/>
 						</h2>
-						<span className='mb-4 inline-block typography-R13'>
-							by{' '}
-							<Link
-								href={`/shop?company=${product.company._id}`}
-								className='rounded-md text-green-500 underline typography-SB13'>
-								{product.company.name}
-							</Link>
-						</span>
 
-						<div className='mb-6 flex items-center gap-4 text-gray-200 typography-R14'>
+						<div className='mb-2 flex items-center gap-2 text-gray-200 typography-R14'>
 							<RatingStars averageRating={product.averageRating} />
 
-							<Separator
-								orientation='vertical'
-								className='h-4'
-							/>
-
-							<span>{product.numReviews} reviews</span>
+							<span className='rounded-md border border-gray-50 px-1 typography-R14'>
+								{product.averageRating}
+							</span>
 
 							<Separator
 								orientation='vertical'
-								className='h-4'
+								className='mx-2 h-4'
 							/>
 
-							<Link
-								className='hover:underline'
-								href='#'>
-								write a review
-							</Link>
+							<p>
+								Store:{' '}
+								<Link
+									href={`/shop?company=${product.company._id}`}
+									className='rounded-md text-green-500 underline typography-SB13'>
+									{product.company.name}
+								</Link>
+							</p>
+
+							<Separator
+								orientation='vertical'
+								className='mx-2 h-4'
+							/>
+
+							<p>
+								SKU:{' '}
+								<span className='rounded-md text-green-500 underline typography-SB13'>
+									{product.NFSA_REG_NO}
+								</span>
+							</p>
 						</div>
-						<Price
-							finalPriceClassName='typography-SB24'
-							price={variant.price}
-							priceAfterDiscount={variant.priceAfterDiscount}
-						/>
 					</div>
+
+					<Price
+						finalPriceClassName='typography-SB24'
+						price={variant.price}
+						priceAfterDiscount={variant.priceAfterDiscount}
+					/>
 
 					<div className='flex h-[350px] flex-col border-b border-gray-50 pb-8'>
 						<div className='mb-[20px]'>
