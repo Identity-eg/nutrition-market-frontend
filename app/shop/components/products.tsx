@@ -15,9 +15,9 @@ export default async function Products({
 	return (
 		<article>
 			<div
-				className='grid col-span-2 gap-4 self-baseline media-md:col-span-1'
+				className='col-span-2 grid divide-x divide-gray-50 self-baseline overflow-hidden rounded-md border border-gray-50 media-md:col-span-1'
 				style={{
-					gridTemplateColumns: 'repeat(auto-fill, minmax(250px, 1fr))',
+					gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))',
 				}}>
 				{products.map(product => (
 					<CardItem
