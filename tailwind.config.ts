@@ -1,6 +1,9 @@
 import type { Config } from 'tailwindcss';
 import plugin from 'tailwindcss/plugin';
-import { createTypographyUtilities } from './lib/utils';
+import {
+	createTypographyUtilities,
+	createFluidTypographyUtilities,
+} from './lib/utils';
 import { colors } from './components/ui/colors';
 
 const config = {
@@ -56,12 +59,18 @@ const config = {
 	},
 	plugins: [
 		require('tailwindcss-animate'),
-		plugin(({ addUtilities }) => {
+		plugin(({ addUtilities, matchUtilities }) => {
 			addUtilities(
 				createTypographyUtilities({
 					fontSizeRange: [12, 13, 14, 16, 18, 20, 24, 28, 32, 36, 48, 52],
 				})
 			);
+			matchUtilities(createFluidTypographyUtilities(), {
+				values: {
+					'32-48': '32-48',
+					'16-24': '16-24',
+				},
+			});
 		}),
 	],
 } satisfies Config;
