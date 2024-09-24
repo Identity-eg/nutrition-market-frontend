@@ -177,7 +177,7 @@ const CarouselContent = React.forwardRef<
 	return (
 		<div
 			ref={carouselRef}
-			className='overflow-hidden'>
+			className='overflow-hidden rounded-md'>
 			<div
 				ref={ref}
 				className={cn(
@@ -288,8 +288,8 @@ const CarouselDots = React.forwardRef<
 				<div
 					key={i}
 					onClick={() => scrollTo(i)}
-					className={`h-3 w-3 rounded-full ${
-						selectedIndex === i ? 'bg-white' : 'bg-white/30'
+					className={`h-2 w-2 rounded-full ${
+						selectedIndex === i ? 'bg-green-500' : 'bg-green-100'
 					}`}
 				/>
 			))}
