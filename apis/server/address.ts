@@ -6,7 +6,6 @@ import { TAddress } from 'types/address';
 import { z } from 'zod';
 import { revalidateTag } from 'next/cache';
 import { Tags } from 'types/tags';
-import { addAddressSchema } from 'app/checkout/address/form';
 
 export const getUserAddresses = async (): Promise<TAddress[]> => {
 	const data = await request({
@@ -16,6 +15,28 @@ export const getUserAddresses = async (): Promise<TAddress[]> => {
 	});
 	return data.addresses;
 };
+
+const addAddressSchema = z.object({
+	firstName: z.string().min(1, 'First name is required'),
+	lastName: z.string().min(1, 'Last name is required'),
+	email: z
+		.string()
+		.min(1, {
+			message: 'Email is required',
+		})
+		.email('Please enter a valid email address'),
+	phone: z.coerce.number({
+		invalid_type_error: 'Phone is required',
+	}),
+	additionalPhone: z.coerce.number({
+		invalid_type_error: 'Additional phone is required',
+	}),
+	governorate: z.string().min(1, 'Governorate is required'),
+	city: z.string().min(1, 'City is required'),
+	street: z.string().min(1, 'Street is required'),
+	buildingNo: z.string().min(1, 'Building number is required'),
+	floor: z.string().optional(),
+});
 
 export const addAddress = actionClient.schema(addAddressSchema).action(
 	async ({ parsedInput: addressData }) => {

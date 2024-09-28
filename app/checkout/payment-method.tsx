@@ -10,11 +10,11 @@ const PAYMENT_METHODS = [
 	},
 	{
 		id: '4827863',
-		name: 'Online Master Card',
+		name: 'Online Master Card - Amr',
 	},
 	{
-		id: '4830078',
-		name: 'Kiosk',
+		id: '3922403',
+		name: 'Online Master Card - Hady',
 	},
 	{
 		id: '3925355',

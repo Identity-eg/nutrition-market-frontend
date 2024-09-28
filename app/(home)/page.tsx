@@ -23,6 +23,9 @@ import promoImage from 'assets/promo.webp';
 import { getCompanies } from 'apis/server/company';
 import { Avatar, AvatarFallback, AvatarImage } from 'components/ui/avatar';
 import BuildingPlaceholder from 'assets/icons/building-placeholder';
+import { PaymentIcon } from 'assets/icons/payment-icon';
+import { DeliveryIcon } from 'assets/icons/delivery-icon';
+import { SaleIcon } from 'assets/icons/sale-icon';
 
 const iconMapper = {
 	'Bone Health': <BoneIcon />,
@@ -35,6 +38,12 @@ const iconMapper = {
 	'Man Health': <MaleIcon />,
 	'Woman Health': <FemaleIcon />,
 };
+
+const FEATURES = [
+	{ title: 'Secure Payment', Icon: PaymentIcon },
+	{ title: 'Fast Delivery', Icon: DeliveryIcon },
+	{ title: 'New stocks and sales', Icon: SaleIcon },
+];
 
 export default async function HomePage() {
 	const categories = await getCategories();
@@ -141,7 +150,9 @@ export default async function HomePage() {
 						gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))',
 					}}>
 					{companies.map(company => (
-						<div className='flex items-center gap-4 p-4'>
+						<div
+							key={company._id}
+							className='flex items-center gap-4 p-4'>
 							<Avatar className='size-16 rounded-md'>
 								<AvatarImage />
 								<AvatarFallback className='rounded-md bg-gray-30 text-gray-100'>
@@ -192,6 +203,25 @@ export default async function HomePage() {
 						</div>
 					</div>
 				</div>
+			</div>
+
+			<div className='container flex flex-wrap items-center justify-between py-10'>
+				{FEATURES.map(f => (
+					<div
+						key={f.title}
+						className='flex gap-4'>
+						<f.Icon
+						// width={32}
+						// height={32}
+						/>
+						<div>
+							<p className='mb-2 typography-SB16'>{f.title}</p>
+							<p className='max-w-[25ch] text-gray-200'>
+								Tasigförsamhet beteendedesign. Mobile checkout. Ylig kärrtorpa.
+							</p>
+						</div>
+					</div>
+				))}
 			</div>
 		</section>
 	);
