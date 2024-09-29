@@ -118,6 +118,9 @@ export default function AddressForm({
 		resolver: zodResolver(addAddressSchema),
 	});
 
+	console.log('addressToEdit', addressToEdit);
+	console.log('values', form.getValues());
+
 	useEffect(() => {
 		if (addressToEdit) {
 			const gov = governorates.find(
@@ -291,11 +294,20 @@ export default function AddressForm({
 
 																	form.setValue(
 																		'governorate',
-																		governorate.governorate_name_en
+																		governorate.governorate_name_en,
+																		{
+																			shouldDirty: true,
+																			shouldTouch: true,
+																			shouldValidate: true,
+																		}
 																	);
 
 																	if (isCityHasValue) {
-																		form.setValue('city', '');
+																		form.setValue('city', '', {
+																			shouldDirty: true,
+																			shouldTouch: true,
+																			shouldValidate: true,
+																		});
 																	}
 																	getCitiesAction({ govId: governorate.id });
 																	setIsGovMenuOpen(false);
@@ -362,7 +374,11 @@ export default function AddressForm({
 																	value={city.city_name_en}
 																	key={city.city_name_en}
 																	onSelect={() => {
-																		form.setValue('city', city.city_name_en);
+																		form.setValue('city', city.city_name_en, {
+																			shouldDirty: true,
+																			shouldTouch: true,
+																			shouldValidate: true,
+																		});
 																		setIsCityMenuOpen(false);
 																	}}>
 																	<Check

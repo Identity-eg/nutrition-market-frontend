@@ -4,15 +4,17 @@ import Link from 'next/link';
 import createOrderPng from 'assets/createOrder.png';
 import Image from 'next/image';
 import { CopyBtn } from './copy-btn';
-import { cookies } from 'next/headers';
-import { redirect } from 'next/navigation';
 
-export default function OrderStatus() {
-	const encpl = cookies()?.get('encpl')?.value;
-	const values = JSON.parse(encpl ?? '{}');
-	if (!encpl) {
-		redirect('/');
-	}
+export default function OrderStatus({
+	searchParams,
+}: {
+	searchParams: { orderId: string };
+}) {
+	// const encpl = cookies()?.get('encpl')?.value;
+	// const values = JSON.parse(encpl ?? '{}');
+	// if (!encpl) {
+	// 	redirect('/');
+	// }
 	return (
 		<div className='container flex flex-col items-center justify-center py-24'>
 			<Image
@@ -30,7 +32,7 @@ export default function OrderStatus() {
 			</p>
 			<div className='mb-6 flex items-center gap-6'>
 				<span className='text-gray-300'>Your order ID</span>
-				<CopyBtn orderId={values.orderId} />
+				<CopyBtn orderId={searchParams.orderId} />
 			</div>
 			<div className='flex gap-4'>
 				<Button

@@ -1,24 +1,38 @@
+import { CashIcon } from 'assets/icons/cash-icon';
+import { VisaIcon } from 'assets/icons/visa-icon';
+import { WalletIcon } from 'assets/icons/wallet-icon';
 import { Card } from 'components/ui/card';
 import { Label } from 'components/ui/label';
 import { RadioGroup, RadioGroupItem } from 'components/ui/radio';
 import React, { Dispatch } from 'react';
 
+export const PAYMENT_METHODS_IDS = {
+	cashOnDelivery: '1',
+	AmrMasterCard: '4827863',
+	HadyMasterCard: '3922403',
+	wallet: '3925355',
+} as const;
+
 const PAYMENT_METHODS = [
 	{
-		id: '1',
+		id: PAYMENT_METHODS_IDS.cashOnDelivery,
 		name: 'Cash on delivery',
+		Icon: CashIcon,
 	},
 	{
-		id: '4827863',
+		id: PAYMENT_METHODS_IDS.AmrMasterCard,
 		name: 'Online Master Card - Amr',
+		Icon: VisaIcon,
 	},
 	{
-		id: '3922403',
+		id: PAYMENT_METHODS_IDS.HadyMasterCard,
 		name: 'Online Master Card - Hady',
+		Icon: VisaIcon,
 	},
 	{
-		id: '3925355',
+		id: PAYMENT_METHODS_IDS.wallet,
 		name: 'Mobile Wallet',
+		Icon: WalletIcon,
 	},
 ];
 
@@ -43,7 +57,12 @@ export default function PaymentMethod({
 								value={method.id}
 								id={method.id}
 							/>
-							<Label htmlFor={method.id}>{method.name}</Label>
+							<Label
+								htmlFor={method.id}
+								className='flex items-center gap-2'>
+								<method.Icon />
+								{method.name}
+							</Label>
 						</li>
 					))}
 				</ul>
