@@ -3,7 +3,6 @@
 import { actionClient } from 'apis/action-clients';
 import { request } from 'apis/client';
 import { revalidateTag } from 'next/cache';
-import { redirect } from 'next/navigation';
 import { Tags } from 'types/tags';
 import { z } from 'zod';
 

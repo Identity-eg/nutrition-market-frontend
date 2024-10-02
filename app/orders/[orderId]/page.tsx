@@ -1,0 +1,348 @@
+import Image from 'next/image';
+import {
+	CheckCheckIcon,
+	CheckIcon,
+	CircleAlertIcon,
+	CircleDollarSignIcon,
+	MapPinIcon,
+	PackageCheckIcon,
+	PhoneIcon,
+	PillIcon,
+	TruckIcon,
+	UnplugIcon,
+	XIcon,
+} from 'lucide-react';
+import dayjs from 'dayjs';
+
+import { getSingleOrder } from 'apis/server/orders';
+import { Card } from 'components/ui/card';
+import {
+	ORDER_STATUS,
+	PAYMENT_METHODS_MAPPER,
+	TOrderStatus,
+} from 'constants/index';
+import { cn, convertToReadableNumber } from 'lib/utils';
+import type { TOrder, TOrderItem } from 'types/order';
+import { Separator } from 'components/ui/separator';
+import { Button } from 'components/ui/button';
+
+const orderLabel = {
+	true: { label: 'Paid', color: 'bg-green-light-500' },
+	false: { label: 'Unpaid', color: 'bg-orange-500' },
+	canceled: { label: 'Canceled', color: 'bg-red-500' },
+};
+function OrderLabel({ isPaid, status }: { isPaid: boolean; status?: string }) {
+	const isCancelled = status === ORDER_STATUS.canceled;
+	const orderState = ((isCancelled && status) ||
+		String(isPaid)) as keyof typeof orderLabel;
+
+	const label = orderLabel[orderState]?.label;
+	const color = orderLabel[orderState]?.color;
+
+	return (
+		<div className={cn('rounded-md px-4 text-white typography-M14', color)}>
+			{label}
+		</div>
+	);
+}
+
+function OrderDetails({
+	itemsNumber,
+	createdAt,
+	deliveredAt,
+	canceledAt,
+}: {
+	itemsNumber: number;
+	createdAt: string;
+	deliveredAt?: string;
+	canceledAt?: string;
+}) {
+	const formattedCreatedAtDate = dayjs(createdAt).format('MMMM D, YYYY');
+	const formattedDeliveredAtDate = dayjs(deliveredAt).format('MMMM D, YYYY');
+	const formattedCanceledAtDate = dayjs(canceledAt).format('MMMM D, YYYY');
+
+	const orderDetails = {
+		item: { text: itemsNumber },
+		'order date': { text: formattedCreatedAtDate },
+		...(deliveredAt && {
+			'delivered at': {
+				text: formattedDeliveredAtDate,
+				icon: (
+					<CheckCheckIcon
+						size={20}
+						className='text-green-light-700'
+					/>
+				),
+			},
+		}),
+		...(canceledAt && { 'canceled at': { text: formattedCanceledAtDate } }),
+	};
+
+	return (
+		<>
+			{Object.entries(orderDetails).map(([key, value]) => (
+				<p
+					key={key}
+					className='flex items-center gap-2'>
+					{'icon' in value && value.icon}
+					<span className='capitalize text-gray-200'>{key}:</span>
+					{value.text}
+				</p>
+			))}
+		</>
+	);
+}
+
+function OrderItem({ amount, totalProductPrice, variant }: TOrderItem) {
+	return (
+		<li className='flex w-full gap-4 border-b border-gray-40 pb-4 last:border-0 last:pb-0'>
+			<div className='relative size-20 flex-shrink-0 rounded-md border border-gray-40'>
+				<Image
+					src={variant.images[0].url}
+					width={64}
+					height={64}
+					alt={variant.name}
+					className='h-full w-full object-contain object-center p-2 mix-blend-multiply'
+				/>
+				<div className='absolute right-0 top-0 flex size-[18px] -translate-y-1/2 translate-x-1/2 items-center justify-center rounded-full bg-gray-50 py-2 typography-M12'>
+					{amount}
+				</div>
+			</div>
+
+			<div className='flex w-full flex-col justify-between text-gray-400 typography-M16'>
+				<div className='line-clamp-2'>
+					{variant.name}
+					<span className='mt-2 flex max-w-fit items-center justify-start gap-2 rounded-md border border-gray-40 px-2 py-1'>
+						{variant.unitCount} <PillIcon size={16} />
+					</span>
+				</div>
+				<span className='self-end text-green-light-700'>
+					{convertToReadableNumber(+totalProductPrice)} EGP
+				</span>
+			</div>
+		</li>
+	);
+}
+
+function OrderSummary({ order }: { order: TOrder }) {
+	const paymentMethod = PAYMENT_METHODS_MAPPER.find(
+		method => method.id === order.paymentMethod.id
+	);
+
+	return (
+		<Card className='flex max-w-[380px] flex-1 flex-col justify-between self-start overflow-hidden p-6'>
+			<h3 className='mb-4 capitalize text-gray-800 typography-SB20'>
+				Delivery
+			</h3>
+			<div className='mb-4 border-b border-gray-40 pb-4'>
+				<div className='mb-4 flex items-start gap-2'>
+					<MapPinIcon
+						className='mt-[2px] text-gray-200'
+						size={20}
+					/>
+					<div>
+						<p>Address</p>
+						<p className='text-gray-200 typography-R14'>
+							{`${order.shippingAddress.street} - ${order.shippingAddress.city} - ${order.shippingAddress.governorate}`}
+						</p>
+					</div>
+				</div>
+
+				<div className='mb-4 flex items-start gap-2'>
+					<PhoneIcon
+						className='mt-[2px] text-gray-200'
+						size={20}
+					/>
+					<div>
+						<p>Phone</p>
+						<p className='text-gray-200 typography-R14'>
+							{order.shippingAddress.phone}
+						</p>
+					</div>
+				</div>
+
+				<div className='mb-4 flex items-start gap-2'>
+					<CircleDollarSignIcon
+						className='mt-[2px] text-gray-200'
+						size={20}
+					/>
+					<div>
+						<p>Payment method</p>
+						<p className='text-gray-200 typography-R14'>
+							{paymentMethod?.name}
+						</p>
+					</div>
+				</div>
+			</div>
+
+			<h3 className='mb-4 capitalize text-gray-800 typography-SB20'>
+				Order summary
+			</h3>
+			<div className='mb-4 border-b border-gray-40 pb-4 text-gray-200 typography-R14'>
+				<div className='mb-2 flex items-center justify-between'>
+					<p>Sub Total Price</p>
+					<span>{convertToReadableNumber(order.subtotal)} EGP</span>
+				</div>
+				<div className='mb-2 flex items-center justify-between'>
+					<p>Shipping Fee</p>
+					<span>{convertToReadableNumber(order.shippingFee)} EGP</span>
+				</div>
+			</div>
+			<div className='flex items-center justify-between text-green-light-700 typography-SB18'>
+				<p className='text-green-800'>Total Price</p>
+				{convertToReadableNumber(order.total)} EGP
+			</div>
+		</Card>
+	);
+}
+
+export function OrderTracker({ status }: { status: TOrderStatus }) {
+	const trackingStatus: Record<Partial<TOrderStatus>, any> = {
+		[ORDER_STATUS.processing]: {
+			order: 1,
+			label: {
+				pending: 'Processing',
+				completed: 'Processed',
+			},
+			icon: <UnplugIcon className='flex-shrink-0' />,
+		},
+		[ORDER_STATUS.shipped]: {
+			order: 2,
+			label: {
+				pending: 'Shipping',
+				completed: 'Shipped',
+			},
+			icon: <PackageCheckIcon className='flex-shrink-0' />,
+		},
+		[ORDER_STATUS.delivered]: {
+			order: 3,
+			label: {
+				pending: 'Delivering',
+				completed: 'Delivered',
+			},
+			icon: <TruckIcon className='flex-shrink-0' />,
+		},
+		canceled: undefined,
+	};
+
+	return (
+		<Card className='mb-10 flex items-center justify-between p-6'>
+			{Object.entries(trackingStatus).map(([key, value], i) => {
+				if (!value) return;
+
+				const order = i + 1;
+
+				const isPending = status === key;
+				const isCompleted =
+					trackingStatus[status]?.order > order ||
+					status === ORDER_STATUS.delivered;
+				const isInFuture = trackingStatus[status]?.order < order;
+
+				return (
+					<>
+						<div className='flex flex-shrink-0 flex-col items-center justify-center'>
+							<div className='relative mb-3 flex size-[48px] items-center justify-center'>
+								<div
+									className={cn(
+										'absolute inset-0 z-[1] flex items-center justify-center rounded-full border-2',
+										{
+											'border-gray-80 text-gray-80': isInFuture,
+											'border-green-light-600 bg-white p-4 text-green-light-600':
+												isPending,
+											'border-green-light-600 bg-green-light-600 text-white':
+												isCompleted,
+										}
+									)}>
+									{isCompleted ? (
+										<CheckIcon className='flex-shrink-0' />
+									) : (
+										value.icon
+									)}
+								</div>
+								{isPending && !isCompleted && (
+									<div className='absolute inset-0 scale-125 animate-ping rounded-full bg-green-light-100' />
+								)}
+							</div>
+							<span
+								className={cn('typography-R14', isInFuture && 'text-gray-80')}>
+								{isCompleted ? value.label.completed : value.label.pending}
+							</span>
+						</div>
+						<Separator className='-mt-7 h-[2px] w-auto flex-1 flex-shrink last:hidden' />
+					</>
+				);
+			})}
+		</Card>
+	);
+}
+
+export default async function Order({
+	params,
+}: {
+	params: { orderId: string };
+}) {
+	const order = await getSingleOrder({ orderId: params.orderId });
+	const orderItemsNumber = order.orderItems.reduce((acc, currValue) => {
+		acc += currValue.amount;
+		return acc;
+	}, 0);
+
+	return (
+		<div className='container flex min-h-screen flex-col py-14'>
+			<div className='flex gap-6'>
+				<Card className='flex flex-1 flex-col bg-white p-6'>
+					<h4 className='mb-4 flex items-center gap-4 text-green-700 typography-SB24'>
+						Order No.: {params.orderId}{' '}
+						<OrderLabel
+							status={order.status}
+							isPaid={order.paid}
+						/>
+					</h4>
+
+					{order.status !== ORDER_STATUS.canceled && (
+						<OrderTracker status={order.status} />
+					)}
+
+					<div className='mb-2 flex items-center gap-8'>
+						<OrderDetails
+							itemsNumber={orderItemsNumber}
+							createdAt={order.createdAt}
+							deliveredAt={order.deliveredAt}
+						/>
+					</div>
+
+					<ul className='flex flex-col items-center gap-8 border-t border-gray-40 p-4 pt-8'>
+						{order.orderItems.map(item => (
+							<OrderItem
+								key={item._id}
+								{...item}
+							/>
+						))}
+					</ul>
+
+					{order.status === ORDER_STATUS.processing && (
+						<Button
+							variant='secondary-gray'
+							className='ml-auto mt-auto flex items-center gap-2'>
+							<XIcon
+								size={20}
+								className='text-red-500'
+							/>
+							Cancel order
+						</Button>
+					)}
+				</Card>
+				<div className='max-w-[380px]'>
+					<OrderSummary order={order} />
+					{order.status === ORDER_STATUS.processing && (
+						<div className='mt-6 flex gap-2 rounded-[12px] border border-orange-80 bg-orange-40 p-4 text-orange-600 typography-R13'>
+							<CircleAlertIcon size={20} />
+							Please note that you can only cancel your order if it is in
+							"Processing" state
+						</div>
+					)}
+				</div>
+			</div>
+		</div>
+	);
+}

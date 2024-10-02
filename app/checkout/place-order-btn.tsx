@@ -1,9 +1,9 @@
 import { payCash, payOnline } from 'apis/server/payment';
 import { Button } from 'components/ui/button';
 import { useToast } from 'components/ui/use-toast';
+import { PAYMENT_METHODS_IDS } from 'constants/index';
 import { Loader2Icon } from 'lucide-react';
 import { useAction } from 'next-safe-action/hooks';
-import { PAYMENT_METHODS_IDS } from './payment-method';
 import { useRouter } from 'next/navigation';
 
 export function PlaceOrderBtn({

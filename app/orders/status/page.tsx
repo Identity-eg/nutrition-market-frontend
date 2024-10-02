@@ -47,7 +47,7 @@ export default function OrderStatus({
 				<Button
 					className='gap-2'
 					asChild>
-					<Link href='/orders'>
+					<Link href={`/orders/${searchParams.orderId}`}>
 						<TruckIcon size={20} />
 						Track your order
 					</Link>
