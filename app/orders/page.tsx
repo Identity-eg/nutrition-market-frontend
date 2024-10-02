@@ -52,7 +52,7 @@ export default async function Orders() {
 					<span>{ordersNumber}</span>
 				</div>
 			</h3>
-			{orders.slice(0, 3).map(order => {
+			{orders.map(order => {
 				const isOrdersItemExceedLimit = order.orderItems.length > 3;
 				const formattedCreatedAtDate = dayjs(order.createdAt).format(
 					'MMMM D, YYYY'
