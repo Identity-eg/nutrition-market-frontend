@@ -43,7 +43,6 @@ function OrderItem({ amount, totalProductPrice, variant }: TOrderItem) {
 export default async function Orders() {
 	const orders = await getAllOrders();
 	const ordersNumber = orders.length;
-	const isOrdersNumberExceedLimit = ordersNumber > 3;
 
 	return (
 		<div className='container flex min-h-screen flex-col py-14'>
@@ -54,6 +53,7 @@ export default async function Orders() {
 				</div>
 			</h3>
 			{orders.slice(0, 3).map(order => {
+				const isOrdersItemExceedLimit = order.orderItems.length > 3;
 				const formattedCreatedAtDate = dayjs(order.createdAt).format(
 					'MMMM D, YYYY'
 				);
@@ -65,7 +65,9 @@ export default async function Orders() {
 				};
 
 				return (
-					<Card className='relative mb-4 max-w-[800px] overflow-hidden'>
+					<Card
+						key={order._id}
+						className='relative mb-4 max-w-[800px] overflow-hidden'>
 						<div
 							className={cn(
 								'max-w-fit rounded-md rounded-l-none rounded-tr-none px-3 py-1 capitalize text-white typography-R14',
@@ -81,10 +83,13 @@ export default async function Orders() {
 						<div className='relative p-4'>
 							<ul>
 								{order.orderItems.map(item => (
-									<OrderItem {...item} />
+									<OrderItem
+										key={item._id}
+										{...item}
+									/>
 								))}
 							</ul>
-							{isOrdersNumberExceedLimit && (
+							{isOrdersItemExceedLimit && (
 								<div className='absolute inset-x-0 bottom-0 h-[150px] w-full bg-gradient-to-t from-white to-[rgba(255,255,255,0)]' />
 							)}
 						</div>

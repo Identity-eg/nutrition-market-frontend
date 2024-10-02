@@ -1,4 +1,4 @@
-import { FieldValues } from "react-hook-form";
+import { FieldValues } from 'react-hook-form';
 
 export const getDirtyFields = <T extends FieldValues>(
 	allFields: T,

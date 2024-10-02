@@ -338,7 +338,7 @@ export default async function Order({
 						<div className='mt-6 flex gap-2 rounded-[12px] border border-orange-80 bg-orange-40 p-4 text-orange-600 typography-R13'>
 							<CircleAlertIcon size={20} />
 							Please note that you can only cancel your order if it is in
-							"Processing" state
+							Processing state
 						</div>
 					)}
 				</div>

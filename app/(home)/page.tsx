@@ -190,7 +190,7 @@ export default async function HomePage() {
 							Biotin 2500 mcg
 						</h3>
 						<p className='mb-6 text-gray-200'>
-							Enjoying something sweet and delicious shouldn't mean you've lost
+							Enjoying something sweet and delicious shouldn&apos;t mean you&apos;ve lost
 							track of your health and fitness goals. Premier Protein® packs
 							powerful nutrition & amazing flavor into each one of its protein
 							powders.

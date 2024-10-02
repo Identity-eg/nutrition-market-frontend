@@ -7,8 +7,8 @@ export function ProductsLoading() {
 			style={{
 				gridTemplateColumns: 'repeat(auto-fill, minmax(250px, 1fr))',
 			}}>
-			{Array.from({ length: 6 }, el => (
-				<CardItemSkeleton />
+			{[0, 0, 0, 0, 0, 0].map((el, i) => (
+				<CardItemSkeleton key={i} />
 			))}
 		</div>
 	);
