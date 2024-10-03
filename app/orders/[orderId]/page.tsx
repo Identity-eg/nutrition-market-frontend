@@ -226,7 +226,7 @@ export function OrderTracker({ status }: { status: TOrderStatus }) {
 	};
 
 	return (
-		<Card className='mb-10 flex items-center justify-between p-6'>
+		<Card className='mb-6 flex items-center justify-between p-6'>
 			{Object.entries(trackingStatus).map(([key, value], i) => {
 				if (!value) return;
 
@@ -290,7 +290,7 @@ export default async function Order({
 	return (
 		<div className='container flex min-h-screen flex-col py-14'>
 			<div className='flex gap-6'>
-				<Card className='flex flex-1 flex-col bg-white p-6'>
+				<Card className='flex flex-1 flex-col self-start bg-white p-6'>
 					<h4 className='mb-4 flex items-center gap-4 text-green-700 typography-SB24'>
 						Order No.: {params.orderId}{' '}
 						<OrderLabel
@@ -298,10 +298,6 @@ export default async function Order({
 							isPaid={order.paid}
 						/>
 					</h4>
-
-					{order.status !== ORDER_STATUS.canceled && (
-						<OrderTracker status={order.status} />
-					)}
 
 					<div className='mb-2 flex items-center gap-8'>
 						<OrderDetails
@@ -319,26 +315,30 @@ export default async function Order({
 							/>
 						))}
 					</ul>
+				</Card>
+
+				<div className='max-w-[380px]'>
+					{order.status !== ORDER_STATUS.canceled && (
+						<OrderTracker status={order.status} />
+					)}
+					<OrderSummary order={order} />
 
 					{order.status === ORDER_STATUS.processing && (
-						<Button
-							variant='secondary-gray'
-							className='ml-auto mt-auto flex items-center gap-2'>
-							<XIcon
-								size={20}
-								className='text-red-500'
-							/>
-							Cancel order
-						</Button>
-					)}
-				</Card>
-				<div className='max-w-[380px]'>
-					<OrderSummary order={order} />
-					{order.status === ORDER_STATUS.processing && (
-						<div className='mt-6 flex gap-2 rounded-[12px] border border-orange-80 bg-orange-40 p-4 text-orange-600 typography-R13'>
-							<CircleAlertIcon size={20} />
-							Please note that you can only cancel your order if it is in
-							Processing state
+						<div className='mt-6 rounded-[12px] border border-orange-80 bg-orange-40 p-4 text-orange-600 typography-R13'>
+							<div className='mb-4 flex gap-2'>
+								<CircleAlertIcon size={20} />
+								Please note that you can only cancel your order if it is in
+								processing state
+							</div>
+							<Button
+								// variant='outline'
+								className='mt-auto flex w-full items-center gap-2 border border-orange-300 bg-orange-40 text-orange-600 hover:bg-orange-300/80 hover:text-white'>
+								<XIcon
+									size={20}
+									// className='text-red-500'
+								/>
+								Cancel order
+							</Button>
 						</div>
 					)}
 				</div>
