@@ -95,7 +95,7 @@ function OrderDetails({
 
 function OrderItem({ amount, totalProductPrice, variant }: TOrderItem) {
 	return (
-		<li className='flex w-full gap-4 border-b border-gray-40 pb-4 last:border-0 last:pb-0'>
+		<li className='flex w-full gap-4 border-b border-gray-40 pb-6 last:border-0 last:pb-0'>
 			<div className='relative size-20 flex-shrink-0 rounded-md border border-gray-40'>
 				<Image
 					src={variant.images[0].url}
@@ -109,16 +109,14 @@ function OrderItem({ amount, totalProductPrice, variant }: TOrderItem) {
 				</div>
 			</div>
 
-			<div className='flex w-full flex-col justify-between text-gray-400 typography-M16'>
-				<div className='line-clamp-2'>
-					{variant.name}
-					<span className='mt-2 flex max-w-fit items-center justify-start gap-2 rounded-md border border-gray-40 px-2 py-1'>
-						{variant.unitCount} <PillIcon size={16} />
+			<div className='flex w-full flex-col text-gray-400 typography-M16'>
+				<h4 className='line-clamp-2'>{variant.name}</h4>
+				<div className='flex h-full justify-between'>
+					<span className='mt-2 typography-R14'>{variant.unitCount} Caps</span>
+					<span className='mt-auto self-end text-green-light-700'>
+						{convertToReadableNumber(+totalProductPrice)} EGP
 					</span>
 				</div>
-				<span className='self-end text-green-light-700'>
-					{convertToReadableNumber(+totalProductPrice)} EGP
-				</span>
 			</div>
 		</li>
 	);
@@ -307,7 +305,7 @@ export default async function Order({
 						/>
 					</div>
 
-					<ul className='flex flex-col items-center gap-8 border-t border-gray-40 p-4 pt-8'>
+					<ul className='flex flex-col items-center gap-6 border-t border-gray-40 pt-6'>
 						{order.orderItems.map(item => (
 							<OrderItem
 								key={item._id}
@@ -330,13 +328,8 @@ export default async function Order({
 								Please note that you can only cancel your order if it is in
 								processing state
 							</div>
-							<Button
-								// variant='outline'
-								className='mt-auto flex w-full items-center gap-2 border border-orange-300 bg-orange-40 text-orange-600 hover:bg-orange-300/80 hover:text-white'>
-								<XIcon
-									size={20}
-									// className='text-red-500'
-								/>
+							<Button className='mt-auto flex w-full items-center gap-2 border border-orange-300 bg-orange-40 text-orange-600 hover:bg-orange-300/80 hover:text-white'>
+								<XIcon size={20} />
 								Cancel order
 							</Button>
 						</div>
