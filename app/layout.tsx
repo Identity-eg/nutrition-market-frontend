@@ -32,7 +32,7 @@ export default function RootLayout({
 					<Topbar />
 					<Header />
 					<Linksbar />
-					<main>{children}</main>
+					<main className='min-h-screen'>{children}</main>
 					<Footer />
 					<Toaster />
 				</Providers>
