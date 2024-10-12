@@ -1,9 +1,9 @@
-export default function BuildingPlaceholder() {
+export default function BuildingPlaceholder({ size = 48 }: { size?: number }) {
 	return (
 		<svg
 			xmlns='http://www.w3.org/2000/svg'
-			width='48'
-			height='48'
+			width={size}
+			height={size}
 			fill='none'
 			viewBox='0 0 24 24'
 			id='high-rise-building'>

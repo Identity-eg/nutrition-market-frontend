@@ -161,7 +161,7 @@ export default async function HomePage() {
 							</Avatar>
 							<div className='flex flex-col'>
 								<Link
-									href={`/shop?company=${company._id}`}
+									href={`/company/${company._id}`}
 									className='typography-SB16 hover:underline'>
 									{company.name}
 								</Link>
@@ -190,10 +190,10 @@ export default async function HomePage() {
 							Biotin 2500 mcg
 						</h3>
 						<p className='mb-6 text-gray-200'>
-							Enjoying something sweet and delicious shouldn&apos;t mean you&apos;ve lost
-							track of your health and fitness goals. Premier Protein® packs
-							powerful nutrition & amazing flavor into each one of its protein
-							powders.
+							Enjoying something sweet and delicious shouldn&apos;t mean
+							you&apos;ve lost track of your health and fitness goals. Premier
+							Protein® packs powerful nutrition & amazing flavor into each one
+							of its protein powders.
 						</p>
 						<div className='flex gap-2'>
 							<Button className='bg-[#593889] hover:bg-[#593889]/90'>
