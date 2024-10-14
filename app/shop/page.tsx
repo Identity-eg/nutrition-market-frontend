@@ -14,8 +14,8 @@ export default function ShopPage({
 	searchParams: TSearchParams;
 }) {
 	return (
-		<section className='container grid grid-cols-[278px,1fr] gap-x-6 gap-y-8 py-12'>
-			<FilterProducts searchParams={searchParams} />
+		<section className='container grid h-full grid-cols-[278px,1fr] gap-x-6 gap-y-8 py-12'>
+			<FilterProducts />
 			<div>
 				<div className='mb-4 flex h-56 items-center justify-between rounded-md bg-[#d9f3fa] p-6 pr-16'>
 					<div>

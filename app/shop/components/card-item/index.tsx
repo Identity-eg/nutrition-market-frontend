@@ -5,20 +5,12 @@ import Link from 'next/link';
 import { TProduct } from 'types/product';
 import { AddToCartButton } from './add-to-cart-btn';
 import Price from './price';
-import {
-	PillIcon,
-	PlusIcon,
-	ShoppingBagIcon,
-	ShoppingBasketIcon,
-} from 'lucide-react';
-import { Button } from 'components/ui/button';
-import { cn } from 'lib/utils';
 
 const CardItem = ({ variants, averageRating, _id }: TProduct) => {
 	const defaltVariant = variants[0];
 	const primaryImage = defaltVariant.images?.[0];
 	return (
-		<div className='group relative flex flex-col border-gray-50 p-4 last:!border-r'>
+		<div className='group relative flex flex-col rounded-md border border-gray-50 p-4'>
 			<Sale
 				price={defaltVariant.price}
 				priceAfterDiscount={defaltVariant.priceAfterDiscount}

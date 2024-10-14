@@ -10,15 +10,9 @@ import { getCompanies } from 'apis/server/company';
 import { getCategories } from 'apis/server/category';
 import { ClearAllBtn } from './clear-all-btn';
 import { Inputs } from './price-inputs';
-import { TSearchParams } from 'app/shop/page';
 import { getDosageForms } from 'apis/server/dosageForm';
-import { object } from 'zod';
 
-export default async function FilterProducts({
-	searchParams,
-}: {
-	searchParams: TSearchParams;
-}) {
+export default async function FilterProducts() {
 	const [companies, categories, dosageForms] = await Promise.all([
 		getCompanies(),
 		getCategories(),
@@ -33,7 +27,7 @@ export default async function FilterProducts({
 	} as const;
 
 	return (
-		<article className='hidden self-start rounded-lg border border-gray-50 media-md:block'>
+		<article className='sticky left-0 top-6 hidden self-start rounded-lg border border-gray-50 media-md:block'>
 			<div className='flex items-center justify-between border-b border-gray-50 p-4 pb-4 shadow-sm'>
 				<h4 className='capitalize typography-B16'>filter option</h4>
 				<ClearAllBtn />

@@ -124,7 +124,7 @@ export default async function HomePage() {
 					</Button>
 				</div>
 				<div
-					className='col-span-2 grid divide-x divide-gray-50 self-baseline overflow-hidden rounded-md border border-gray-50 media-md:col-span-1'
+					className='col-span-2 grid gap-4 self-baseline overflow-hidden rounded-md media-md:col-span-1'
 					style={{
 						gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))',
 					}}>
