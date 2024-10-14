@@ -25,7 +25,7 @@ export default async function CompanyPage({
 	};
 	return (
 		<section>
-			<div className='h-48 w-full bg-gray-30 py-8' />
+			<div className='h-48 w-full bg-gray-30' />
 			<div className='container -mt-8'>
 				<div className='flex gap-4'>
 					<Avatar className='size-36 flex-shrink-0 rounded-full border-8 border-white bg-gray-30'>

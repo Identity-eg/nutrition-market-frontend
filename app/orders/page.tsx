@@ -11,8 +11,8 @@ import { TOrderItem } from 'types/order';
 
 function OrderItem({ amount, totalProductPrice, variant }: TOrderItem) {
 	return (
-		<li className='flex w-full gap-4 border-b border-gray-40 pb-4 pt-4 first:pt-0 last:border-0 last:pb-0'>
-			<div className='relative size-20 flex-shrink-0 rounded-md border border-gray-40'>
+		<li className='flex w-full gap-4'>
+			<div className='relative size-20 flex-shrink-0 rounded-md bg-gray-30'>
 				<Image
 					src={variant.images[0].url}
 					width={64}
@@ -25,16 +25,14 @@ function OrderItem({ amount, totalProductPrice, variant }: TOrderItem) {
 				</div>
 			</div>
 
-			<div className='flex w-full flex-col justify-between text-gray-400 typography-M16'>
-				<div className='line-clamp-2'>
-					{variant.name}
-					<span className='flex max-w-fit items-center justify-start gap-2 typography-R14'>
-						{variant.unitCount} Caps
+			<div className='flex w-full flex-col text-gray-400 typography-M16'>
+				<h4 className='line-clamp-2'>{variant.name}</h4>
+				<div className='flex h-full justify-between'>
+					<span className='mt-2 typography-R14'>{variant.unitCount} Caps</span>
+					<span className='mt-auto self-end'>
+						{convertToReadableNumber(+totalProductPrice)} EGP
 					</span>
 				</div>
-				<span className='self-end'>
-					{convertToReadableNumber(+totalProductPrice)} EGP
-				</span>
 			</div>
 		</li>
 	);
@@ -67,32 +65,43 @@ export default async function Orders() {
 				return (
 					<Card
 						key={order._id}
-						className='relative mb-4 max-w-[800px] overflow-hidden'>
-						<div
-							className={cn(
-								'max-w-fit rounded-md rounded-l-none rounded-tr-none px-3 py-1 capitalize text-white typography-R14',
-								{
-									'bg-orange-500': order.status === ORDER_STATUS.processing,
-									'bg-green-light-600': order.status === ORDER_STATUS.delivered,
-									'bg-[#1640D6]': order.status === ORDER_STATUS.shipped,
-									'bg-red-500': order.status === ORDER_STATUS.canceled,
-								}
-							)}>
-							{order.status}
+						className='relative mb-8 max-w-[800px] overflow-hidden'>
+						<div className='flex items-center justify-between p-4'>
+							<div className='flex flex-col'>
+								<span className='text-gray-200 typography-R14'>Order Id</span>
+								<span className='typography-M18'>#{order._id}</span>
+							</div>
+							<div
+								className={cn(
+									'max-w-fit rounded-md px-2 py-1 capitalize text-white typography-R13',
+									{
+										'border border-orange-100 bg-orange-50 text-orange-500':
+											order.status === ORDER_STATUS.processing,
+										'border border-green-light-200 bg-green-light-50 text-green-light-600':
+											order.status === ORDER_STATUS.delivered,
+										'bg-[#1640d60f] text-[#1640D6]':
+											order.status === ORDER_STATUS.shipped,
+										'border border-red-100 bg-red-50 text-red-500':
+											order.status === ORDER_STATUS.canceled,
+									}
+								)}>
+								{order.status}
+							</div>
 						</div>
-						<div className='relative p-4'>
-							<ul>
-								{order.orderItems.map(item => (
-									<OrderItem
-										key={item._id}
-										{...item}
-									/>
-								))}
-							</ul>
-							{isOrdersItemExceedLimit && (
+
+						{/* <div className='relative p-4'> */}
+						<ul className='grid max-h-[250px] grid-cols-2 items-center gap-8 overflow-y-auto p-4'>
+							{order.orderItems.map(item => (
+								<OrderItem
+									key={item._id}
+									{...item}
+								/>
+							))}
+						</ul>
+						{/* {isOrdersItemExceedLimit && (
 								<div className='absolute inset-x-0 bottom-0 h-[150px] w-full bg-gradient-to-t from-white to-[rgba(255,255,255,0)]' />
-							)}
-						</div>
+							)} */}
+						{/* </div> */}
 						<div className='flex items-center gap-6 border-t border-gray-40 bg-gray-20 p-4'>
 							{Object.entries(orderDetails).map(([key, value]) => {
 								return (
@@ -110,7 +119,7 @@ export default async function Orders() {
 								<Button
 									variant={
 										order.status === ORDER_STATUS.delivered
-											? 'secondary-gray'
+											? 'outline'
 											: 'primary'
 									}>
 									<Link href={`orders/${order._id}`}>

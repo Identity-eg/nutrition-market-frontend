@@ -145,7 +145,7 @@ export default async function ProductPage({
 							<p>
 								Store:{' '}
 								<Link
-									href={`/shop?company=${product.company._id}`}
+									href={`/company/${product.company._id}`}
 									className='rounded-md text-green-500 underline typography-SB13'>
 									{product.company.name}
 								</Link>
@@ -167,6 +167,7 @@ export default async function ProductPage({
 
 					<Price
 						finalPriceClassName='typography-SB24'
+						previousPriceClassName='text-gray-200'
 						price={variant.price}
 						priceAfterDiscount={variant.priceAfterDiscount}
 					/>

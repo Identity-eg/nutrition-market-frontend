@@ -16,31 +16,29 @@ export default function SortBy() {
 	const facet = searchParams.get('sort') ?? '';
 
 	return (
-		<article className='col-span-2 flex w-auto justify-between gap-x-4 media-sm:justify-self-end'>
-			<div className='flex items-center justify-center gap-x-4'>
-				<span className={'capitalize text-gray-100 typography-M13'}>
-					sort by :
-				</span>
-				<Select
-					value={facet}
-					onValueChange={v => {
-						searchParams.set('sort', v);
-						router.push(`?${searchParams.toString()}`);
-					}}>
-					<SelectTrigger className='w-48'>
-						<SelectValue placeholder='Select' />
-					</SelectTrigger>
-					<SelectContent>
-						{SORT_OPTIONS.map(option => (
-							<SelectItem
-								key={option.value}
-								value={option.value}>
-								{option.label}
-							</SelectItem>
-						))}
-					</SelectContent>
-				</Select>
-			</div>
+		<article className='mb-4 ml-auto flex w-full items-center justify-end gap-4'>
+			<span className={'capitalize text-gray-100 typography-M13'}>
+				sort by :
+			</span>
+			<Select
+				value={facet}
+				onValueChange={v => {
+					searchParams.set('sort', v);
+					router.push(`?${searchParams.toString()}`);
+				}}>
+				<SelectTrigger className='w-48'>
+					<SelectValue placeholder='Select' />
+				</SelectTrigger>
+				<SelectContent>
+					{SORT_OPTIONS.map(option => (
+						<SelectItem
+							key={option.value}
+							value={option.value}>
+							{option.label}
+						</SelectItem>
+					))}
+				</SelectContent>
+			</Select>
 		</article>
 	);
 }

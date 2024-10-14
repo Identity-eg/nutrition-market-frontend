@@ -83,7 +83,7 @@ function OrderDetails({
 			{Object.entries(orderDetails).map(([key, value]) => (
 				<p
 					key={key}
-					className='flex items-center gap-2'>
+					className='flex items-center gap-2 typography-R14'>
 					{'icon' in value && value.icon}
 					<span className='capitalize text-gray-200'>{key}:</span>
 					{value.text}
@@ -96,7 +96,7 @@ function OrderDetails({
 function OrderItem({ amount, totalProductPrice, variant }: TOrderItem) {
 	return (
 		<li className='flex w-full gap-4 border-b border-gray-40 pb-6 last:border-0 last:pb-0'>
-			<div className='relative size-20 flex-shrink-0 rounded-md border border-gray-40'>
+			<div className='relative size-20 flex-shrink-0 rounded-md bg-gray-30'>
 				<Image
 					src={variant.images[0].url}
 					width={64}
@@ -113,7 +113,7 @@ function OrderItem({ amount, totalProductPrice, variant }: TOrderItem) {
 				<h4 className='line-clamp-2'>{variant.name}</h4>
 				<div className='flex h-full justify-between'>
 					<span className='mt-2 typography-R14'>{variant.unitCount} Caps</span>
-					<span className='mt-auto self-end text-green-light-700'>
+					<span className='mt-auto self-end'>
 						{convertToReadableNumber(+totalProductPrice)} EGP
 					</span>
 				</div>
@@ -328,7 +328,7 @@ export default async function Order({
 								Please note that you can only cancel your order if it is in
 								processing state
 							</div>
-							<Button className='mt-auto flex w-full items-center gap-2 border border-orange-300 bg-orange-40 text-orange-600 hover:bg-orange-300/80 hover:text-white'>
+							<Button className='mt-auto flex w-full items-center gap-1 border border-orange-300 bg-orange-40 text-orange-600 hover:bg-orange-300 hover:text-white'>
 								<XIcon size={20} />
 								Cancel order
 							</Button>

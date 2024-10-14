@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { Counter } from './counter';
-import AddToCartButton from 'app/shop/components/card-item/add-to-cart-btn';
+import { AddToCartButton } from 'app/shop/components/card-item/add-to-cart-btn';
 
 export default function ActionBtns({
 	productId,

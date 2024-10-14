@@ -3,7 +3,7 @@ import Image from 'next/image';
 import Sale from './sale';
 import Link from 'next/link';
 import { TProduct } from 'types/product';
-import AddToCartButton from './add-to-cart-btn';
+import { AddToCartButton } from './add-to-cart-btn';
 import Price from './price';
 import {
 	PillIcon,
@@ -36,15 +36,15 @@ const CardItem = ({ variants, averageRating, _id }: TProduct) => {
 						height={150}
 					/>
 				</Link>
-
-				<Button
-					size='icon'
-					className='absolute bottom-0 right-0 flex size-8'>
-					<ShoppingBasketIcon
-						strokeWidth={1.5}
-						size={20}
-					/>
-				</Button>
+				<AddToCartButton
+					size='sm'
+					className={
+						'pointer-events-none invisible absolute w-[70%] -translate-y-4 opacity-0 transition-all duration-300 group-hover:pointer-events-auto group-hover:visible group-hover:opacity-100'
+					}
+					quantity={defaltVariant.quantity}
+					productId={_id}
+					variantId={defaltVariant._id}
+				/>
 
 				<div className='absolute -right-10 top-0 flex flex-col gap-2 text-gray-500 transition-all duration-300 group-hover:right-0'>
 					{/* <QuickViewButton
@@ -98,6 +98,7 @@ const CardItem = ({ variants, averageRating, _id }: TProduct) => {
 			<div className='mt-auto'>
 				<Price
 					className='mb-0'
+					previousPriceClassName='typography-R14 text-gray-200'
 					finalPriceClassName='typography-SB18'
 					price={defaltVariant.price}
 					priceAfterDiscount={defaltVariant.priceAfterDiscount}
@@ -116,12 +117,6 @@ const CardItem = ({ variants, averageRating, _id }: TProduct) => {
 					</div>
 				))}
 			</div> */}
-
-			{/* <AddToCartButton
-				quantity={defaltVariant.quantity}
-				productId={_id}
-				variantId={defaltVariant._id}
-			/> */}
 		</div>
 	);
 };
