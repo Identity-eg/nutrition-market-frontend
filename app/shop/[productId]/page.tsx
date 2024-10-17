@@ -6,6 +6,7 @@ import {
 	Circle,
 	CircleAlert,
 	CircleCheck,
+	PillBottleIcon,
 	RefrigeratorIcon,
 } from 'lucide-react';
 import { getSingleProduct } from 'apis/server/products';
@@ -30,51 +31,53 @@ import { cn } from 'lib/utils';
 import { NutritionFacts } from './nutrition-facts';
 import Allergen from './allergen';
 import OtherIngredients from './other-ingredients';
+import { Metadata } from 'next';
+
+export async function generateMetadata({
+	params,
+	searchParams,
+}: {
+	params: { productId: string };
+	searchParams: { [key: string]: string };
+}): Promise<Metadata> {
+	const { productId } = params;
+
+	const product = await getSingleProduct({ productId });
+	const variant =
+		product.variants.find(v => v._id.toString() === searchParams.variantId) ??
+		product.variants[0];
+
+	return {
+		title: variant.name,
+		description: product.description,
+	};
+}
 
 const accordionToDisplay = [
 	{
-		id: '1',
-		icon: (
-			<CircleCheck
-				size={20}
-				strokeWidth={1.5}
-			/>
-		),
+		Icon: CircleCheck,
 		displayName: 'Description',
 		name: 'description',
 	},
 	{
-		id: '2',
-		icon: (
-			<Calendar
-				size={20}
-				strokeWidth={1.5}
-			/>
-		),
+		Icon: Calendar,
 		displayName: 'How to use',
 		name: 'directionOfUse',
 	},
 	{
-		id: '3',
-		icon: (
-			<CircleAlert
-				size={20}
-				strokeWidth={1.5}
-			/>
-		),
+		Icon: CircleAlert,
 		displayName: 'Warnings',
 		name: 'warnings',
 	},
 	{
-		id: '4',
-		icon: (
-			<RefrigeratorIcon
-				size={20}
-				strokeWidth={1.5}
-			/>
-		),
+		Icon: RefrigeratorIcon,
 		displayName: 'Storage condition',
 		name: 'storageConditions',
+	},
+	{
+		Icon: PillBottleIcon,
+		displayName: 'Nutrition facts',
+		name: 'nutritionFacts',
 	},
 ] as const;
 
@@ -109,7 +112,6 @@ export default async function ProductPage({
 				<div className='flex flex-col justify-center gap-10 self-baseline border-r border-gray-50 pr-6'>
 					<ProductImages images={variant.images} />
 					<Allergen />
-					<NutritionFacts nutritionFacts={product.nutritionFacts} />
 					<OtherIngredients
 						otherIngredients={product.nutritionFacts.otherIngredients}
 					/>
@@ -134,7 +136,7 @@ export default async function ProductPage({
 							<RatingStars averageRating={product.averageRating} />
 
 							<span className='rounded-md border border-gray-50 px-1 typography-R14'>
-								{product.averageRating}
+								{product.numReviews}
 							</span>
 
 							<Separator
@@ -208,16 +210,24 @@ export default async function ProductPage({
 
 							return (
 								<AccordionItem
-									key={product.description}
+									key={category.name}
 									value={category.name}>
 									<AccordionTrigger className='typography-B16'>
 										<span className='text flex items-center gap-2'>
-											{category.icon}
+											<category.Icon
+												size={20}
+												strokeWidth={1.5}
+											/>
+
 											{category.displayName}
 										</span>
 									</AccordionTrigger>
 									<AccordionContent className='leading-6 typography-R16 [&>ul]:ml-6 [&>ul]:list-disc'>
-										{parse(product[category.name])}
+										{category.name === 'nutritionFacts' ? (
+											<NutritionFacts nutritionFacts={product.nutritionFacts} />
+										) : (
+											parse(product[category.name])
+										)}
 									</AccordionContent>
 								</AccordionItem>
 							);

@@ -30,7 +30,7 @@ export type TParams = {
 
 export const getProducts = async ({
 	...params
-}: TParams): Promise<GetProductsReturnType> => {
+}: Partial<TParams>): Promise<GetProductsReturnType> => {
 	const queryString = qs.stringify(params, { skipNulls: true });
 	const data = await request({
 		url: `/products?${queryString}`,

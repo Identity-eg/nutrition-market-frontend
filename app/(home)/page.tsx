@@ -46,9 +46,12 @@ const FEATURES = [
 ];
 
 export default async function HomePage() {
-	const categories = await getCategories();
-	const { companies } = await getCompanies();
-	const { products } = await getProducts({});
+	const [categories, companies, products] = await Promise.all([
+		getCategories(),
+		getCompanies(),
+		getProducts({ sort: '-sold' }),
+	]);
+
 	return (
 		<section>
 			<Hero />
@@ -128,7 +131,7 @@ export default async function HomePage() {
 					style={{
 						gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))',
 					}}>
-					{products.map(product => (
+					{products.products.map(product => (
 						<CardItem
 							key={product._id}
 							{...product}
@@ -149,7 +152,7 @@ export default async function HomePage() {
 					style={{
 						gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))',
 					}}>
-					{companies.map(company => (
+					{companies.companies.map(company => (
 						<div
 							key={company._id}
 							className='flex items-center gap-4 p-4'>
@@ -210,10 +213,9 @@ export default async function HomePage() {
 					<div
 						key={f.title}
 						className='flex gap-4'>
-						<f.Icon
-						// width={32}
-						// height={32}
-						/>
+						<div className='flex'>
+							<f.Icon className='size-[72px] object-contain' />
+						</div>
 						<div>
 							<p className='mb-2 typography-SB16'>{f.title}</p>
 							<p className='max-w-[25ch] text-gray-200'>

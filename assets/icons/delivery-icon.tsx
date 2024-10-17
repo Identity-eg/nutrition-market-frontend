@@ -4,6 +4,7 @@ const DeliveryIcon = (props: SVGProps<SVGSVGElement>) => (
 		xmlns='http://www.w3.org/2000/svg'
 		width={90}
 		height={70}
+		viewBox='0 0 90 75'
 		fill='none'
 		{...props}>
 		<path
