@@ -14,11 +14,7 @@ export default async function Products({
 	const { products, lastPage, currentPage } = await getProducts(queryParams);
 	return (
 		<article>
-			<div
-				className='col-span-2 grid gap-4 self-baseline overflow-hidden rounded-md media-md:col-span-1'
-				style={{
-					gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))',
-				}}>
+			<div className='grid grid-cols-2 gap-2 self-baseline overflow-hidden media-sm:grid-cols-[repeat(auto-fill,minmax(200px,1fr))] media-sm:gap-4'>
 				{products.map(product => (
 					<CardItem
 						key={product._id}

@@ -20,9 +20,7 @@ export default async function SimilarProducts({
 					See all
 				</Link>
 			</div>
-			<div
-				style={{ gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))' }}
-				className='mb-10 grid gap-4'>
+			<div className='mb-10 grid grid-cols-2 gap-2 media-sm:grid-cols-[repeat(auto-fill,minmax(200px,1fr))] media-sm:gap-4'>
 				{products.map(product => (
 					<CardItem
 						key={product._id}

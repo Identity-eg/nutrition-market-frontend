@@ -17,7 +17,7 @@ import { cn } from 'lib/utils';
 import useDebounce from 'lib/use-debounce';
 import { usePathname, useSearchParams } from 'next/navigation';
 
-export function Searchbar() {
+export function Searchbar({ className }: { className?: string }) {
 	const [isSearchListOpen, setIsSearchListOpen] = useState(false);
 	const [searchValue, setSearchValue] = useState('');
 	const pathname = usePathname();
@@ -54,7 +54,7 @@ export function Searchbar() {
 	});
 
 	return (
-		<div className='relative w-1/2 p-8'>
+		<div className={cn('relative w-1/2 p-8', className)}>
 			<div
 				style={{ height: isSearchListOpen ? `${bodyHeight - 60}px` : 0 }}
 				className={cn(

@@ -13,7 +13,7 @@ export async function CartBtn() {
 					{cart.totalItems}
 				</span>
 			</div>
-			<div className='flex flex-col items-start typography-M14'>
+			<div className='hidden flex-col items-start typography-M14 media-md:flex'>
 				<p className='text-black'>Cart</p>
 				<p className='text-[#bc6c25]'>
 					{convertToReadableNumber(cart.totalPrice)} EGP

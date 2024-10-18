@@ -10,7 +10,7 @@ const CardItem = ({ variants, averageRating, _id }: TProduct) => {
 	const defaltVariant = variants[0];
 	const primaryImage = defaltVariant.images?.[0];
 	return (
-		<div className='group relative flex flex-col rounded-md border border-gray-50 p-4'>
+		<div className='group relative flex flex-col rounded-md border border-gray-50 p-2 media-sm:p-4'>
 			<Sale
 				price={defaltVariant.price}
 				priceAfterDiscount={defaltVariant.priceAfterDiscount}

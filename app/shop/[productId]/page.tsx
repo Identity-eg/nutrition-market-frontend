@@ -108,7 +108,7 @@ export default async function ProductPage({
 
 	return (
 		<div className='container pb-10'>
-			<div className='grid grid-cols-2'>
+			<div className='grid-cols-2 media-md:grid'>
 				<div className='flex flex-col justify-center gap-10 self-baseline border-r border-gray-50 pr-6'>
 					<ProductImages images={variant.images} />
 					<Allergen />

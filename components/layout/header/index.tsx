@@ -9,6 +9,7 @@ import biovacLogo from 'assets/logo.png';
 import { CartSidebar } from './cartSidebar';
 import { getMe } from 'apis/server/user';
 import { Searchbar } from './search/searchbar';
+import { MenuIcon, SearchIcon } from 'lucide-react';
 
 export default async function HeaderLayout() {
 	const user = await getMe();
@@ -16,9 +17,11 @@ export default async function HeaderLayout() {
 		<>
 			<nav className='max-h-fit border-b border-gray-50'>
 				<div className='container flex items-center justify-between gap-2 py-4'>
+					<MenuIcon className='text-green-500 media-md:hidden' />
+
 					<Link
 						href='/'
-						className='w-32 flex-shrink-0'>
+						className='ml-10 w-32 flex-shrink-0 media-md:ml-0'>
 						<Image
 							className='h-full w-full'
 							alt='Biovac pharmacy supplements'
@@ -27,9 +30,9 @@ export default async function HeaderLayout() {
 						/>
 					</Link>
 
-					<Searchbar />
+					<Searchbar className='hidden media-md:block' />
 
-					<div className='text-black-3 flex items-center gap-6'>
+					<div className='text-black-3 hidden items-center gap-6 media-md:flex'>
 						<CartSidebar />
 						<Separator
 							orientation='vertical'
@@ -44,6 +47,14 @@ export default async function HeaderLayout() {
 								<Link href='/login'>Login</Link>
 							</Button>
 						)}
+					</div>
+					<div className='flex gap-2 media-md:hidden'>
+						<SearchIcon className='text-green-500' />
+						<Separator
+							orientation='vertical'
+							className='h-6'
+						/>
+						<CartSidebar contentClassName='w-full' />
 					</div>
 				</div>
 			</nav>

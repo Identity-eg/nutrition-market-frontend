@@ -18,17 +18,28 @@ import { getCart } from 'apis/server/cart';
 import { Separator } from 'components/ui/separator';
 import noCartFound from 'assets/no-cart-found.svg';
 import Price from 'app/shop/components/card-item/price';
+import { cn } from 'lib/utils';
 
-export async function CartSidebar() {
+export async function CartSidebar({
+	triggerClassName,
+	contentClassName,
+}: {
+	triggerClassName?: string;
+	contentClassName?: string;
+}) {
 	const cart = await getCart();
 	const isCartEmpty = cart.items.length === 0;
 	return (
 		<Sheet>
-			<SheetTrigger className='relative flex items-center gap-2 text-green-500'>
+			<SheetTrigger
+				className={cn(
+					'relative flex items-center gap-2 text-green-500',
+					triggerClassName
+				)}>
 				<CartBtn />
 			</SheetTrigger>
 
-			<SheetContent className='flex flex-col'>
+			<SheetContent className={cn('flex flex-col', contentClassName)}>
 				<SheetHeader>
 					<SheetTitle>Shopping Cart</SheetTitle>
 				</SheetHeader>

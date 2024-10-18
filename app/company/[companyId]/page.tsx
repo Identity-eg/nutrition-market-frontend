@@ -60,7 +60,7 @@ export default async function CompanyPage({
 					</div>
 				</div>
 
-				<div className='grid grid-cols-[278px,1fr] gap-x-6 gap-y-8 py-12'>
+				<div className='grid media-md:grid-cols-[278px,1fr] gap-x-6 gap-y-8 py-12'>
 					<FilterProducts />
 					<Suspense
 						key={JSON.stringify(newSearchParams)}
