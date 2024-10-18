@@ -1,6 +1,13 @@
 'use client';
 
-import { ChevronDown, CircleUserRound, LogOutIcon } from 'lucide-react';
+import {
+	ChevronDown,
+	CircleUserRound,
+	LogOutIcon,
+	MessageCircleQuestionIcon,
+	SendToBackIcon,
+	UserRoundPenIcon,
+} from 'lucide-react';
 import {
 	DropdownMenu,
 	DropdownMenuContent,
@@ -39,42 +46,40 @@ export function ProfileDropdown({ user }: { user: TUser }) {
 					</div>
 				</div>
 			</DropdownMenuTrigger>
-			<DropdownMenuContent className='w-52'>
-				<DropdownMenuLabel>My Account</DropdownMenuLabel>
-				<DropdownMenuSeparator />
+			<DropdownMenuContent className='w-44'>
 				<DropdownMenuGroup>
-					<DropdownMenuItem>
-						Profile
-						<DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>
+					<DropdownMenuItem className='gap-x-4'>
+						<UserRoundPenIcon
+							size={18}
+							className='text-gray-400'
+						/>
+						<Link href='/profile'>My Profile</Link>
 					</DropdownMenuItem>
-					<DropdownMenuItem asChild>
+					<DropdownMenuItem className='gap-x-4'>
+						<SendToBackIcon
+							size={18}
+							className='text-gray-400'
+						/>
+						<Link href='/orders'>My orders</Link>
+					</DropdownMenuItem>
+					<DropdownMenuItem className='gap-x-4'>
+						<MessageCircleQuestionIcon
+							size={18}
+							className='text-gray-400'
+						/>
 						<Link href='/orders'>
-							My orders
-							<DropdownMenuShortcut>⌘B</DropdownMenuShortcut>
+							Need Help ?<DropdownMenuShortcut></DropdownMenuShortcut>
 						</Link>
 					</DropdownMenuItem>
-					<DropdownMenuSub>
-						<DropdownMenuSubTrigger>Invite users</DropdownMenuSubTrigger>
-						<DropdownMenuPortal>
-							<DropdownMenuSubContent>
-								<DropdownMenuItem>Email</DropdownMenuItem>
-								<DropdownMenuItem>Message</DropdownMenuItem>
-								<DropdownMenuSeparator />
-								<DropdownMenuItem>More...</DropdownMenuItem>
-							</DropdownMenuSubContent>
-						</DropdownMenuPortal>
-					</DropdownMenuSub>
 				</DropdownMenuGroup>
 				<DropdownMenuSeparator />
 				<DropdownMenuItem
-					className='text-red-500 focus:bg-red-30 focus:text-red-500'
+					className='gap-x-4 text-red-500 focus:bg-red-30 focus:text-red-500'
 					onClick={() => {
 						logoutMutation.mutate();
 					}}>
+					<LogOutIcon size={16} />
 					Log out
-					<DropdownMenuShortcut>
-						<LogOutIcon size={16} />
-					</DropdownMenuShortcut>
 				</DropdownMenuItem>
 			</DropdownMenuContent>
 		</DropdownMenu>

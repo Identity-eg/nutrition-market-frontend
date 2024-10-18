@@ -1,4 +1,5 @@
 import { RatingStars } from 'app/shop/[productId]/components/rating-stars';
+import parse from 'html-react-parser';
 import FilterProducts from './filter';
 import Products from 'app/shop/components/products';
 import { ProductsLoading } from 'app/shop/products-loading';
@@ -34,7 +35,7 @@ export default async function CompanyPage({
 							<BuildingPlaceholder size={64} />
 						</AvatarFallback>
 					</Avatar>
-					<div className='mt-10'>
+					<div className='mt-10 [&>p]:typography-R14 [&>p]:leading-normal'>
 						<div className='mb-1 capitalize text-black typography-B28'>
 							{company.name}
 						</div>
@@ -53,18 +54,9 @@ export default async function CompanyPage({
 								150 orders in last week
 							</span>
 						</div>
-						<span className='leading-tight text-gray-200 typography-R14'>
-							Lorem Ipsum is simply dummy text of the printing and typesetting
-							industry. Lorem Ipsum has been the industry&apos;s standard dummy
-							text ever since the 1500s, when an unknown printer took a galley
-							of type and scrambled it to make a type specimen book. It has
-							survived not only five centuries, but also the leap into
-							electronic typesetting, remaining essentially unchanged. It was
-							popularised in the 1960s with the release of Letraset sheets
-							containing Lorem Ipsum passages, and more recently with desktop
-							publishing software like Aldus PageMaker including versions of
-							Lorem Ipsum.
-						</span>
+						{/* <span className='text-green-150 leading-snug typography-R14'> */}
+						{parse(company.description)}
+						{/* </span> */}
 					</div>
 				</div>
 
