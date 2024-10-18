@@ -59,18 +59,23 @@ const config = {
 	},
 	plugins: [
 		require('tailwindcss-animate'),
-		plugin(({ addUtilities, matchUtilities }) => {
-			addUtilities(
-				createTypographyUtilities({
+		plugin(({ addUtilities, matchUtilities, addVariant }) => {
+			addUtilities({
+				...createTypographyUtilities({
 					fontSizeRange: [12, 13, 14, 16, 18, 20, 24, 28, 32, 36, 48, 52],
-				})
-			);
+				}),
+				['.behavior-discrete']: {
+					transitionBehavior: 'allow-discrete',
+				},
+			});
 			matchUtilities(createFluidTypographyUtilities(), {
 				values: {
 					'32-48': '32-48',
 					'16-24': '16-24',
 				},
 			});
+
+			addVariant('starting', '@starting-style');
 		}),
 	],
 } satisfies Config;

@@ -1,0 +1,70 @@
+import Price from 'app/shop/components/card-item/price';
+import { Button } from 'components/ui/button';
+import Image from 'next/image';
+import Link from 'next/link';
+import { forwardRef } from 'react';
+import { TProduct } from 'types/product';
+import { TrendingCategory } from './trending-category';
+
+export const SearchList = forwardRef<
+	HTMLUListElement,
+	React.HTMLAttributes<HTMLUListElement> & {
+		products?: TProduct[];
+		searchValue: string;
+		debouncedValue: string;
+		isPlaceholderData: boolean;
+	}
+>(({ products, searchValue, debouncedValue, isPlaceholderData }, ref) => {
+	if (searchValue && !!products && products?.length === 0) {
+		return (
+			<div className='flex flex-col gap-2 bg-white p-4'>
+				<span className='typography-R14'>
+					No result found for{' '}
+					<span className='typography-B14'>&quot;{debouncedValue}&quot;</span>
+				</span>
+			</div>
+		);
+	}
+
+	if (searchValue && !!products && products?.length !== 0) {
+		return (
+			<ul
+				ref={ref}
+				className='left-0 z-50 mt-2 max-h-[400px] w-full overflow-auto bg-white text-base'>
+				{products?.map(p => (
+					<li
+						key={p._id}
+						className='flex h-[100px] select-none items-center rounded-sm p-2 transition-all hover:bg-gray-20'>
+						<Link
+							className='flex w-full gap-2'
+							href={`/shop/${p._id}`}>
+							<div className='aspect-square size-20 rounded-md border border-gray-40 bg-white p-2'>
+								<Image
+									src={p.variants[0].images[0].url}
+									alt=''
+									width={300}
+									height={300}
+									className='aspect-square size-full object-contain mix-blend-multiply'
+								/>
+							</div>
+							<div>
+								<span className='line-clamp-1 text-green-500 typography-SB14'>
+									{p.variants[0].name}
+								</span>
+								<Price
+									finalPriceClassName='typography-M14'
+									previousPriceClassName='typography-R12 text-gray-200'
+									price={p.variants[0].price}
+									priceAfterDiscount={p.variants[0].priceAfterDiscount}
+								/>
+							</div>
+						</Link>
+					</li>
+				))}
+			</ul>
+		);
+	}
+	return <TrendingCategory />;
+});
+
+SearchList.displayName = 'SearchList';
