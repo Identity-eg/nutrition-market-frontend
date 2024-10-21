@@ -2,6 +2,7 @@
 
 import { cookies } from 'next/headers';
 import { getAccessToken } from './helpers';
+import qs from 'qs';
 
 const baseURL = process.env.NEXT_PUBLIC_API_URL;
 
@@ -10,11 +11,18 @@ type TOptions =
 			url: `/${string}`;
 			body?: number | string | { [x: string]: any };
 			baseUrl?: string;
+			query?: Record<string, any>;
 	  })
 	| undefined;
 
 export const request = async ({ ...options }: TOptions) => {
 	const accessToken = await getAccessToken();
+
+	const queryString = qs.stringify(options.query, {
+		addQueryPrefix: true,
+		allowEmptyArrays: true,
+		skipNulls: true,
+	});
 
 	const defaultHeaders = {
 		...(accessToken && {
@@ -30,7 +38,7 @@ export const request = async ({ ...options }: TOptions) => {
 	const finalBaseUrl = options.baseUrl ?? baseURL;
 
 	try {
-		const res = await fetch(finalBaseUrl + options.url, {
+		const res = await fetch(`${finalBaseUrl}${options.url}${queryString}`, {
 			credentials: 'include',
 			...options,
 

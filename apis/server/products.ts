@@ -1,6 +1,5 @@
 'use server';
 
-import qs from 'qs';
 import { request } from 'apis/client';
 import { TProduct } from 'types/product';
 
@@ -9,11 +8,6 @@ type GetProductsReturnType = {
 	lastPage: number;
 	products: TProduct[];
 	totalCount: number;
-};
-
-type GetProductReviewsReturnType = {
-	reviews: TProduct[];
-	count: number;
 };
 
 export type TParams = {
@@ -31,10 +25,10 @@ export type TParams = {
 export const getProducts = async ({
 	...params
 }: Partial<TParams>): Promise<GetProductsReturnType> => {
-	const queryString = qs.stringify(params, { skipNulls: true });
 	const data = await request({
-		url: `/products?${queryString}`,
+		url: '/products',
 		method: 'GET',
+		query: params,
 	});
 
 	return data;
@@ -42,15 +36,16 @@ export const getProducts = async ({
 
 export type TSimilarProductsProps = {
 	productId: string;
-	limit?: string;
+	limit?: number;
 };
 
 export const getSimilarProducts = async ({
 	productId,
-	limit = '4',
+	limit = 5,
 }: TSimilarProductsProps): Promise<Pick<GetProductsReturnType, 'products'>> => {
 	const data = await request({
-		url: `/products/${productId}/similar?limit=${limit}`,
+		url: `/products/${productId}/similar`,
+		query: { limit },
 		method: 'GET',
 	});
 

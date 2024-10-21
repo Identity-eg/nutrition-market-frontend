@@ -11,7 +11,8 @@ export const getHeroImages = async ({
 	path: TPath;
 }): Promise<GetImagesReturnType> => {
 	const data = await request({
-		url: `/images?path=${path}`,
+		url: `/images`,
+		query: { path },
 	});
 
 	return data;

@@ -148,7 +148,7 @@ export default async function ProductPage({
 								Store:{' '}
 								<Link
 									href={`/company/${product.company._id}`}
-									className='rounded-md text-green-500 underline typography-SB13'>
+									className='text-green-500 underline typography-SB13'>
 									{product.company.name}
 								</Link>
 							</p>
@@ -160,9 +160,7 @@ export default async function ProductPage({
 
 							<p>
 								SKU:{' '}
-								<span className='rounded-md text-green-500 underline typography-SB13'>
-									{product.NFSA_REG_NO}
-								</span>
+								<span className='typography-SB13'>{product.NFSA_REG_NO}</span>
 							</p>
 						</div>
 					</div>
@@ -174,9 +172,9 @@ export default async function ProductPage({
 						priceAfterDiscount={variant.priceAfterDiscount}
 					/>
 
-					<div className='flex h-[350px] flex-col border-b border-gray-50 pb-8'>
-						<div className='mb-[20px]'>
-							<h4 className='mb-2'>Count</h4>
+					<div className='flex flex-col border-b border-gray-50 pb-8'>
+						<div className='mb-4'>
+							<h6 className='mb-2 typography-SB14'>Count</h6>
 							<div className='flex items-center gap-[8px]'>
 								{product.variants.map(va => (
 									<Button
@@ -193,6 +191,19 @@ export default async function ProductPage({
 									</Button>
 								))}
 							</div>
+						</div>
+						<div className='mb-10'>
+							<h6 className='mb-2 typography-SB14'>Category: </h6>
+							<ul>
+								{product.category.map(cat => (
+									<Button
+										asChild
+										variant='outline'
+										className='rounded-md border border-gray-40 px-4 py-1 text-gray-500'>
+										<Link href={`shop?category?${cat._id}`}>{cat.name}</Link>
+									</Button>
+								))}
+							</ul>
 						</div>
 
 						<ActionBtns

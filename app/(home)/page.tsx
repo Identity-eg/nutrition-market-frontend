@@ -49,7 +49,10 @@ export default async function HomePage() {
 	const [categories, companies, products] = await Promise.all([
 		getCategories(),
 		getCompanies(),
-		getProducts({ sort: '-sold' }),
+		getProducts({
+			sort: '-sold',
+			limit: '5',
+		}),
 	]);
 
 	return (
