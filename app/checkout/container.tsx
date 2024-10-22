@@ -1,12 +1,13 @@
 'use client';
 
-import React, { useState } from 'react';
-import ShippingAddress from './address';
-import PaymentMethod from './payment-method';
-import { TGovernorate } from 'types/egypt';
-import { TAddress } from 'types/address';
-import { CheckoutSummary } from './checkout-summary';
-import { TCart } from 'types/cart';
+import { useState } from 'react';
+import ShippingAddress from 'features/addresses/components';
+import PaymentMethod from 'features/orders/components/payment-method';
+import { CheckoutSummary } from 'features/orders/components/checkout-summary';
+
+import type { TGovernorate } from 'features/addresses/types/egypt';
+import type { TAddress } from 'features/addresses/types/address';
+import type { TCart } from 'features/cart/types/cart';
 
 export default function Container({
 	cart,

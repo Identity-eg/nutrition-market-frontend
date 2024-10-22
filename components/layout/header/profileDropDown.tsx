@@ -1,5 +1,6 @@
 'use client';
 
+import Link from 'next/link';
 import {
 	ChevronDown,
 	CircleUserRound,
@@ -13,19 +14,13 @@ import {
 	DropdownMenuContent,
 	DropdownMenuGroup,
 	DropdownMenuItem,
-	DropdownMenuLabel,
-	DropdownMenuPortal,
 	DropdownMenuSeparator,
 	DropdownMenuShortcut,
-	DropdownMenuSub,
-	DropdownMenuSubContent,
-	DropdownMenuSubTrigger,
 	DropdownMenuTrigger,
 } from 'components/ui/dropdown-menu';
 
 import { useLogout } from 'apis/auth';
-import { TUser } from 'types/user';
-import Link from 'next/link';
+import type { TUser } from 'features/auth/types/user';
 
 export function ProfileDropdown({ user }: { user: TUser }) {
 	const logoutMutation = useLogout();

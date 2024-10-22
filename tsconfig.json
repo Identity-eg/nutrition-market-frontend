@@ -19,7 +19,8 @@
 		],
 		"paths": {
 			"*": ["./*"]
-		}
+		},
+		"target": "ES2017"
 	},
 	"include": [
 		"types.d.ts",
@@ -31,4 +32,3 @@
 	],
 	"exclude": ["node_modules"]
 }
-

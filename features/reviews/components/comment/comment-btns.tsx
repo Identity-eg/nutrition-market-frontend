@@ -1,0 +1,42 @@
+import { useTransition } from 'react';
+import { PencilIcon, Trash2Icon } from 'lucide-react';
+
+import { Button } from 'components/ui/button';
+
+import { useDeleteReview } from 'apis/reviews';
+
+export function CommentBtns({
+	reviewId,
+	openEditingMode,
+}: {
+	reviewId: string;
+	openEditingMode: () => void;
+}) {
+	const [isPending, startTransition] = useTransition();
+	const deleteReview = useDeleteReview();
+	return (
+		<div className='flex gap-2'>
+			<Button
+				data-state={isPending && 'deleting'}
+				variant='secondary-white'
+				size={'icon'}
+				className='text-red-300 hover:bg-red-30'
+				onClick={() => {
+					startTransition(() => {
+						deleteReview.mutate({ reviewId });
+					});
+				}}
+			>
+				<Trash2Icon size={16} />
+			</Button>
+
+			<Button
+				onClick={openEditingMode}
+				size={'icon'}
+				variant='secondary-gray'
+			>
+				<PencilIcon size={16} />
+			</Button>
+		</div>
+	);
+}

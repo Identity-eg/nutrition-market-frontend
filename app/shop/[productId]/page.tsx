@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { Suspense } from 'react';
+import { Metadata } from 'next';
 import Link from 'next/link';
-import parse from 'html-react-parser';
 import {
 	Calendar,
 	Circle,
@@ -9,7 +9,10 @@ import {
 	PillBottleIcon,
 	RefrigeratorIcon,
 } from 'lucide-react';
-import { getSingleProduct } from 'apis/server/products';
+import parse from 'html-react-parser';
+import { cn } from 'lib/utils';
+import { RatingStars } from 'components/ui/rating-stars';
+import { Price } from 'components/utils/price';
 
 import { Button } from 'components/ui/button';
 import { Separator } from 'components/ui/separator';
@@ -20,26 +23,25 @@ import {
 	AccordionTrigger,
 } from 'components/ui/accordion';
 
-import { TSearchParams } from 'app/shop/page';
-import { RatingStars } from 'app/shop/[productId]/components/rating-stars';
-import Reviews from 'app/shop/[productId]/reviews';
-import SimilarProducts from 'app/shop/[productId]/similar-products';
-import ProductImages from 'app/shop/[productId]/images';
-import Price from '../components/card-item/price';
-import ActionBtns from './components/action-btns';
-import { cn } from 'lib/utils';
-import { NutritionFacts } from './nutrition-facts';
-import Allergen from './allergen';
-import OtherIngredients from './other-ingredients';
-import { Metadata } from 'next';
+import { getSingleProduct } from 'features/products/api/products';
 
-export async function generateMetadata({
-	params,
-	searchParams,
-}: {
-	params: { productId: string };
-	searchParams: { [key: string]: string };
+import { ProductImages } from 'features/products/components/product-images';
+import { Allergen } from 'features/products/components/allergen';
+import { OtherIngredients } from 'features/products/components/other-ingredients';
+import { NutritionFacts } from 'features/products/components/nutrition-facts';
+
+import ActionBtns from 'features/products/components/action-btns';
+import SimilarProducts from 'features/products/components/similar-products';
+
+import Reviews from 'features/reviews/components';
+import type { TSearchParams } from 'types/searchparams';
+
+export async function generateMetadata(props: {
+	params: Promise<{ productId: string }>;
+	searchParams: Promise<TSearchParams>;
 }): Promise<Metadata> {
+	const searchParams = await props.searchParams;
+	const params = await props.params;
 	const { productId } = params;
 
 	const product = await getSingleProduct({ productId });
@@ -81,13 +83,12 @@ const accordionToDisplay = [
 	},
 ] as const;
 
-export default async function ProductPage({
-	searchParams,
-	params,
-}: {
-	searchParams: TSearchParams;
-	params: { productId: string };
+export default async function ProductPage(props: {
+	searchParams: Promise<TSearchParams>;
+	params: Promise<{ productId: string }>;
 }) {
+	const params = await props.params;
+	const searchParams = await props.searchParams;
 	const variantId: string = searchParams.variant;
 	const manipulatedSp = new URLSearchParams(searchParams);
 
@@ -197,10 +198,11 @@ export default async function ProductPage({
 							<ul>
 								{product.category.map(cat => (
 									<Button
+										key={cat._id}
 										asChild
 										variant='outline'
 										className='rounded-md border border-gray-40 px-4 py-1 text-gray-500'>
-										<Link href={`shop?category?${cat._id}`}>{cat.name}</Link>
+										<Link href={`/shop?category=${cat._id}`}>{cat.name}</Link>
 									</Button>
 								))}
 							</ul>
@@ -249,14 +251,18 @@ export default async function ProductPage({
 
 			<Separator className='mb-6 mt-20' />
 
-			<SimilarProducts productId={params.productId} />
+			<Suspense fallback='Loading'>
+				<SimilarProducts productId={params.productId} />
+			</Suspense>
 
 			<Separator className='mb-6 mt-20' />
 
-			<Reviews
-				productId={params.productId}
-				averageRating={product.averageRating}
-			/>
+			<Suspense fallback='Loading'>
+				<Reviews
+					productId={params.productId}
+					averageRating={product.averageRating}
+				/>
+			</Suspense>
 		</div>
 	);
 }

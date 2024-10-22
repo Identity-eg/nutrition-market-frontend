@@ -1,9 +1,9 @@
 'use server';
 
-import { request } from 'apis/client';
-import { GetCategoriesReturnType } from 'types/category';
+import { request } from 'apis/request';
+import type { TGetCategoriesReturn } from 'features/products/types/category';
 
-export const getCategories = async (): Promise<GetCategoriesReturnType> => {
+export const getCategories = async (): Promise<TGetCategoriesReturn> => {
 	const data = await request({
 		url: `/categories`,
 		method: 'GET',

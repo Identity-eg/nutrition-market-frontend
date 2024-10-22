@@ -20,7 +20,7 @@ import {
 import { Input } from 'components/ui/input';
 import { toast } from 'components/ui/use-toast';
 
-import { login } from 'apis/server/auth';
+import { login } from 'features/auth/api/auth';
 
 const loginSchema = z.object({
 	email: z

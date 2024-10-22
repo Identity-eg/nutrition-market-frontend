@@ -2,15 +2,13 @@ import {
 	CarouselContent,
 	CarouselDots,
 	CarouselItem,
-	CarouselNext,
-	CarouselPrevious,
 } from 'components/ui/carousel';
 import Image from 'next/image';
 import CarouselWrapper from './carousel-wrapper';
-import { getHeroImages } from 'apis/server/hero';
 import parse from 'html-react-parser';
 import { Button } from 'components/ui/button';
 import Link from 'next/link';
+import { getHeroImages } from 'apis/server/hero';
 
 export default async function Hero() {
 	const { images } = await getHeroImages({ path: 'hero' });
@@ -50,14 +48,6 @@ export default async function Hero() {
 					</CarouselItem>
 				))}
 			</CarouselContent>
-			{/* <CarouselPrevious
-				variant='ghost-green'
-				className='invisible left-[550px] media-sm:visible'
-			/>
-			<CarouselNext
-				variant='ghost-green'
-				className='invisible right-[550px] media-sm:visible'
-			/> */}
 			<CarouselDots className='-bottom-2 rounded-full bg-white px-2 py-1' />
 		</CarouselWrapper>
 	);

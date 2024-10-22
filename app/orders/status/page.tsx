@@ -1,15 +1,15 @@
-import { Button } from 'components/ui/button';
 import { MoveLeftIcon, TruckIcon } from 'lucide-react';
+import Image from 'next/image';
 import Link from 'next/link';
 import createOrderPng from 'assets/createOrder.png';
-import Image from 'next/image';
-import { CopyBtn } from './copy-btn';
 
-export default function OrderStatus({
-	searchParams,
-}: {
-	searchParams: { orderId: string };
+import { Button } from 'components/ui/button';
+import { CopyBtn } from 'components/utils/copy-btn';
+
+export default async function OrderStatus(props: {
+	searchParams: Promise<{ orderId: string }>;
 }) {
+	const searchParams = await props.searchParams;
 	// const encpl = cookies()?.get('encpl')?.value;
 	// const values = JSON.parse(encpl ?? '{}');
 	// if (!encpl) {
@@ -32,7 +32,10 @@ export default function OrderStatus({
 			</p>
 			<div className='mb-6 flex items-center gap-6'>
 				<span className='text-gray-300'>Your order ID</span>
-				<CopyBtn orderId={searchParams.orderId} />
+				<span className='flex items-center gap-2 rounded-md border border-gray-50 bg-gray-20 px-2 py-1 text-green-light-700'>
+					{`#${searchParams.orderId}`}
+					<CopyBtn copyText={searchParams.orderId} />
+				</span>
 			</div>
 			<div className='flex gap-4'>
 				<Button

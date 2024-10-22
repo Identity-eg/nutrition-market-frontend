@@ -1,7 +1,7 @@
-import { request } from 'apis/client';
-import { TImage, TPath } from 'types/image';
+import { request } from 'apis/request';
+import type { TImage, TPath } from 'features/products/types/image';
 
-type GetImagesReturnType = {
+type TGetImagesReturn = {
 	images: TImage[];
 };
 
@@ -9,10 +9,11 @@ export const getHeroImages = async ({
 	path,
 }: {
 	path: TPath;
-}): Promise<GetImagesReturnType> => {
+}): Promise<TGetImagesReturn> => {
 	const data = await request({
 		url: `/images`,
 		query: { path },
+		cache: 'force-cache',
 	});
 
 	return data;

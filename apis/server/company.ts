@@ -1,9 +1,12 @@
 'use server';
 
-import { request } from 'apis/client';
-import { GetCompaniesReturnType, TCompany } from 'types/company';
+import { request } from 'apis/request';
+import type {
+	TGetCompaniesReturn,
+	TCompany,
+} from 'features/products/types/company';
 
-export const getCompanies = async (): Promise<GetCompaniesReturnType> => {
+export const getCompanies = async (): Promise<TGetCompaniesReturn> => {
 	const data = await request({
 		url: `/companies`,
 		method: 'GET',

@@ -1,21 +1,23 @@
 import { Suspense } from 'react';
-import SortBy from './components/sortBy';
-import FilterProducts from './components/filter';
-import Products from './components/products';
-import { ProductsLoading } from 'app/shop/products-loading';
-import adPhoto from 'assets/ad.png';
 import Image from 'next/image';
 
-export type TSearchParams = { [key: string]: string };
+import adPhoto from 'assets/ad.png';
 
-export default function ShopPage({
-	searchParams,
-}: {
-	searchParams: TSearchParams;
+import { Filters } from 'features/filters/components';
+import { SortBy } from 'features/filters/components/sort-by';
+
+import { Products } from 'features/products/components';
+import { ProductsLoading } from 'features/products/components/products-loading';
+
+import type { TSearchParams } from 'types/searchparams';
+
+export default async function ShopPage(props: {
+	searchParams: Promise<TSearchParams>;
 }) {
+	const searchParams = await props.searchParams;
 	return (
 		<section className='container h-full grid-cols-[278px,1fr] gap-x-6 gap-y-8 py-12 media-md:grid'>
-			<FilterProducts />
+			<Filters />
 			<div>
 				<div className='mb-4 flex min-h-56 flex-col items-center justify-between gap-6 rounded-md bg-[#d9f3fa] p-6 pr-10 media-sm:flex-row'>
 					<div>
@@ -39,7 +41,9 @@ export default function ShopPage({
 						/>
 					</div>
 				</div>
-				<SortBy />
+				<Suspense>
+					<SortBy />
+				</Suspense>
 				<Suspense
 					key={JSON.stringify(searchParams)}
 					fallback={<ProductsLoading />}>

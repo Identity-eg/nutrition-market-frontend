@@ -15,10 +15,10 @@ import {
 	FormMessage,
 } from 'components/ui/form';
 import { Input } from 'components/ui/input';
+import CardAuthWrapper from 'components/utils/card-auth-wrapper';
 
 import { useForgotPassword } from 'apis/auth';
 import CheckEmail from './CheckEmail';
-import CardAuthWrapper from '../card-auth-wrapper';
 
 const forgotPasswordSchema = z.object({
 	email: z

@@ -1,22 +1,22 @@
-import { RatingStars } from 'app/shop/[productId]/components/rating-stars';
+import { RatingStars } from 'components/ui/rating-stars';
 import parse from 'html-react-parser';
 import FilterProducts from './filter';
-import Products from 'app/shop/components/products';
-import { ProductsLoading } from 'app/shop/products-loading';
+import { Products } from 'features/products/components';
+import { ProductsLoading } from 'features/products/components/products-loading';
 import BuildingPlaceholder from 'assets/icons/building-placeholder';
 import { Avatar, AvatarFallback, AvatarImage } from 'components/ui/avatar';
 import { Suspense } from 'react';
 import { getSingleCompany } from 'apis/server/company';
 import { CircleCheckIcon } from 'lucide-react';
 import { Separator } from 'components/ui/separator';
+import type { TSearchParams } from 'types/searchparams';
 
-export default async function CompanyPage({
-	params,
-	searchParams,
-}: {
-	params: { [key: string]: string };
-	searchParams: { [key: string]: string };
+export default async function CompanyPage(props: {
+	params: Promise<{ [key: string]: string }>;
+	searchParams: Promise<TSearchParams>;
 }) {
+	const searchParams = await props.searchParams;
+	const params = await props.params;
 	const { companyId } = params;
 	const company = await getSingleCompany({ companyId });
 
@@ -35,7 +35,7 @@ export default async function CompanyPage({
 							<BuildingPlaceholder size={64} />
 						</AvatarFallback>
 					</Avatar>
-					<div className='mt-10 [&>p]:typography-R14 [&>p]:leading-normal'>
+					<div className='mt-10 [&>p]:leading-normal [&>p]:typography-R14'>
 						<div className='mb-1 capitalize text-black typography-B28'>
 							{company.name}
 						</div>
@@ -60,7 +60,7 @@ export default async function CompanyPage({
 					</div>
 				</div>
 
-				<div className='grid media-md:grid-cols-[278px,1fr] gap-x-6 gap-y-8 py-12'>
+				<div className='grid gap-x-6 gap-y-8 py-12 media-md:grid-cols-[278px,1fr]'>
 					<FilterProducts />
 					<Suspense
 						key={JSON.stringify(newSearchParams)}

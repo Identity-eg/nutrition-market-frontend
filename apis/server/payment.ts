@@ -1,9 +1,9 @@
 'use server';
 
 import { actionClient } from 'apis/action-clients';
-import { request } from 'apis/client';
+import { request } from 'apis/request';
 import { revalidateTag } from 'next/cache';
-import { Tags } from 'types/tags';
+import { TTags } from 'types/revalidate-tags';
 import { z } from 'zod';
 
 const paySchema = z.object({
@@ -41,6 +41,6 @@ export const payCash = actionClient.schema(paySchema).action(
 		return data;
 	},
 	{
-		onSettled: () => revalidateTag(Tags.cart),
+		onSettled: () => revalidateTag(TTags.cart),
 	}
 );

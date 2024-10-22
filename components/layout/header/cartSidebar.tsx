@@ -1,5 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
+import noCartFound from 'assets/no-cart-found.svg';
+import { cn } from 'lib/utils';
 
 import { Button } from 'components/ui/button';
 import {
@@ -11,14 +13,13 @@ import {
 	SheetTitle,
 	SheetTrigger,
 } from 'components/ui/sheet';
-import CartSideItem from './cartItem';
-
-import { CartBtn } from './cart-btn';
-import { getCart } from 'apis/server/cart';
 import { Separator } from 'components/ui/separator';
-import noCartFound from 'assets/no-cart-found.svg';
-import Price from 'app/shop/components/card-item/price';
-import { cn } from 'lib/utils';
+import { Price } from 'components/utils/price';
+
+import { CartSideItem } from 'features/cart/components/cart-side-item';
+import { CartBtn } from 'features/cart/components/cart-btn';
+
+import { getCart } from 'features/cart/api/cart';
 
 export async function CartSidebar({
 	triggerClassName,
@@ -35,8 +36,9 @@ export async function CartSidebar({
 				className={cn(
 					'relative flex items-center gap-2 text-green-500',
 					triggerClassName
-				)}>
-				<CartBtn />
+				)}
+			>
+				<CartBtn cart={cart} />
 			</SheetTrigger>
 
 			<SheetContent className={cn('flex flex-col', contentClassName)}>
@@ -93,7 +95,8 @@ export async function CartSidebar({
 								<SheetClose asChild>
 									<Button
 										variant='outline'
-										asChild>
+										asChild
+									>
 										<Link href='/cart'>View Cart</Link>
 									</Button>
 								</SheetClose>
@@ -104,7 +107,8 @@ export async function CartSidebar({
 									<SheetClose asChild>
 										<Link
 											href='/shop'
-											className='text-neutral-800 hover:text-neutral-700 font-medium'>
+											className='text-neutral-800 hover:text-neutral-700 font-medium'
+										>
 											Continue Shopping
 											<span aria-hidden='true'> &rarr;</span>
 										</Link>

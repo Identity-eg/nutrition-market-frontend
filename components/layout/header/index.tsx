@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
+import { MenuIcon, SearchIcon } from 'lucide-react';
 // UI
 import { Button } from 'components/ui/button';
 import { Separator } from 'components/ui/separator';
@@ -7,9 +8,9 @@ import { ProfileDropdown } from './profileDropDown';
 // Utils
 import biovacLogo from 'assets/logo.png';
 import { CartSidebar } from './cartSidebar';
-import { getMe } from 'apis/server/user';
+import { getMe } from 'features/auth/api/user';
 import { Searchbar } from './search/searchbar';
-import { MenuIcon, SearchIcon } from 'lucide-react';
+import { Suspense } from 'react';
 
 export default async function HeaderLayout() {
 	const user = await getMe();
@@ -29,8 +30,9 @@ export default async function HeaderLayout() {
 							width={200}
 						/>
 					</Link>
-
-					<Searchbar className='hidden media-md:block' />
+					<Suspense>
+						<Searchbar className='hidden media-md:block' />
+					</Suspense>
 
 					<div className='text-black-3 hidden items-center gap-6 media-md:flex'>
 						<CartSidebar />
@@ -48,14 +50,14 @@ export default async function HeaderLayout() {
 							</Button>
 						)}
 					</div>
-					<div className='flex gap-2 media-md:hidden'>
+					{/* <div className='flex gap-2 media-md:hidden'>
 						<SearchIcon className='text-green-500' />
 						<Separator
 							orientation='vertical'
 							className='h-6'
 						/>
 						<CartSidebar contentClassName='w-full' />
-					</div>
+					</div> */}
 				</div>
 			</nav>
 		</>
