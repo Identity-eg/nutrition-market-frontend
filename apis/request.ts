@@ -52,9 +52,6 @@ export const request = async ({ ...options }: TOptions) => {
 		}
 		return await res.json();
 	} catch (err) {
-		if ((err as Error).name === 'SyntaxError') {
-			throw new Error('Something went wrong');
-		}
-		throw new Error((err as Error).message);
+		return new Error((err as Error).message);
 	}
 };

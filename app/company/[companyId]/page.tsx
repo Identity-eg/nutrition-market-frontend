@@ -1,13 +1,15 @@
-import { RatingStars } from 'components/ui/rating-stars';
+import { Suspense } from 'react';
+import { notFound } from 'next/navigation';
+import { CircleCheckIcon } from 'lucide-react';
 import parse from 'html-react-parser';
+
+import { RatingStars } from 'components/ui/rating-stars';
 import FilterProducts from './filter';
 import { Products } from 'features/products/components';
 import { ProductsLoading } from 'features/products/components/products-loading';
 import BuildingPlaceholder from 'assets/icons/building-placeholder';
 import { Avatar, AvatarFallback, AvatarImage } from 'components/ui/avatar';
-import { Suspense } from 'react';
 import { getSingleCompany } from 'apis/server/company';
-import { CircleCheckIcon } from 'lucide-react';
 import { Separator } from 'components/ui/separator';
 import type { TSearchParams } from 'types/searchparams';
 
@@ -19,6 +21,10 @@ export default async function CompanyPage(props: {
 	const params = await props.params;
 	const { companyId } = params;
 	const company = await getSingleCompany({ companyId });
+
+	if (!company) {
+		return notFound();
+	}
 
 	const newSearchParams = {
 		...searchParams,

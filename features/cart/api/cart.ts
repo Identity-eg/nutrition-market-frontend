@@ -1,7 +1,7 @@
 'use server';
 
 import { revalidateTag } from 'next/cache';
-import { cookies, type UnsafeUnwrappedCookies } from 'next/headers';
+import { cookies } from 'next/headers';
 import { z } from 'zod';
 
 import { request } from 'apis/request';
@@ -88,9 +88,7 @@ export const deleteItemFromCart = actionClient
 		{
 			onSuccess: data => {
 				if (data?.isCartEmpty) {
-					(cookies() as unknown as UnsafeUnwrappedCookies).delete(
-						process.env.CART_ID ?? ''
-					);
+					cookies().delete(process.env.CART_ID ?? '');
 				}
 			},
 			onSettled: () => revalidateTag(TTags.cart),
