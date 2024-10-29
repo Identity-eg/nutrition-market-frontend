@@ -1,8 +1,8 @@
-import { getCart } from 'apis/server/cart';
 import Image from 'next/image';
 import noCartFound from 'assets/no-cart-found.svg';
-import { CartItem } from './components/cart-item';
-import { CartSummary } from './components/cart-summary';
+import { CartItem } from 'features/cart/components/cart-item';
+import { CartSummary } from 'features/cart/components/cart-summary';
+import { getCart } from 'features/cart/api/cart';
 
 export default async function Cart() {
 	const cart = await getCart();

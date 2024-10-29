@@ -5,6 +5,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { Loader2 } from 'lucide-react';
 import { z } from 'zod';
+import { useAction } from 'next-safe-action/hooks';
 
 import { Button } from 'components/ui/button';
 import {
@@ -17,9 +18,8 @@ import {
 } from 'components/ui/form';
 import { Input } from 'components/ui/input';
 
-import { useAction } from 'next-safe-action/hooks';
-import { register } from 'apis/server/auth';
 import { toast } from 'components/ui/use-toast';
+import { register } from 'features/auth/api/auth';
 
 const registerSchema = z.object({
 	firstName: z.string().min(1, {

@@ -1,6 +1,6 @@
 import { Suspense } from 'react';
-import CardAuthWrapper from '../card-auth-wrapper';
-import { LoginForm } from './login-form';
+import CardAuthWrapper from 'components/utils/card-auth-wrapper';
+import { LoginForm } from 'app/(auth)/login/login-form';
 
 // export const dynamic = 'force-static';
 

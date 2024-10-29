@@ -1,13 +1,12 @@
-import { getAllOrders } from 'apis/server/orders';
+import { getAllOrders } from 'features/orders/api/orders';
 import { Button } from 'components/ui/button';
 import { Card } from 'components/ui/card';
 import { ORDER_STATUS } from 'constants/index';
 import dayjs from 'dayjs';
 import { cn, convertToReadableNumber } from 'lib/utils';
-import { PillIcon } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { TOrderItem } from 'types/order';
+import type { TOrderItem } from 'features/orders/types/order';
 
 function OrderItem({ amount, totalProductPrice, variant }: TOrderItem) {
 	return (
@@ -51,7 +50,6 @@ export default async function Orders() {
 				</div>
 			</h3>
 			{orders.map(order => {
-				const isOrdersItemExceedLimit = order.orderItems.length > 3;
 				const formattedCreatedAtDate = dayjs(order.createdAt).format(
 					'MMMM D, YYYY'
 				);

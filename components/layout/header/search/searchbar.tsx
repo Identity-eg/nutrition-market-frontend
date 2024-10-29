@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { LoaderCircleIcon, SearchIcon, XIcon } from 'lucide-react';
 
-import { getProducts } from 'apis/server/products';
+import { getProducts } from 'features/products/api/products';
 
 import { Input } from 'components/ui/input';
 import { Separator } from 'components/ui/separator';

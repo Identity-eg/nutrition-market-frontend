@@ -7,14 +7,13 @@ import {
 	MapPinIcon,
 	PackageCheckIcon,
 	PhoneIcon,
-	PillIcon,
 	TruckIcon,
 	UnplugIcon,
 	XIcon,
 } from 'lucide-react';
 import dayjs from 'dayjs';
 
-import { getSingleOrder } from 'apis/server/orders';
+import { getSingleOrder } from 'features/orders/api/orders';
 import { Card } from 'components/ui/card';
 import {
 	ORDER_STATUS,
@@ -22,7 +21,7 @@ import {
 	TOrderStatus,
 } from 'constants/index';
 import { cn, convertToReadableNumber } from 'lib/utils';
-import type { TOrder, TOrderItem } from 'types/order';
+import type { TOrder, TOrderItem } from 'features/orders/types/order';
 import { Separator } from 'components/ui/separator';
 import { Button } from 'components/ui/button';
 
@@ -274,11 +273,10 @@ export function OrderTracker({ status }: { status: TOrderStatus }) {
 	);
 }
 
-export default async function Order({
-	params,
-}: {
-	params: { orderId: string };
+export default async function Order(props: {
+	params: Promise<{ orderId: string }>;
 }) {
+	const params = await props.params;
 	const order = await getSingleOrder({ orderId: params.orderId });
 	const orderItemsNumber = order.orderItems.reduce((acc, currValue) => {
 		acc += currValue.amount;

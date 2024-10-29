@@ -6,7 +6,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { Loader2 } from 'lucide-react';
 
-import CardAuthWrapper from '../../card-auth-wrapper';
+import CardAuthWrapper from 'components/utils/card-auth-wrapper';
 import {
 	Form,
 	FormControl,

@@ -1,6 +1,6 @@
 import { Suspense } from 'react';
-import CardAuthWrapper from '../card-auth-wrapper';
-import { SignupForm } from './signup-form';
+import CardAuthWrapper from 'components/utils/card-auth-wrapper';
+import { SignupForm } from 'app/(auth)/signup/signup-form';
 
 export default function SignupPage() {
 	return (

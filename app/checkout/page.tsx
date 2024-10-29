@@ -1,14 +1,16 @@
-import { getUserAddresses } from 'apis/server/address';
-import { getGovernorates } from 'apis/server/egypt';
-import { getMe } from 'apis/server/user';
+import { getUserAddresses } from 'features/addresses/api/address';
+import { getGovernorates } from 'features/addresses/api/egypt';
+import { getMe } from 'features/auth/api/user';
+import { getCart } from 'features/cart/api/cart';
 import Container from './container';
-import { getCart } from 'apis/server/cart';
 
 export default async function CheckoutPage() {
-	const addresses = await getUserAddresses();
-	const governorates = await getGovernorates();
-	const user = await getMe();
-	const cart = await getCart();
+	const [addresses, governorates, user, cart] = await Promise.all([
+		getUserAddresses(),
+		getGovernorates(),
+		getMe(),
+		getCart(),
+	]);
 
 	return (
 		<div className='relative'>

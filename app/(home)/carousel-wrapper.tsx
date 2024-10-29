@@ -14,7 +14,8 @@ export default function CarouselWrapper(
 					delay: 3000,
 				}),
 			]}
-			{...props}>
+			{...props}
+		>
 			{props.children as React.ReactNode}
 		</Carousel>
 	);

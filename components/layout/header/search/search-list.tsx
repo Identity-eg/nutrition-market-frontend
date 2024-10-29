@@ -1,10 +1,9 @@
-import Price from 'app/shop/components/card-item/price';
-import { Button } from 'components/ui/button';
+import { forwardRef } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { forwardRef } from 'react';
-import { TProduct } from 'types/product';
 import { TrendingCategory } from './trending-category';
+import { Price } from 'components/utils/price';
+import type { TProduct } from 'features/products/types/product';
 
 export const SearchList = forwardRef<
 	HTMLUListElement,
@@ -14,7 +13,7 @@ export const SearchList = forwardRef<
 		debouncedValue: string;
 		isPlaceholderData: boolean;
 	}
->(({ products, searchValue, debouncedValue, isPlaceholderData }, ref) => {
+>(({ products, searchValue, debouncedValue }, ref) => {
 	if (searchValue && !!products && products?.length === 0) {
 		return (
 			<div className='flex flex-col gap-2 bg-white p-4'>

@@ -1,6 +1,6 @@
 import Image from 'next/image';
-import { TCartItem } from 'types/cart';
 import { convertToReadableNumber } from 'lib/utils';
+import type { TCartItem } from 'features/cart/types/cart';
 
 export default function CheckoutCartItem({
 	_id,

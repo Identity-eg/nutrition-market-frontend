@@ -18,6 +18,7 @@ export function TrendingCategory() {
 				<div className='flex flex-wrap items-center gap-2'>
 					{[40, 20, 25, 15, 22.5, 19].map(el => (
 						<Skeleton
+							key={el}
 							style={{ width: 110 + el }}
 							className='h-10'
 						/>
@@ -27,10 +28,11 @@ export function TrendingCategory() {
 				<div className='flex flex-wrap items-center gap-2'>
 					{data?.categories?.map(cat => (
 						<Button
+							key={cat._id}
 							asChild
 							variant='outline'
 							className='rounded-md border border-gray-40 px-4 py-1 text-gray-500'>
-							<Link href={`shop?category?${cat._id}`}>{cat.name}</Link>
+							<Link href={`/shop?category=${cat._id}`}>{cat.name}</Link>
 						</Button>
 					))}
 				</div>
