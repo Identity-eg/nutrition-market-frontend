@@ -52,6 +52,6 @@ export const request = async ({ ...options }: TOptions) => {
 		}
 		return await res.json();
 	} catch (err) {
-		return new Error((err as Error).message);
+		throw new Error((err as Error).message);
 	}
 };
