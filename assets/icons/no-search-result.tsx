@@ -8,7 +8,8 @@ export default function NoSearchResult(props: SVGProps<SVGSVGElement>) {
 			viewBox='0 0 167 77'
 			fill='none'
 			xmlns='http://www.w3.org/2000/svg'
-			{...props}>
+			{...props}
+		>
 			<path
 				fillRule='evenodd'
 				clipRule='evenodd'

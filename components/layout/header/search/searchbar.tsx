@@ -60,13 +60,15 @@ export function Searchbar({ className }: { className?: string }) {
 				className={cn(
 					'invisible absolute inset-0 [&>*]:visible',
 					isSearchListOpen && 'visible'
-				)}>
+				)}
+			>
 				<div
 					ref={ref}
 					className={cn(
 						'absolute inset-x-0 z-20 rounded-md bg-white p-2',
 						isSearchListOpen && 'sticky top-4'
-					)}>
+					)}
+				>
 					<div className='relative'>
 						<Input
 							onChange={e => setSearchValue(e.target.value)}
@@ -80,7 +82,8 @@ export function Searchbar({ className }: { className?: string }) {
 								className={cn(
 									'hidden scale-0 items-center gap-2 transition-all behavior-discrete',
 									!!searchValue && 'flex scale-100 starting:scale-0'
-								)}>
+								)}
+							>
 								{isFetching ? (
 									<LoaderCircleIcon
 										size={20}

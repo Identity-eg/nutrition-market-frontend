@@ -72,7 +72,8 @@ export function ProfileDropdown({ user }: { user: TUser }) {
 					className='gap-x-4 text-red-500 focus:bg-red-30 focus:text-red-500'
 					onClick={() => {
 						logoutMutation.mutate();
-					}}>
+					}}
+				>
 					<LogOutIcon size={16} />
 					Log out
 				</DropdownMenuItem>

@@ -29,14 +29,17 @@ export const SearchList = forwardRef<
 		return (
 			<ul
 				ref={ref}
-				className='left-0 z-50 mt-2 max-h-[400px] w-full overflow-auto bg-white text-base'>
+				className='left-0 z-50 mt-2 max-h-[400px] w-full overflow-auto bg-white text-base'
+			>
 				{products?.map(p => (
 					<li
 						key={p._id}
-						className='flex h-[100px] select-none items-center rounded-sm p-2 transition-all hover:bg-gray-20'>
+						className='flex h-[100px] select-none items-center rounded-sm p-2 transition-all hover:bg-gray-20'
+					>
 						<Link
 							className='flex w-full gap-2'
-							href={`/shop/${p._id}`}>
+							href={`/shop/${p._id}`}
+						>
 							<div className='aspect-square size-20 rounded-md border border-gray-40 bg-white p-2'>
 								<Image
 									src={p.variants[0].images[0].url}

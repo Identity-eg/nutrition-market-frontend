@@ -82,7 +82,8 @@ function OrderDetails({
 			{Object.entries(orderDetails).map(([key, value]) => (
 				<p
 					key={key}
-					className='flex items-center gap-2 typography-R14'>
+					className='flex items-center gap-2 typography-R14'
+				>
 					{'icon' in value && value.icon}
 					<span className='capitalize text-gray-200'>{key}:</span>
 					{value.text}
@@ -249,7 +250,8 @@ export function OrderTracker({ status }: { status: TOrderStatus }) {
 											'border-green-light-600 bg-green-light-600 text-white':
 												isCompleted,
 										}
-									)}>
+									)}
+								>
 									{isCompleted ? (
 										<CheckIcon className='flex-shrink-0' />
 									) : (
@@ -261,7 +263,8 @@ export function OrderTracker({ status }: { status: TOrderStatus }) {
 								)}
 							</div>
 							<span
-								className={cn('typography-R14', isInFuture && 'text-gray-80')}>
+								className={cn('typography-R14', isInFuture && 'text-gray-80')}
+							>
 								{isCompleted ? value.label.completed : value.label.pending}
 							</span>
 						</div>

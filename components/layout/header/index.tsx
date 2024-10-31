@@ -22,7 +22,8 @@ export default async function HeaderLayout() {
 
 					<Link
 						href='/'
-						className='ml-10 w-32 flex-shrink-0 media-md:ml-0'>
+						className='ml-10 w-32 flex-shrink-0 media-md:ml-0'
+					>
 						<Image
 							className='h-full w-full'
 							alt='Biovac pharmacy supplements'
@@ -45,7 +46,8 @@ export default async function HeaderLayout() {
 						) : (
 							<Button
 								asChild
-								size='sm'>
+								size='sm'
+							>
 								<Link href='/login'>Login</Link>
 							</Button>
 						)}

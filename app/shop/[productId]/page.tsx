@@ -149,7 +149,8 @@ export default async function ProductPage(props: {
 								Store:{' '}
 								<Link
 									href={`/company/${product.company._id}`}
-									className='text-green-500 underline typography-SB13'>
+									className='text-green-500 underline typography-SB13'
+								>
 									{product.company.name}
 								</Link>
 							</p>
@@ -181,12 +182,12 @@ export default async function ProductPage(props: {
 									<Button
 										key={va._id}
 										asChild
-										variant={
-											variant._id === va._id ? 'ghost-green' : 'outline'
-										}>
+										variant={variant._id === va._id ? 'ghost-green' : 'outline'}
+									>
 										<Link
 											prefetch
-											href={setVariant(va._id)}>
+											href={setVariant(va._id)}
+										>
 											{va.unitCount} Caps
 										</Link>
 									</Button>
@@ -201,7 +202,8 @@ export default async function ProductPage(props: {
 										key={cat._id}
 										asChild
 										variant='outline'
-										className='rounded-md border border-gray-40 px-4 py-1 text-gray-500'>
+										className='rounded-md border border-gray-40 px-4 py-1 text-gray-500'
+									>
 										<Link href={`/shop?category=${cat._id}`}>{cat.name}</Link>
 									</Button>
 								))}
@@ -217,14 +219,16 @@ export default async function ProductPage(props: {
 
 					<Accordion
 						type='multiple'
-						className='w-full'>
+						className='w-full'
+					>
 						{accordionToDisplay.map(category => {
 							if (!product[category.name]) return;
 
 							return (
 								<AccordionItem
 									key={category.name}
-									value={category.name}>
+									value={category.name}
+								>
 									<AccordionTrigger className='typography-B16'>
 										<span className='text flex items-center gap-2'>
 											<category.Icon

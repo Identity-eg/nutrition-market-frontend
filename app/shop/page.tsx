@@ -46,7 +46,8 @@ export default async function ShopPage(props: {
 				</Suspense>
 				<Suspense
 					key={JSON.stringify(searchParams)}
-					fallback={<ProductsLoading />}>
+					fallback={<ProductsLoading />}
+				>
 					<Products searchParams={searchParams} />
 				</Suspense>
 			</div>

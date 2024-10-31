@@ -17,11 +17,13 @@ export default async function Companies() {
 				className='col-span-2 grid divide-x divide-gray-50 self-baseline overflow-hidden rounded-md border border-gray-50 media-md:col-span-1'
 				style={{
 					gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))',
-				}}>
+				}}
+			>
 				{companies.map(company => (
 					<div
 						key={company._id}
-						className='flex items-center gap-4 p-4'>
+						className='flex items-center gap-4 p-4'
+					>
 						<Avatar className='size-16 rounded-md'>
 							<AvatarImage />
 							<AvatarFallback className='rounded-md bg-gray-30 text-gray-100'>
@@ -31,7 +33,8 @@ export default async function Companies() {
 						<div className='flex flex-col'>
 							<Link
 								href={`/company/${company._id}`}
-								className='typography-SB16 hover:underline'>
+								className='typography-SB16 hover:underline'
+							>
 								{company.name}
 							</Link>
 							<span className='line-clamp-1 text-gray-200 typography-R14'>

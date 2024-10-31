@@ -15,12 +15,14 @@ export default async function Hero() {
 	return (
 		<CarouselWrapper
 			className='container pt-10'
-			opts={{ loop: true }}>
+			opts={{ loop: true }}
+		>
 			<CarouselContent className='relative'>
 				{images.map(img => (
 					<CarouselItem
 						key={img._id}
-						className='relative h-[45vh] pl-0'>
+						className='relative h-[45vh] pl-0'
+					>
 						<div className='container absolute inset-0 flex flex-col justify-center p-10 media-sm:p-16'>
 							<h3 className='mb-2 max-w-[20ch] leading-tight text-green-700 typo-SB-32-48'>
 								{img.title}
@@ -32,7 +34,8 @@ export default async function Hero() {
 								<Button asChild>
 									<Link
 										className='self-start'
-										href={`/shop/${img.relatedProduct}`}>
+										href={`/shop/${img.relatedProduct}`}
+									>
 										Discover now
 									</Link>
 								</Button>

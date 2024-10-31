@@ -41,7 +41,8 @@ export default async function OrderStatus(props: {
 				<Button
 					className='gap-2'
 					variant='outline'
-					asChild>
+					asChild
+				>
 					<Link href='/'>
 						<MoveLeftIcon size={20} />
 						Back to main page
@@ -49,7 +50,8 @@ export default async function OrderStatus(props: {
 				</Button>
 				<Button
 					className='gap-2'
-					asChild>
+					asChild
+				>
 					<Link href={`/orders/${searchParams.orderId}`}>
 						<TruckIcon size={20} />
 						Track your order

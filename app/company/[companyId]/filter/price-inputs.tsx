@@ -61,7 +61,8 @@ export function Inputs() {
 				<div className='flex flex-col gap-[4px]'>
 					<label
 						htmlFor='from'
-						className='text-gray-200 typography-R13'>
+						className='text-gray-200 typography-R13'
+					>
 						From
 					</label>
 					<NumericField
@@ -76,7 +77,8 @@ export function Inputs() {
 				<div className='flex flex-col gap-[4px]'>
 					<label
 						htmlFor='to'
-						className='text-gray-200 typography-R13'>
+						className='text-gray-200 typography-R13'
+					>
 						To
 					</label>
 					<NumericField
@@ -92,7 +94,8 @@ export function Inputs() {
 			<Button
 				className='w-full'
 				size={'sm'}
-				onClick={submitFilters}>
+				onClick={submitFilters}
+			>
 				Apply
 			</Button>
 		</div>

@@ -152,14 +152,16 @@ const Carousel = React.forwardRef<
 					canScrollNext,
 					scrollSnaps,
 					selectedIndex,
-				}}>
+				}}
+			>
 				<div
 					ref={ref}
 					onKeyDownCapture={handleKeyDown}
 					className={cn('relative', className)}
 					role='region'
 					aria-roledescription='carousel'
-					{...props}>
+					{...props}
+				>
 					{children}
 				</div>
 			</CarouselContext.Provider>
@@ -177,7 +179,8 @@ const CarouselContent = React.forwardRef<
 	return (
 		<div
 			ref={carouselRef}
-			className='overflow-hidden rounded-md'>
+			className='overflow-hidden rounded-md'
+		>
 			<div
 				ref={ref}
 				className={cn(
@@ -234,7 +237,8 @@ const CarouselPrevious = React.forwardRef<
 			)}
 			disabled={!canScrollPrev}
 			onClick={scrollPrev}
-			{...props}>
+			{...props}
+		>
 			<ArrowLeft className='h-4 w-4' />
 			<span className='sr-only'>Previous slide</span>
 		</Button>
@@ -262,7 +266,8 @@ const CarouselNext = React.forwardRef<
 			)}
 			disabled={!canScrollNext}
 			onClick={scrollNext}
-			{...props}>
+			{...props}
+		>
 			<ArrowRight className='h-4 w-4' />
 			<span className='sr-only'>Next slide</span>
 		</Button>
@@ -283,7 +288,8 @@ const CarouselDots = React.forwardRef<
 				'absolute bottom-16 left-1/2 flex -translate-x-1/2 items-center justify-center gap-2',
 				className
 			)}
-			{...props}>
+			{...props}
+		>
 			{scrollSnaps.map((_, i) => (
 				<div
 					key={i}

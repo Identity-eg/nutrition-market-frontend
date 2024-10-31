@@ -34,7 +34,8 @@ export default function CheckEmail({ email }: { email: string }) {
 					<Button
 						className='px-0 text-green-500 underline underline-offset-1'
 						variant='link'
-						onClick={onResend}>
+						onClick={onResend}
+					>
 						Click to resend
 					</Button>
 				</p>
