@@ -65,8 +65,7 @@ export function LoginForm() {
 	return (
 		<form
 			onSubmit={form.handleSubmit(onSubmit)}
-			className='space-y-8'
-		>
+			className='space-y-8'>
 			<Form {...form}>
 				<FormField
 					control={form.control}
@@ -94,8 +93,7 @@ export function LoginForm() {
 								<FormLabel>Password</FormLabel>
 								<Link
 									href='/forgot-password'
-									className='ml-auto inline-block text-sm underline'
-								>
+									className='ml-auto inline-block text-sm underline'>
 									Forgot password?
 								</Link>
 							</div>
@@ -113,8 +111,7 @@ export function LoginForm() {
 			<Button
 				type='submit'
 				disabled={isPending}
-				className='w-full'
-			>
+				className='w-full'>
 				{isPending ? (
 					<>
 						<Loader2 className='mr-2 h-4 w-4 animate-spin' />
@@ -128,8 +125,7 @@ export function LoginForm() {
 				Don’t have an account?{' '}
 				<Link
 					className='text-black-3 typography-M14'
-					href='/signup'
-				>
+					href='/signup'>
 					Sign up
 				</Link>
 			</p>

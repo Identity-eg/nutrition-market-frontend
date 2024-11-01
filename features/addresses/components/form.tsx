@@ -142,8 +142,7 @@ export function AddressForm({
 	return (
 		<form
 			onSubmit={form.handleSubmit(onSubmit)}
-			className='space-y-8 pt-6'
-		>
+			className='space-y-8 pt-6'>
 			<Form {...form}>
 				<div className='flex w-full gap-4'>
 					<FormField
@@ -250,8 +249,7 @@ export function AddressForm({
 								<FormControl>
 									<Popover
 										open={isGovMenuOpen}
-										onOpenChange={setIsGovMenuOpen}
-									>
+										onOpenChange={setIsGovMenuOpen}>
 										<PopoverTrigger asChild>
 											<FormControl>
 												<Button
@@ -260,8 +258,7 @@ export function AddressForm({
 													className={cn(
 														'w-full justify-between',
 														!field.value && 'text-gray-100'
-													)}
-												>
+													)}>
 													{field.value
 														? governorates.find(
 																governorate =>
@@ -312,8 +309,7 @@ export function AddressForm({
 																	}
 																	getCitiesAction({ govId: governorate.id });
 																	setIsGovMenuOpen(false);
-																}}
-															>
+																}}>
 																<Check
 																	className={cn(
 																		'mr-2 h-4 w-4',
@@ -346,8 +342,7 @@ export function AddressForm({
 									<FormControl>
 										<Popover
 											open={isCityMenuOpen}
-											onOpenChange={setIsCityMenuOpen}
-										>
+											onOpenChange={setIsCityMenuOpen}>
 											<PopoverTrigger asChild>
 												<FormControl>
 													<Button
@@ -356,8 +351,7 @@ export function AddressForm({
 														className={cn(
 															'w-full justify-between',
 															!field.value && 'text-gray-100'
-														)}
-													>
+														)}>
 														{field.value
 															? cities?.find(
 																	city => city.city_name_en === field.value
@@ -384,8 +378,7 @@ export function AddressForm({
 																			shouldValidate: true,
 																		});
 																		setIsCityMenuOpen(false);
-																	}}
-																>
+																	}}>
 																	<Check
 																		className={cn(
 																			'mr-2 h-4 w-4',
@@ -471,8 +464,7 @@ export function AddressForm({
 					isAddAddressPending ||
 					isUpdateAddressPending ||
 					!form.formState.isDirty
-				}
-			>
+				}>
 				{isAddAddressPending || isUpdateAddressPending ? (
 					<>
 						<Loader2 className='mr-2 h-4 w-4 animate-spin' />
@@ -490,8 +482,7 @@ export function AddressForm({
 						setAddressToEdit(undefined);
 						closeForm();
 					}}
-					variant='secondary-gray'
-				>
+					variant='secondary-gray'>
 					Cancel
 				</Button>
 			)}

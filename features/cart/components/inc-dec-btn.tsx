@@ -36,8 +36,7 @@ export function IncDecBtn({
 					if (amount === 1) return;
 					decreaseItemByOneAction({ itemId });
 				}}
-				className='cursor-pointer px-2'
-			>
+				className='cursor-pointer px-2'>
 				-
 			</button>
 
@@ -49,8 +48,7 @@ export function IncDecBtn({
 					if (isIncreasePending || isDecreasePending) return;
 					increaseItemByOneAction({ itemId });
 				}}
-				className='cursor-pointer px-2 text-green-light-700'
-			>
+				className='cursor-pointer px-2 text-green-light-700'>
 				+
 			</button>
 		</div>

@@ -5,7 +5,7 @@ export const useGetBodyHeight = ({ enabled }: { enabled?: boolean }) => {
 	useEffect(() => {
 		if (!enabled) return;
 		setBodyHeight(document.body.clientHeight);
-	}, [enabled ?? undefined]);
+	}, [enabled]);
 
 	return bodyHeight;
 };

@@ -37,8 +37,7 @@ export default async function FilterProducts() {
 				<Accordion
 					defaultValue={Object.keys(FilterKeys)}
 					type='multiple'
-					className='w-full [&>*:last-child]:border-0'
-				>
+					className='w-full [&>*:last-child]:border-0'>
 					<Suspense>
 						<FacetedFilter
 							title='Dosage form'

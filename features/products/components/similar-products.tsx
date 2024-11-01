@@ -17,8 +17,7 @@ export default async function SimilarProducts({
 				<h3 className='typography-M16'>Related products</h3>
 				<Link
 					className='typography-R14 hover:underline'
-					href='/shop'
-				>
+					href='/shop'>
 					See all
 				</Link>
 			</div>

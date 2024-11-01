@@ -101,8 +101,7 @@ export const AddForm = ({
 
 				<Button
 					asChild
-					className='w-full capitalize'
-				>
+					className='w-full capitalize'>
 					<Link href={`/login?from=shop/${productId}`}>Write a review</Link>
 				</Button>
 			</div>
@@ -125,8 +124,7 @@ export const AddForm = ({
 				className={cn(
 					'space-y-6',
 					addReview.isError && `pointer-events-none opacity-50`
-				)}
-			>
+				)}>
 				<Form {...form}>
 					<FormField
 						control={form.control}
@@ -179,8 +177,7 @@ export const AddForm = ({
 					<Button
 						type='submit'
 						className='w-full'
-						disabled={isPending}
-					>
+						disabled={isPending}>
 						{isPending ? (
 							<>
 								<LoaderCircle className='mr-2 h-4 w-4 animate-spin' />

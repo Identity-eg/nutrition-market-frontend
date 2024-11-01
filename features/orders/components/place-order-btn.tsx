@@ -59,8 +59,7 @@ export function PlaceOrderBtn({
 					payOnlineOrder({ addressId, cartId, paymentMethodId });
 				}
 			}}
-			className='rounded-md py-3 text-center'
-		>
+			className='rounded-md py-3 text-center'>
 			{onlinePending || cashPending ? (
 				<>
 					<Loader2Icon className='mr-2 h-4 w-4 animate-spin' />

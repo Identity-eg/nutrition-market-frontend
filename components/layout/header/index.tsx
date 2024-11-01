@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import { MenuIcon, SearchIcon } from 'lucide-react';
+import { MenuIcon } from 'lucide-react';
 // UI
 import { Button } from 'components/ui/button';
 import { Separator } from 'components/ui/separator';
@@ -22,8 +22,7 @@ export default async function HeaderLayout() {
 
 					<Link
 						href='/'
-						className='ml-10 w-32 flex-shrink-0 media-md:ml-0'
-					>
+						className='ml-10 w-32 flex-shrink-0 media-md:ml-0'>
 						<Image
 							className='h-full w-full'
 							alt='Biovac pharmacy supplements'
@@ -46,8 +45,7 @@ export default async function HeaderLayout() {
 						) : (
 							<Button
 								asChild
-								size='sm'
-							>
+								size='sm'>
 								<Link href='/login'>Login</Link>
 							</Button>
 						)}

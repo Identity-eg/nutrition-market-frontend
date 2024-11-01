@@ -36,8 +36,7 @@ export async function CartSidebar({
 				className={cn(
 					'relative flex items-center gap-2 text-green-500',
 					triggerClassName
-				)}
-			>
+				)}>
 				<CartBtn cart={cart} />
 			</SheetTrigger>
 
@@ -95,8 +94,7 @@ export async function CartSidebar({
 								<SheetClose asChild>
 									<Button
 										variant='outline'
-										asChild
-									>
+										asChild>
 										<Link href='/cart'>View Cart</Link>
 									</Button>
 								</SheetClose>
@@ -107,8 +105,7 @@ export async function CartSidebar({
 									<SheetClose asChild>
 										<Link
 											href='/shop'
-											className='text-neutral-800 hover:text-neutral-700 font-medium'
-										>
+											className='text-neutral-800 hover:text-neutral-700 font-medium'>
 											Continue Shopping
 											<span aria-hidden='true'> &rarr;</span>
 										</Link>

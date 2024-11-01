@@ -11,15 +11,13 @@ export function Counter({
 		<div className='flex max-w-[107px] flex-grow items-center justify-center gap-6 rounded-md border border-gray-40 px-4'>
 			<span
 				className='cursor-pointer'
-				onClick={decreaseByOne}
-			>
+				onClick={decreaseByOne}>
 				-
 			</span>
 			<h3>{count}</h3>
 			<span
 				onClick={increaseByOne}
-				className='cursor-pointer text-green-light-700'
-			>
+				className='cursor-pointer text-green-light-700'>
 				+
 			</span>
 		</div>

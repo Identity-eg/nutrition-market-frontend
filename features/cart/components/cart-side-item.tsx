@@ -21,8 +21,7 @@ export function CartSideItem({
 	return (
 		<li
 			key={_id}
-			className='flex gap-4 py-6'
-		>
+			className='flex gap-4 py-6'>
 			<div className='w-24 space-y-2'>
 				<div className='relative aspect-square h-auto w-full flex-shrink-0 rounded-md bg-gray-30'>
 					<Image
@@ -46,8 +45,7 @@ export function CartSideItem({
 					<SheetClose asChild>
 						<Link
 							href={`/shop/${product._id}?variant=${variant._id}`}
-							className='line-clamp-2 text-green-700 typography-M16'
-						>
+							className='line-clamp-2 text-green-700 typography-M16'>
 							{variant.name}
 						</Link>
 					</SheetClose>

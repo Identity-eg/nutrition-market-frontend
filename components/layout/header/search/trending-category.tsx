@@ -31,8 +31,7 @@ export function TrendingCategory() {
 							key={cat._id}
 							asChild
 							variant='outline'
-							className='rounded-md border border-gray-40 px-4 py-1 text-gray-500'
-						>
+							className='rounded-md border border-gray-40 px-4 py-1 text-gray-500'>
 							<Link href={`/shop?category=${cat._id}`}>{cat.name}</Link>
 						</Button>
 					))}

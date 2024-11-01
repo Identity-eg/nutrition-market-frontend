@@ -38,8 +38,7 @@ export function ProductImages({ images }: { images: Images }) {
 						}`}
 						onClick={() => {
 							setDisplayedPhoto(image);
-						}}
-					>
+						}}>
 						<Image
 							width={80}
 							height={80}

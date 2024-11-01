@@ -15,8 +15,7 @@ export const RatingStars = forwardRef<HTMLSpanElement, SpanProps>(
 					className={className}
 					key={i}
 					ref={ref}
-					{...props}
-				>
+					{...props}>
 					{averageRating >= i + 1 ? (
 						<StarIcon
 							fill='currentColor'

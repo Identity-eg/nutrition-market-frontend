@@ -21,8 +21,7 @@ export function NutritionFacts({
 						.map(key => (
 							<th
 								key={key}
-								className='p-2 text-start typography-SB14'
-							>
+								className='p-2 text-start typography-SB14'>
 								{mapperName[key as keyof typeof mapperName]}
 							</th>
 						))}
@@ -31,15 +30,13 @@ export function NutritionFacts({
 					return (
 						<tr
 							className='border border-x-0 border-b-0 border-gray-50'
-							key={ing.name}
-						>
+							key={ing.name}>
 							{Object.entries(ing)
 								.filter(([col]) => col !== '_id')
 								.map(([_, value]) => (
 									<td
 										className='p-2 typography-R14 first:w-1/3'
-										key={value}
-									>
+										key={value}>
 										{value}
 									</td>
 								))}

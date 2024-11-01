@@ -8,8 +8,7 @@ export default function LoginPage() {
 	return (
 		<CardAuthWrapper
 			description='Enter your email below to login to your account'
-			title='Login'
-		>
+			title='Login'>
 			<Suspense fallback='Loading...'>
 				<LoginForm />
 			</Suspense>

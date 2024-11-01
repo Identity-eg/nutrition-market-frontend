@@ -51,12 +51,10 @@ export default function ForgotPasswordPage() {
 		<CardAuthWrapper
 			description='You can request a password reset below. We will send a security code to
         the email address, please make sure it is correct.'
-			title='Recover your password'
-		>
+			title='Recover your password'>
 			<form
 				onSubmit={form.handleSubmit(onSubmit)}
-				className='space-y-8'
-			>
+				className='space-y-8'>
 				<Form {...form}>
 					<FormField
 						control={form.control}
@@ -79,8 +77,7 @@ export default function ForgotPasswordPage() {
 				<Button
 					type='submit'
 					disabled={forgotPasswordMutation.isPending}
-					className='w-full capitalize'
-				>
+					className='w-full capitalize'>
 					{forgotPasswordMutation.isPending ? (
 						<>
 							<Loader2 className='mr-2 h-4 w-4 animate-spin' />

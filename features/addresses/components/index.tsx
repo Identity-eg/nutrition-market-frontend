@@ -39,8 +39,7 @@ export default function ShippingAddress({
 						aria-label='Add new address'
 						variant='primary'
 						className='size-8 rounded-full'
-						size='icon'
-					>
+						size='icon'>
 						<Plus size={16} />
 					</Button>
 				)}

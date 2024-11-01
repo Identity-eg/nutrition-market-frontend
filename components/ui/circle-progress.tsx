@@ -18,8 +18,7 @@ export function CircleProgress({
 		<div className='relative'>
 			<svg
 				style={{ height: circleSize, width: circleSize }}
-				viewBox={`0 0 ${circleSize} ${circleSize}`}
-			>
+				viewBox={`0 0 ${circleSize} ${circleSize}`}>
 				<circle
 					className='text-gray-50'
 					strokeWidth={strokeWidth}

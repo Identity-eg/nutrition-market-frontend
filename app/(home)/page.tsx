@@ -88,8 +88,7 @@ export default async function HomePage() {
 				{FEATURES.map(f => (
 					<div
 						key={f.title}
-						className='flex gap-4'
-					>
+						className='flex gap-4'>
 						<div className='flex'>
 							<f.Icon className='size-[72px] object-contain' />
 						</div>

@@ -13,8 +13,7 @@ export default function CheckoutCartItem({
 	return (
 		<li
 			key={_id}
-			className='flex gap-4'
-		>
+			className='flex gap-4'>
 			<div className='relative size-16 flex-shrink-0 rounded-md border border-gray-40'>
 				<Image
 					src={variant.images[0].url}

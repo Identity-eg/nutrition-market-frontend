@@ -54,8 +54,7 @@ export function PaginationContainer({
 							<PaginationItem key={pageNumber}>
 								<PaginationLink
 									isActive={currentPage === pageNumber}
-									href={setPage(pageNumber)}
-								>
+									href={setPage(pageNumber)}>
 									{pageNumber}
 								</PaginationLink>
 							</PaginationItem>

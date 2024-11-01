@@ -26,8 +26,7 @@ export const CardItem = ({
 			<div className='relative mb-2 flex w-full items-center justify-center self-center overflow-hidden rounded-sm'>
 				<Link
 					href={`/shop/${_id}`}
-					className='md:w-48 md:h-48 flex aspect-square h-40 w-40 items-center justify-center'
-				>
+					className='md:w-48 md:h-48 flex aspect-square h-40 w-40 items-center justify-center'>
 					<Image
 						className='aspect-square w-[90%] cursor-pointer object-contain p-2 mix-blend-multiply transition duration-300 group-hover:scale-110'
 						src={primaryImage?.url}
@@ -93,8 +92,7 @@ export const CardItem = ({
 
 			<Link
 				className='mb-4 line-clamp-2 underline-offset-1 typography-M14 hover:underline'
-				href={`/shop/${_id}`}
-			>
+				href={`/shop/${_id}`}>
 				{defaltVariant.name}
 			</Link>
 

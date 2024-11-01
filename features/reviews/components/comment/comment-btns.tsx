@@ -25,16 +25,14 @@ export function CommentBtns({
 					startTransition(() => {
 						deleteReview.mutate({ reviewId });
 					});
-				}}
-			>
+				}}>
 				<Trash2Icon size={16} />
 			</Button>
 
 			<Button
 				onClick={openEditingMode}
 				size={'icon'}
-				variant='secondary-gray'
-			>
+				variant='secondary-gray'>
 				<PencilIcon size={16} />
 			</Button>
 		</div>

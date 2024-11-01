@@ -18,8 +18,7 @@ export function RatingField({
 							className={cn(
 								'cursor-pointer rounded-md border border-gray-50 p-2',
 								value && ratingValue <= +value && 'group'
-							)}
-						>
+							)}>
 							{value && ratingValue <= +value ? (
 								<StarIcon
 									fill='currentColor'

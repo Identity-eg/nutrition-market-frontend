@@ -63,8 +63,7 @@ export default async function Orders() {
 				return (
 					<Card
 						key={order._id}
-						className='relative mb-8 max-w-[800px] overflow-hidden'
-					>
+						className='relative mb-8 max-w-[800px] overflow-hidden'>
 						<div className='flex items-center justify-between p-4'>
 							<div className='flex flex-col'>
 								<span className='text-gray-200 typography-R14'>Order Id</span>
@@ -83,8 +82,7 @@ export default async function Orders() {
 										'border border-red-100 bg-red-50 text-red-500':
 											order.status === ORDER_STATUS.canceled,
 									}
-								)}
-							>
+								)}>
 								{order.status}
 							</div>
 						</div>
@@ -107,8 +105,7 @@ export default async function Orders() {
 								return (
 									<p
 										key={key}
-										className='flex flex-col'
-									>
+										className='flex flex-col'>
 										<span className='capitalize text-gray-200 typography-R14'>
 											{key}
 										</span>
@@ -122,8 +119,7 @@ export default async function Orders() {
 										order.status === ORDER_STATUS.delivered
 											? 'outline'
 											: 'primary'
-									}
-								>
+									}>
 									<Link href={`orders/${order._id}`}>
 										{order.status === ORDER_STATUS.delivered
 											? 'Order details'

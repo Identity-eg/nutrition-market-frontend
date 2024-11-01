@@ -73,8 +73,7 @@ export function SignupForm() {
 	return (
 		<form
 			onSubmit={form.handleSubmit(onSubmit)}
-			className='space-y-8'
-		>
+			className='space-y-8'>
 			<Form {...form}>
 				<div className='grid grid-cols-2 gap-x-4'>
 					<FormField
@@ -150,8 +149,7 @@ export function SignupForm() {
 			<Button
 				type='submit'
 				disabled={isPending}
-				className='w-full'
-			>
+				className='w-full'>
 				{isPending ? (
 					<>
 						<Loader2 className='mr-2 h-4 w-4 animate-spin' />
@@ -165,8 +163,7 @@ export function SignupForm() {
 				Already have an account?{' '}
 				<Link
 					href='/login'
-					className='text-black-3 typography-M14'
-				>
+					className='text-black-3 typography-M14'>
 					Log in
 				</Link>
 			</p>

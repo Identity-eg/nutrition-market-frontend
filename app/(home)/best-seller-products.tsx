@@ -21,8 +21,7 @@ export default async function BestSellerProducts() {
 				<Button
 					className='hidden gap-2 media-md:flex'
 					variant='link'
-					asChild
-				>
+					asChild>
 					<Link href='/shop'>
 						View All <MoveRightIcon size={16} />
 					</Link>

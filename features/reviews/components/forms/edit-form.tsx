@@ -71,8 +71,7 @@ export const EditableForm = ({
 			className={cn(
 				'space-y-6 rounded-md border border-gray-50 p-4',
 				updateReview.isError && `pointer-events-none opacity-50`
-			)}
-		>
+			)}>
 			<Form {...form}>
 				<FormField
 					control={form.control}
@@ -126,8 +125,7 @@ export const EditableForm = ({
 					type='submit'
 					disabled={isPending}
 					variant={'primary'}
-					className='mr-2'
-				>
+					className='mr-2'>
 					{isPending ? (
 						<>
 							<LoaderCircle className='mr-2 h-4 w-4 animate-spin' />
@@ -141,8 +139,7 @@ export const EditableForm = ({
 				<Button
 					onClick={closeEditableMode}
 					variant={'outline'}
-					type='submit'
-				>
+					type='submit'>
 					Cancel
 				</Button>
 			</Form>

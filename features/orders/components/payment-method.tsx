@@ -15,22 +15,19 @@ export default function PaymentMethod({
 			<RadioGroup
 				asChild
 				onValueChange={pId => setPaymentMethodId(pId)}
-				defaultValue={PAYMENT_METHODS_MAPPER[0].id}
-			>
+				defaultValue={PAYMENT_METHODS_MAPPER[0].id}>
 				<ul className='space-y-4'>
 					{PAYMENT_METHODS_MAPPER.map(method => (
 						<li
 							key={method.id}
-							className='flex items-center gap-4 last:pb-0'
-						>
+							className='flex items-center gap-4 last:pb-0'>
 							<RadioGroupItem
 								value={method.id}
 								id={method.id}
 							/>
 							<Label
 								htmlFor={method.id}
-								className='flex items-center gap-2'
-							>
+								className='flex items-center gap-2'>
 								<method.Icon />
 								{method.name}
 							</Label>

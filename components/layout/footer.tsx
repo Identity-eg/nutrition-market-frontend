@@ -52,8 +52,7 @@ const Footer = () => {
 							{myAccount.map((item, i) => (
 								<li
 									key={i}
-									className='cursor-pointer transition-all duration-200 hover:translate-x-2 hover:text-[#dda15e]'
-								>
+									className='cursor-pointer transition-all duration-200 hover:translate-x-2 hover:text-[#dda15e]'>
 									<a>{item}</a>
 								</li>
 							))}
@@ -67,8 +66,7 @@ const Footer = () => {
 							{quickLinks.map((item, i) => (
 								<li
 									key={i}
-									className='cursor-pointer transition-all hover:translate-x-2 hover:text-[#dda15e]'
-								>
+									className='cursor-pointer transition-all hover:translate-x-2 hover:text-[#dda15e]'>
 									<a>{item}</a>
 								</li>
 							))}
@@ -82,8 +80,7 @@ const Footer = () => {
 							{customerCare.map((item, i) => (
 								<li
 									key={i}
-									className='cursor-pointer transition-all hover:translate-x-2 hover:text-[#dda15e]'
-								>
+									className='cursor-pointer transition-all hover:translate-x-2 hover:text-[#dda15e]'>
 									<a>{item}</a>
 								</li>
 							))}

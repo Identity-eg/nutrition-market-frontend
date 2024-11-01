@@ -7,8 +7,7 @@ export function LoadingDots({
 	return (
 		<div
 			className={cn('flex items-center justify-center gap-[2px]', className)}
-			{...props}
-		>
+			{...props}>
 			{[0, 0, 0].map((_, i) => {
 				return (
 					<div

@@ -25,8 +25,7 @@ export function Price({
 				className={cn(
 					'flex justify-start gap-1 text-[#bc6c25] typography-SB20',
 					finalPriceClassName
-				)}
-			>
+				)}>
 				EGP {convertToReadableNumber(priceAfterDiscount || price)}
 			</span>
 			{priceAfterDiscount ? (
@@ -34,8 +33,7 @@ export function Price({
 					className={cn(
 						'flex items-start gap-1 text-gray-800 line-through underline-offset-2 typography-R16',
 						previousPriceClassName
-					)}
-				>
+					)}>
 					EGP {convertToReadableNumber(price)}
 				</span>
 			) : undefined}

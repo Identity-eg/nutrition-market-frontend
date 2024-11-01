@@ -6,8 +6,7 @@ const PaymentIcon = (props: SVGProps<SVGSVGElement>) => (
 		height={75}
 		viewBox='0 0 90 75'
 		fill='none'
-		{...props}
-	>
+		{...props}>
 		<path
 			stroke='#2D6E45'
 			d='M10 .5h65a9.5 9.5 0 0 1 9.5 9.5v40a9.5 9.5 0 0 1-9.5 9.5H10A9.5 9.5 0 0 1 .5 50V10A9.5 9.5 0 0 1 10 .5Z'

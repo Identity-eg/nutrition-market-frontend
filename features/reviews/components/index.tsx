@@ -42,8 +42,7 @@ export default async function Reviews({
 						<CircleProgress
 							circleSize={72}
 							precentage={ratingPrecentage}
-							strokeWidth={4}
-						>
+							strokeWidth={4}>
 							<span className='typography-SB16'>
 								{averageRating.toFixed(1)}
 							</span>
@@ -62,8 +61,7 @@ export default async function Reviews({
 						{[5, 4, 3, 2, 1].map((el, i) => (
 							<div
 								key={el}
-								className='mb-2 flex items-center gap-4'
-							>
+								className='mb-2 flex items-center gap-4'>
 								<p className='flex items-center gap-2'>
 									{el}
 									<StarIcon

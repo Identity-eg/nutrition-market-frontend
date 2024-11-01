@@ -70,8 +70,7 @@ export default async function CompanyPage(props: {
 					<FilterProducts />
 					<Suspense
 						key={JSON.stringify(newSearchParams)}
-						fallback={<ProductsLoading />}
-					>
+						fallback={<ProductsLoading />}>
 						<Products searchParams={newSearchParams} />
 					</Suspense>
 				</div>

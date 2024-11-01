@@ -17,8 +17,7 @@ export function Linksbar() {
 						className={cn(
 							'px-4 py-4 transition-all typography-M14 hover:text-[#bc6c25]',
 							pathname === link.path && 'text-[#bc6c25]'
-						)}
-					>
+						)}>
 						{link.label}
 					</Link>
 				))}

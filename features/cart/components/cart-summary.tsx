@@ -49,8 +49,7 @@ export function CartSummary({
 						? 'pointer-events-none bg-green-50 text-green-200'
 						: 'bg-green-500 text-white'
 				)}
-				asChild
-			>
+				asChild>
 				<Link href='/checkout'>Checkout</Link>
 			</Button>
 		</Card>

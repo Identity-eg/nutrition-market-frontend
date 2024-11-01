@@ -25,8 +25,7 @@ export function SortBy() {
 				onValueChange={v => {
 					searchParams.set('sort', v);
 					router.push(`?${searchParams.toString()}`);
-				}}
-			>
+				}}>
 				<SelectTrigger className='w-48'>
 					<SelectValue placeholder='Select' />
 				</SelectTrigger>
@@ -34,8 +33,7 @@ export function SortBy() {
 					{SORT_OPTIONS.map(option => (
 						<SelectItem
 							key={option.value}
-							value={option.value}
-						>
+							value={option.value}>
 							{option.label}
 						</SelectItem>
 					))}

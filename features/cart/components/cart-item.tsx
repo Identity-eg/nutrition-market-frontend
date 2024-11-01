@@ -21,8 +21,7 @@ export function CartItem({
 	return (
 		<li
 			key={_id}
-			className='relative flex gap-4 py-6'
-		>
+			className='relative flex gap-4 py-6'>
 			<div className='self-center'>
 				<DeleteCartItemBtn
 					className='relative flex-1 translate-x-0 translate-y-0'
@@ -43,8 +42,7 @@ export function CartItem({
 				<h3 className='flex justify-between gap-4'>
 					<Link
 						href={`/shop/${product._id}?variant=${variant._id}`}
-						className='mb-2 line-clamp-2 text-green-700 typography-SB16'
-					>
+						className='mb-2 line-clamp-2 text-green-700 typography-SB16'>
 						{variant.name}
 					</Link>
 					<span className='flex items-center justify-start gap-2 self-start rounded-md border border-gray-40 px-2 py-1'>

@@ -6,8 +6,7 @@ export default function SignupPage() {
 	return (
 		<CardAuthWrapper
 			description='Enter your information to create an account'
-			title='Create an account'
-		>
+			title='Create an account'>
 			<Suspense fallback='Loading...'>
 				<SignupForm />
 			</Suspense>

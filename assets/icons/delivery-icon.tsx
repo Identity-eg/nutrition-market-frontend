@@ -6,8 +6,7 @@ const DeliveryIcon = (props: SVGProps<SVGSVGElement>) => (
 		height={70}
 		viewBox='0 0 90 75'
 		fill='none'
-		{...props}
-	>
+		{...props}>
 		<path
 			stroke='#2D6E45'
 			d='M10 .5h40c5.244 0 9.5 4.256 9.5 9.5v49.5H10C4.756 59.5.5 55.244.5 50V10C.5 4.756 4.756.5 10 .5Z'
