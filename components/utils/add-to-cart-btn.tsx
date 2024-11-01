@@ -15,6 +15,7 @@ export interface ButtonProps
 	quantity: number;
 	resetCount?: () => void;
 	productId: string;
+	companyId: string;
 	variantId?: string;
 	amount?: number;
 }
@@ -25,6 +26,7 @@ export const AddToCartButton = React.forwardRef<HTMLButtonElement, ButtonProps>(
 			quantity,
 			resetCount,
 			productId,
+			companyId,
 			variantId,
 			amount = 1,
 			className,
@@ -63,8 +65,7 @@ export const AddToCartButton = React.forwardRef<HTMLButtonElement, ButtonProps>(
 				<Button
 					disabled
 					variant='secondary-gray'
-					className='relative w-full flex-1 gap-2 capitalize text-red-500'
-				>
+					className='relative w-full flex-1 gap-2 capitalize text-red-500'>
 					<CircleX size={16} />
 					Out of stock
 				</Button>
@@ -76,15 +77,14 @@ export const AddToCartButton = React.forwardRef<HTMLButtonElement, ButtonProps>(
 				ref={ref}
 				onClick={() => {
 					if (isPending) return;
-					execute({ amount, productId, variantId: variantId ?? '' });
+					execute({ amount, productId, companyId, variantId: variantId ?? '' });
 				}}
 				type='submit'
 				className={cn(
 					'relative mt-auto w-full justify-center self-end capitalize',
 					className
 				)}
-				{...props}
-			>
+				{...props}>
 				{isPending ? (
 					<Circle
 						size={10}

@@ -9,8 +9,10 @@ const baseURL = process.env.NEXT_PUBLIC_API_URL;
 type TOptions =
 	| (Omit<RequestInit, 'body'> & {
 			url: `/${string}`;
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 			body?: number | string | { [x: string]: any };
 			baseUrl?: string;
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 			query?: Record<string, any>;
 	  })
 	| undefined;

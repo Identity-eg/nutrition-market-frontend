@@ -8,7 +8,12 @@ import { AddToCartButton } from 'components/utils/add-to-cart-btn';
 
 import type { TProduct } from 'features/products/types/product';
 
-export const CardItem = ({ variants, averageRating, _id }: TProduct) => {
+export const CardItem = ({
+	variants,
+	company,
+	averageRating,
+	_id,
+}: TProduct) => {
 	const defaltVariant = variants[0];
 	const primaryImage = defaltVariant.images?.[0];
 	return (
@@ -39,6 +44,7 @@ export const CardItem = ({ variants, averageRating, _id }: TProduct) => {
 					}
 					quantity={defaltVariant.quantity}
 					productId={_id}
+					companyId={company._id}
 					variantId={defaltVariant._id}
 				/>
 

@@ -6,10 +6,12 @@ import { AddToCartButton } from 'components/utils/add-to-cart-btn';
 
 export default function ActionBtns({
 	productId,
+	companyId,
 	variantId,
 	quantity,
 }: {
 	productId: string;
+	companyId: string;
 	variantId: string;
 	quantity: number;
 }) {
@@ -35,6 +37,7 @@ export default function ActionBtns({
 				resetCount={resetCount}
 				amount={count}
 				productId={productId}
+				companyId={companyId}
 				variantId={variantId}
 			/>
 

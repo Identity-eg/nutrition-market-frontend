@@ -10,6 +10,7 @@ export type TCartItem = {
 		priceAfterDiscount: number;
 		images: TImage['image'];
 	};
+	company: string;
 	variant: TVariant;
 	amount: number;
 	totalProductPrice: number;

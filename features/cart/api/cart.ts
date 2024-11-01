@@ -22,16 +22,18 @@ export const getCart = async (): Promise<TCart> => {
 // ##################### ADD ITEM TO CART ######################
 const addItemToCartSchema = z.object({
 	productId: z.string().min(1, 'productId is required'),
-	amount: z.number(),
+	companyId: z.string().min(1, 'companyId is required'),
 	variantId: z.string().min(1, 'variantId is required'),
+	amount: z.number(),
 });
 
 export const addItemToCart = actionClient.schema(addItemToCartSchema).action(
-	async ({ parsedInput: { amount = 1, productId, variantId } }) => {
+	async ({ parsedInput: { amount = 1, productId, variantId, companyId } }) => {
 		const data = await request({
 			url: '/carts',
 			body: {
 				productId,
+				companyId,
 				amount,
 				...(variantId && { variantId }),
 			},
@@ -48,29 +50,6 @@ export const addItemToCart = actionClient.schema(addItemToCartSchema).action(
 );
 
 // ##################### DELETE ITEM FROM CART ######################
-// export const deleteItemFromCart = async ({
-// 	itemId,
-// }: {
-// 	itemId: string;
-// }): Promise<{ msg: string; isCartEmpty?: boolean } | { err: string }> => {
-// 	try {
-// 		const data = await request({
-// 			url: `/carts/${itemId}`,
-// 			method: 'DELETE',
-// 		});
-
-// 		if (data?.isCartEmpty) {
-// 			cookies().delete(process.env.CART_ID ?? '');
-// 		}
-
-// 		return data;
-// 	} catch (err) {
-// 		return { err: (err as Error).message };
-// 	} finally {
-// 		revalidateTag(TTags.cart);
-// 	}
-// };
-
 const itemOperationSchema = z.object({
 	itemId: z.string().min(1, 'ItemId is required'),
 });
