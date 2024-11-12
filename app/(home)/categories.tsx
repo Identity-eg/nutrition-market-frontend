@@ -15,15 +15,15 @@ import { MaleIcon } from 'assets/icons/male-icon';
 import { FemaleIcon } from 'assets/icons/female-icon';
 
 const iconMapper = {
-	'Bone Health': <BoneIcon />,
-	'Eye Health': <EyeIcon />,
-	'Respiratory Health': <RespiratoryIcon />,
-	'Heart Health': <HeartIcon />,
-	'Immune Health': <ImmuneIcon />,
-	'Hair, Skin, Nails Health': <NailsIcon />,
-	'Nervous System Health': <NervousIcon />,
-	'Man Health': <MaleIcon />,
-	'Woman Health': <FemaleIcon />,
+	'bone-and-joint-health': <BoneIcon />,
+	'eye-health': <EyeIcon />,
+	'respiratory-health': <RespiratoryIcon />,
+	'heart-health': <HeartIcon />,
+	'immune-support': <ImmuneIcon />,
+	'skin-hair-and-nails': <NailsIcon />,
+	'nervous-system-health': <NervousIcon />,
+	"men's-health": <MaleIcon />,
+	"women's-health": <FemaleIcon />,
 };
 
 export default async function Categories() {
@@ -48,7 +48,7 @@ export default async function Categories() {
 								<Link href={`/shop?category=${cat._id}`}>
 									<Card className='flex aspect-square flex-col items-center justify-center gap-4 p-2 text-[#bc6c25] transition-all group-hover:border-[#bc6c25]'>
 										<span className='transition-all group-hover:scale-110'>
-											{iconMapper[cat.name]}
+											{iconMapper[cat.slug as keyof typeof iconMapper]}
 										</span>
 										<span className='text-center text-gray-700'>
 											{cat.name}
