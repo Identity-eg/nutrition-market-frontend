@@ -26,14 +26,13 @@ export const CardItem = ({
 			<div className='relative mb-2 flex w-full items-center justify-center self-center overflow-hidden rounded-sm'>
 				<Link
 					href={`/shop/${_id}`}
-					className='md:w-48 md:h-48 flex aspect-square h-40 w-40 items-center justify-center'>
+					className='flex aspect-square h-40 w-40 items-center justify-center media-md:h-48 media-md:w-48'>
 					<Image
-						className='aspect-square w-[90%] cursor-pointer object-contain p-2 mix-blend-multiply transition duration-300 group-hover:scale-110'
+						className='aspect-square w-full cursor-pointer object-contain p-2 mix-blend-multiply transition duration-300 group-hover:scale-110'
 						src={primaryImage?.url}
-						///
 						alt={primaryImage.name}
-						width={150}
-						height={150}
+						width={200}
+						height={200}
 					/>
 				</Link>
 				<AddToCartButton
