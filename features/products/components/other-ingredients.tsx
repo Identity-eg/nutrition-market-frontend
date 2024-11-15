@@ -7,7 +7,7 @@ export function OtherIngredients({
 }) {
 	return (
 		<div>
-			<p className='mb-4 typography-B18'>Other Ingredients</p>
+			<p className='mb-4 typography-B16'>Other Ingredients</p>
 			<span className='typography-R14'>
 				{otherIngredients.map(ing => ing.name).join(', ')}
 			</span>

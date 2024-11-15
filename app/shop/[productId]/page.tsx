@@ -107,148 +107,294 @@ export default async function ProductPage(props: {
 		return `?${manipulatedSp.toString()}`;
 	}
 
-	return (
-		<div className='container pb-10'>
-			<div className='grid-cols-2 media-md:grid'>
-				<div className='flex flex-col justify-center gap-10 self-baseline border-r border-gray-50 pr-6'>
-					<ProductImages images={variant.images} />
-					<Allergen />
-					<OtherIngredients
-						otherIngredients={product.nutritionFacts.otherIngredients}
+	const productDetailsDesktop = (
+		<div className='hidden grid-cols-2 media-md:grid'>
+			<div className='flex flex-col justify-center gap-4 self-baseline border-r border-gray-50 pr-6'>
+				<ProductImages images={variant.images} />
+				<Allergen />
+				<OtherIngredients
+					otherIngredients={product.nutritionFacts.otherIngredients}
+				/>
+			</div>
+
+			<div className='p-6'>
+				<div className='mb-4 border-b border-gray-50'>
+					<h2 className='mb-4 items-center justify-center text-green-500 typography-SB32'>
+						{variant.name}
+						<Circle
+							size={14}
+							className={cn(
+								'ml-4 inline-block rounded-full',
+								variant.quantity > 0
+									? 'bg-green-light-500 text-green-light-500'
+									: 'bg-red-500 text-red-500'
+							)}
+						/>
+					</h2>
+
+					<div className='mb-2 flex items-center gap-2 text-gray-200 typography-R14'>
+						<RatingStars averageRating={product.averageRating} />
+
+						<span className='rounded-md border border-gray-50 px-1 typography-R14'>
+							{product.numReviews}
+						</span>
+
+						<Separator
+							orientation='vertical'
+							className='mx-2 h-4'
+						/>
+
+						<p>
+							Store:{' '}
+							<Link
+								href={`/company/${product.company._id}`}
+								className='text-green-500 underline typography-SB13'>
+								{product.company.name}
+							</Link>
+						</p>
+
+						<Separator
+							orientation='vertical'
+							className='mx-2 h-4'
+						/>
+
+						<p>
+							SKU:{' '}
+							<span className='typography-SB13'>{product.NFSA_REG_NO}</span>
+						</p>
+					</div>
+				</div>
+
+				<Price
+					finalPriceClassName='typography-SB24'
+					previousPriceClassName='text-gray-200'
+					price={variant.price}
+					priceAfterDiscount={variant.priceAfterDiscount}
+				/>
+
+				<div className='flex flex-col border-b border-gray-50 pb-8'>
+					<div className='mb-4'>
+						<h6 className='mb-2 typography-SB14'>Count</h6>
+						<div className='flex items-center gap-[8px]'>
+							{product.variants.map(va => (
+								<Button
+									key={va._id}
+									asChild
+									variant={variant._id === va._id ? 'ghost-green' : 'outline'}>
+									<Link
+										prefetch
+										href={setVariant(va._id)}>
+										{va.unitCount} Caps
+									</Link>
+								</Button>
+							))}
+						</div>
+					</div>
+					<div className='mb-10'>
+						<h6 className='mb-2 typography-SB14'>Category: </h6>
+						<ul className='flex flex-wrap items-center gap-2'>
+							{product.category.map(cat => (
+								<Button
+									key={cat._id}
+									asChild
+									variant='outline'
+									className='rounded-md border border-gray-40 px-4 py-1 text-gray-500'>
+									<Link href={`/shop?category=${cat._id}`}>{cat.name}</Link>
+								</Button>
+							))}
+						</ul>
+					</div>
+
+					<ActionBtns
+						productId={product._id}
+						companyId={product.company?._id}
+						variantId={variant._id}
+						quantity={variant.quantity}
 					/>
 				</div>
 
-				<div className='p-6'>
-					<div className='mb-4 border-b border-gray-50'>
-						<h2 className='mb-4 items-center justify-center text-green-500 typography-SB32'>
-							{variant.name}
-							<Circle
-								size={14}
-								className={cn(
-									'ml-4 inline-block rounded-full',
-									variant.quantity > 0
-										? 'bg-green-light-500 text-green-light-500'
-										: 'bg-red-500 text-red-500'
-								)}
-							/>
-						</h2>
+				<Accordion
+					type='multiple'
+					className='w-full'>
+					{accordionToDisplay.map(category => {
+						if (!product[category.name]) return;
 
-						<div className='mb-2 flex items-center gap-2 text-gray-200 typography-R14'>
-							<RatingStars averageRating={product.averageRating} />
+						return (
+							<AccordionItem
+								key={category.name}
+								value={category.name}>
+								<AccordionTrigger className='typography-B16'>
+									<span className='text flex items-center gap-2'>
+										<category.Icon
+											size={20}
+											strokeWidth={1.5}
+										/>
 
-							<span className='rounded-md border border-gray-50 px-1 typography-R14'>
-								{product.numReviews}
-							</span>
+										{category.displayName}
+									</span>
+								</AccordionTrigger>
+								<AccordionContent className='leading-6 typography-R16 [&>ul]:ml-6 [&>ul]:list-disc'>
+									{category.name === 'nutritionFacts' ? (
+										<NutritionFacts nutritionFacts={product.nutritionFacts} />
+									) : (
+										parse(product[category.name])
+									)}
+								</AccordionContent>
+							</AccordionItem>
+						);
+					})}
+				</Accordion>
+			</div>
+		</div>
+	);
 
-							<Separator
-								orientation='vertical'
-								className='mx-2 h-4'
-							/>
-
-							<p>
-								Store:{' '}
-								<Link
-									href={`/company/${product.company._id}`}
-									className='text-green-500 underline typography-SB13'>
-									{product.company.name}
-								</Link>
-							</p>
-
-							<Separator
-								orientation='vertical'
-								className='mx-2 h-4'
-							/>
-
-							<p>
-								SKU:{' '}
-								<span className='typography-SB13'>{product.NFSA_REG_NO}</span>
-							</p>
-						</div>
-					</div>
-
-					<Price
-						finalPriceClassName='typography-SB24'
-						previousPriceClassName='text-gray-200'
-						price={variant.price}
-						priceAfterDiscount={variant.priceAfterDiscount}
-					/>
-
-					<div className='flex flex-col border-b border-gray-50 pb-8'>
-						<div className='mb-4'>
-							<h6 className='mb-2 typography-SB14'>Count</h6>
-							<div className='flex items-center gap-[8px]'>
-								{product.variants.map(va => (
-									<Button
-										key={va._id}
-										asChild
-										variant={
-											variant._id === va._id ? 'ghost-green' : 'outline'
-										}>
-										<Link
-											prefetch
-											href={setVariant(va._id)}>
-											{va.unitCount} Caps
-										</Link>
-									</Button>
-								))}
-							</div>
-						</div>
-						<div className='mb-10'>
-							<h6 className='mb-2 typography-SB14'>Category: </h6>
-							<ul>
-								{product.category.map(cat => (
-									<Button
-										key={cat._id}
-										asChild
-										variant='outline'
-										className='rounded-md border border-gray-40 px-4 py-1 text-gray-500'>
-										<Link href={`/shop?category=${cat._id}`}>{cat.name}</Link>
-									</Button>
-								))}
-							</ul>
-						</div>
-
-						<ActionBtns
-							productId={product._id}
-							companyId={product.company?._id}
-							variantId={variant._id}
-							quantity={variant.quantity}
+	const productDetailsMobile = (
+		<div className='media-md:hidden'>
+			<div className='mt-2'>
+				<div className='mb-4 border-b border-gray-50'>
+					<h2 className='mb-2 items-center justify-center text-green-500 typography-SB24'>
+						{variant.name}
+						<Circle
+							size={10}
+							className={cn(
+								'ml-2 inline-block rounded-full',
+								variant.quantity > 0
+									? 'bg-green-light-500 text-green-light-500'
+									: 'bg-red-500 text-red-500'
+							)}
 						/>
+					</h2>
+
+					<div className='mb-2 flex items-center gap-2 text-gray-200 typography-R14'>
+						<RatingStars averageRating={product.averageRating} />
+
+						<span className='rounded-md border border-gray-50 px-1 typography-R14'>
+							{product.numReviews}
+						</span>
+
+						<Separator
+							orientation='vertical'
+							className='mx-2 h-4'
+						/>
+
+						<p>
+							Store:{' '}
+							<Link
+								href={`/company/${product.company._id}`}
+								className='text-green-500 underline typography-SB13'>
+								{product.company.name}
+							</Link>
+						</p>
+
+						<Separator
+							orientation='vertical'
+							className='mx-2 h-4'
+						/>
+
+						<p>
+							SKU:{' '}
+							<span className='typography-SB13'>{product.NFSA_REG_NO}</span>
+						</p>
 					</div>
-
-					<Accordion
-						type='multiple'
-						className='w-full'>
-						{accordionToDisplay.map(category => {
-							if (!product[category.name]) return;
-
-							return (
-								<AccordionItem
-									key={category.name}
-									value={category.name}>
-									<AccordionTrigger className='typography-B16'>
-										<span className='text flex items-center gap-2'>
-											<category.Icon
-												size={20}
-												strokeWidth={1.5}
-											/>
-
-											{category.displayName}
-										</span>
-									</AccordionTrigger>
-									<AccordionContent className='leading-6 typography-R16 [&>ul]:ml-6 [&>ul]:list-disc'>
-										{category.name === 'nutritionFacts' ? (
-											<NutritionFacts nutritionFacts={product.nutritionFacts} />
-										) : (
-											parse(product[category.name])
-										)}
-									</AccordionContent>
-								</AccordionItem>
-							);
-						})}
-					</Accordion>
+				</div>
+				<Price
+					finalPriceClassName='typography-SB24'
+					previousPriceClassName='text-gray-200'
+					price={variant.price}
+					priceAfterDiscount={variant.priceAfterDiscount}
+				/>
+				<div className='mb-4'>
+					<ProductImages images={variant.images} />
 				</div>
 			</div>
+
+			<div>
+				<div className='mb-4 flex flex-col border-b border-gray-50 pb-4'>
+					<div className='mb-4'>
+						<h6 className='mb-2 typography-SB14'>Count</h6>
+						<div className='flex items-center gap-[8px]'>
+							{product.variants.map(va => (
+								<Button
+									key={va._id}
+									asChild
+									variant={variant._id === va._id ? 'ghost-green' : 'outline'}>
+									<Link
+										prefetch
+										href={setVariant(va._id)}>
+										{va.unitCount} Caps
+									</Link>
+								</Button>
+							))}
+						</div>
+					</div>
+					<div className='mb-10'>
+						<h6 className='mb-2 typography-SB14'>Category: </h6>
+						<ul className='flex flex-wrap items-center gap-2'>
+							{product.category.map(cat => (
+								<Button
+									key={cat._id}
+									asChild
+									variant='outline'
+									className='rounded-md border border-gray-40 px-4 py-1 text-gray-500'>
+									<Link href={`/shop?category=${cat._id}`}>{cat.name}</Link>
+								</Button>
+							))}
+						</ul>
+					</div>
+
+					<ActionBtns
+						productId={product._id}
+						companyId={product.company?._id}
+						variantId={variant._id}
+						quantity={variant.quantity}
+					/>
+				</div>
+
+				<Allergen />
+
+				<Accordion
+					type='multiple'
+					className='mb-4 w-full'>
+					{accordionToDisplay.map(category => {
+						if (!product[category.name]) return;
+
+						return (
+							<AccordionItem
+								key={category.name}
+								value={category.name}>
+								<AccordionTrigger className='typography-B16'>
+									<span className='text flex items-center gap-2'>
+										<category.Icon
+											size={20}
+											strokeWidth={1.5}
+										/>
+
+										{category.displayName}
+									</span>
+								</AccordionTrigger>
+								<AccordionContent className='leading-6 typography-R16 [&>ul]:ml-6 [&>ul]:list-disc'>
+									{category.name === 'nutritionFacts' ? (
+										<NutritionFacts nutritionFacts={product.nutritionFacts} />
+									) : (
+										parse(product[category.name])
+									)}
+								</AccordionContent>
+							</AccordionItem>
+						);
+					})}
+				</Accordion>
+				<OtherIngredients
+					otherIngredients={product.nutritionFacts.otherIngredients}
+				/>
+			</div>
+		</div>
+	);
+
+	return (
+		<div className='container pb-10'>
+			{productDetailsDesktop}
+
+			{productDetailsMobile}
 
 			<Separator className='mb-6 mt-20' />
 
