@@ -36,7 +36,7 @@ export const AddToCartButton = React.forwardRef<HTMLButtonElement, ButtonProps>(
 	) => {
 		const { toast } = useToast();
 		const [isAddedEnd, setIsAddedEnd] = useState(false);
-		const { execute, isPending, hasSucceeded } = useAction(addItemToCart, {
+		const { execute, isExecuting, hasSucceeded } = useAction(addItemToCart, {
 			onSuccess: () => {
 				resetCount?.();
 			},
@@ -76,16 +76,18 @@ export const AddToCartButton = React.forwardRef<HTMLButtonElement, ButtonProps>(
 			<Button
 				ref={ref}
 				onClick={() => {
-					if (isPending) return;
+					if (isExecuting) return;
 					execute({ amount, productId, companyId, variantId: variantId ?? '' });
 				}}
 				type='submit'
 				className={cn(
 					'relative mt-auto w-full justify-center self-end capitalize',
-					className
+					className,
+					(isExecuting || (hasSucceeded && !isAddedEnd)) &&
+						'pointer-events-auto visible opacity-100'
 				)}
 				{...props}>
-				{isPending ? (
+				{isExecuting ? (
 					<Circle
 						size={10}
 						fill='white'
