@@ -41,12 +41,13 @@ export const addItemToCart = actionClient.schema(addItemToCartSchema).action(
 		});
 
 		if (data?.cartId) {
-			cookies().set(process.env.CART_ID ?? '', data?.cartId);
+			const cookiesStore = await cookies();
+			cookiesStore.set(process.env.CART_ID ?? '', data?.cartId);
 		}
 
 		return data;
 	},
-	{ onSettled: () => revalidateTag(TTags.cart) }
+	{ onSettled: async () => revalidateTag(TTags.cart) }
 );
 
 // ##################### DELETE ITEM FROM CART ######################
@@ -65,12 +66,13 @@ export const deleteItemFromCart = actionClient
 			return data;
 		},
 		{
-			onSuccess: data => {
+			onSuccess: async data => {
+				const cookiesStore = await cookies();
 				if (data?.isCartEmpty) {
-					cookies().delete(process.env.CART_ID ?? '');
+					cookiesStore.delete(process.env.CART_ID ?? '');
 				}
 			},
-			onSettled: () => revalidateTag(TTags.cart),
+			onSettled: async () => revalidateTag(TTags.cart),
 		}
 	);
 
@@ -90,7 +92,7 @@ export const increaseItemByOne = actionClient
 
 			return data;
 		},
-		{ onSettled: () => revalidateTag(TTags.cart) }
+		{ onSettled: async () => revalidateTag(TTags.cart) }
 	);
 
 export const decreaseItemByOne = actionClient
@@ -104,5 +106,5 @@ export const decreaseItemByOne = actionClient
 
 			return data;
 		},
-		{ onSettled: () => revalidateTag(TTags.cart) }
+		{ onSettled: async () => revalidateTag(TTags.cart) }
 	);

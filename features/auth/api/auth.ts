@@ -7,11 +7,6 @@ import { ACCESS_COOKIE_OPTIONS, REFRESH_COOKIE_OPTIONS } from 'constants/auth';
 import { z } from 'zod';
 import { request } from 'apis/request';
 
-type TLoginResponse = {
-	accessToken: string;
-	refreshToken: string;
-};
-
 type TForgotPasswordResponse = {
 	msg: string;
 };
@@ -36,29 +31,30 @@ const loginSchema = z.object({
 export const login = actionClient
 	.schema(loginSchema)
 	.action(async ({ parsedInput: userData }) => {
+		const cookiesStore = await cookies();
 		const data = await request({
 			url: '/auth/login',
 			body: userData,
 			method: 'POST',
 		});
-		cookies().set(
+		cookiesStore.set(
 			process.env.ACCESS_TOKEN_NAME ?? '',
 			data.accessToken,
 			ACCESS_COOKIE_OPTIONS
 		);
 
-		cookies().set(
+		cookiesStore.set(
 			process.env.REFRESH_TOKEN_NAME ?? '',
 			data.refreshToken,
 			REFRESH_COOKIE_OPTIONS
 		);
 
-		if (data && cookies().get(process.env.CART_ID ?? '')) {
+		if (data && cookiesStore.get(process.env.CART_ID ?? '')) {
 			await request({
 				url: '/carts/sync',
 			});
 		}
-		cookies().delete(process.env.CART_ID ?? '');
+		cookiesStore.delete(process.env.CART_ID ?? '');
 		return data;
 	});
 
@@ -80,18 +76,19 @@ const registerSchema = z.object({
 export const register = actionClient
 	.schema(registerSchema)
 	.action(async ({ parsedInput: userData }) => {
+		const cookiesStore = await cookies();
 		const data = await request({
 			url: '/auth/register',
 			body: userData,
 			method: 'POST',
 		});
-		cookies().set(
+		cookiesStore.set(
 			process.env.ACCESS_TOKEN_NAME ?? '',
 			data.accessToken,
 			ACCESS_COOKIE_OPTIONS
 		);
 
-		cookies().set(
+		cookiesStore.set(
 			process.env.REFRESH_TOKEN_NAME ?? '',
 			data.refreshToken,
 			REFRESH_COOKIE_OPTIONS
@@ -99,19 +96,23 @@ export const register = actionClient
 		return data;
 	});
 
-export const logout = async () => {
-	await request({ url: '/auth/logout' });
-	cookies().delete(process.env.ACCESS_TOKEN_NAME ?? '');
-	cookies().delete(process.env.REFRESH_TOKEN_NAME ?? '');
-	redirect('/');
-};
+export const logout = actionClient.action(
+	async () => {
+		const cookiesStore = await cookies();
+
+		await request({ url: '/auth/logout' });
+		cookiesStore.delete(process.env.ACCESS_TOKEN_NAME ?? '');
+		cookiesStore.delete(process.env.REFRESH_TOKEN_NAME ?? '');
+	},
+	{ onSuccess: async () => redirect('/') }
+);
 
 export const refreshAccessTokenFn = async () => {
 	try {
 		const data = await request({ url: '/auth/refresh', method: 'GET' });
 		return data;
 	} catch {
-		logout;
+		await logout();
 	}
 };
 

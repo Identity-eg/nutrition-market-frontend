@@ -61,7 +61,7 @@ export default function ResetPasswordPage() {
 		resetPasswordMutation.mutate(
 			{ ...values, token },
 			{
-				onSuccess: data => {
+				onSuccess: async data => {
 					toast({
 						title: data.msg,
 					});

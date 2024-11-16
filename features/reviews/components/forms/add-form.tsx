@@ -70,7 +70,7 @@ export const AddForm = ({
 					productId,
 					...values,
 				},
-				{ onSuccess: () => setIsSuccessMsgAllowedToDisplay(true) }
+				{ onSuccess: async () => setIsSuccessMsgAllowedToDisplay(true) }
 			);
 		});
 	};

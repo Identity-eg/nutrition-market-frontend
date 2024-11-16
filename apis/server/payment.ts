@@ -41,6 +41,6 @@ export const payCash = actionClient.schema(paySchema).action(
 		return data;
 	},
 	{
-		onSettled: () => revalidateTag(TTags.cart),
+		onSettled: async () => revalidateTag(TTags.cart),
 	}
 );

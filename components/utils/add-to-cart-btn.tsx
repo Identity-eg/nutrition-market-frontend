@@ -37,10 +37,10 @@ export const AddToCartButton = React.forwardRef<HTMLButtonElement, ButtonProps>(
 		const { toast } = useToast();
 		const [isAddedEnd, setIsAddedEnd] = useState(false);
 		const { execute, isExecuting, hasSucceeded } = useAction(addItemToCart, {
-			onSuccess: () => {
+			onSuccess: async () => {
 				resetCount?.();
 			},
-			onError: ({ error }) => {
+			onError: async ({ error }) => {
 				toast({
 					variant: 'destructive',
 					title: 'Server Error',

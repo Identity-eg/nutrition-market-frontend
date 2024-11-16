@@ -40,7 +40,7 @@ export const refreshToken = (middleware: CustomMiddleware) => {
 		const accessToken = await getAccessToken();
 		if (
 			!accessToken &&
-			cookies().get(process.env.REFRESH_TOKEN_NAME ?? '')?.value
+			(await cookies()).get(process.env.REFRESH_TOKEN_NAME ?? '')?.value
 		) {
 			const data = await refreshAccessTokenFn();
 

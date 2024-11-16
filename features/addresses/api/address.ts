@@ -49,7 +49,7 @@ export const addAddress = actionClient.schema(addAddressSchema).action(
 		});
 		return data;
 	},
-	{ onSettled: () => revalidateTag(TTags.addresses) }
+	{ onSettled: async () => revalidateTag(TTags.addresses) }
 );
 
 const updateAddressSchema = z
@@ -78,5 +78,5 @@ export const updateAddress = actionClient.schema(updateAddressSchema).action(
 		});
 		return data;
 	},
-	{ onSettled: () => revalidateTag(TTags.addresses) }
+	{ onSettled: async () => revalidateTag(TTags.addresses) }
 );

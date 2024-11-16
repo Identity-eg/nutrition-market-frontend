@@ -57,8 +57,8 @@ export function SignupForm() {
 	});
 
 	const { execute, isPending } = useAction(register, {
-		onSuccess: () => router.replace(from),
-		onError: ({ error }) => {
+		onSuccess: async () => router.replace(from),
+		onError: async ({ error }) => {
 			toast({
 				variant: 'destructive',
 				title: 'Server Error',

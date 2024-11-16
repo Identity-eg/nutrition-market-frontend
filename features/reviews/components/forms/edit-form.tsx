@@ -59,7 +59,7 @@ export const EditableForm = ({
 					...values,
 				},
 				{
-					onSuccess: () => closeEditableMode(),
+					onSuccess: async () => closeEditableMode(),
 				}
 			);
 		});

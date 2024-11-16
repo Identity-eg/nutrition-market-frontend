@@ -20,14 +20,14 @@ export function PlaceOrderBtn({
 	const { execute: payOnlineOrder, isPending: onlinePending } = useAction(
 		payOnline,
 		{
-			onError: ({ error }) => {
+			onError: async ({ error }) => {
 				toast({
 					variant: 'destructive',
 					title: 'Server Error',
 					description: error.serverError,
 				});
 			},
-			onSuccess: ({ data }) => {
+			onSuccess: async ({ data }) => {
 				if (data?.clientSecret) {
 					window.location.assign(
 						`https://accept.paymob.com/unifiedcheckout/?publicKey=${process.env.NEXT_PUBLIC_PAYMOB_PK}&clientSecret=${data?.clientSecret}`
@@ -37,14 +37,14 @@ export function PlaceOrderBtn({
 		}
 	);
 	const { execute: payCashOrder, isPending: cashPending } = useAction(payCash, {
-		onError: ({ error }) => {
+		onError: async ({ error }) => {
 			toast({
 				variant: 'destructive',
 				title: 'Server Error',
 				description: error.serverError,
 			});
 		},
-		onSuccess: ({ data }) => {
+		onSuccess: async ({ data }) => {
 			router.push(`/orders/status?orderId=${data?.order?._id}`);
 		},
 	});

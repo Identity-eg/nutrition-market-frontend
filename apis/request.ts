@@ -30,7 +30,7 @@ export const request = async ({ ...options }: TOptions) => {
 		...(accessToken && {
 			Authorization: `Bearer ${accessToken}`,
 		}),
-		cookie: cookies().toString(),
+		cookie: (await cookies()).toString(),
 		'Content-Type': 'application/json',
 		...(process.env.NEXT_PUBLIC_API_KEY && {
 			'api-key': process.env.NEXT_PUBLIC_API_KEY,
