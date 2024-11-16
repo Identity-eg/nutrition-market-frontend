@@ -41,7 +41,7 @@ export const CardItem = ({
 					}
 					quantity={variants.quantity}
 					productId={_id}
-					companyId={company._id}
+					companyId={company._id ?? company}
 					variantId={variants._id}
 				/>
 

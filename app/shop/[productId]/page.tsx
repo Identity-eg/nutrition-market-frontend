@@ -3,6 +3,7 @@ import { Metadata } from 'next';
 import Link from 'next/link';
 import {
 	Calendar,
+	CheckCircle,
 	Circle,
 	CircleAlert,
 	CircleCheck,
@@ -35,6 +36,12 @@ import SimilarProducts from 'features/products/components/similar-products';
 
 import Reviews from 'features/reviews/components';
 import type { TSearchParams } from 'types/searchparams';
+import {
+	Tooltip,
+	TooltipContent,
+	TooltipProvider,
+	TooltipTrigger,
+} from 'components/ui/tooltip';
 
 export async function generateMetadata(props: {
 	params: Promise<{ productId: string }>;
@@ -83,6 +90,12 @@ const accordionToDisplay = [
 	},
 ] as const;
 
+type TOptions = {
+	[key: string]: {
+		[key: string]: string[];
+	};
+};
+
 export default async function ProductPage(props: {
 	searchParams: Promise<TSearchParams>;
 	params: Promise<{ productId: string }>;
@@ -93,6 +106,30 @@ export default async function ProductPage(props: {
 	const manipulatedSp = new URLSearchParams(searchParams);
 
 	const product = await getSingleProduct({ productId: params.productId });
+
+	const options: TOptions = {
+		count: {},
+		flavor: {},
+	};
+
+	const addVariantToOptions = (
+		key: string,
+		variantId: string,
+		options: TOptions[number]
+	) => {
+		if (!options[key]) {
+			options[key] = [variantId];
+		} else {
+			options[key].push(variantId);
+		}
+	};
+
+	product.variants.forEach(variant => {
+		const { flavor, unitCount, _id } = variant;
+
+		addVariantToOptions(flavor, _id, options.flavor);
+		addVariantToOptions(`${unitCount}`, _id, options.count);
+	});
 
 	const variant =
 		product.variants.find(v => v._id.toString() === variantId) ??
@@ -106,6 +143,17 @@ export default async function ProductPage(props: {
 		}
 		return `?${manipulatedSp.toString()}`;
 	}
+
+	const selectedOptions = {
+		count: {
+			option: variant.unitCount,
+			otherVariantHasSameOption: options.count[variant.unitCount],
+		},
+		flavor: {
+			option: variant.flavor,
+			otherVariantHasSameOption: options.flavor[variant.flavor],
+		},
+	} as const;
 
 	const productDetailsDesktop = (
 		<div className='hidden grid-cols-2 media-md:grid'>
@@ -173,23 +221,64 @@ export default async function ProductPage(props: {
 				/>
 
 				<div className='flex flex-col border-b border-gray-50 pb-8'>
-					<div className='mb-4'>
-						<h6 className='mb-2 typography-SB14'>Count</h6>
-						<div className='flex items-center gap-[8px]'>
-							{product.variants.map(va => (
-								<Button
-									key={va._id}
-									asChild
-									variant={variant._id === va._id ? 'ghost-green' : 'outline'}>
-									<Link
-										prefetch
-										href={setVariant(va._id)}>
-										{va.unitCount} Caps
-									</Link>
-								</Button>
-							))}
-						</div>
-					</div>
+					{Object.entries(options).map(([category, optionsObject]) => {
+						const hasOptions = Object.keys(optionsObject).some(key => key);
+						if (!hasOptions) return null;
+
+						const oppositCategory = category === 'flavor' ? 'count' : 'flavor';
+						return (
+							<div
+								className='mb-4'
+								key={category}>
+								<h6 className='mb-2 capitalize typography-SB14'>{category}</h6>
+								<div className='flex items-center gap-[8px]'>
+									{Object.entries(optionsObject).map(
+										([option, variantsIds]) => {
+											const similarId = variantsIds.find(id =>
+												selectedOptions[
+													oppositCategory
+												]?.otherVariantHasSameOption?.includes(id)
+											);
+
+											return (
+												<TooltipProvider key={option}>
+													<Tooltip
+														open={!similarId ? undefined : false}
+														delayDuration={0}>
+														<TooltipTrigger asChild>
+															<Button
+																asChild
+																variant={
+																	variantsIds.includes(variant._id)
+																		? 'ghost-green'
+																		: 'outline'
+																}
+																className={cn(
+																	!similarId &&
+																		'border-0 bg-gray-30 text-gray-90 hover:bg-gray-30'
+																)}>
+																<Link
+																	prefetch
+																	href={setVariant(
+																		similarId ?? variantsIds[0]
+																	)}>
+																	{option}
+																</Link>
+															</Button>
+														</TooltipTrigger>
+														<TooltipContent className='bg-[#5e548e] typography-R12'>
+															Available on other {oppositCategory}
+														</TooltipContent>
+													</Tooltip>
+												</TooltipProvider>
+											);
+										}
+									)}
+								</div>
+							</div>
+						);
+					})}
+
 					<div className='mb-10'>
 						<h6 className='mb-2 typography-SB14'>Category: </h6>
 						<ul className='flex flex-wrap items-center gap-2'>
@@ -204,7 +293,6 @@ export default async function ProductPage(props: {
 							))}
 						</ul>
 					</div>
-
 					<ActionBtns
 						productId={product._id}
 						companyId={product.company?._id}
