@@ -16,6 +16,8 @@ export const CardItem = ({
 }: TProduct) => {
 	const primaryImage = variants.images[0];
 
+	const variantPath = `/shop/${_id}?variant=${variants._id}`;
+
 	return (
 		<div className='group relative flex flex-col rounded-md border border-gray-50 p-2 media-sm:p-4'>
 			<Sale
@@ -25,7 +27,7 @@ export const CardItem = ({
 
 			<div className='relative mb-2 flex w-full items-center justify-center self-center overflow-hidden rounded-sm'>
 				<Link
-					href={`/shop/${_id}`}
+					href={variantPath}
 					className='flex aspect-square h-40 w-40 items-center justify-center media-md:h-48 media-md:w-48'>
 					<Image
 						className='aspect-square w-full cursor-pointer object-contain p-2 mix-blend-multiply transition duration-300 group-hover:scale-110'
@@ -91,7 +93,7 @@ export const CardItem = ({
 
 			<Link
 				className='mb-4 line-clamp-2 underline-offset-1 typography-M14 hover:underline'
-				href={`/shop/${_id}`}>
+				href={variantPath}>
 				{variants.name}
 			</Link>
 
