@@ -95,7 +95,9 @@ export function MobileMenu({ user }: { user?: TUser }) {
 					{user ? (
 						<>
 							{loggedinLinks.map(link => (
-								<SheetClose asChild>
+								<SheetClose
+									key={link.label}
+									asChild>
 									<Link href={link.to}>
 										<li className='flex items-center gap-2 rounded-md px-2 py-4 text-green-800 typography-R16 hover:bg-green-50'>
 											<link.Icon className='text-green-500' />

@@ -109,6 +109,7 @@ export function ProductOptions({
 											)}>
 											<Link
 												prefetch
+												scroll={false}
 												href={setVariant(similarId ?? variantsIds[0])}>
 												{option}
 											</Link>
