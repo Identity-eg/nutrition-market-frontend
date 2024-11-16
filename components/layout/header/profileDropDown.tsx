@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import { useAction } from 'next-safe-action/hooks';
 import {
 	ChevronDown,
 	CircleUserRound,
@@ -19,11 +20,12 @@ import {
 	DropdownMenuTrigger,
 } from 'components/ui/dropdown-menu';
 
-import { useLogout } from 'apis/auth';
+import { logout } from 'features/auth/api/auth';
 import type { TUser } from 'features/auth/types/user';
 
 export function ProfileDropdown({ user }: { user: TUser }) {
-	const logoutMutation = useLogout();
+	const { execute: executeLogout } = useAction(logout);
+
 	return (
 		<DropdownMenu>
 			<DropdownMenuTrigger asChild>
@@ -71,7 +73,7 @@ export function ProfileDropdown({ user }: { user: TUser }) {
 				<DropdownMenuItem
 					className='gap-x-4 text-red-500 focus:bg-red-30 focus:text-red-500'
 					onClick={() => {
-						logoutMutation.mutate();
+						executeLogout();
 					}}>
 					<LogOutIcon size={16} />
 					Log out
