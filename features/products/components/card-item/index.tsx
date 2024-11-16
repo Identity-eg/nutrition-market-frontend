@@ -14,7 +14,8 @@ export const CardItem = ({
 	averageRating,
 	_id,
 }: TProduct) => {
-	const primaryImage = variants.images?.[0];
+	const primaryImage = variants.images[0];
+
 	return (
 		<div className='group relative flex flex-col rounded-md border border-gray-50 p-2 media-sm:p-4'>
 			<Sale
@@ -28,7 +29,7 @@ export const CardItem = ({
 					className='flex aspect-square h-40 w-40 items-center justify-center media-md:h-48 media-md:w-48'>
 					<Image
 						className='aspect-square w-full cursor-pointer object-contain p-2 mix-blend-multiply transition duration-300 group-hover:scale-110'
-						src={primaryImage?.url}
+						src={primaryImage.url}
 						alt={primaryImage.name}
 						width={200}
 						height={200}
