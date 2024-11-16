@@ -3,7 +3,6 @@ import { Metadata } from 'next';
 import Link from 'next/link';
 import {
 	Calendar,
-	CheckCircle,
 	Circle,
 	CircleAlert,
 	CircleCheck,
@@ -195,7 +194,7 @@ export default async function ProductPage(props: {
 						<p>
 							Store:{' '}
 							<Link
-								href={`/company/${product.company.slug}`}
+								href={`/companies/${product.company.slug}`}
 								className='text-green-500 underline typography-SB13'>
 								{product.company.name}
 							</Link>
@@ -368,7 +367,7 @@ export default async function ProductPage(props: {
 						<p>
 							Store:{' '}
 							<Link
-								href={`/company/${product.company.slug}`}
+								href={`/companies/${product.company.slug}`}
 								className='text-green-500 underline typography-SB13'>
 								{product.company.name}
 							</Link>
