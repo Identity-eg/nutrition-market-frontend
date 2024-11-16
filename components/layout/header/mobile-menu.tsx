@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { MenuIcon } from 'lucide-react';
+import { CircleUserRoundIcon, LogOutIcon, MenuIcon } from 'lucide-react';
 import {
 	Sheet,
 	SheetClose,
@@ -15,43 +15,59 @@ import {
 	AccordionItem,
 	AccordionTrigger,
 } from 'components/ui/accordion';
-import { navLinks } from 'constants/navLinks';
+import { loggedinLinks, navLinks } from 'constants/navLinks';
+import { Separator } from 'components/ui/separator';
+import { LogoutButton } from 'features/auth/components/logout-button';
+import type { TUser } from 'features/auth/types/user';
 
-function MobileNavLink({ link }) {
-	return (
-		<Accordion
-			key={link.label}
-			type='single'
-			collapsible>
-			<AccordionItem
-				className='border-0'
-				value='item-1'>
-				<li>
-					<AccordionTrigger>
-						<SheetClose asChild>
-							<Link href={link.to}>{link.label}</Link>
-						</SheetClose>
-					</AccordionTrigger>
+function MobileNavLink({ link }: { link: (typeof navLinks)[number] }) {
+	if (link.children) {
+		return (
+			<Accordion
+				key={link.label}
+				type='single'
+				collapsible
+				asChild>
+				<AccordionItem
+					className='border-0'
+					value='item-1'
+					asChild>
+					<li>
+						<AccordionTrigger className='rounded-md px-2 text-green-800 typography-R16 hover:bg-green-50 data-[state=open]:mb-2 data-[state=open]:bg-green-50 data-[state=open]:typography-SB16'>
+							{link.label}
+						</AccordionTrigger>
 
-					<ul>
-						{link?.children?.map(l => (
-							<AccordionContent
-								key={l.label}
-								asChild>
-								<MobileNavLink
+						<ul>
+							{link?.children?.map(l => (
+								<AccordionContent
 									key={l.label}
-									link={l}
-								/>
-							</AccordionContent>
-						))}
-					</ul>
-				</li>
-			</AccordionItem>
-		</Accordion>
-	);
+									className='pb-0 pl-4'
+									asChild>
+									<MobileNavLink
+										key={l.label}
+										link={l}
+									/>
+								</AccordionContent>
+							))}
+						</ul>
+					</li>
+				</AccordionItem>
+			</Accordion>
+		);
+	} else {
+		return (
+			<SheetClose asChild>
+				<Link href={link.to}>
+					<li className='rounded-md px-2 py-4 text-green-800 typography-R16 hover:bg-green-50'>
+						{link.label}
+					</li>
+				</Link>
+			</SheetClose>
+		);
+	}
 }
 
-export function MobileMenu() {
+export function MobileMenu({ user }: { user?: TUser }) {
 	return (
 		<Sheet>
 			<SheetTrigger className='relative flex items-center gap-2 text-green-500'>
@@ -59,7 +75,7 @@ export function MobileMenu() {
 			</SheetTrigger>
 
 			<SheetContent className='flex w-full flex-col'>
-				<SheetHeader className='border-b border-gray-50 pb-4'>
+				<SheetHeader className='border-b border-gray-40 pb-4'>
 					<SheetTitle>Menu</SheetTitle>
 				</SheetHeader>
 
@@ -71,48 +87,41 @@ export function MobileMenu() {
 								link={link}
 							/>
 						);
-						// if (!link.children) {
-						// 	return (
-						// 		<li key={link.label}>
-						// 			<SheetClose asChild>
-						// 				<Link href={link.path}>{link.label}</Link>
-						// 			</SheetClose>
-						// 		</li>
-						// 	);
-						// } else {
-						// 	return (
-						// 		<AccordionItem
-						// 			className='border-0'
-						// 			value='item-1'>
-						// 			<AccordionTrigger>{link.label}</AccordionTrigger>
-						// 			<AccordionContent asChild>
-						// 				<ul>
-						// 					{link.children.map(l => (
-						// 						<li key={l.label}>
-						// 							<SheetClose asChild>
-						// 								<Link href={l.to}>{l.label}</Link>
-						// 							</SheetClose>
-						// 						</li>
-						// 					))}
-						// 				</ul>
-						// 			</AccordionContent>
-						// 		</AccordionItem>
-						// 	);
-						// }
 					})}
 				</ul>
 
-				<SheetFooter className='mt-auto flex-col space-y-4'>
-					<div className='flex justify-between gap-2 text-base font-medium text-gray-900'></div>
-
-					<div className='grid grid-cols-2 gap-4'>
-						<SheetClose asChild></SheetClose>
-						<SheetClose asChild></SheetClose>
-					</div>
-					<div className='flex justify-center text-center text-sm text-gray-500'>
-						<p></p>
-					</div>
-				</SheetFooter>
+				<Separator className='bg-gray-40' />
+				<ul>
+					{user ? (
+						<>
+							{loggedinLinks.map(link => (
+								<SheetClose asChild>
+									<Link href={link.to}>
+										<li className='flex items-center gap-2 rounded-md px-2 py-4 text-green-800 typography-R16 hover:bg-green-50'>
+											<link.Icon className='text-green-500' />
+											{link.label}
+										</li>
+									</Link>
+								</SheetClose>
+							))}
+							<SheetClose className='w-full'>
+								<LogoutButton className='gap-2 rounded-md px-2 py-4 text-green-800 typography-R16 hover:bg-green-50'>
+									<LogOutIcon className='text-green-500' />
+									Log out
+								</LogoutButton>
+							</SheetClose>
+						</>
+					) : (
+						<SheetClose asChild>
+							<Link href='login'>
+								<li className='flex items-center gap-2 rounded-md px-2 py-4 text-green-800 typography-R16 hover:bg-green-50'>
+									<CircleUserRoundIcon className='text-green-500' />
+									Login
+								</li>
+							</Link>
+						</SheetClose>
+					)}
+				</ul>
 			</SheetContent>
 		</Sheet>
 	);

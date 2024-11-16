@@ -99,12 +99,14 @@ export const register = actionClient
 		return data;
 	});
 
-export const logout = async () => {
-	await request({ url: '/auth/logout' });
-	cookies().delete(process.env.ACCESS_TOKEN_NAME ?? '');
-	cookies().delete(process.env.REFRESH_TOKEN_NAME ?? '');
-	redirect('/');
-};
+export const logout = actionClient.action(
+	async () => {
+		await request({ url: '/auth/logout' });
+		cookies().delete(process.env.ACCESS_TOKEN_NAME ?? '');
+		cookies().delete(process.env.REFRESH_TOKEN_NAME ?? '');
+	},
+	{ onSuccess: async () => redirect('/') }
+);
 
 export const refreshAccessTokenFn = async () => {
 	try {

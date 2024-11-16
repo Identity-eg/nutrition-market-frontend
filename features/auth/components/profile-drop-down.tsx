@@ -1,14 +1,5 @@
-'use client';
-
 import Link from 'next/link';
-import {
-	ChevronDown,
-	CircleUserRound,
-	LogOutIcon,
-	MessageCircleQuestionIcon,
-	SendToBackIcon,
-	UserRoundPenIcon,
-} from 'lucide-react';
+import { ChevronDown, CircleUserRound, LogOutIcon } from 'lucide-react';
 import {
 	DropdownMenu,
 	DropdownMenuContent,
@@ -19,11 +10,11 @@ import {
 	DropdownMenuTrigger,
 } from 'components/ui/dropdown-menu';
 
-import { useLogout } from 'apis/auth';
+import { LogoutButton } from 'features/auth/components/logout-button';
+import { loggedinLinks } from 'constants/navLinks';
 import type { TUser } from 'features/auth/types/user';
 
 export function ProfileDropdown({ user }: { user: TUser }) {
-	const logoutMutation = useLogout();
 	return (
 		<DropdownMenu>
 			<DropdownMenuTrigger asChild>
@@ -43,38 +34,22 @@ export function ProfileDropdown({ user }: { user: TUser }) {
 			</DropdownMenuTrigger>
 			<DropdownMenuContent className='w-44'>
 				<DropdownMenuGroup>
-					<DropdownMenuItem className='gap-x-4'>
-						<UserRoundPenIcon
-							size={18}
-							className='text-gray-400'
-						/>
-						<Link href='/profile'>My Profile</Link>
-					</DropdownMenuItem>
-					<DropdownMenuItem className='gap-x-4'>
-						<SendToBackIcon
-							size={18}
-							className='text-gray-400'
-						/>
-						<Link href='/orders'>My orders</Link>
-					</DropdownMenuItem>
-					<DropdownMenuItem className='gap-x-4'>
-						<MessageCircleQuestionIcon
-							size={18}
-							className='text-gray-400'
-						/>
-						<Link href='/orders'>
-							Need Help ?<DropdownMenuShortcut></DropdownMenuShortcut>
-						</Link>
-					</DropdownMenuItem>
+					{loggedinLinks.map(link => (
+						<DropdownMenuItem className='gap-x-4'>
+							<link.Icon
+								size={18}
+								className='text-gray-400'
+							/>
+							<Link href={link.to}>{link.label}</Link>
+						</DropdownMenuItem>
+					))}
 				</DropdownMenuGroup>
 				<DropdownMenuSeparator />
-				<DropdownMenuItem
-					className='gap-x-4 text-red-500 focus:bg-red-30 focus:text-red-500'
-					onClick={() => {
-						logoutMutation.mutate();
-					}}>
-					<LogOutIcon size={16} />
-					Log out
+				<DropdownMenuItem>
+					<LogoutButton className='gap-x-4 text-red-500 focus:bg-red-30 focus:text-red-500'>
+						<LogOutIcon size={16} />
+						Log out
+					</LogoutButton>
 				</DropdownMenuItem>
 			</DropdownMenuContent>
 		</DropdownMenu>

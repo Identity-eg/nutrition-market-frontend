@@ -4,7 +4,8 @@ import Link from 'next/link';
 
 import { Button } from 'components/ui/button';
 import { Separator } from 'components/ui/separator';
-import { ProfileDropdown } from './profileDropDown';
+import { ProfileDropdown } from 'features/auth/components/profile-drop-down';
+import { LoggedinBanner } from 'features/auth/components/loggedin-banner';
 
 import biovacLogo from 'assets/logo.png';
 import { CartSidebar } from './cartSidebar';
@@ -50,23 +51,26 @@ export default async function HeaderLayout() {
 	);
 
 	const mobile = (
-		<div className='container sticky top-0 flex items-center justify-between gap-2 py-4 media-md:hidden'>
-			<MobileMenu />
+		<div className='media-md:hidden'>
+			{user && <LoggedinBanner user={user} />}
 
-			<Link
-				href='/'
-				className='ml-0 w-32 flex-shrink-0'>
-				<Image
-					className='h-full w-full'
-					alt='Biovac pharmacy supplements'
-					src={biovacLogo}
-					width={200}
-				/>
-			</Link>
+			<div className='container flex items-center justify-between gap-2 py-4'>
+				<MobileMenu user={user} />
 
-			{/* <Searchbar /> */}
+				<Link
+					href='/'
+					className='ml-0 w-32 flex-shrink-0'>
+					<Image
+						className='h-full w-full'
+						alt='Biovac pharmacy supplements'
+						src={biovacLogo}
+						width={200}
+					/>
+				</Link>
 
-			<CartSidebar />
+				<CartSidebar />
+			</div>
+			<Searchbar className='mx-auto mb-2 w-[95%]' />
 		</div>
 	);
 
