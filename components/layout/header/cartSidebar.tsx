@@ -40,16 +40,16 @@ export async function CartSidebar({
 				<CartBtn cart={cart} />
 			</SheetTrigger>
 
-			<SheetContent className={cn('flex flex-col', contentClassName)}>
-				<SheetHeader>
-					<SheetTitle>Shopping Cart</SheetTitle>
+			<SheetContent className={cn('flex w-full flex-col', contentClassName)}>
+				<SheetHeader className='border-b border-gray-50 pb-4'>
+					<SheetTitle>Cart</SheetTitle>
 				</SheetHeader>
 
 				{isCartEmpty ? (
 					<div className='mt-8 flex flex-col items-center justify-center gap-y-4'>
 						<Image
 							src={noCartFound}
-							className='w-1/5'
+							className='w-16'
 							alt='No products found in cart'
 							width={500}
 							height={500}

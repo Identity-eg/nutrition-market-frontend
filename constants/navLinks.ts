@@ -1,10 +1,7 @@
-import { Home, ShoppingCart } from 'lucide-react';
-
 export const navLinks = [
 	{
 		label: 'Home',
-		path: '/',
-		icon: Home,
+		to: '/',
 		children: [
 			{ label: 'home1', to: '/shop' },
 			{ label: 'home2', to: '/shop' },
@@ -12,5 +9,5 @@ export const navLinks = [
 			{ label: 'home4', to: '/shop' },
 		],
 	},
-	{ label: 'Shop', path: '/shop', icon: ShoppingCart },
+	{ label: 'Shop', to: '/shop' },
 ];
