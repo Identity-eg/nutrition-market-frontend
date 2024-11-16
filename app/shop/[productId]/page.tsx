@@ -195,7 +195,7 @@ export default async function ProductPage(props: {
 						<p>
 							Store:{' '}
 							<Link
-								href={`/company/${product.company._id}`}
+								href={`/company/${product.company.slug}`}
 								className='text-green-500 underline typography-SB13'>
 								{product.company.name}
 							</Link>
@@ -368,7 +368,7 @@ export default async function ProductPage(props: {
 						<p>
 							Store:{' '}
 							<Link
-								href={`/company/${product.company._id}`}
+								href={`/company/${product.company.slug}`}
 								className='text-green-500 underline typography-SB13'>
 								{product.company.name}
 							</Link>
