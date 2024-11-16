@@ -2,7 +2,6 @@
 
 import Link from 'next/link';
 import { usePathname, useSearchParams } from 'next/navigation';
-import React from 'react';
 
 export function ClearAllBtn() {
 	const pathname = usePathname();

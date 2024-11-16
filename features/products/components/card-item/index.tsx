@@ -14,13 +14,12 @@ export const CardItem = ({
 	averageRating,
 	_id,
 }: TProduct) => {
-	const defaltVariant = variants[0];
-	const primaryImage = defaltVariant.images?.[0];
+	const primaryImage = variants.images?.[0];
 	return (
 		<div className='group relative flex flex-col rounded-md border border-gray-50 p-2 media-sm:p-4'>
 			<Sale
-				price={defaltVariant.price}
-				priceAfterDiscount={defaltVariant.priceAfterDiscount}
+				price={variants.price}
+				priceAfterDiscount={variants.priceAfterDiscount}
 			/>
 
 			<div className='relative mb-2 flex w-full items-center justify-center self-center overflow-hidden rounded-sm'>
@@ -40,10 +39,10 @@ export const CardItem = ({
 					className={
 						'pointer-events-none invisible absolute w-[70%] -translate-y-4 opacity-0 transition-all duration-300 group-hover:pointer-events-auto group-hover:visible group-hover:opacity-100'
 					}
-					quantity={defaltVariant.quantity}
+					quantity={variants.quantity}
 					productId={_id}
 					companyId={company._id}
-					variantId={defaltVariant._id}
+					variantId={variants._id}
 				/>
 
 				<div className='absolute -right-10 top-0 flex flex-col gap-2 text-gray-500 transition-all duration-300 group-hover:right-0'>
@@ -92,7 +91,7 @@ export const CardItem = ({
 			<Link
 				className='mb-4 line-clamp-2 underline-offset-1 typography-M14 hover:underline'
 				href={`/shop/${_id}`}>
-				{defaltVariant.name}
+				{variants.name}
 			</Link>
 
 			<div className='mt-auto'>
@@ -100,8 +99,8 @@ export const CardItem = ({
 					className='mb-0'
 					previousPriceClassName='typography-R14 text-gray-200'
 					finalPriceClassName='typography-SB18'
-					price={defaltVariant.price}
-					priceAfterDiscount={defaltVariant.priceAfterDiscount}
+					price={variants.price}
+					priceAfterDiscount={variants.priceAfterDiscount}
 				/>
 			</div>
 

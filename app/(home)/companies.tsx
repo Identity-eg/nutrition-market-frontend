@@ -4,6 +4,7 @@ import { Avatar, AvatarFallback, AvatarImage } from 'components/ui/avatar';
 import Link from 'next/link';
 
 export default async function Companies() {
+	// get Popular Company api
 	const { companies } = await getCompanies();
 	return (
 		<div className='container py-10'>
@@ -30,7 +31,7 @@ export default async function Companies() {
 						</Avatar>
 						<div className='flex flex-col'>
 							<Link
-								href={`/company/${company._id}`}
+								href={`/companies/${company.slug}`}
 								className='typography-SB16 hover:underline'>
 								{company.name}
 							</Link>

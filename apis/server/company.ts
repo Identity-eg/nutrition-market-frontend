@@ -16,12 +16,12 @@ export const getCompanies = async (): Promise<TGetCompaniesReturn> => {
 };
 
 export const getSingleCompany = async ({
-	companyId,
+	slug,
 }: {
-	companyId: string;
+	slug: string;
 }): Promise<TCompany> => {
 	const data = await request({
-		url: `/companies/${companyId}`,
+		url: `/companies/slug/${slug}`,
 		method: 'GET',
 	});
 

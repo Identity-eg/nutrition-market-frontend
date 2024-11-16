@@ -39,7 +39,7 @@ export const SearchList = forwardRef<
 							href={`/shop/${p._id}`}>
 							<div className='aspect-square size-20 rounded-md border border-gray-40 bg-white p-2'>
 								<Image
-									src={p.variants[0].images[0].url}
+									src={p.variants.images[0].url}
 									alt=''
 									width={300}
 									height={300}
@@ -48,13 +48,13 @@ export const SearchList = forwardRef<
 							</div>
 							<div>
 								<span className='line-clamp-1 text-green-500 typography-SB14'>
-									{p.variants[0].name}
+									{p.variants.name}
 								</span>
 								<Price
 									finalPriceClassName='typography-M14'
 									previousPriceClassName='typography-R12 text-gray-200'
-									price={p.variants[0].price}
-									priceAfterDiscount={p.variants[0].priceAfterDiscount}
+									price={p.variants.price}
+									priceAfterDiscount={p.variants.priceAfterDiscount}
 								/>
 							</div>
 						</Link>

@@ -19,8 +19,9 @@ export default async function CompanyPage(props: {
 }) {
 	const searchParams = await props.searchParams;
 	const params = await props.params;
-	const { companyId } = params;
-	const company = await getSingleCompany({ companyId });
+	const { slug } = params;
+
+	const company = await getSingleCompany({ slug });
 
 	if (!company) {
 		return notFound();
@@ -28,7 +29,7 @@ export default async function CompanyPage(props: {
 
 	const newSearchParams = {
 		...searchParams,
-		company: companyId,
+		company: slug,
 	};
 	return (
 		<section>

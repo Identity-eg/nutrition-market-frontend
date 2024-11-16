@@ -20,8 +20,12 @@ export type TProduct = {
 	nutritionFacts: TNutritionFacts;
 	company: TCompany;
 	dosageForm: TDosageForm;
-	variants: TVariant[];
+	variants: TVariant;
 	category: TCategory[];
+};
+
+export type TProductWithMultipleVariants = {
+	[k in keyof TProduct]: k extends 'variants' ? TVariant[] : TProduct[k];
 };
 
 export type TNutritionFacts = {

@@ -49,7 +49,7 @@ export async function Filters() {
 							options={
 								companies?.companies.map(c => ({
 									label: c.name,
-									value: c._id,
+									value: c.slug,
 								})) ?? []
 							}
 						/>
@@ -59,7 +59,7 @@ export async function Filters() {
 							options={
 								dosageForms?.dosageForms.map(f => ({
 									label: f.name,
-									value: f._id,
+									value: f.slug,
 								})) ?? []
 							}
 						/>
@@ -70,7 +70,7 @@ export async function Filters() {
 							options={
 								categories?.categories.map(c => ({
 									label: c.name,
-									value: c._id,
+									value: c.slug,
 								})) ?? []
 							}
 						/>
