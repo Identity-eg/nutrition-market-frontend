@@ -1,29 +1,6 @@
 import { useMutation } from '@tanstack/react-query';
 
-import {
-	forgotPassword,
-	login,
-	logout,
-	register,
-	resetPassword,
-} from 'features/auth/api/auth';
-
-// ######################## Login ############################
-export function useLogin() {
-	return useMutation({ mutationFn: login });
-}
-
-// ######################## Register ############################
-export function useRegister() {
-	return useMutation({ mutationFn: register });
-}
-
-// ######################## LogOut ############################
-export function useLogout() {
-	return useMutation({
-		mutationFn: logout,
-	});
-}
+import { forgotPassword, resetPassword } from 'features/auth/api/auth';
 
 // ##################### FORGOT PASSWORD #######################
 export function useForgotPassword() {
