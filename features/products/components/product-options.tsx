@@ -8,7 +8,10 @@ import {
 import { Button } from 'components/ui/button';
 import { cn } from 'lib/utils';
 
-import type { TProduct, TVariant } from 'features/products/types/product';
+import type {
+	TProductWithMultipleVariants,
+	TVariant,
+} from 'features/products/types/product';
 import type { TSearchParams } from 'types/searchparams';
 
 type TOptions = {
@@ -34,7 +37,7 @@ export function ProductOptions({
 	currentVariant,
 	searchParams,
 }: {
-	product: TProduct;
+	product: TProductWithMultipleVariants;
 	currentVariant: TVariant;
 	searchParams: TSearchParams;
 }) {

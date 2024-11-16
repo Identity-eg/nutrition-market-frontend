@@ -115,7 +115,7 @@ export function MobileMenu({ user }: { user?: TUser }) {
 						</>
 					) : (
 						<SheetClose asChild>
-							<Link href='login'>
+							<Link href='/login'>
 								<li className='flex items-center gap-2 rounded-md px-2 py-4 text-green-800 typography-R16 hover:bg-green-50'>
 									<CircleUserRoundIcon className='text-green-500' />
 									Login

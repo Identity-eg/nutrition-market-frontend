@@ -25,6 +25,7 @@ import { ProductInfo } from 'features/products/components/product-info';
 import { ProductOptions } from 'features/products/components/product-options';
 import { ProductAccordions } from 'features/products/components/product-accordions';
 import { Circle } from 'lucide-react';
+import { ProductsLoading } from 'features/products/components/products-loading';
 
 export async function generateMetadata(props: {
 	params: Promise<{ productId: string }>;
@@ -116,7 +117,7 @@ export default async function ProductPage(props: {
 									asChild
 									variant='outline'
 									className='rounded-md border border-gray-40 px-4 py-1 text-gray-500'>
-									<Link href={`/shop?category=${cat._id}`}>{cat.name}</Link>
+									<Link href={`/shop?category=${cat.slug}`}>{cat.name}</Link>
 								</Button>
 							))}
 						</ul>
@@ -187,7 +188,7 @@ export default async function ProductPage(props: {
 									asChild
 									variant='outline'
 									className='rounded-md border border-gray-40 px-4 py-1 text-gray-500'>
-									<Link href={`/shop?category=${cat._id}`}>{cat.name}</Link>
+									<Link href={`/shop?category=${cat.slug}`}>{cat.name}</Link>
 								</Button>
 							))}
 						</ul>
@@ -220,7 +221,13 @@ export default async function ProductPage(props: {
 
 			<Separator className='mb-6 mt-20' />
 
-			<Suspense fallback='Loading'>
+			<Suspense
+				fallback={
+					<div className=''>
+						<h3 className='mb-6 typography-M16'>Related products</h3>
+						<ProductsLoading number={5} />
+					</div>
+				}>
 				<SimilarProducts productId={params.productId} />
 			</Suspense>
 

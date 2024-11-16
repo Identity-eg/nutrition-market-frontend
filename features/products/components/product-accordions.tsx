@@ -14,7 +14,7 @@ import {
 	PillBottleIcon,
 	RefrigeratorIcon,
 } from 'lucide-react';
-import type { TProduct } from 'features/products/types/product';
+import type { TProductWithMultipleVariants } from 'features/products/types/product';
 
 const accordionToDisplay = [
 	{
@@ -44,7 +44,11 @@ const accordionToDisplay = [
 	},
 ] as const;
 
-export function ProductAccordions({ product }: { product: TProduct }) {
+export function ProductAccordions({
+	product,
+}: {
+	product: TProductWithMultipleVariants;
+}) {
 	return (
 		<Accordion
 			type='multiple'

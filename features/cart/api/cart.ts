@@ -55,7 +55,7 @@ const itemOperationSchema = z.object({
 });
 export const deleteItemFromCart = actionClient
 	.schema(itemOperationSchema)
-	.action(
+	.action<{ isCartEmpty: boolean; message: string }>(
 		async ({ parsedInput: { itemId } }) => {
 			const data = await request({
 				url: `/carts/${itemId}`,
@@ -65,7 +65,7 @@ export const deleteItemFromCart = actionClient
 			return data;
 		},
 		{
-			onSuccess: data => {
+			onSuccess: ({ data }) => {
 				if (data?.isCartEmpty) {
 					cookies().delete(process.env.CART_ID ?? '');
 				}

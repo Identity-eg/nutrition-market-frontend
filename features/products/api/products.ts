@@ -1,7 +1,10 @@
 'use server';
 
 import { request } from 'apis/request';
-import type { TProduct } from 'features/products/types/product';
+import type {
+	TProduct,
+	TProductWithMultipleVariants,
+} from 'features/products/types/product';
 
 type TGetProductsReturn = {
 	currentPage: number;
@@ -56,7 +59,7 @@ export const getSingleProduct = async ({
 	productId,
 }: {
 	productId: string | undefined;
-}): Promise<Pick<TGetProductsReturn, 'products'>['products'][number]> => {
+}): Promise<TProductWithMultipleVariants> => {
 	const { product } = await request({
 		url: `/products/${productId}`,
 		method: 'GET',

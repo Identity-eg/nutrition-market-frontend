@@ -15,11 +15,6 @@ export default async function SimilarProducts({
 		<>
 			<div className='mb-6 flex items-center justify-between'>
 				<h3 className='typography-M16'>Related products</h3>
-				<Link
-					className='typography-R14 hover:underline'
-					href='/shop'>
-					See all
-				</Link>
 			</div>
 			<div className='mb-10 grid grid-cols-2 gap-2 media-sm:grid-cols-[repeat(auto-fill,minmax(200px,1fr))] media-sm:gap-4'>
 				{products.map(product => (

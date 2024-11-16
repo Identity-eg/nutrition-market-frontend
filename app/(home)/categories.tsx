@@ -45,9 +45,9 @@ export default async function Categories() {
 							<CarouselItem
 								key={cat._id}
 								className='group basis-1/2 cursor-pointer media-sm:basis-1/3 media-md:basis-1/4 media-lg:basis-1/6'>
-								<Link href={`/shop?category=${cat._id}`}>
+								<Link href={`/shop?category=${cat.slug}`}>
 									<Card className='grid aspect-square grid-rows-[2fr_1fr] flex-col items-center justify-center gap-2 p-2 text-[#bc6c25] transition-all group-hover:border-[#bc6c25]'>
-										<span className='place-items-center transition-all group-hover:scale-110'>
+										<span className='place-self-center transition-all group-hover:scale-110'>
 											{iconMapper[cat.slug as keyof typeof iconMapper]}
 										</span>
 										<span className='self-start text-center text-gray-700'>

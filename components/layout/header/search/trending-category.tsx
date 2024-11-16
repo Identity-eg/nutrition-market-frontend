@@ -32,7 +32,7 @@ export function TrendingCategory() {
 							asChild
 							variant='outline'
 							className='rounded-md border border-gray-40 px-4 py-1 text-gray-500'>
-							<Link href={`/shop?category=${cat._id}`}>{cat.name}</Link>
+							<Link href={`/shop?category=${cat.slug}`}>{cat.name}</Link>
 						</Button>
 					))}
 				</div>

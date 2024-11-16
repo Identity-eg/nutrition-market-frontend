@@ -1,7 +1,8 @@
+import Link from 'next/link';
+import parse from 'html-react-parser';
 import { getCompanies } from 'apis/server/company';
 import BuildingPlaceholder from 'assets/icons/building-placeholder';
 import { Avatar, AvatarFallback, AvatarImage } from 'components/ui/avatar';
-import Link from 'next/link';
 
 export default async function Companies() {
 	// get Popular Company api
@@ -36,7 +37,7 @@ export default async function Companies() {
 								{company.name}
 							</Link>
 							<span className='line-clamp-1 text-gray-200 typography-R14'>
-								{company.description}
+								{parse(company.description)}
 							</span>
 						</div>
 					</div>
