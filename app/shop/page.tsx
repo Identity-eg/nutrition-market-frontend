@@ -3,7 +3,7 @@ import Image from 'next/image';
 
 import adPhoto from 'assets/ad.png';
 
-import { Filters } from 'features/filters/components';
+import { Filters } from 'features/filters';
 import { SortBy } from 'features/filters/components/sort-by';
 
 import { Products } from 'features/products/components';

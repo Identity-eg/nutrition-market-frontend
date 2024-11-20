@@ -13,6 +13,7 @@ import { ClearAllBtn } from 'features/filters/components/clear-all-btn';
 import { Inputs } from 'features/filters/components/price-inputs';
 import { FacetedFilter } from 'features/filters/components/faceted-filter';
 import { Suspense } from 'react';
+import { RatingStarsFacet } from './components/rating-stars-facet';
 
 export async function Filters() {
 	const [companies, categories, dosageForms] = await Promise.all([
@@ -26,6 +27,7 @@ export async function Filters() {
 		dosageForm: 'dosageForm',
 		category: 'category',
 		price: 'price',
+		averageRating: 'averageRating',
 	} as const;
 
 	return (
@@ -76,6 +78,16 @@ export async function Filters() {
 						/>
 					</Suspense>
 
+					<AccordionItem value={FilterKeys.averageRating}>
+						<AccordionTrigger className='typography-M14'>
+							Ratings
+						</AccordionTrigger>
+						<AccordionContent className='space-y-2'>
+							<Suspense>
+								<RatingStarsFacet />
+							</Suspense>
+						</AccordionContent>
+					</AccordionItem>
 					<AccordionItem value={FilterKeys.price}>
 						<AccordionTrigger className='typography-M14'>
 							Price

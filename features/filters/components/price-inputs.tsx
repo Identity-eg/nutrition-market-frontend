@@ -53,12 +53,13 @@ export function Inputs() {
 		}
 
 		manipulatedSearchParam.set('price', `${from || '0'}-${to}`);
+		manipulatedSearchParam.set('page', '1');
 		router.push(`?${manipulatedSearchParam.toString()}`);
 	};
 
 	return (
 		<div>
-			<div className='mb-4 flex gap-[16px]'>
+			<div className='mb-4 flex gap-4'>
 				<div className='flex flex-col gap-[4px]'>
 					<label
 						htmlFor='from'
@@ -91,11 +92,23 @@ export function Inputs() {
 				</div>
 			</div>
 			<Button
-				className='w-full'
+				className='mb-2 w-full'
 				size={'sm'}
 				onClick={submitFilters}>
 				Apply
 			</Button>
+			{priceUrl && (
+				<Button
+					variant='secondary-destructive'
+					size='sm'
+					className='w-full text-xs text-red-500'
+					onClick={() => {
+						manipulatedSearchParam.delete('price');
+						router.push(`?${manipulatedSearchParam.toString()}`);
+					}}>
+					Clear
+				</Button>
+			)}
 		</div>
 	);
 }

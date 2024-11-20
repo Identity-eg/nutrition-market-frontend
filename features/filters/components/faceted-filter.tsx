@@ -7,6 +7,7 @@ import {
 	AccordionTrigger,
 } from 'components/ui/accordion';
 import { Checkbox } from 'components/ui/checkbox';
+import { Button } from 'components/ui/button';
 
 type TFacetedFilter = {
 	title: string;
@@ -54,6 +55,18 @@ export function FacetedFilter({ title, value, options }: TFacetedFilter) {
 						</div>
 					);
 				})}
+				{facet.length > 0 && (
+					<Button
+						variant='secondary-destructive'
+						size='sm'
+						className='w-full text-xs text-red-500'
+						onClick={() => {
+							searchParams.delete(value);
+							router.push(`?${searchParams.toString()}`);
+						}}>
+						Clear
+					</Button>
+				)}
 			</AccordionContent>
 		</AccordionItem>
 	);
