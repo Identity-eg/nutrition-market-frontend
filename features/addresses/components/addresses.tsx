@@ -3,7 +3,7 @@ import { Pencil } from 'lucide-react';
 
 import { Button } from 'components/ui/button';
 import { Label } from 'components/ui/label';
-import { RadioGroup, RadioGroupItem } from 'components/ui/radio';
+import { RadioGroup, RadioGroupItem } from 'components/ui/radio-group';
 
 import type { TAddress } from 'features/addresses/types/address';
 

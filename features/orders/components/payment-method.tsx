@@ -1,8 +1,8 @@
+import React, { Dispatch } from 'react';
 import { Card } from 'components/ui/card';
 import { Label } from 'components/ui/label';
-import { RadioGroup, RadioGroupItem } from 'components/ui/radio';
+import { RadioGroup, RadioGroupItem } from 'components/ui/radio-group';
 import { PAYMENT_METHODS_MAPPER } from 'constants/index';
-import React, { Dispatch } from 'react';
 
 export default function PaymentMethod({
 	setPaymentMethodId,
