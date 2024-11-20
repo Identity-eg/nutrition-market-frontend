@@ -6,6 +6,7 @@ export type TUser = {
 	email: string;
 	role: 'admin' | 'user';
 	ordersCount: number;
+	purchasedProducts: string[];
 	blocked: boolean;
 	createdAt: string;
 	updatedAt: string;

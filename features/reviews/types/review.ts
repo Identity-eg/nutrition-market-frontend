@@ -4,7 +4,7 @@ export type TReview = {
 	rating: number;
 	title: string;
 	comment: string;
-	user: Partial<TUser>;
+	user: Pick<TUser, '_id' | 'firstName' | 'lastName' | 'purchasedProducts'>;
 	product: string;
 	_id: string;
 	createdAt: string;

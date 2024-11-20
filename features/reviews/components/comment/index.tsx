@@ -21,6 +21,7 @@ import type { TReview } from 'features/reviews/types/review';
 export function Comment({
 	_id,
 	user,
+	product,
 	title,
 	comment,
 	rating,
@@ -44,6 +45,8 @@ export function Comment({
 		);
 	}
 
+	const isVerifiedPurchaser = user.purchasedProducts.includes(product);
+
 	return (
 		<li className='flex gap-2 px-4 pb-4 [&:has(button[data-state=deleting])]:animate-pulse'>
 			<Avatar className='size-10'>
@@ -54,19 +57,21 @@ export function Comment({
 			<div className='flex-1'>
 				<div className='mb-4 mt-2 flex items-center gap-2'>
 					<p className='capitalize typography-M16'>{user.firstName}</p>
-					<TooltipProvider>
-						<Tooltip delayDuration={0}>
-							<TooltipTrigger>
-								<CheckCircle
-									size={16}
-									className='text-green-light-800'
-								/>
-							</TooltipTrigger>
-							<TooltipContent className='typography-B12'>
-								Verified Purchaser
-							</TooltipContent>
-						</Tooltip>
-					</TooltipProvider>
+					{isVerifiedPurchaser && (
+						<TooltipProvider>
+							<Tooltip delayDuration={0}>
+								<TooltipTrigger>
+									<CheckCircle
+										size={16}
+										className='text-green-light-800'
+									/>
+								</TooltipTrigger>
+								<TooltipContent className='typography-B12'>
+									Verified Purchaser
+								</TooltipContent>
+							</Tooltip>
+						</TooltipProvider>
+					)}
 				</div>
 
 				<RatingStars
