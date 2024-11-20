@@ -21,6 +21,7 @@ import { Inputs } from './price-inputs';
 import { getCompanies } from 'apis/server/company';
 import { getCategories } from 'apis/server/category';
 import { getDosageForms } from 'apis/server/dosageForm';
+import { RatingStarsFacet } from './rating-stars-facet';
 
 export async function MobileFilter() {
 	const [companies, categories, dosageForms] = await Promise.all([
@@ -33,6 +34,7 @@ export async function MobileFilter() {
 		dosageForm: 'dosageForm',
 		category: 'category',
 		price: 'price',
+		averageRating: 'averageRating',
 	} as const;
 	return (
 		<Sheet>
@@ -89,6 +91,17 @@ export async function MobileFilter() {
 								}
 							/>
 						</Suspense>
+
+						<AccordionItem value={FilterKeys.averageRating}>
+							<AccordionTrigger className='typography-M14'>
+								Ratings
+							</AccordionTrigger>
+							<AccordionContent className='space-y-2'>
+								<Suspense>
+									<RatingStarsFacet />
+								</Suspense>
+							</AccordionContent>
+						</AccordionItem>
 
 						<AccordionItem value={FilterKeys.price}>
 							<AccordionTrigger className='typography-M14'>
