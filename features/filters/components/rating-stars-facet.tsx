@@ -41,7 +41,7 @@ export function RatingStarsFacet() {
 								className='inline-block cursor-pointer'>
 								<RatingStars
 									averageRating={+el}
-									size={20}
+									size={16}
 								/>
 							</label>
 						</div>
