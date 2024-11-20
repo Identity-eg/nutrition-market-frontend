@@ -5,6 +5,7 @@ import { useRouter, useSearchParams } from 'next/navigation';
 
 import { Button } from 'components/ui/button';
 import { NumericField } from 'components/ui/numeric-field';
+import { cn } from 'lib/utils';
 
 export function Inputs() {
 	const [from, setFrom] = useState<string>('');
@@ -91,25 +92,26 @@ export function Inputs() {
 					/>
 				</div>
 			</div>
-			<Button
-				className='mb-2 w-full'
-				variant='secondary-gray'
-				size={'sm'}
-				onClick={submitFilters}>
-				Apply
-			</Button>
-			{priceUrl && (
+			<div className={cn(priceUrl && 'grid grid-cols-[3fr_1fr] gap-2')}>
 				<Button
-					variant='secondary-destructive'
-					size='sm'
-					className='w-full text-xs text-red-500'
-					onClick={() => {
-						manipulatedSearchParam.delete('price');
-						router.push(`?${manipulatedSearchParam.toString()}`);
-					}}>
-					Clear
+					className='mb-2 w-full'
+					size={'sm'}
+					onClick={submitFilters}>
+					Apply
 				</Button>
-			)}
+				{priceUrl && (
+					<Button
+						variant='secondary-destructive'
+						size='sm'
+						className='w-full text-xs text-red-500'
+						onClick={() => {
+							manipulatedSearchParam.delete('price');
+							router.push(`?${manipulatedSearchParam.toString()}`);
+						}}>
+						Clear
+					</Button>
+				)}
+			</div>
 		</div>
 	);
 }
