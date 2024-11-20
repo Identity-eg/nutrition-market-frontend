@@ -1,4 +1,3 @@
-import { HTMLAttributes, Suspense } from 'react';
 import {
 	Accordion,
 	AccordionContent,
@@ -13,12 +12,10 @@ import { getDosageForms } from 'apis/server/dosageForm';
 import { ClearAllBtn } from 'features/filters/components/clear-all-btn';
 import { Inputs } from 'features/filters/components/price-inputs';
 import { FacetedFilter } from 'features/filters/components/faceted-filter';
-import { cn } from 'lib/utils';
+import { Suspense } from 'react';
+import { RatingStarsFacet } from './components/rating-stars-facet';
 
-export async function Filters({
-	className,
-	...props
-}: HTMLAttributes<HTMLElement>) {
+export async function Filters() {
 	const [companies, categories, dosageForms] = await Promise.all([
 		getCompanies(),
 		getCategories(),
@@ -30,15 +27,11 @@ export async function Filters({
 		dosageForm: 'dosageForm',
 		category: 'category',
 		price: 'price',
+		averageRating: 'averageRating',
 	} as const;
 
 	return (
-		<article
-			className={cn(
-				'sticky left-0 top-6 self-start rounded-lg border border-gray-50',
-				className
-			)}
-			{...props}>
+		<article className='sticky left-0 top-6 hidden self-start rounded-lg border border-gray-50 media-md:block'>
 			<div className='flex items-center justify-between border-b border-gray-50 p-4 pb-4 shadow-sm'>
 				<h4 className='capitalize typography-B16'>filter option</h4>
 				<Suspense fallback='Loading..'>
@@ -85,6 +78,16 @@ export async function Filters({
 						/>
 					</Suspense>
 
+					<AccordionItem value={FilterKeys.averageRating}>
+						<AccordionTrigger className='typography-M14'>
+							Ratings
+						</AccordionTrigger>
+						<AccordionContent className='space-y-2'>
+							<Suspense>
+								<RatingStarsFacet />
+							</Suspense>
+						</AccordionContent>
+					</AccordionItem>
 					<AccordionItem value={FilterKeys.price}>
 						<AccordionTrigger className='typography-M14'>
 							Price
