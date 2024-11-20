@@ -1,3 +1,4 @@
+import { HTMLAttributes, Suspense } from 'react';
 import {
 	Accordion,
 	AccordionContent,
@@ -12,9 +13,12 @@ import { getDosageForms } from 'apis/server/dosageForm';
 import { ClearAllBtn } from 'features/filters/components/clear-all-btn';
 import { Inputs } from 'features/filters/components/price-inputs';
 import { FacetedFilter } from 'features/filters/components/faceted-filter';
-import { Suspense } from 'react';
+import { cn } from 'lib/utils';
 
-export async function Filters() {
+export async function Filters({
+	className,
+	...props
+}: HTMLAttributes<HTMLElement>) {
 	const [companies, categories, dosageForms] = await Promise.all([
 		getCompanies(),
 		getCategories(),
@@ -29,7 +33,12 @@ export async function Filters() {
 	} as const;
 
 	return (
-		<article className='sticky left-0 top-6 hidden self-start rounded-lg border border-gray-50 media-md:block'>
+		<article
+			className={cn(
+				'sticky left-0 top-6 self-start rounded-lg border border-gray-50',
+				className
+			)}
+			{...props}>
 			<div className='flex items-center justify-between border-b border-gray-50 p-4 pb-4 shadow-sm'>
 				<h4 className='capitalize typography-B16'>filter option</h4>
 				<Suspense fallback='Loading..'>

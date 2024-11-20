@@ -92,6 +92,7 @@ export function Inputs() {
 			</div>
 			<Button
 				className='w-full'
+				variant='secondary-gray'
 				size={'sm'}
 				onClick={submitFilters}>
 				Apply

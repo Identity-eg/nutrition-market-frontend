@@ -2,7 +2,6 @@
 
 import Link from 'next/link';
 import { usePathname, useSearchParams } from 'next/navigation';
-import React from 'react';
 
 export function ClearAllBtn() {
 	const pathname = usePathname();
@@ -15,7 +14,7 @@ export function ClearAllBtn() {
 	return (
 		<Link
 			href={pathname}
-			className='text-red-500 typography-M12'>
+			className='mr-8 mt-0 text-red-500 typography-M12 media-md:mr-0'>
 			Clear all
 		</Link>
 	);
