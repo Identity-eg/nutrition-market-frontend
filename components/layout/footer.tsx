@@ -23,7 +23,7 @@ const Footer = () => {
 	return (
 		<footer className='bg-[#344e41] py-12'>
 			<div className='container text-white'>
-				<div className='my-8 grid grid-cols-2 gap-x-4 gap-y-10 border-b border-green-400 py-12 text-sm media-md:grid-cols-4'>
+				<div className='mb-4 grid grid-cols-2 gap-x-4 gap-y-10 border-b border-green-400 pb-8 text-sm media-md:grid-cols-4'>
 					<div className='flex flex-col gap-4 media-md:gap-6'>
 						<h2 className='text-base font-semibold text-[#a3b18a]'>
 							Let&apos;s Talk
