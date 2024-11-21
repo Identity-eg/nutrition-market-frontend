@@ -20,7 +20,7 @@ export function CheckoutSummary({
 		return acc;
 	}, 0);
 	return (
-		<Card className='flex max-w-[380px] flex-1 flex-col justify-between self-start p-6'>
+		<Card className='hidden max-w-[380px] flex-1 flex-col justify-between self-start p-6 media-md:flex'>
 			<h1 className='mb-4 border-b border-gray-40 pb-4 capitalize text-gray-800 typography-SB20'>
 				Product summary
 			</h1>

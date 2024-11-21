@@ -7,15 +7,19 @@ export function CopyBtn({ copyText }: { copyText: string }) {
 	const [isCopied, setIsCopied] = useState(false);
 
 	const copy = () => {
-		navigator.clipboard.writeText(copyText);
-		setIsCopied(true);
-		setTimeout(() => setIsCopied(false), 2000);
+		try {
+			navigator.clipboard.writeText(copyText);
+			setIsCopied(true);
+			setTimeout(() => setIsCopied(false), 2000);
+		} catch {
+			return;
+		}
 	};
 
 	if (isCopied) {
 		return (
 			<CheckIcon
-				className='text-gray-300'
+				className='flex-shrink-0 text-gray-300'
 				size={16}
 			/>
 		);
@@ -23,7 +27,7 @@ export function CopyBtn({ copyText }: { copyText: string }) {
 	return (
 		<CopyIcon
 			onClick={copy}
-			className='cursor-pointer text-gray-300'
+			className='flex-shrink-0 cursor-pointer text-gray-300'
 			size={16}
 		/>
 	);
