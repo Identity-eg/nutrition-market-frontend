@@ -1,4 +1,4 @@
-import Link from 'next/link';
+// import Link from 'next/link';
 import Image from 'next/image';
 
 import { RatingStars } from 'components/ui/rating-stars';
@@ -7,6 +7,7 @@ import { Sale } from 'components/utils/sale';
 import { AddToCartButton } from 'components/utils/add-to-cart-btn';
 
 import type { TProduct } from 'features/products/types/product';
+import { Link } from './Link';
 
 export const CardItem = ({
 	variants,
