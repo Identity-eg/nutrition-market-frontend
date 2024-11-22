@@ -5,6 +5,7 @@ import type {
 	TGetCompaniesReturn,
 	TCompany,
 } from 'features/products/types/company';
+import { notFound } from 'next/navigation';
 
 export const getCompanies = async (): Promise<TGetCompaniesReturn> => {
 	const data = await request({
@@ -20,10 +21,23 @@ export const getSingleCompany = async ({
 }: {
 	slug: string;
 }): Promise<TCompany> => {
+	try {
+		const data = await request({
+			url: `/companies/slug/${slug}`,
+			method: 'GET',
+		});
+
+		return data.company;
+	} catch (error) {
+		return notFound();
+	}
+};
+
+export const getPopularCompaniens = async (): Promise<TGetCompaniesReturn> => {
 	const data = await request({
-		url: `/companies/slug/${slug}`,
+		url: `/companies/popular`,
 		method: 'GET',
 	});
 
-	return data.company;
+	return data;
 };

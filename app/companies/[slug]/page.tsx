@@ -23,10 +23,6 @@ export default async function CompanyPage(props: {
 
 	const company = await getSingleCompany({ slug });
 
-	if (!company) {
-		return notFound();
-	}
-
 	const newSearchParams = {
 		...searchParams,
 		company: slug,

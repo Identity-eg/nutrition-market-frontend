@@ -1,8 +1,8 @@
 import Image from 'next/image';
-import noCartFound from 'assets/no-cart-found.svg';
 import { CartItem } from 'features/cart/components/cart-item';
 import { CartSummary } from 'features/cart/components/cart-summary';
 import { getCart } from 'features/cart/api/cart';
+import NoCartFound from 'assets/icons/no-cart-found';
 
 export default async function Cart() {
 	const cart = await getCart();
@@ -23,13 +23,7 @@ export default async function Cart() {
 					<div className='flex-1 self-start rounded-lg border border-gray-40 bg-white'>
 						{isCartEmpty ? (
 							<div className='flex flex-col items-center justify-center gap-4 p-8'>
-								<Image
-									src={noCartFound}
-									width={500}
-									height={500}
-									className='w-1/12'
-									alt='SVG logo image'
-								/>
+								<NoCartFound />
 								<h1 className='text-center text-gray-800'>
 									Your cart is empty
 								</h1>

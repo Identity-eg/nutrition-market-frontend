@@ -1,6 +1,5 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import noCartFound from 'assets/no-cart-found.svg';
 import { cn } from 'lib/utils';
 
 import { Button } from 'components/ui/button';
@@ -20,6 +19,7 @@ import { CartSideItem } from 'features/cart/components/cart-side-item';
 import { CartBtn } from 'features/cart/components/cart-btn';
 
 import { getCart } from 'features/cart/api/cart';
+import NoCartFound from 'assets/icons/no-cart-found';
 
 export async function CartSidebar({
 	triggerClassName,
@@ -47,14 +47,10 @@ export async function CartSidebar({
 
 				{isCartEmpty ? (
 					<div className='mt-8 flex flex-col items-center justify-center gap-y-4'>
-						<Image
-							src={noCartFound}
-							className='w-16'
-							alt='No products found in cart'
-							width={500}
-							height={500}
-						/>
-						<h1 className='text-center text-gray-800'>Your cart is empty</h1>
+						<NoCartFound />
+						<h1 className='text-center text-gray-800 typography-M16'>
+							Your cart is empty
+						</h1>
 					</div>
 				) : (
 					<>

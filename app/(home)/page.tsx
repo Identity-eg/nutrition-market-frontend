@@ -12,9 +12,23 @@ import BestSellerProducts from './best-seller-products';
 import Categories from './categories';
 
 const FEATURES = [
-	{ title: 'Secure Payment', Icon: PaymentIcon },
-	{ title: 'Fast Delivery', Icon: DeliveryIcon },
-	{ title: 'New stocks and sales', Icon: SaleIcon },
+	{
+		title: 'Secure Payment',
+		description:
+			'Enjoy a worry-free shopping experience with our trusted payment methods.',
+		Icon: PaymentIcon,
+	},
+	{
+		title: 'Fast Delivery',
+		description: 'Enjoy the speed and convenience of Fast Delivery today!',
+		Icon: DeliveryIcon,
+	},
+	{
+		title: 'New stocks and sales',
+		description:
+			'Discover the freshest additions to our inventory and take advantage of our exciting sales',
+		Icon: SaleIcon,
+	},
 ];
 
 export default async function HomePage() {
@@ -84,18 +98,18 @@ export default async function HomePage() {
 				</div>
 			</div>
 
-			<div className='container flex flex-wrap items-center justify-between py-10'>
+			<div className='container flex flex-wrap items-center justify-between gap-8 py-10'>
 				{FEATURES.map(f => (
 					<div
 						key={f.title}
 						className='flex gap-4'>
 						<div className='flex'>
-							<f.Icon className='size-[72px] object-contain' />
+							<f.Icon className='size-[68px] object-contain' />
 						</div>
 						<div>
-							<p className='mb-2 typography-SB16'>{f.title}</p>
-							<p className='max-w-[25ch] text-gray-200'>
-								Tasigförsamhet beteendedesign. Mobile checkout. Ylig kärrtorpa.
+							<p className='mb-1 typography-SB16'>{f.title}</p>
+							<p className='text-gray-200 typography-R13 media-md:max-w-[30ch]'>
+								{f.description}
 							</p>
 						</div>
 					</div>
