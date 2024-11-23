@@ -12,6 +12,7 @@ import Footer from 'components/layout/footer';
 
 const inter = Inter({
 	subsets: ['latin'],
+	display: 'swap',
 	weight: ['300', '400', '500', '600', '700', '800'],
 });
 

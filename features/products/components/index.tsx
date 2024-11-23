@@ -24,8 +24,8 @@ export async function Products({
 					No Matches Found
 				</span>
 				<span className='mt-2 max-w-[43ch] text-center text-gray-200 typography-R14'>
-					We couldn't find any supplement that match your filters Try adjusting
-					your search criteria
+					We couldn&apos;t find any supplement that match your filters Try
+					adjusting your search criteria
 				</span>
 			</div>
 		);
