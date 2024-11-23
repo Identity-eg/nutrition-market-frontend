@@ -4,6 +4,7 @@ import parse from 'html-react-parser';
 import BuildingPlaceholder from 'assets/icons/building-placeholder';
 import { Avatar, AvatarFallback, AvatarImage } from 'components/ui/avatar';
 import { getPopularCompanies } from 'apis/server/company';
+import { RatingStars } from 'components/ui/rating-stars';
 
 export default async function Companies() {
 	const { companies } = await getPopularCompanies();
@@ -21,7 +22,9 @@ export default async function Companies() {
 					gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))',
 				}}>
 				{companies.map(company => (
-					<div className='p-4'>
+					<div
+						key={company._id}
+						className='p-4'>
 						<div
 							key={company._id}
 							className='mb-4 flex items-center gap-4 border-b border-gray-40 pb-4'>
