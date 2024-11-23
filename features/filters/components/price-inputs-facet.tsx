@@ -1,11 +1,13 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { Button } from 'components/ui/button';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { NumericField } from 'components/ui/numeric-field';
 
-export function Inputs() {
+import { Button } from 'components/ui/button';
+import { NumericField } from 'components/ui/numeric-field';
+import { cn } from 'lib/utils';
+
+export function InputsFacet() {
 	const [from, setFrom] = useState<string>('');
 	const [to, setTo] = useState<string>('');
 
@@ -52,12 +54,13 @@ export function Inputs() {
 		}
 
 		manipulatedSearchParam.set('price', `${from || '0'}-${to}`);
+		manipulatedSearchParam.set('page', '1');
 		router.push(`?${manipulatedSearchParam.toString()}`);
 	};
 
 	return (
 		<div>
-			<div className='mb-4 flex gap-[16px]'>
+			<div className='mb-4 flex gap-4'>
 				<div className='flex flex-col gap-[4px]'>
 					<label
 						htmlFor='from'
@@ -89,12 +92,26 @@ export function Inputs() {
 					/>
 				</div>
 			</div>
-			<Button
-				className='w-full'
-				size={'sm'}
-				onClick={submitFilters}>
-				Apply
-			</Button>
+			<div className={cn(priceUrl && 'grid grid-cols-[3fr_1fr] gap-2')}>
+				<Button
+					className='mb-2 w-full'
+					size={'sm'}
+					onClick={submitFilters}>
+					Apply
+				</Button>
+				{priceUrl && (
+					<Button
+						variant='secondary-destructive'
+						size='sm'
+						className='w-full text-xs text-red-500'
+						onClick={() => {
+							manipulatedSearchParam.delete('price');
+							router.push(`?${manipulatedSearchParam.toString()}`);
+						}}>
+						Clear
+					</Button>
+				)}
+			</div>
 		</div>
 	);
 }

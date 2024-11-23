@@ -117,7 +117,7 @@ export default async function ProductPage(props: {
 									asChild
 									variant='outline'
 									className='rounded-md border border-gray-40 px-4 py-1 text-gray-500'>
-									<Link href={`/shop?category=${cat.slug}`}>{cat.name}</Link>
+									<Link href={`/categories/${cat.slug}`}>{cat.name}</Link>
 								</Button>
 							))}
 						</ul>
@@ -188,7 +188,7 @@ export default async function ProductPage(props: {
 									asChild
 									variant='outline'
 									className='rounded-md border border-gray-40 px-4 py-1 text-gray-500'>
-									<Link href={`/shop?category=${cat.slug}`}>{cat.name}</Link>
+									<Link href={`/categories/${cat.slug}`}>{cat.name}</Link>
 								</Button>
 							))}
 						</ul>

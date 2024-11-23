@@ -1,16 +1,18 @@
+import { Suspense } from 'react';
+// UI
 import {
 	Accordion,
 	AccordionContent,
 	AccordionItem,
 	AccordionTrigger,
 } from 'components/ui/accordion';
-import FacetedFilter from './faceted-filter';
-
+import { RatingStarsFacet } from 'features/filters/components/rating-stars-facet';
+import { InputsFacet } from 'features/filters/components/price-inputs-facet';
+import { FacetedFilter } from 'features/filters/components/faceted-filter';
+import { ClearAllBtn } from 'features/filters/components/clear-all-btn';
+// Utils
 import { getCategories } from 'apis/server/category';
-import { ClearAllBtn } from './clear-all-btn';
-import { Inputs } from './price-inputs';
 import { getDosageForms } from 'apis/server/dosageForm';
-import { Suspense } from 'react';
 
 export default async function FilterProducts() {
 	const [categories, dosageForms] = await Promise.all([
@@ -22,6 +24,7 @@ export default async function FilterProducts() {
 		dosageForm: 'dosageForm',
 		category: 'category',
 		price: 'price',
+		averageRating: 'averageRating',
 	} as const;
 
 	return (
@@ -45,7 +48,7 @@ export default async function FilterProducts() {
 							options={
 								dosageForms?.dosageForms.map(f => ({
 									label: f.name,
-									value: f._id,
+									value: f.slug,
 								})) ?? []
 							}
 						/>
@@ -56,7 +59,7 @@ export default async function FilterProducts() {
 							options={
 								categories?.categories.map(c => ({
 									label: c.name,
-									value: c._id,
+									value: c.slug,
 								})) ?? []
 							}
 						/>
@@ -64,11 +67,21 @@ export default async function FilterProducts() {
 
 					<AccordionItem value={FilterKeys.price}>
 						<AccordionTrigger className='typography-M14'>
+							Rating
+						</AccordionTrigger>
+						<AccordionContent className='space-y-2'>
+							<Suspense>
+								<RatingStarsFacet />
+							</Suspense>
+						</AccordionContent>
+					</AccordionItem>
+					<AccordionItem value={FilterKeys.price}>
+						<AccordionTrigger className='typography-M14'>
 							Price
 						</AccordionTrigger>
 						<AccordionContent className='space-y-2'>
 							<Suspense>
-								<Inputs />
+								<InputsFacet />
 							</Suspense>
 						</AccordionContent>
 					</AccordionItem>

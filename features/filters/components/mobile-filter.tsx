@@ -17,7 +17,7 @@ import {
 	AccordionContent,
 } from 'components/ui/accordion';
 import { FacetedFilter } from './faceted-filter';
-import { Inputs } from './price-inputs';
+import { InputsFacet } from './price-inputs-facet';
 import { getCompanies } from 'apis/server/company';
 import { getCategories } from 'apis/server/category';
 import { getDosageForms } from 'apis/server/dosageForm';
@@ -109,7 +109,7 @@ export async function MobileFilter() {
 							</AccordionTrigger>
 							<AccordionContent className='space-y-2'>
 								<Suspense>
-									<Inputs />
+									<InputsFacet />
 								</Suspense>
 							</AccordionContent>
 						</AccordionItem>

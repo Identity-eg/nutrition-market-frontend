@@ -1,4 +1,4 @@
-import { getCategories } from 'apis/server/category';
+import { getTopSellingCategory } from 'apis/server/category';
 import React from 'react';
 import CarouselWrapper from './carousel-wrapper';
 import { CarouselContent, CarouselItem } from 'components/ui/carousel';
@@ -27,7 +27,8 @@ const iconMapper = {
 };
 
 export default async function Categories() {
-	const categories = await getCategories();
+	const data = await getTopSellingCategory({ limit: 7 });
+
 	return (
 		<div className='container py-10'>
 			<h3 className='mb-6 flex flex-col items-center text-green-800 typography-B18 media-sm:gap-4 media-md:flex-row'>
@@ -40,18 +41,18 @@ export default async function Categories() {
 				opts={{ loop: true }}
 				className='typography-SB16'>
 				<CarouselContent className='-ml-1'>
-					{categories.categories.map(cat => {
+					{data.categories.map(cat => {
 						return (
 							<CarouselItem
 								key={cat._id}
 								className='group basis-1/2 cursor-pointer media-sm:basis-1/3 media-md:basis-1/4 media-lg:basis-1/6'>
-								<Link href={`/shop?category=${cat.slug}`}>
+								<Link href={`/categories/${cat.category.slug}`}>
 									<Card className='grid aspect-square grid-rows-[2fr_1fr] flex-col items-center justify-center gap-2 p-2 text-[#bc6c25] transition-all group-hover:border-[#bc6c25]'>
 										<span className='place-self-center transition-all group-hover:scale-110'>
-											{iconMapper[cat.slug as keyof typeof iconMapper]}
+											{iconMapper[cat.category.slug as keyof typeof iconMapper]}
 										</span>
 										<span className='self-start text-center text-gray-700'>
-											{cat.name}
+											{cat.category.name}
 										</span>
 									</Card>
 								</Link>

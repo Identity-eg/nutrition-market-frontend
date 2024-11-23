@@ -1,29 +1,26 @@
+import { Suspense } from 'react';
+// UI
 import {
 	Accordion,
 	AccordionContent,
 	AccordionItem,
 	AccordionTrigger,
 } from 'components/ui/accordion';
-
-import { getCompanies } from 'apis/server/company';
-import { getCategories } from 'apis/server/category';
-import { getDosageForms } from 'apis/server/dosageForm';
-
-import { ClearAllBtn } from 'features/filters/components/clear-all-btn';
+import { RatingStarsFacet } from 'features/filters/components/rating-stars-facet';
 import { InputsFacet } from 'features/filters/components/price-inputs-facet';
 import { FacetedFilter } from 'features/filters/components/faceted-filter';
-import { Suspense } from 'react';
-import { RatingStarsFacet } from './components/rating-stars-facet';
+import { ClearAllBtn } from 'features/filters/components/clear-all-btn';
+// Utils
+import { getDosageForms } from 'apis/server/dosageForm';
+import { getCompanies } from 'apis/server/company';
 
-export async function Filters() {
-	const [companies, categories, dosageForms] = await Promise.all([
+export default async function FilterProducts() {
+	const [companies, dosageForms] = await Promise.all([
 		getCompanies(),
-		getCategories(),
 		getDosageForms(),
 	]);
 
 	const FilterKeys = {
-		company: 'company',
 		dosageForm: 'dosageForm',
 		category: 'category',
 		price: 'price',
@@ -31,7 +28,7 @@ export async function Filters() {
 	} as const;
 
 	return (
-		<article className='sticky left-0 top-6 hidden self-start rounded-lg border border-gray-50 media-md:block'>
+		<article className='hidden self-start rounded-lg border border-gray-50 media-md:block'>
 			<div className='flex items-center justify-between border-b border-gray-50 p-4 pb-4 shadow-sm'>
 				<h4 className='capitalize typography-B16'>filter option</h4>
 				<Suspense fallback='Loading..'>
@@ -46,16 +43,6 @@ export async function Filters() {
 					className='w-full [&>*:last-child]:border-0'>
 					<Suspense>
 						<FacetedFilter
-							title='Company'
-							value={FilterKeys.company}
-							options={
-								companies?.companies.map(c => ({
-									label: c.name,
-									value: c.slug,
-								})) ?? []
-							}
-						/>
-						<FacetedFilter
 							title='Dosage form'
 							value={FilterKeys.dosageForm}
 							options={
@@ -67,10 +54,10 @@ export async function Filters() {
 						/>
 
 						<FacetedFilter
-							title='Category'
+							title='Company'
 							value={FilterKeys.category}
 							options={
-								categories?.categories.map(c => ({
+								companies?.companies.map(c => ({
 									label: c.name,
 									value: c.slug,
 								})) ?? []
@@ -78,9 +65,9 @@ export async function Filters() {
 						/>
 					</Suspense>
 
-					<AccordionItem value={FilterKeys.averageRating}>
+					<AccordionItem value={FilterKeys.price}>
 						<AccordionTrigger className='typography-M14'>
-							Ratings
+							Rating
 						</AccordionTrigger>
 						<AccordionContent className='space-y-2'>
 							<Suspense>

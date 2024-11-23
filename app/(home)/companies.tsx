@@ -1,12 +1,12 @@
 import Link from 'next/link';
 import parse from 'html-react-parser';
-import { getPopularCompaniens } from 'apis/server/company';
+
 import BuildingPlaceholder from 'assets/icons/building-placeholder';
 import { Avatar, AvatarFallback, AvatarImage } from 'components/ui/avatar';
-import { RatingStars } from 'components/ui/rating-stars';
+import { getPopularCompanies } from 'apis/server/company';
 
 export default async function Companies() {
-	const { companies } = await getPopularCompaniens();
+	const { companies } = await getPopularCompanies();
 	return (
 		<div className='container py-10'>
 			<h3 className='mb-6 flex flex-col items-center text-center text-green-800 typography-B18 media-md:flex-row media-md:gap-4'>

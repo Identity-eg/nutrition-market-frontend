@@ -16,6 +16,18 @@ export const getCompanies = async (): Promise<TGetCompaniesReturn> => {
 	return data;
 };
 
+export const getPopularCompanies = async (props?: {
+	limit: number;
+}): Promise<TGetCompaniesReturn> => {
+	const data = await request({
+		url: `/companies/popular`,
+		method: 'GET',
+		query: { limit: props?.limit },
+	});
+
+	return data;
+};
+
 export const getSingleCompany = async ({
 	slug,
 }: {
