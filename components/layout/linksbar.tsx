@@ -1,6 +1,3 @@
-'use client';
-
-import { navLinks } from 'constants/navLinks';
 import { cn } from 'lib/utils';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
@@ -15,15 +12,25 @@ import {
 	NavigationMenuViewport,
 	navigationMenuTriggerStyle,
 } from 'components/ui/navigation-menu';
+import { getTopSellingCategories } from 'apis/server/category';
 
-export function Linksbar() {
-	const pathname = usePathname();
+export async function Linksbar() {
+	const data = await getTopSellingCategories({ limit: 7 });
+	const popularCategories = data.categories.map(cat => ({
+		label: cat.category.name,
+		to: `/categories/${cat.category.slug}`,
+	}));
+	const mainLinks = [
+		{ label: 'Home', to: '/' },
+		{ label: 'Offers', to: '/shop' },
+	];
+
 	return (
 		<div className='hidden border-b border-gray-50 media-md:block'>
 			<div className='container flex items-center'>
-				<NavigationMenu>
+				{/* <NavigationMenu>
 					<NavigationMenuList>
-						{navLinks.map(link => {
+						{mainLinks.concat(popularCategories).map(link => {
 							if (link.children) {
 								return (
 									<NavigationMenuItem key={link.label}>
@@ -59,18 +66,17 @@ export function Linksbar() {
 							}
 						})}
 					</NavigationMenuList>
-				</NavigationMenu>
-				{/* {navLinks.map(link => (
+				</NavigationMenu> */}
+				{mainLinks.concat(popularCategories).map(link => (
 					<Link
-						key={link.id}
-						href={link.path}
+						key={link.label}
+						href={link.to}
 						className={cn(
-							'px-4 py-4 transition-all typography-M14 hover:text-[#bc6c25]',
-							pathname === link.path && 'text-[#bc6c25]'
+							'px-4 py-4 transition-all typography-M14 hover:text-[#bc6c25]'
 						)}>
 						{link.label}
 					</Link>
-				))} */}
+				))}
 			</div>
 		</div>
 	);

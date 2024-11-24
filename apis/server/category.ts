@@ -17,7 +17,7 @@ export const getCategories = async (): Promise<TGetCategoriesReturn> => {
 	return data;
 };
 
-export const getTopSellingCategory = async (props?: {
+export const getTopSellingCategories = async (props?: {
 	limit: number;
 }): Promise<TGetTopSellingCategoriesReturn> => {
 	const data = await request({

@@ -1,4 +1,4 @@
-import { getTopSellingCategory } from 'apis/server/category';
+import { getTopSellingCategories } from 'apis/server/category';
 import React from 'react';
 import CarouselWrapper from './carousel-wrapper';
 import { CarouselContent, CarouselItem } from 'components/ui/carousel';
@@ -27,7 +27,7 @@ const iconMapper = {
 };
 
 export default async function Categories() {
-	const data = await getTopSellingCategory({ limit: 7 });
+	const data = await getTopSellingCategories({ limit: 7 });
 
 	return (
 		<div className='container py-10'>

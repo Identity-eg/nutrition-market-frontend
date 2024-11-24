@@ -1,13 +1,13 @@
 import Link from 'next/link';
 import { useQuery } from '@tanstack/react-query';
-import { getTopSellingCategory } from 'apis/server/category';
+import { getTopSellingCategories } from 'apis/server/category';
 import { Button } from 'components/ui/button';
 import { Skeleton } from 'components/ui/skeleton';
 
 export function TrendingCategory() {
 	const { data, isPending } = useQuery({
 		queryKey: ['top-selling-catgeories'],
-		queryFn: () => getTopSellingCategory({ limit: 8 }),
+		queryFn: () => getTopSellingCategories({ limit: 8 }),
 		placeholderData: previousData => previousData,
 	});
 

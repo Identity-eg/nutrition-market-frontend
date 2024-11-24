@@ -9,7 +9,7 @@ import { ProductsLoading } from 'features/products/components/products-loading';
 import { getSingleCategory } from 'apis/server/category';
 import type { TSearchParams } from 'types/searchparams';
 
-export default async function CompanyPage(props: {
+export default async function CategoryPage(props: {
 	params: Promise<{ [key: string]: string }>;
 	searchParams: Promise<TSearchParams>;
 }) {
@@ -38,7 +38,7 @@ export default async function CompanyPage(props: {
 							<BuildingPlaceholder size={64} />
 						</AvatarFallback>
 					</Avatar> */}
-					<div className='media-md:mt-10 [&>p]:leading-normal [&>p]:typography-R14'>
+					<div className='media-md:mt-10 [&>p]:leading-normal [&>p]:text-gray-200 [&>p]:typography-R14'>
 						<div className='mb-1 capitalize text-black typography-B28'>
 							{category.name}
 						</div>

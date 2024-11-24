@@ -38,7 +38,7 @@ export default async function CompanyPage(props: {
 							<BuildingPlaceholder size={64} />
 						</AvatarFallback>
 					</Avatar>
-					<div className='media-md:mt-10 [&>p]:leading-normal [&>p]:typography-R14'>
+					<div className='media-md:mt-10 [&>p]:leading-normal [&>p]:text-gray-200 [&>p]:typography-R14'>
 						<div className='mb-1 capitalize text-black typography-B28'>
 							{company.name}
 						</div>
