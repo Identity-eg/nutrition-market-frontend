@@ -11,6 +11,7 @@ import {
 } from 'components/ui/drawer';
 import CheckoutCartItem from '../../../app/checkout/checkout-cart-item';
 import { TCart } from 'features/cart/types/cart';
+import { Input } from 'components/ui/input';
 
 export function CheckoutSummaryMobile({
 	cart,
@@ -59,6 +60,7 @@ export function CheckoutSummaryMobile({
 							<span>0 EGP</span>
 						</div>
 					</div>
+
 					<div className='mb-4 flex items-center justify-between text-green-light-700 typography-SB18'>
 						<p className='text-green-800'>Total Price</p>
 						{convertToReadableNumber(cart.totalPrice)} EGP

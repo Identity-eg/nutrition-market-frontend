@@ -3,7 +3,7 @@ import { BeanOffIcon, DnaOffIcon, WheatOffIcon } from 'lucide-react';
 
 export function Allergen() {
 	return (
-		<div className='border-b border-gray-50 pb-10'>
+		<div>
 			<p className='mb-4 typography-B16'>Allergen notice</p>
 			<div className='flex gap-2 text-green-500 media-md:gap-4'>
 				<div className='flex flex-col items-center justify-center'>

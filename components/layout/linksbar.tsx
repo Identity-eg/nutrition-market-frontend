@@ -32,11 +32,16 @@ export function Linksbar() {
 										<NavigationMenuContent className='grid grid-cols-2 gap-4 p-4'>
 											{link.children?.map(child => {
 												return (
-													<NavigationMenuLink
+													<Link
+														key={child.label}
 														href={child.to}
-														key={child.label}>
-														{child.label}
-													</NavigationMenuLink>
+														legacyBehavior
+														passHref>
+														<NavigationMenuLink
+															className={navigationMenuTriggerStyle()}>
+															{child.label}
+														</NavigationMenuLink>
+													</Link>
 												);
 											})}
 										</NavigationMenuContent>

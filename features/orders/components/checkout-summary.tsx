@@ -4,6 +4,8 @@ import { Card } from 'components/ui/card';
 import CheckoutCartItem from 'app/checkout/checkout-cart-item';
 import { PlaceOrderBtn } from 'features/orders/components/place-order-btn';
 import { TCart } from 'features/cart/types/cart';
+import { Input } from 'components/ui/input';
+import { TicketIcon } from 'lucide-react';
 
 export function CheckoutSummary({
 	cart,
@@ -47,6 +49,10 @@ export function CheckoutSummary({
 					<p>Shipping Fee</p>
 					<span>0 EGP</span>
 				</div>
+			</div>
+			<div className='relative'>
+				<TicketIcon className='absolute left-2 top-2' />
+				<Input size='sm' />
 			</div>
 			<div className='mb-4 flex items-center justify-between text-green-light-700 typography-SB18'>
 				<p className='text-green-800'>Total Price</p>

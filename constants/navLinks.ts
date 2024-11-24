@@ -1,5 +1,4 @@
 import {
-	LogOutIcon,
 	MessageCircleQuestionIcon,
 	SendToBackIcon,
 	UserRoundPenIcon,

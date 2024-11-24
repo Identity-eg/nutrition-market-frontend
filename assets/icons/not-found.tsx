@@ -15,23 +15,9 @@ export default function NotFoundIcon() {
 				strokeLinecap='round'
 				strokeLinejoin='round'
 			/>
-			{/* <path
-				d='M78.1532 9.99999L61.0088 11.0381'
-				stroke='#FFBA40'
-				strokeWidth='2.5'
-				strokeLinecap='round'
-				strokeLinejoin='round'
-			/>
-			<path
-				d='M37.1534 118.178L19.9912 118.86'
-				stroke='#FFBA40'
-				strokeWidth='2.5'
-				strokeLinecap='round'
-				strokeLinejoin='round'
-			/> */}
 			<path
 				d='M79.2727 18L103 37.0667L78.5537 60.5333L16 62V20.9333L79.2727 18Z'
-				fill='#1E4C2F'
+				fill='white'
 				stroke='#1E4C2F'
 				strokeWidth='2.5'
 				strokeLinecap='round'
@@ -47,7 +33,7 @@ export default function NotFoundIcon() {
 			/>
 			<path
 				d='M76 35.5148C71.6615 35.0207 62.2615 35.9596 59.3692 43.6684C55.7538 53.3045 63.7076 54.0458 65.1538 51.0809C66.6 48.1159 72.3848 31.0675 57.9232 27.3613C43.4616 23.6551 39.1231 49.5984 42.7385 53.3046C46.3539 57.0108 55.0309 45.1509 47.077 35.5148C40.7139 27.806 32.3744 41.1976 29 48.8571'
-				stroke='#36C196'
+				stroke='#FFBA40'
 				strokeWidth='2.5'
 				strokeLinecap='round'
 				strokeLinejoin='round'
