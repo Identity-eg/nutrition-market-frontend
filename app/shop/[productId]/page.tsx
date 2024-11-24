@@ -65,9 +65,6 @@ export default async function ProductPage(props: {
 			<div className='flex flex-col justify-center gap-4 self-baseline border-r border-gray-50 pr-6'>
 				<ProductImages images={variant.images} />
 				<Allergen />
-				<OtherIngredients
-					otherIngredients={product.nutritionFacts.otherIngredients}
-				/>
 			</div>
 
 			<div className='p-6'>
@@ -203,12 +200,9 @@ export default async function ProductPage(props: {
 				</div>
 
 				<Allergen />
+				<Separator className='mt-4' />
 
 				<ProductAccordions product={product} />
-
-				<OtherIngredients
-					otherIngredients={product.nutritionFacts.otherIngredients}
-				/>
 			</div>
 		</div>
 	);

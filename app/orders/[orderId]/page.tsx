@@ -24,14 +24,21 @@ import { cn, convertToReadableNumber } from 'lib/utils';
 import type { TOrder, TOrderItem } from 'features/orders/types/order';
 import { Separator } from 'components/ui/separator';
 import { Button } from 'components/ui/button';
+import { CancelOrderButton } from 'features/orders/components/cancel-order-button';
 
 const orderLabel = {
 	true: { label: 'Paid', color: 'bg-green-light-500' },
 	false: { label: 'Unpaid', color: 'bg-orange-500' },
-	canceled: { label: 'Canceled', color: 'bg-red-500' },
+	cancelled: { label: 'Cancelled', color: 'bg-red-500' },
 };
-function OrderLabel({ isPaid, status }: { isPaid: boolean; status?: string }) {
-	const isCancelled = status === ORDER_STATUS.canceled;
+function OrderLabel({
+	isPaid,
+	status,
+}: {
+	isPaid: boolean;
+	status?: TOrderStatus;
+}) {
+	const isCancelled = status === ORDER_STATUS.cancelled;
 	const orderState = ((isCancelled && status) ||
 		String(isPaid)) as keyof typeof orderLabel;
 
@@ -48,48 +55,34 @@ function OrderLabel({ isPaid, status }: { isPaid: boolean; status?: string }) {
 function OrderDetails({
 	itemsNumber,
 	createdAt,
-	deliveredAt,
-	canceledAt,
+	updatedAt,
 }: {
 	itemsNumber: number;
 	createdAt: string;
-	deliveredAt?: string;
-	canceledAt?: string;
+	updatedAt?: string;
 }) {
 	const formattedCreatedAtDate = dayjs(createdAt).format('MMMM D, YYYY');
-	const formattedDeliveredAtDate = dayjs(deliveredAt).format('MMMM D, YYYY');
-	const formattedCanceledAtDate = dayjs(canceledAt).format('MMMM D, YYYY');
+	const formattedUpdatedAtDate = dayjs(updatedAt).format('MMMM D, YYYY');
 
 	const orderDetails = {
-		item: { text: itemsNumber },
-		'order date': { text: formattedCreatedAtDate },
-		...(deliveredAt && {
-			'delivered at': {
-				text: formattedDeliveredAtDate,
-				icon: (
-					<CheckCheckIcon
-						size={20}
-						className='text-green-light-700'
-					/>
-				),
+		item: { label: 'Item', text: itemsNumber },
+		orderDate: { label: 'Order date', text: formattedCreatedAtDate },
+		...(updatedAt && {
+			updatedAt: {
+				label: `Updated at`,
+				text: formattedUpdatedAtDate,
 			},
 		}),
-		...(canceledAt && { 'canceled at': { text: formattedCanceledAtDate } }),
 	};
 
-	return (
-		<>
-			{Object.entries(orderDetails).map(([key, value]) => (
-				<p
-					key={key}
-					className='flex items-center gap-2 typography-R14'>
-					{'icon' in value && value.icon}
-					<span className='capitalize text-gray-200'>{key}:</span>
-					{value.text}
-				</p>
-			))}
-		</>
-	);
+	return Object.entries(orderDetails).map(([key, value]) => (
+		<p
+			key={key}
+			className='flex items-center gap-2 typography-R14'>
+			<span className='capitalize text-gray-200'>{value.label}:</span>
+			{value.text}
+		</p>
+	));
 }
 
 function OrderItem({ amount, totalProductPrice, variant }: TOrderItem) {
@@ -219,7 +212,7 @@ export function OrderTracker({ status }: { status: TOrderStatus }) {
 			},
 			icon: <TruckIcon className='flex-shrink-0' />,
 		},
-		canceled: undefined,
+		cancelled: undefined,
 	};
 
 	return (
@@ -299,7 +292,11 @@ export default async function Order(props: {
 						<OrderDetails
 							itemsNumber={orderItemsNumber}
 							createdAt={order.createdAt}
-							deliveredAt={order.deliveredAt}
+							updatedAt={
+								order.status === ORDER_STATUS.processing
+									? undefined
+									: order.updatedAt
+							}
 						/>
 					</div>
 
@@ -314,7 +311,7 @@ export default async function Order(props: {
 				</Card>
 
 				<div className='max-w-[380px]'>
-					{order.status !== ORDER_STATUS.canceled && (
+					{order.status !== ORDER_STATUS.cancelled && (
 						<OrderTracker status={order.status} />
 					)}
 					<OrderSummary order={order} />
@@ -326,10 +323,7 @@ export default async function Order(props: {
 								Please note that you can only cancel your order if it is in
 								processing state
 							</div>
-							<Button className='mt-auto flex w-full items-center gap-1 border border-orange-300 bg-orange-40 text-orange-600 hover:bg-orange-300 hover:text-white'>
-								<XIcon size={20} />
-								Cancel order
-							</Button>
+							<CancelOrderButton orderId={order._id} />
 						</div>
 					)}
 				</div>
