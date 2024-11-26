@@ -1,4 +1,3 @@
-import Image from 'next/image';
 import { CartItem } from 'features/cart/components/cart-item';
 import { CartSummary } from 'features/cart/components/cart-summary';
 import { getCart } from 'features/cart/api/cart';
@@ -42,8 +41,7 @@ export default async function Cart() {
 
 					<CartSummary
 						isCartEmpty={isCartEmpty}
-						totalPrice={cart?.totalPrice}
-						items={cart?.items}
+						cart={cart}
 					/>
 				</div>
 			</div>

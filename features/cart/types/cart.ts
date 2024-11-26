@@ -1,3 +1,4 @@
+import { TCompany } from 'features/products/types/company';
 import type { TImage } from 'features/products/types/image';
 import type { TVariant } from 'features/products/types/product';
 
@@ -14,6 +15,14 @@ export type TCartItem = {
 	variant: TVariant;
 	amount: number;
 	totalProductPrice: number;
+	totalProductPriceAfterCoupon?: number;
+};
+
+export type TCoupon = {
+	_id: string;
+	sale: number;
+	code: string;
+	company: TCompany;
 };
 
 export type TCart = {
@@ -22,4 +31,6 @@ export type TCart = {
 	items: TCartItem[];
 	totalItems: number;
 	totalPrice: number;
+	coupon: TCoupon;
+	totalPriceAfterCoupon: number;
 };

@@ -1,11 +1,11 @@
 import { redirect } from 'next/navigation';
-import { convertToReadableNumber } from 'lib/utils';
 import { Card } from 'components/ui/card';
 import CheckoutCartItem from 'app/checkout/checkout-cart-item';
 import { PlaceOrderBtn } from 'features/orders/components/place-order-btn';
 import { TCart } from 'features/cart/types/cart';
-import { TextField } from 'components/ui/text-field';
-import { TicketIcon } from 'lucide-react';
+import { Separator } from 'components/ui/separator';
+import { Coupon } from '../../coupon/components/coupon';
+import { Price } from 'components/utils/price';
 
 export function CheckoutSummary({
 	cart,
@@ -39,38 +39,40 @@ export function CheckoutSummary({
 			<div className='mb-4 border-b border-gray-40 pb-4 text-gray-200 typography-R14'>
 				<div className='mb-2 flex items-center justify-between'>
 					<p>Total Price</p>
-					<span>{convertToReadableNumber(priceBeforeDiscount)} EGP</span>
+					<Price
+						className='mb-0'
+						finalPriceClassName='typography-M14 text-gray-200'
+						price={cart.totalPrice}
+					/>
 				</div>
 				<div className='mb-2 flex items-center justify-between'>
 					<p>Total Price After Discount</p>
-					<span>{convertToReadableNumber(cart.totalPrice)} EGP</span>
+					{cart.totalPriceAfterCoupon ? (
+						<Price
+							className='mb-0'
+							finalPriceClassName='typography-M14 text-gray-200'
+							price={cart.totalPriceAfterCoupon}
+						/>
+					) : (
+						'No discount'
+					)}
 				</div>
 				<div className='mb-2 flex items-center justify-between'>
 					<p>Shipping Fee</p>
-					<span>0 EGP</span>
+					<span>Free</span>
 				</div>
 			</div>
-			<div className='mb-4 rounded-md border border-gray-30 bg-white p-1'>
-				<div className='relative overflow-hidden rounded-md bg-gradient-to-b from-green-light-50 p-3'>
-					<div className='absolute left-0 top-1/2 size-4 -translate-x-1/2 -translate-y-1/2 rounded-full bg-white' />
-					<div className='absolute right-0 top-1/2 size-4 -translate-y-1/2 translate-x-1/2 rounded-full bg-white' />
-					<h4 className='mb-2 text-green-500 typography-SB14'>Discount code</h4>
-					<TextField
-						size='sm'
-						className='bg-white'
-						suffexIcon={
-							<button className='text-green-light-600 typography-SB12'>
-								Apply
-							</button>
-						}
-						prefixIcon={<TicketIcon className='text-green-light-600' />}
-					/>
-				</div>
-			</div>
+			<Coupon cart={cart} />
+
+			<Separator className='mb-4' />
 
 			<div className='mb-4 flex items-center justify-between text-green-light-700 typography-SB18'>
 				<p className='text-green-800'>Total Price</p>
-				{convertToReadableNumber(cart.totalPrice)} EGP
+				<Price
+					finalPriceClassName='typography-SB18'
+					className='mb-0'
+					price={cart.totalPriceAfterCoupon ?? cart.totalPrice}
+				/>
 			</div>
 			<PlaceOrderBtn
 				paymentMethodId={paymentMethodId}

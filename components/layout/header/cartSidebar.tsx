@@ -1,4 +1,3 @@
-import Image from 'next/image';
 import Link from 'next/link';
 import { cn } from 'lib/utils';
 
@@ -20,6 +19,8 @@ import { CartBtn } from 'features/cart/components/cart-btn';
 
 import { getCart } from 'features/cart/api/cart';
 import NoCartFound from 'assets/icons/no-cart-found';
+import { CirclePercentIcon } from 'lucide-react';
+import CouponBanner from 'features/coupon/components/coupon-banner';
 
 export async function CartSidebar({
 	triggerClassName,
@@ -45,6 +46,13 @@ export async function CartSidebar({
 					<SheetTitle>Cart</SheetTitle>
 				</SheetHeader>
 
+				{cart.coupon && (
+					<CouponBanner
+						companyName={cart.coupon.company.name}
+						sale={cart.coupon.sale}
+					/>
+				)}
+
 				{isCartEmpty ? (
 					<div className='mt-8 flex flex-col items-center justify-center gap-y-4'>
 						<NoCartFound />
@@ -68,7 +76,7 @@ export async function CartSidebar({
 						<Separator />
 
 						<SheetFooter className='mt-auto flex-col space-y-4'>
-							<div className='flex justify-between gap-2 text-base font-medium text-gray-900'>
+							<div className='flex items-start justify-between gap-2 text-base font-medium text-gray-900'>
 								<div>
 									<p>Subtotal</p>
 									<p className='mt-0.5 text-gray-300 typography-R14'>
@@ -76,12 +84,13 @@ export async function CartSidebar({
 									</p>
 								</div>
 								<Price
+									className='mb-0 flex-shrink-0'
 									finalPriceClassName='typography-B18'
-									price={cart.totalPrice}
+									price={cart.totalPriceAfterCoupon ?? cart.totalPrice}
 								/>
 							</div>
 
-							<div className='grid grid-cols-2 gap-4'>
+							<div className='grid grid-cols-2 gap-2'>
 								<SheetClose asChild>
 									<Button asChild>
 										<Link href='/checkout'>Checkout</Link>

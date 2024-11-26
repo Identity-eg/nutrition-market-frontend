@@ -2,22 +2,20 @@ import { Pill } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
 
-import { convertToReadableNumber } from 'lib/utils';
-
 import type { TCartItem } from 'features/cart/types/cart';
 import { IncDecBtn } from 'features/cart/components/inc-dec-btn';
 
 import { DeleteCartItemBtn } from 'features/cart/components/delete-cart-item-btn';
+import { Price } from 'components/utils/price';
 
 export function CartItem({
 	amount,
 	product,
 	_id,
 	totalProductPrice,
+	totalProductPriceAfterCoupon,
 	variant,
 }: TCartItem) {
-	const totalPrice = convertToReadableNumber(totalProductPrice);
-
 	return (
 		<li
 			key={_id}
@@ -41,7 +39,7 @@ export function CartItem({
 			<div className='flex w-full flex-col justify-between gap-4'>
 				<h3 className='flex justify-between gap-4'>
 					<Link
-						href={`/shop/${product._id}?variant=${variant._id}`}
+						href={`/shop/${product}?variant=${variant._id}`}
 						className='mb-2 line-clamp-2 text-green-700 typography-SB16'>
 						{variant.name}
 					</Link>
@@ -49,10 +47,14 @@ export function CartItem({
 						{variant.unitCount} <Pill size={16} />
 					</span>
 				</h3>
-				<div className='flex justify-between'>
-					<span className='text-green-light-700 typography-SB18'>
-						{totalPrice} EGP
-					</span>
+				<div className='flex items-end justify-between'>
+					<Price
+						className='mb-0'
+						finalPriceClassName='typography-M18 text-gray-300 '
+						previousPriceClassName='typography-R14 text-gray-200'
+						price={totalProductPrice}
+						priceAfterDiscount={totalProductPriceAfterCoupon}
+					/>
 					<IncDecBtn
 						amount={amount}
 						itemId={_id}

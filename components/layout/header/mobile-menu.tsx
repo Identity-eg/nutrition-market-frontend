@@ -4,7 +4,6 @@ import {
 	Sheet,
 	SheetClose,
 	SheetContent,
-	SheetFooter,
 	SheetHeader,
 	SheetTitle,
 	SheetTrigger,
@@ -15,12 +14,12 @@ import {
 	AccordionItem,
 	AccordionTrigger,
 } from 'components/ui/accordion';
-import { loggedinLinks, navLinks } from 'constants/navLinks';
+import { loggedinLinks } from 'constants/navLinks';
 import { Separator } from 'components/ui/separator';
 import { LogoutButton } from 'features/auth/components/logout-button';
 import type { TUser } from 'features/auth/types/user';
 
-function MobileNavLink({ link }: { link: (typeof navLinks)[number] }) {
+function MobileNavLink({ link }) {
 	if (link.children) {
 		return (
 			<Accordion
@@ -80,14 +79,14 @@ export function MobileMenu({ user }: { user?: TUser }) {
 				</SheetHeader>
 
 				<ul>
-					{navLinks.map(link => {
+					{/* {navLinks.map(link => {
 						return (
 							<MobileNavLink
 								key={link.label}
 								link={link}
 							/>
 						);
-					})}
+					})} */}
 				</ul>
 
 				<Separator className='bg-gray-40' />

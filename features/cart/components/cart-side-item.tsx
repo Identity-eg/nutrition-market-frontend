@@ -1,6 +1,5 @@
 import Link from 'next/link';
 import Image from 'next/image';
-import { convertToReadableNumber } from 'lib/utils';
 
 import { SheetClose } from 'components/ui/sheet';
 
@@ -8,16 +7,17 @@ import { DeleteCartItemBtn } from 'features/cart/components/delete-cart-item-btn
 import { IncDecBtn } from 'features/cart/components/inc-dec-btn';
 
 import type { TCartItem } from 'features/cart/types/cart';
+import { Price } from 'components/utils/price';
+import { TicketIcon } from 'lucide-react';
 
 export function CartSideItem({
 	amount,
 	product,
 	_id,
 	totalProductPrice,
+	totalProductPriceAfterCoupon,
 	variant,
 }: TCartItem) {
-	const totalPrice = convertToReadableNumber(totalProductPrice);
-
 	return (
 		<li
 			key={_id}
@@ -26,7 +26,6 @@ export function CartSideItem({
 				<div className='relative aspect-square h-auto w-full flex-shrink-0 rounded-md bg-gray-30'>
 					<Image
 						src={variant.images[0]?.url}
-						///
 						width={70}
 						height={70}
 						alt={variant.name}
@@ -41,16 +40,28 @@ export function CartSideItem({
 			</div>
 
 			<div className='flex w-full flex-col justify-between'>
-				<h3>
+				<h3 className='flex justify-between'>
 					<SheetClose asChild>
 						<Link
-							href={`/shop/${product._id}?variant=${variant._id}`}
-							className='line-clamp-2 text-green-700 typography-M16'>
+							href={`/shop/${product}?variant=${variant._id}`}
+							className='line-clamp-2 inline-block text-green-700 typography-M16'>
 							{variant.name}
 						</Link>
 					</SheetClose>
+					{totalProductPriceAfterCoupon && (
+						<div className='flex aspect-square size-6 items-center justify-center rounded-full bg-green-light-600'>
+							<TicketIcon
+								size={16}
+								className='text-white'
+							/>
+						</div>
+					)}
 				</h3>
-				<span className='self-end'>{totalPrice} EGP</span>
+				<Price
+					finalPriceClassName='typography-M16 text-gray-400'
+					className='ml-auto'
+					price={totalProductPriceAfterCoupon ?? totalProductPrice}
+				/>
 			</div>
 		</li>
 	);
