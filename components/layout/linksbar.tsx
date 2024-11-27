@@ -15,7 +15,7 @@ import {
 import { getTopSellingCategories } from 'apis/server/category';
 
 export async function Linksbar() {
-	const data = await getTopSellingCategories({ limit: 7 });
+	const data = await getTopSellingCategories({ limit: 5 });
 	const popularCategories = data.categories.map(cat => ({
 		label: cat.category.name,
 		to: `/categories/${cat.category.slug}`,
@@ -23,6 +23,8 @@ export async function Linksbar() {
 	const mainLinks = [
 		{ label: 'Home', to: '/' },
 		{ label: 'Offers', to: '/shop' },
+		{ label: 'Best Selling', to: '/shop?sort=-sold' },
+		{ label: 'Best Customer Rating', to: '/shop?sort=-averageRating' },
 	];
 
 	return (
