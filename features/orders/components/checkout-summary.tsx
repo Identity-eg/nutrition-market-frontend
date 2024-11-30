@@ -17,10 +17,6 @@ export function CheckoutSummary({
 	addressId: string;
 }) {
 	if (cart?.items.length === 0) redirect('/');
-	const priceBeforeDiscount = cart.items.reduce((acc, item) => {
-		acc += item.variant.price * item.amount;
-		return acc;
-	}, 0);
 	return (
 		<Card className='hidden max-w-[380px] flex-1 flex-col justify-between self-start p-6 media-md:flex'>
 			<h1 className='mb-4 border-b border-gray-40 pb-4 capitalize text-gray-800 typography-SB20'>

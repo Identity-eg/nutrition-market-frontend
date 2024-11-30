@@ -59,8 +59,10 @@ export function CartSideItem({
 				</h3>
 				<Price
 					finalPriceClassName='typography-M16 text-gray-400'
+					previousPriceClassName='typography-R14 text-gray-400'
 					className='ml-auto'
-					price={totalProductPriceAfterCoupon ?? totalProductPrice}
+					price={totalProductPrice}
+					priceAfterDiscount={totalProductPriceAfterCoupon}
 				/>
 			</div>
 		</li>

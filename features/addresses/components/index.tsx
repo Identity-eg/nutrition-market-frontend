@@ -30,15 +30,15 @@ export default function ShippingAddress({
 	const closeForm = () => setIsInFormMode(false);
 
 	return (
-		<Card className='p-6'>
-			<div className='flex justify-between typography-SB20'>
+		<Card>
+			<div className='flex justify-between border-b border-gray-40 p-6 typography-SB20'>
 				Shipping Address
 				{!isInFormMode && (
 					<Button
 						onClick={openForm}
 						aria-label='Add new address'
-						variant='primary'
-						className='size-8 rounded-full'
+						variant='secondary-gray'
+						className='size-8'
 						size='icon'>
 						<Plus size={16} />
 					</Button>

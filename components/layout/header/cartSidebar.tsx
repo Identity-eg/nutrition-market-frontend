@@ -19,7 +19,6 @@ import { CartBtn } from 'features/cart/components/cart-btn';
 
 import { getCart } from 'features/cart/api/cart';
 import NoCartFound from 'assets/icons/no-cart-found';
-import { CirclePercentIcon } from 'lucide-react';
 import CouponBanner from 'features/coupon/components/coupon-banner';
 
 export async function CartSidebar({
@@ -46,12 +45,7 @@ export async function CartSidebar({
 					<SheetTitle>Cart</SheetTitle>
 				</SheetHeader>
 
-				{cart.coupon && (
-					<CouponBanner
-						companyName={cart.coupon.company.name}
-						sale={cart.coupon.sale}
-					/>
-				)}
+				{!!cart.coupons?.length && <CouponBanner coupons={cart.coupons} />}
 
 				{isCartEmpty ? (
 					<div className='mt-8 flex flex-col items-center justify-center gap-y-4'>

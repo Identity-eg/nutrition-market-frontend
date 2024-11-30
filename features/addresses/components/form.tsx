@@ -142,7 +142,7 @@ export function AddressForm({
 	return (
 		<form
 			onSubmit={form.handleSubmit(onSubmit)}
-			className='space-y-8 pt-6'>
+			className='space-y-8 p-6'>
 			<Form {...form}>
 				<div className='flex w-full gap-2 media-md:gap-4'>
 					<FormField

@@ -9,8 +9,8 @@ import type { TGovernorate } from 'features/addresses/types/egypt';
 import type { TAddress } from 'features/addresses/types/address';
 import type { TCart } from 'features/cart/types/cart';
 import { PlaceOrderBtn } from 'features/orders/components/place-order-btn';
-import { convertToReadableNumber } from 'lib/utils';
 import { CheckoutSummaryMobile } from 'features/orders/components/checkout-summary-mobile';
+import { Price } from 'components/utils/price';
 
 export default function Container({
 	cart,
@@ -47,9 +47,11 @@ export default function Container({
 			<div className='fixed inset-x-0 bottom-0 flex w-full items-center justify-between border-t border-gray-40 bg-white p-6 shadow-2xl media-md:hidden'>
 				<span className='flex flex-col typography-B16'>
 					Total price
-					<span className='text-green-500 typography-M16'>
-						{convertToReadableNumber(cart.totalPrice)} EGP
-					</span>
+					<Price
+						finalPriceClassName='typography-SB18'
+						className='mb-0'
+						price={cart.totalPriceAfterCoupon ?? cart.totalPrice}
+					/>
 				</span>
 				<div className='flex gap-2'>
 					<CheckoutSummaryMobile

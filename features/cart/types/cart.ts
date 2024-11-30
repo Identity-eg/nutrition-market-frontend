@@ -31,6 +31,6 @@ export type TCart = {
 	items: TCartItem[];
 	totalItems: number;
 	totalPrice: number;
-	coupon: TCoupon;
+	coupons: TCoupon[];
 	totalPriceAfterCoupon: number;
 };

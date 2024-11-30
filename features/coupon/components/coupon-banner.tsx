@@ -1,14 +1,18 @@
+import { TCart } from 'features/cart/types/cart';
 import { cn } from 'lib/utils';
 
 export default function CouponBanner({
-	sale,
-	companyName,
+	coupons,
 	className,
 }: {
-	sale: number;
-	companyName: string;
+	coupons: TCart['coupons'];
 	className?: string;
 }) {
+	const sales = coupons.map(c => c.sale).join(', ');
+	const companyNames = coupons.map(c => c.company.name).join(', ');
+
+	const isMoreThanCoupon = coupons.length > 1;
+
 	return (
 		<div
 			className={cn(
@@ -16,9 +20,10 @@ export default function CouponBanner({
 				className
 			)}>
 			<p>
-				You have got <span className='typography-B14'>{sale}%</span> discount on
-				all products from <span className='typography-B14'>{companyName}</span>{' '}
-				in your cart!
+				You have got <span className='typography-B14'>{sales}%</span> discount
+				on all products from{' '}
+				<span className='typography-B14'>{companyNames}</span> in your cart
+				{isMoreThanCoupon ? ' respectively' : ''}!
 			</p>
 		</div>
 	);

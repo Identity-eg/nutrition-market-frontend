@@ -14,6 +14,14 @@ const applyCouponSchema = z.object({
 		message: 'Coupon Code is required',
 	}),
 });
+const removeCouponFromCartSchema = z.object({
+	cartId: z.string().min(1, {
+		message: 'Cart id is required',
+	}),
+	couponId: z.string().min(1, {
+		message: 'Coupon Code is required',
+	}),
+});
 
 export const applyCoupon = actionClient.schema(applyCouponSchema).action(
 	async ({ parsedInput: { cartId, couponCode } }) => {
@@ -28,3 +36,19 @@ export const applyCoupon = actionClient.schema(applyCouponSchema).action(
 		onSuccess: () => revalidateTag(TTags.cart),
 	}
 );
+
+export const removeCouponFromCart = actionClient
+	.schema(removeCouponFromCartSchema)
+	.action(
+		async ({ parsedInput: { cartId, couponId } }) => {
+			const data = await request({
+				url: `/coupons/remove-coupon`,
+				method: 'POST',
+				body: { cartId, couponId },
+			});
+			return data;
+		},
+		{
+			onSuccess: () => revalidateTag(TTags.cart),
+		}
+	);
