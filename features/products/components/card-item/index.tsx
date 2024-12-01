@@ -12,11 +12,12 @@ export const CardItem = ({
 	variants,
 	company,
 	averageRating,
+	slug,
 	_id,
 }: TProduct) => {
 	const primaryImage = variants.images[0];
 
-	const variantPath = `/shop/${_id}?variant=${variants._id}`;
+	const variantPath = `/shop/${slug}?variant=${variants._id}`;
 
 	return (
 		<div className='group relative flex flex-col rounded-md border border-gray-50 p-2 media-sm:p-4'>

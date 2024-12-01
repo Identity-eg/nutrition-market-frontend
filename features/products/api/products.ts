@@ -67,6 +67,18 @@ export const getSingleProduct = async ({
 	return product;
 };
 
+export const getSingleProductBySlug = async ({
+	slug,
+}: {
+	slug: string | undefined;
+}): Promise<TProductWithMultipleVariants> => {
+	const { product } = await request({
+		url: `/products/slug/${slug}`,
+		method: 'GET',
+	});
+	return product;
+};
+
 export const geProductReviews = async ({
 	productId,
 }: {

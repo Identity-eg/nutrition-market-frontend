@@ -6,6 +6,8 @@ type PartialOrId<T, K extends keyof T> = Partial<T> | T[K];
 
 export type TProduct = {
 	_id: string;
+	name: string;
+	slug: string;
 	description: string;
 	directionOfUse: string;
 	warnings: string;

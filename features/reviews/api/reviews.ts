@@ -4,7 +4,12 @@ import { request } from 'apis/request';
 import { revalidatePath } from 'next/cache';
 import type { TReview } from 'features/reviews/types/review';
 
-type TGetReviewsReturn = { reviews: TReview[]; count: number };
+type TGetReviewsReturn = {
+	reviews: TReview[];
+	totalCount: number;
+	currentPage: number;
+	lastPage: number;
+};
 
 export const getReviews = async ({
 	productId,
