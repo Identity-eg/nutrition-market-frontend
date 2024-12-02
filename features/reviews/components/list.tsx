@@ -13,9 +13,9 @@ export async function ReviewsList({
 	productId: TProduct['_id'];
 }) {
 	const user = await getMe();
-	const { reviews, count } = await getReviews({ productId });
+	const { reviews, totalCount } = await getReviews({ productId });
 
-	if (!count) {
+	if (!totalCount) {
 		return (
 			<div className='flex h-full flex-col items-center justify-center gap-4'>
 				<Image

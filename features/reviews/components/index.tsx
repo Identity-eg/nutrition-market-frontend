@@ -21,7 +21,7 @@ export default async function Reviews({
 }) {
 	const ratingPrecentage = (averageRating / 5) * 100;
 
-	const { reviews, count } = await getReviews({ productId });
+	const { reviews, totalCount } = await getReviews({ productId });
 	const user = await getMe();
 
 	const allRating = reviews?.map(el => el.rating);
@@ -49,8 +49,8 @@ export default async function Reviews({
 						</CircleProgress>
 						<div className='flex flex-col gap-2'>
 							<RatingStars averageRating={averageRating} />
-							{count ? (
-								<p className='typography-R14'>From {count} reviews</p>
+							{totalCount ? (
+								<p className='typography-R14'>From {totalCount} reviews</p>
 							) : (
 								<p className='typography-R14'>No reviews</p>
 							)}

@@ -43,8 +43,8 @@ export function CartSideItem({
 				<h3 className='flex justify-between'>
 					<SheetClose asChild>
 						<Link
-							href={`/shop/${product}?variant=${variant._id}`}
-							className='line-clamp-2 inline-block text-green-700 typography-M16'>
+							href={`/shop/${product.slug}?variant=${variant._id}`}
+							className='line-clamp-2 text-green-700 typography-M16'>
 							{variant.name}
 						</Link>
 					</SheetClose>

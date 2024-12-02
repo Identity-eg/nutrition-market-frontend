@@ -9,11 +9,10 @@ import { Price } from 'components/utils/price';
 import { Button } from 'components/ui/button';
 import { Separator } from 'components/ui/separator';
 
-import { getSingleProduct } from 'features/products/api/products';
+import { getSingleProductBySlug } from 'features/products/api/products';
 
 import { ProductImages } from 'features/products/components/product-images';
 import { Allergen } from 'features/products/components/allergen';
-import { OtherIngredients } from 'features/products/components/other-ingredients';
 
 import ActionBtns from 'features/products/components/action-btns';
 import SimilarProducts from 'features/products/components/similar-products';
@@ -28,14 +27,14 @@ import { Circle } from 'lucide-react';
 import { ProductsLoading } from 'features/products/components/products-loading';
 
 export async function generateMetadata(props: {
-	params: Promise<{ productId: string }>;
+	params: Promise<{ slug: string }>;
 	searchParams: Promise<TSearchParams>;
 }): Promise<Metadata> {
 	const searchParams = await props.searchParams;
 	const params = await props.params;
-	const { productId } = params;
+	const { slug } = params;
 
-	const product = await getSingleProduct({ productId });
+	const product = await getSingleProductBySlug({ slug });
 	const variant =
 		product.variants.find(v => v._id.toString() === searchParams.variantId) ??
 		product.variants[0];
@@ -48,13 +47,13 @@ export async function generateMetadata(props: {
 
 export default async function ProductPage(props: {
 	searchParams: Promise<TSearchParams>;
-	params: Promise<{ productId: string }>;
+	params: Promise<{ slug: string }>;
 }) {
 	const params = await props.params;
 	const searchParams = await props.searchParams;
 	const variantId: string = searchParams.variant;
 
-	const product = await getSingleProduct({ productId: params.productId });
+	const product = await getSingleProductBySlug({ slug: params.slug });
 
 	const variant =
 		product.variants.find(v => v._id.toString() === variantId) ??
@@ -222,14 +221,14 @@ export default async function ProductPage(props: {
 						<ProductsLoading number={5} />
 					</div>
 				}>
-				<SimilarProducts productId={params.productId} />
+				<SimilarProducts productId={product._id} />
 			</Suspense>
 
 			<Separator className='mb-6 mt-20' />
 
 			<Suspense fallback='Loading'>
 				<Reviews
-					productId={params.productId}
+					productId={product._id}
 					averageRating={product.averageRating}
 				/>
 			</Suspense>
