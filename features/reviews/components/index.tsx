@@ -7,8 +7,8 @@ import { RatingStars } from 'components/ui/rating-stars';
 import { AddForm } from 'features/reviews/components/forms/add-form';
 import { ReviewsList } from 'features/reviews/components/list';
 
-import { getReviews } from 'features/reviews/api/reviews';
-import { getMe } from 'features/auth/api/user';
+import { getReviews } from 'features/reviews/apis/reviews';
+import { getMe } from 'features/auth/apis/user';
 
 import type { TProduct } from 'features/products/types/product';
 

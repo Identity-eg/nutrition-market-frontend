@@ -13,7 +13,7 @@ import {
 } from 'lucide-react';
 import dayjs from 'dayjs';
 
-import { getSingleOrder } from 'features/orders/api/orders';
+import { getSingleOrder } from 'features/orders/apis/orders';
 import { Card } from 'components/ui/card';
 import {
 	ORDER_STATUS,

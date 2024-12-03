@@ -18,7 +18,7 @@ import { Price } from 'components/utils/price';
 import { CartSideItem } from 'features/cart/components/cart-side-item';
 import { CartBtn } from 'features/cart/components/cart-btn';
 
-import { getCart } from 'features/cart/api/cart';
+import { getCart } from 'features/cart/apis/cart';
 import NoCartFound from 'assets/icons/no-cart-found';
 
 export async function CartSidebar({

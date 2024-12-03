@@ -1,4 +1,4 @@
-import { getAllOrders } from 'features/orders/api/orders';
+import { getAllOrders } from 'features/orders/apis/orders';
 import { Button } from 'components/ui/button';
 import { Card } from 'components/ui/card';
 import { ORDER_STATUS } from 'constants/index';

@@ -1,7 +1,7 @@
 'use client';
 
 import { HTMLAttributes, ReactNode } from 'react';
-import { logout } from 'features/auth/api/auth';
+import { logout } from 'features/auth/apis/auth';
 import { useAction } from 'next-safe-action/hooks';
 import { cn } from 'lib/utils';
 

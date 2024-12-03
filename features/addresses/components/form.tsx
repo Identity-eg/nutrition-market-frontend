@@ -26,9 +26,9 @@ import {
 	CommandList,
 } from 'components/ui/command';
 import { useAction } from 'next-safe-action/hooks';
-import { addAddress, updateAddress } from 'features/addresses/api/address';
+import { addAddress, updateAddress } from 'features/addresses/apis/address';
 import { useToast } from 'components/ui/use-toast';
-import { getCities } from 'features/addresses/api/egypt';
+import { getCities } from 'features/addresses/apis/egypt';
 import { getDirtyFields } from 'lib/getDirtyValues';
 
 import type { TGovernorate } from 'features/addresses/types/egypt';

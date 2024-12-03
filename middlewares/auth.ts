@@ -8,7 +8,7 @@ import {
 } from 'constants/auth';
 
 import { getAccessToken } from 'apis/helpers';
-import { refreshAccessTokenFn } from 'features/auth/api/auth';
+import { refreshAccessTokenFn } from 'features/auth/apis/auth';
 
 import { CustomMiddleware } from 'middlewares/chain';
 

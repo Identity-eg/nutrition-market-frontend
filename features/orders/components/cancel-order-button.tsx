@@ -1,9 +1,10 @@
 'use client';
 
-import { Button } from 'components/ui/button';
+import { useState } from 'react';
 import { FrownIcon, Loader2Icon, XIcon } from 'lucide-react';
 import { useAction } from 'next-safe-action/hooks';
-import { cancelOrder } from 'features/orders/api/orders';
+
+import { cancelOrder } from 'features/orders/apis/orders';
 import {
 	Dialog,
 	DialogContent,
@@ -13,8 +14,7 @@ import {
 	DialogTitle,
 	DialogTrigger,
 } from 'components/ui/dialog';
-
-import { useState } from 'react';
+import { Button } from 'components/ui/button';
 import { toast } from 'components/ui/use-toast';
 
 export function CancelOrderButton({ orderId }: { orderId: string }) {
@@ -22,7 +22,7 @@ export function CancelOrderButton({ orderId }: { orderId: string }) {
 	const [cancelReason, setCancelReason] = useState('');
 	const [error, setError] = useState('');
 
-	const { execute, isPending, result } = useAction(cancelOrder, {
+	const { execute, isPending } = useAction(cancelOrder, {
 		onSuccess: async () => {
 			setIsOpen(false);
 		},

@@ -34,7 +34,8 @@ export default async function Categories() {
 			<h3 className='mb-6 flex flex-col items-center text-green-800 typography-B18 media-sm:gap-4 media-md:flex-row'>
 				<span>Featured Category</span>
 				<span className='text-gray-100 typography-R14'>
-					New products with updated stocks.
+					These categories feature top-selling products and trending items that
+					everyone loves.
 				</span>
 			</h3>
 			<CarouselWrapper

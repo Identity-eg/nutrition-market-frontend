@@ -22,7 +22,7 @@ export async function Linksbar() {
 	}));
 	const mainLinks = [
 		{ label: 'Home', to: '/' },
-		{ label: 'Offers', to: '/shop' },
+		{ label: 'Offers', to: '/shop/offers' },
 		{ label: 'New Arrival', to: '/shop?sort=-createdAt' },
 		{ label: 'Best Selling', to: '/shop?sort=-sold' },
 		{ label: 'Best Customer Rating', to: '/shop?sort=-averageRating' },
@@ -80,7 +80,8 @@ export async function Linksbar() {
 						key={link.label}
 						href={link.to}
 						className={cn(
-							'px-4 py-4 transition-all typography-M14 hover:text-[#bc6c25]'
+							'px-4 py-4 transition-all typography-M14 hover:text-[#bc6c25]',
+							{ 'text-[#bc6c25]': link.label === 'Offers' }
 						)}>
 						{link.label}
 					</Link>

@@ -6,7 +6,7 @@ import {
 	logout,
 	register,
 	resetPassword,
-} from 'features/auth/api/auth';
+} from 'features/auth/apis/auth';
 
 // ######################## Login ############################
 export function useLogin() {

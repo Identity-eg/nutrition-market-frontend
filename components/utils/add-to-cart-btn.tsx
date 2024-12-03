@@ -7,7 +7,7 @@ import { Check, Circle, CircleX } from 'lucide-react';
 import { useToast } from 'components/ui/use-toast';
 import { cn } from 'lib/utils';
 import { VariantProps } from 'class-variance-authority';
-import { addItemToCart } from 'features/cart/api/cart';
+import { addItemToCart } from 'features/cart/apis/cart';
 
 export interface ButtonProps
 	extends React.ButtonHTMLAttributes<HTMLButtonElement>,

@@ -9,7 +9,7 @@ import { Price } from 'components/utils/price';
 import { Button } from 'components/ui/button';
 import { Separator } from 'components/ui/separator';
 
-import { getSingleProductBySlug } from 'features/products/api/products';
+import { getSingleProductBySlug } from 'features/products/apis';
 
 import { ProductImages } from 'features/products/components/product-images';
 import { Allergen } from 'features/products/components/allergen';

@@ -1,22 +1,19 @@
-import React, { Suspense } from 'react';
-import qs from 'qs';
-
-import { getProducts, TParams } from 'features/products/apis';
+import QueryString from 'qs';
+import { TSearchParams } from 'types/searchparams';
+import { getOffers, TOffersParams } from './apis';
+import NoResultFound from 'assets/icons/no-result-found';
 import { CardItem } from 'features/products/components/card-item';
+import { Suspense } from 'react';
 import { PaginationContainer } from 'features/products/components/pagination-container';
 
-import type { TSearchParams } from 'types/searchparams';
-import NoResultFound from 'assets/icons/no-result-found';
-
-export async function Products({
+export default async function OffersProducts({
 	searchParams,
 }: {
 	searchParams: TSearchParams;
 }) {
-	const queryParams = qs.parse(searchParams) as TParams;
-	const { products, lastPage, currentPage } = await getProducts(queryParams);
-
-	if (!products.length) {
+	const queryParams = QueryString.parse(searchParams) as TOffersParams;
+	const { offers, lastPage, currentPage } = await getOffers(queryParams);
+	if (!offers.length) {
 		return (
 			<div className='flex flex-col items-center justify-center pt-6'>
 				<NoResultFound />
@@ -30,11 +27,10 @@ export async function Products({
 			</div>
 		);
 	}
-
 	return (
 		<article>
 			<div className='grid grid-cols-2 gap-2 self-baseline overflow-hidden media-sm:grid-cols-[repeat(auto-fill,minmax(200px,1fr))] media-sm:gap-4'>
-				{products.map(product => (
+				{offers.map(product => (
 					<CardItem
 						key={product._id}
 						{...product}
