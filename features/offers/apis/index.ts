@@ -1,12 +1,12 @@
 'use server';
 
 import { request } from 'apis/request';
-import type { TProduct } from 'features/products/types/product';
+import type { TProductWithSingleVariant } from 'features/products/types/product';
 
 type TGetOffersReturn = {
 	currentPage: number;
 	lastPage: number;
-	offers: TProduct[];
+	offers: TProductWithSingleVariant[];
 	totalCount: number;
 };
 

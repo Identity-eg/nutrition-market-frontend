@@ -4,7 +4,7 @@ import type { TDosageForm } from 'features/products/types/dosage-form';
 
 type PartialOrId<T, K extends keyof T> = Partial<T> | T[K];
 
-export type TProduct = {
+type TProduct<VariantType> = {
 	_id: string;
 	name: string;
 	slug: string;
@@ -22,13 +22,11 @@ export type TProduct = {
 	nutritionFacts: TNutritionFacts;
 	company: TCompany;
 	dosageForm: TDosageForm;
-	variants: TVariant;
+	variants: VariantType;
 	category: TCategory[];
 };
-
-export type TProductWithMultipleVariants = {
-	[k in keyof TProduct]: k extends 'variants' ? TVariant[] : TProduct[k];
-};
+export type TProductWithSingleVariant = TProduct<TVariant>;
+export type TProductWithMultipleVariants = TProduct<TVariant[]>;
 
 export type TNutritionFacts = {
 	servingSize: string;

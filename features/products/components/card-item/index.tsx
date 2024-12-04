@@ -6,7 +6,7 @@ import { Price } from 'components/utils/price';
 import { Sale } from 'components/utils/sale';
 import { AddToCartButton } from 'components/utils/add-to-cart-btn';
 
-import type { TProduct } from 'features/products/types/product';
+import type { TProductWithSingleVariant } from 'features/products/types/product';
 
 export const CardItem = ({
 	variants,
@@ -14,7 +14,7 @@ export const CardItem = ({
 	averageRating,
 	slug,
 	_id,
-}: TProduct) => {
+}: TProductWithSingleVariant) => {
 	const primaryImage = variants.images[0];
 
 	const variantPath = `/shop/${slug}?variant=${variants._id}`;

@@ -10,14 +10,14 @@ import { ReviewsList } from 'features/reviews/components/list';
 import { getReviews } from 'features/reviews/apis/reviews';
 import { getMe } from 'features/auth/apis/user';
 
-import type { TProduct } from 'features/products/types/product';
+import type { TProductWithSingleVariant } from 'features/products/types/product';
 
 export default async function Reviews({
 	productId,
 	averageRating,
 }: {
-	productId: TProduct['_id'];
-	averageRating: TProduct['averageRating'];
+	productId: TProductWithSingleVariant['_id'];
+	averageRating: TProductWithSingleVariant['averageRating'];
 }) {
 	const ratingPrecentage = (averageRating / 5) * 100;
 
@@ -26,7 +26,7 @@ export default async function Reviews({
 
 	const allRating = reviews?.map(el => el.rating);
 	const ratingObj = allRating?.reduce(
-		(acc, el) => ((acc[el] = acc[el] + 1 || 1), acc),
+		(acc: { [key: number]: number }, el) => ((acc[el] = acc[el] + 1 || 1), acc),
 		{}
 	);
 
