@@ -7,11 +7,6 @@ import { ACCESS_COOKIE_OPTIONS, REFRESH_COOKIE_OPTIONS } from 'constants/auth';
 import { z } from 'zod';
 import { request } from 'apis/request';
 
-type TLoginResponse = {
-	accessToken: string;
-	refreshToken: string;
-};
-
 type TForgotPasswordResponse = {
 	msg: string;
 };
@@ -52,12 +47,6 @@ export const login = actionClient
 			data.refreshToken,
 			REFRESH_COOKIE_OPTIONS
 		);
-
-		if (data && cookies().get(process.env.CART_ID ?? '')) {
-			await request({
-				url: '/carts/sync',
-			});
-		}
 		cookies().delete(process.env.CART_ID ?? '');
 		return data;
 	});
@@ -96,6 +85,8 @@ export const register = actionClient
 			data.refreshToken,
 			REFRESH_COOKIE_OPTIONS
 		);
+
+		cookies().delete(process.env.CART_ID ?? '');
 		return data;
 	});
 
@@ -148,3 +139,8 @@ export const resetPassword = async ({
 
 	return data;
 };
+
+export const loginWithGoogle = actionClient.action(async () => {
+	const { url } = await request({ url: '/auth/google' });
+	redirect(url);
+});
