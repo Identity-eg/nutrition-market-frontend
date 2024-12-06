@@ -1,6 +1,5 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import noCartFound from 'assets/no-cart-found.svg';
 import { cn } from 'lib/utils';
 
 import { Button } from 'components/ui/button';
@@ -19,7 +18,8 @@ import { Price } from 'components/utils/price';
 import { CartSideItem } from 'features/cart/components/cart-side-item';
 import { CartBtn } from 'features/cart/components/cart-btn';
 
-import { getCart } from 'features/cart/api/cart';
+import { getCart } from 'features/cart/apis/cart';
+import NoCartFound from 'assets/icons/no-cart-found';
 
 export async function CartSidebar({
 	triggerClassName,
@@ -40,21 +40,17 @@ export async function CartSidebar({
 				<CartBtn cart={cart} />
 			</SheetTrigger>
 
-			<SheetContent className={cn('flex flex-col', contentClassName)}>
-				<SheetHeader>
-					<SheetTitle>Shopping Cart</SheetTitle>
+			<SheetContent className={cn('flex w-full flex-col', contentClassName)}>
+				<SheetHeader className='border-b border-gray-50 pb-4'>
+					<SheetTitle>Cart</SheetTitle>
 				</SheetHeader>
 
 				{isCartEmpty ? (
 					<div className='mt-8 flex flex-col items-center justify-center gap-y-4'>
-						<Image
-							src={noCartFound}
-							className='w-1/5'
-							alt='No products found in cart'
-							width={500}
-							height={500}
-						/>
-						<h1 className='text-center text-gray-800'>Your cart is empty</h1>
+						<NoCartFound />
+						<h1 className='text-center text-gray-800 typography-M16'>
+							Your cart is empty
+						</h1>
 					</div>
 				) : (
 					<>

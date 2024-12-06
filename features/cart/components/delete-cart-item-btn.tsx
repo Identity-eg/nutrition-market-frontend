@@ -5,7 +5,7 @@ import { cn } from 'lib/utils';
 import { X } from 'lucide-react';
 import { useAction } from 'next-safe-action/hooks';
 import { LoadingDots } from 'components/utils/loading-dots';
-import { deleteItemFromCart } from 'features/cart/api/cart';
+import { deleteItemFromCart } from 'features/cart/apis/cart';
 
 export interface ButtonProps
 	extends React.ButtonHTMLAttributes<HTMLButtonElement> {

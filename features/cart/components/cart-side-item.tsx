@@ -44,7 +44,7 @@ export function CartSideItem({
 				<h3>
 					<SheetClose asChild>
 						<Link
-							href={`/shop/${product._id}?variant=${variant._id}`}
+							href={`/shop/${product.slug}?variant=${variant._id}`}
 							className='line-clamp-2 text-green-700 typography-M16'>
 							{variant.name}
 						</Link>

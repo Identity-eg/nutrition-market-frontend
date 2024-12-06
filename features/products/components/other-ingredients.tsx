@@ -1,16 +1,16 @@
-import type { TProduct } from 'features/products/types/product';
+import type { TProductWithSingleVariant } from 'features/products/types/product';
 
 export function OtherIngredients({
 	otherIngredients,
 }: {
-	otherIngredients: TProduct['nutritionFacts']['otherIngredients'];
+	otherIngredients: TProductWithSingleVariant['nutritionFacts']['otherIngredients'];
 }) {
 	return (
-		<div>
-			<p className='mb-4 typography-B16'>Other Ingredients</p>
-			<span className='typography-R14'>
+		<p className='flex-shrink-0 typography-B13'>
+			Other Ingredients:{' '}
+			<span className='typography-R13'>
 				{otherIngredients.map(ing => ing.name).join(', ')}
 			</span>
-		</div>
+		</p>
 	);
 }

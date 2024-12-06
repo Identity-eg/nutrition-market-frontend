@@ -8,6 +8,9 @@ import { CheckoutSummary } from 'features/orders/components/checkout-summary';
 import type { TGovernorate } from 'features/addresses/types/egypt';
 import type { TAddress } from 'features/addresses/types/address';
 import type { TCart } from 'features/cart/types/cart';
+import { PlaceOrderBtn } from 'features/orders/components/place-order-btn';
+import { convertToReadableNumber } from 'lib/utils';
+import { CheckoutSummaryMobile } from 'features/orders/components/checkout-summary-mobile';
 
 export default function Container({
 	cart,
@@ -24,21 +27,44 @@ export default function Container({
 	const [paymentMethodId, setPaymentMethodId] = useState('1');
 
 	return (
-		<div className='flex gap-8'>
-			<div className='flex-1 space-y-4 self-start'>
-				<ShippingAddress
-					setAddressId={setAddressId}
-					userEmail={userEmail}
-					governorates={governorates}
-					addresses={addresses}
+		<>
+			<div className='flex gap-8'>
+				<div className='flex-1 space-y-4 self-start'>
+					<ShippingAddress
+						setAddressId={setAddressId}
+						userEmail={userEmail}
+						governorates={governorates}
+						addresses={addresses}
+					/>
+					<PaymentMethod setPaymentMethodId={setPaymentMethodId} />
+				</div>
+				<CheckoutSummary
+					paymentMethodId={paymentMethodId}
+					addressId={addressId}
+					cart={cart}
 				/>
-				<PaymentMethod setPaymentMethodId={setPaymentMethodId} />
 			</div>
-			<CheckoutSummary
-				paymentMethodId={paymentMethodId}
-				addressId={addressId}
-				cart={cart}
-			/>
-		</div>
+			<div className='fixed inset-x-0 bottom-0 flex w-full items-center justify-between border-t border-gray-40 bg-white p-6 shadow-2xl media-md:hidden'>
+				<span className='flex flex-col typography-B16'>
+					Total price
+					<span className='text-green-500 typography-M16'>
+						{convertToReadableNumber(cart.totalPrice)} EGP
+					</span>
+				</span>
+				<div className='flex gap-2'>
+					<CheckoutSummaryMobile
+						paymentMethodId={paymentMethodId}
+						addressId={addressId}
+						cart={cart}
+					/>
+
+					<PlaceOrderBtn
+						paymentMethodId={paymentMethodId}
+						addressId={addressId}
+						cartId={cart._id}
+					/>
+				</div>
+			</div>
+		</>
 	);
 }

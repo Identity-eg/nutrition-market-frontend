@@ -1,3 +1,21 @@
+import Link from 'next/link';
+import NotFoundIcon from 'assets/icons/not-found';
+import { Button } from 'components/ui/button';
+
 export default function NotFound() {
-	return <div>not-found</div>;
+	return (
+		<div className='container flex flex-col items-center justify-center py-32'>
+			<NotFoundIcon />
+			<span className='mb-2 mt-8 text-black typography-SB24'>
+				Page Not Found
+			</span>
+			<p className='mb-4 max-w-[40ch] text-center text-gray-200'>
+				It looks like nothing was found at this location. Maybe try to search
+				for what you are looking for?
+			</p>
+			<Button asChild>
+				<Link href='/'>Go to home</Link>
+			</Button>
+		</div>
+	);
 }

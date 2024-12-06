@@ -1,13 +1,13 @@
+import Link from 'next/link';
 import { useQuery } from '@tanstack/react-query';
-import { getCategories } from 'apis/server/category';
+import { getTopSellingCategories } from 'apis/server/category';
 import { Button } from 'components/ui/button';
 import { Skeleton } from 'components/ui/skeleton';
-import Link from 'next/link';
 
 export function TrendingCategory() {
 	const { data, isPending } = useQuery({
-		queryKey: ['catgeories'],
-		queryFn: () => getCategories(),
+		queryKey: ['top-selling-catgeories'],
+		queryFn: () => getTopSellingCategories({ limit: 8 }),
 		placeholderData: previousData => previousData,
 	});
 
@@ -32,7 +32,9 @@ export function TrendingCategory() {
 							asChild
 							variant='outline'
 							className='rounded-md border border-gray-40 px-4 py-1 text-gray-500'>
-							<Link href={`/shop?category=${cat._id}`}>{cat.name}</Link>
+							<Link href={`/categories/${cat.category.slug}`}>
+								{cat.category.name}
+							</Link>
 						</Button>
 					))}
 				</div>

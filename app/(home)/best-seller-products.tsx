@@ -1,5 +1,5 @@
 import { Button } from 'components/ui/button';
-import { getProducts } from 'features/products/api/products';
+import { getProducts } from 'features/products/apis';
 import { CardItem } from 'features/products/components/card-item';
 import { MoveRightIcon } from 'lucide-react';
 import Link from 'next/link';
@@ -15,14 +15,15 @@ export default async function BestSellerProducts() {
 				<h3 className='mb-6 flex flex-col items-center text-center text-green-800 typography-B18 media-md:flex-row media-md:gap-4'>
 					Best Seller{' '}
 					<span className='text-gray-100 typography-R14'>
-						Do not miss the current offers until the end of month.
+						Shop our top-rated and most-loved products, handpicked by our
+						customers.
 					</span>
 				</h3>
 				<Button
 					className='hidden gap-2 media-md:flex'
 					variant='link'
 					asChild>
-					<Link href='/shop'>
+					<Link href='/shop?sort=-sold'>
 						View All <MoveRightIcon size={16} />
 					</Link>
 				</Button>

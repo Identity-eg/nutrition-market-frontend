@@ -1,16 +1,23 @@
-import { Home, ShoppingCart } from 'lucide-react';
+import {
+	MessageCircleQuestionIcon,
+	SendToBackIcon,
+	UserRoundPenIcon,
+} from 'lucide-react';
 
-export const navLinks = [
+export const loggedinLinks = [
 	{
-		label: 'Home',
-		path: '/',
-		icon: Home,
-		children: [
-			{ label: 'home1', to: '/shop' },
-			{ label: 'home2', to: '/shop' },
-			{ label: 'home3', to: '/shop' },
-			{ label: 'home4', to: '/shop' },
-		],
+		label: 'My Profile',
+		to: '/profile',
+		Icon: UserRoundPenIcon,
 	},
-	{ label: 'Shop', path: '/shop', icon: ShoppingCart },
+	{
+		label: 'My orders',
+		to: '/orders',
+		Icon: SendToBackIcon,
+	},
+	{
+		label: 'Need Help ?',
+		to: '/orders',
+		Icon: MessageCircleQuestionIcon,
+	},
 ];

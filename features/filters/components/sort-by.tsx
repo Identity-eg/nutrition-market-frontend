@@ -16,7 +16,7 @@ export function SortBy() {
 	const facet = searchParams.get('sort') ?? '';
 
 	return (
-		<article className='mb-4 ml-auto flex w-full items-center justify-end gap-4'>
+		<article className='flex items-center gap-4'>
 			<span className={'capitalize text-gray-100 typography-M13'}>
 				sort by :
 			</span>

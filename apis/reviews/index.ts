@@ -4,7 +4,7 @@ import {
 	deleteReview,
 	getSingleReview,
 	updateReview,
-} from 'features/reviews/api/reviews';
+} from 'features/reviews/apis/reviews';
 
 export function useAddReview() {
 	return useMutation({

@@ -3,19 +3,19 @@ import Image from 'next/image';
 import noReviewFound from 'assets/no-review-found.svg';
 
 import { Comment } from 'features/reviews/components/comment';
-import { getReviews } from 'features/reviews/api/reviews';
-import { getMe } from 'features/auth/api/user';
-import type { TProduct } from 'features/products/types/product';
+import { getReviews } from 'features/reviews/apis/reviews';
+import { getMe } from 'features/auth/apis/user';
+import type { TProductWithSingleVariant } from 'features/products/types/product';
 
 export async function ReviewsList({
 	productId,
 }: {
-	productId: TProduct['_id'];
+	productId: TProductWithSingleVariant['_id'];
 }) {
 	const user = await getMe();
-	const { reviews, count } = await getReviews({ productId });
+	const { reviews, totalCount } = await getReviews({ productId });
 
-	if (!count) {
+	if (!totalCount) {
 		return (
 			<div className='flex h-full flex-col items-center justify-center gap-4'>
 				<Image

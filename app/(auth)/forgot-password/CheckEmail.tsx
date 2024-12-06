@@ -1,7 +1,7 @@
 import { useForgotPassword } from 'apis/auth';
+import EmailSentSuccessfully from 'assets/icons/email-sent-successfully';
 import { Button } from 'components/ui/button';
 import { Separator } from 'components/ui/separator';
-import { MailPlusIcon } from 'lucide-react';
 
 export default function CheckEmail({ email }: { email: string }) {
 	const forgotPasswordMutation = useForgotPassword();
@@ -10,14 +10,8 @@ export default function CheckEmail({ email }: { email: string }) {
 	};
 	return (
 		<section className='flex flex-col items-center gap-y-4'>
-			<div className='flex h-32 w-32 items-center justify-center rounded-full bg-gray-30'>
-				<MailPlusIcon
-					strokeWidth={1}
-					size={70}
-					className='text-green-500'
-				/>
-			</div>
-			<div className='flex flex-col items-center'>
+			<EmailSentSuccessfully />
+			<div className='mt-6 flex flex-col items-center'>
 				<h1 className='capitalize typography-B20'>check your email</h1>
 				<p className='text-gray-90 typography-L14'>
 					we send a password reset link to

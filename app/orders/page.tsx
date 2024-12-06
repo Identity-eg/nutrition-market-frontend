@@ -1,4 +1,4 @@
-import { getAllOrders } from 'features/orders/api/orders';
+import { getAllOrders } from 'features/orders/apis/orders';
 import { Button } from 'components/ui/button';
 import { Card } from 'components/ui/card';
 import { ORDER_STATUS } from 'constants/index';
@@ -54,8 +54,9 @@ export default async function Orders() {
 					'MMMM D, YYYY'
 				);
 				const orderDetails = {
-					'order date': { text: formattedCreatedAtDate },
-					'total price': {
+					orderDate: { label: 'Order date', text: formattedCreatedAtDate },
+					totalPrice: {
+						label: 'Total price',
 						text: `${convertToReadableNumber(order.total)} EGP`,
 					},
 				};
@@ -80,7 +81,7 @@ export default async function Orders() {
 										'bg-[#1640d60f] text-[#1640D6]':
 											order.status === ORDER_STATUS.shipped,
 										'border border-red-100 bg-red-50 text-red-500':
-											order.status === ORDER_STATUS.canceled,
+											order.status === ORDER_STATUS.cancelled,
 									}
 								)}>
 								{order.status}
@@ -107,7 +108,7 @@ export default async function Orders() {
 										key={key}
 										className='flex flex-col'>
 										<span className='capitalize text-gray-200 typography-R14'>
-											{key}
+											{value.label}
 										</span>
 										{value.text}
 									</p>

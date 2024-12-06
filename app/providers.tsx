@@ -37,8 +37,8 @@ function makeQueryClient() {
 					} else {
 						toast({
 							variant: 'destructive',
-							title: error.response?.data.msg,
-							description: 'Uh oh! Something went wrong.',
+							title: 'Uh oh! Something went wrong.',
+							description: error.response?.data.msg || error.message,
 						});
 					}
 				},

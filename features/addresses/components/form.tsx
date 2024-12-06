@@ -26,9 +26,9 @@ import {
 	CommandList,
 } from 'components/ui/command';
 import { useAction } from 'next-safe-action/hooks';
-import { addAddress, updateAddress } from 'features/addresses/api/address';
+import { addAddress, updateAddress } from 'features/addresses/apis/address';
 import { useToast } from 'components/ui/use-toast';
-import { getCities } from 'features/addresses/api/egypt';
+import { getCities } from 'features/addresses/apis/egypt';
 import { getDirtyFields } from 'lib/getDirtyValues';
 
 import type { TGovernorate } from 'features/addresses/types/egypt';
@@ -144,7 +144,7 @@ export function AddressForm({
 			onSubmit={form.handleSubmit(onSubmit)}
 			className='space-y-8 pt-6'>
 			<Form {...form}>
-				<div className='flex w-full gap-4'>
+				<div className='flex w-full gap-2 media-md:gap-4'>
 					<FormField
 						control={form.control}
 						name='firstName'
@@ -188,7 +188,7 @@ export function AddressForm({
 					render={({ field }) => (
 						<FormItem className='flex w-full flex-col'>
 							<FormLabel>Email</FormLabel>
-							<FormControl className='w-[50%]'>
+							<FormControl className='media-md:w-[50%]'>
 								<Input
 									size='sm'
 									variant='outline'
@@ -200,7 +200,7 @@ export function AddressForm({
 						</FormItem>
 					)}
 				/>
-				<div className='flex w-full gap-4'>
+				<div className='flex w-full gap-2 media-md:gap-4'>
 					<FormField
 						control={form.control}
 						name='phone'
@@ -239,7 +239,7 @@ export function AddressForm({
 						)}
 					/>
 				</div>
-				<div className='flex w-3/4 gap-4'>
+				<div className='flex flex-col gap-4 media-md:w-3/4 media-md:flex-row'>
 					<FormField
 						control={form.control}
 						name='governorate'
@@ -420,7 +420,7 @@ export function AddressForm({
 						</FormItem>
 					)}
 				/>
-				<div className='flex gap-4'>
+				<div className='flex gap-2 media-md:gap-4'>
 					<FormField
 						control={form.control}
 						name='buildingNo'
@@ -457,35 +457,38 @@ export function AddressForm({
 					/>
 				</div>
 			</Form>
-			<Button
-				type='submit'
-				className='mr-2'
-				disabled={
-					isAddAddressPending ||
-					isUpdateAddressPending ||
-					!form.formState.isDirty
-				}>
-				{isAddAddressPending || isUpdateAddressPending ? (
-					<>
-						<Loader2 className='mr-2 h-4 w-4 animate-spin' />
-						Please wait
-					</>
-				) : addressToEdit ? (
-					'Edit Address'
-				) : (
-					'Save Address'
-				)}
-			</Button>
-			{isUserHasAddress && (
+			<div className='flex'>
 				<Button
-					onClick={() => {
-						setAddressToEdit(undefined);
-						closeForm();
-					}}
-					variant='secondary-gray'>
-					Cancel
+					type='submit'
+					className='mr-2 w-full media-md:w-auto'
+					disabled={
+						isAddAddressPending ||
+						isUpdateAddressPending ||
+						!form.formState.isDirty
+					}>
+					{isAddAddressPending || isUpdateAddressPending ? (
+						<>
+							<Loader2 className='mr-2 h-4 w-4 animate-spin' />
+							Please wait
+						</>
+					) : addressToEdit ? (
+						'Edit Address'
+					) : (
+						'Save Address'
+					)}
 				</Button>
-			)}
+				{isUserHasAddress && (
+					<Button
+						className='w-full media-md:w-auto'
+						onClick={() => {
+							setAddressToEdit(undefined);
+							closeForm();
+						}}
+						variant='secondary-gray'>
+						Cancel
+					</Button>
+				)}
+			</div>
 		</form>
 	);
 }

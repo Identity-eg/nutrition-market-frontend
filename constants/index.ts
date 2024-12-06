@@ -7,7 +7,7 @@ export const ORDER_STATUS = {
 	processing: 'processing',
 	shipped: 'shipped',
 	delivered: 'delivered',
-	canceled: 'canceled',
+	cancelled: 'cancelled',
 } as const;
 
 export const IMAGES_PATHS = {

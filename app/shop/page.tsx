@@ -3,13 +3,14 @@ import Image from 'next/image';
 
 import adPhoto from 'assets/ad.png';
 
-import { Filters } from 'features/filters/components';
+import { Filters } from 'features/filters';
 import { SortBy } from 'features/filters/components/sort-by';
 
 import { Products } from 'features/products/components';
 import { ProductsLoading } from 'features/products/components/products-loading';
 
 import type { TSearchParams } from 'types/searchparams';
+import { MobileFilter } from 'features/filters/components/mobile-filter';
 
 export default async function ShopPage(props: {
 	searchParams: Promise<TSearchParams>;
@@ -41,9 +42,12 @@ export default async function ShopPage(props: {
 						/>
 					</div>
 				</div>
-				<Suspense>
-					<SortBy />
-				</Suspense>
+				<div className='mb-4 flex items-center justify-between'>
+					<MobileFilter />
+					<Suspense>
+						<SortBy />
+					</Suspense>
+				</div>
 				<Suspense
 					key={JSON.stringify(searchParams)}
 					fallback={<ProductsLoading />}>

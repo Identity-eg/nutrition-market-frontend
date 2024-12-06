@@ -2,6 +2,7 @@ import { cn } from 'lib/utils';
 
 export function LoadingDots({
 	className,
+	color,
 	...props
 }: React.HTMLAttributes<HTMLDivElement>) {
 	return (
@@ -12,7 +13,10 @@ export function LoadingDots({
 				return (
 					<div
 						key={i}
-						className='size-1 animate-bounce rounded-full bg-gray-400'
+						className={cn(
+							'size-1 animate-bounce rounded-full bg-gray-400',
+							color
+						)}
 						style={{
 							transitionDelay: `${i * 100}ms`,
 							animationDelay: `${i * 100}ms`,

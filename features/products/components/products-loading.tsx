@@ -1,13 +1,9 @@
 import { CardItemSkeleton } from 'features/products/components/card-item/skeleton';
 
-export function ProductsLoading() {
+export function ProductsLoading({ number = 6 }: { number?: number }) {
 	return (
-		<div
-			className='col-span-2 grid gap-4 self-baseline media-md:col-span-1'
-			style={{
-				gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))',
-			}}>
-			{[0, 0, 0, 0, 0, 0].map((el, i) => (
+		<div className='grid grid-cols-2 gap-2 self-baseline overflow-hidden media-sm:grid-cols-[repeat(auto-fill,minmax(200px,1fr))] media-sm:gap-4'>
+			{Array.from({ length: number }).map((el, i) => (
 				<CardItemSkeleton key={i} />
 			))}
 		</div>

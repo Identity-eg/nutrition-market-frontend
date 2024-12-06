@@ -23,11 +23,9 @@ const Footer = () => {
 	return (
 		<footer className='bg-[#344e41] py-12'>
 			<div className='container text-white'>
-				<div className='my-8 grid grid-cols-2 gap-x-4 gap-y-10 border-b border-green-400 py-12 text-sm media-md:grid-cols-4'>
+				<div className='mb-4 grid grid-cols-2 gap-x-4 gap-y-10 border-b border-green-400 pb-8 text-sm media-md:grid-cols-4'>
 					<div className='flex flex-col gap-4 media-md:gap-6'>
-						<h2 className='text-base font-semibold text-[#a3b18a]'>
-							Let&apos;s Talk
-						</h2>
+						<h2 className='text-[#a3b18a] typography-M16'>Let&apos;s Talk</h2>
 						<div>
 							<div className='mb-2 flex items-center gap-2'>
 								<Headset
@@ -35,7 +33,7 @@ const Footer = () => {
 									className='text-[#dda15e]'
 								/>
 								<div>
-									<h3 className='text-neutral-400'>Phone number</h3>
+									<h3>Phone number</h3>
 									<h2 className='font-semibold text-[#dda15e] media-md:text-lg'>
 										+02 0111 598 2393
 									</h2>
@@ -45,9 +43,7 @@ const Footer = () => {
 					</div>
 
 					<div className='flex flex-col gap-4 media-md:gap-6'>
-						<h2 className='text-base font-semibold text-[#a3b18a]'>
-							My Account
-						</h2>
+						<h2 className='text-[#a3b18a] typography-M16'>My Account</h2>
 						<ul className='flex flex-col gap-2'>
 							{myAccount.map((item, i) => (
 								<li
@@ -59,9 +55,7 @@ const Footer = () => {
 						</ul>
 					</div>
 					<div className='flex flex-col gap-4 media-md:gap-6'>
-						<h2 className='text-base font-semibold text-[#a3b18a]'>
-							My Quick Links
-						</h2>
+						<h2 className='text-[#a3b18a] typography-M16'>My Quick Links</h2>
 						<ul className='flex flex-col gap-2'>
 							{quickLinks.map((item, i) => (
 								<li
@@ -73,9 +67,7 @@ const Footer = () => {
 						</ul>
 					</div>
 					<div className='flex flex-col gap-4 media-md:gap-6'>
-						<h2 className='text-base font-semibold text-[#a3b18a]'>
-							My Customer Care
-						</h2>
+						<h2 className='text-[#a3b18a] typography-M16'>My Customer Care</h2>
 						<ul className='flex flex-col gap-2'>
 							{customerCare.map((item, i) => (
 								<li

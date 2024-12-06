@@ -28,7 +28,7 @@ export default function CheckoutCartItem({
 			</div>
 
 			<div className='flex w-full flex-col justify-between text-gray-400 typography-M14'>
-				<h3 className='line-clamp-2'>{variant.name}</h3>
+				<h3 className='line-clamp-2 text-left'>{variant.name}</h3>
 				<span className='self-end'>{totalPrice} EGP</span>
 			</div>
 		</li>

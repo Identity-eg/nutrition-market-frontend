@@ -3,7 +3,7 @@ import { Pencil } from 'lucide-react';
 
 import { Button } from 'components/ui/button';
 import { Label } from 'components/ui/label';
-import { RadioGroup, RadioGroupItem } from 'components/ui/radio';
+import { RadioGroup, RadioGroupItem } from 'components/ui/radio-group';
 
 import type { TAddress } from 'features/addresses/types/address';
 
@@ -28,7 +28,7 @@ export function Addresses({
 				{addresses.map(addr => (
 					<li
 						key={addr._id}
-						className='flex items-center justify-between py-6 last:pb-0'>
+						className='flex flex-col justify-between gap-4 py-6 last:pb-0 media-md:flex-row media-md:items-center'>
 						<div className='flex items-center gap-4'>
 							<RadioGroupItem
 								value={addr._id}
@@ -38,7 +38,7 @@ export function Addresses({
 								<h4 className='mb-3 typography-SB16'>
 									{`${addr.firstName} ${addr.lastName}`}
 								</h4>
-								<p className='mb-2 text-gray-400 typography-R14'>
+								<p className='mb-2 leading-6 text-gray-400 typography-R14'>
 									{`${addr.street} - ${addr.city} - ${addr.governorate}`}
 								</p>
 								<p className='text-gray-400 typography-R14'>{addr.phone}</p>

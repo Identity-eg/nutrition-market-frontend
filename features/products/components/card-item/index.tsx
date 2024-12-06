@@ -6,30 +6,33 @@ import { Price } from 'components/utils/price';
 import { Sale } from 'components/utils/sale';
 import { AddToCartButton } from 'components/utils/add-to-cart-btn';
 
-import type { TProduct } from 'features/products/types/product';
+import type { TProductWithSingleVariant } from 'features/products/types/product';
 
 export const CardItem = ({
 	variants,
 	company,
 	averageRating,
+	slug,
 	_id,
-}: TProduct) => {
-	const defaltVariant = variants[0];
-	const primaryImage = defaltVariant.images?.[0];
+}: TProductWithSingleVariant) => {
+	const primaryImage = variants.images[0];
+
+	const variantPath = `/shop/${slug}?variant=${variants._id}`;
+
 	return (
 		<div className='group relative flex flex-col rounded-md border border-gray-50 p-2 media-sm:p-4'>
 			<Sale
-				price={defaltVariant.price}
-				priceAfterDiscount={defaltVariant.priceAfterDiscount}
+				price={variants.price}
+				priceAfterDiscount={variants.priceAfterDiscount}
 			/>
 
 			<div className='relative mb-2 flex w-full items-center justify-center self-center overflow-hidden rounded-sm'>
 				<Link
-					href={`/shop/${_id}`}
+					href={variantPath}
 					className='flex aspect-square h-40 w-40 items-center justify-center media-md:h-48 media-md:w-48'>
 					<Image
 						className='aspect-square w-full cursor-pointer object-contain p-2 mix-blend-multiply transition duration-300 group-hover:scale-110'
-						src={primaryImage?.url}
+						src={primaryImage.url}
 						alt={primaryImage.name}
 						width={200}
 						height={200}
@@ -40,10 +43,10 @@ export const CardItem = ({
 					className={
 						'pointer-events-none invisible absolute w-[70%] -translate-y-4 opacity-0 transition-all duration-300 group-hover:pointer-events-auto group-hover:visible group-hover:opacity-100'
 					}
-					quantity={defaltVariant.quantity}
+					quantity={variants.quantity}
 					productId={_id}
-					companyId={company._id}
-					variantId={defaltVariant._id}
+					companyId={company._id ?? company}
+					variantId={variants._id}
 				/>
 
 				<div className='absolute -right-10 top-0 flex flex-col gap-2 text-gray-500 transition-all duration-300 group-hover:right-0'>
@@ -91,8 +94,8 @@ export const CardItem = ({
 
 			<Link
 				className='mb-4 line-clamp-2 underline-offset-1 typography-M14 hover:underline'
-				href={`/shop/${_id}`}>
-				{defaltVariant.name}
+				href={variantPath}>
+				{variants.name}
 			</Link>
 
 			<div className='mt-auto'>
@@ -100,8 +103,8 @@ export const CardItem = ({
 					className='mb-0'
 					previousPriceClassName='typography-R14 text-gray-200'
 					finalPriceClassName='typography-SB18'
-					price={defaltVariant.price}
-					priceAfterDiscount={defaltVariant.priceAfterDiscount}
+					price={variants.price}
+					priceAfterDiscount={variants.priceAfterDiscount}
 				/>
 			</div>
 

@@ -7,26 +7,26 @@ import { RatingStars } from 'components/ui/rating-stars';
 import { AddForm } from 'features/reviews/components/forms/add-form';
 import { ReviewsList } from 'features/reviews/components/list';
 
-import { getReviews } from 'features/reviews/api/reviews';
-import { getMe } from 'features/auth/api/user';
+import { getReviews } from 'features/reviews/apis/reviews';
+import { getMe } from 'features/auth/apis/user';
 
-import type { TProduct } from 'features/products/types/product';
+import type { TProductWithSingleVariant } from 'features/products/types/product';
 
 export default async function Reviews({
 	productId,
 	averageRating,
 }: {
-	productId: TProduct['_id'];
-	averageRating: TProduct['averageRating'];
+	productId: TProductWithSingleVariant['_id'];
+	averageRating: TProductWithSingleVariant['averageRating'];
 }) {
 	const ratingPrecentage = (averageRating / 5) * 100;
 
-	const { reviews, count } = await getReviews({ productId });
+	const { reviews, totalCount } = await getReviews({ productId });
 	const user = await getMe();
 
 	const allRating = reviews?.map(el => el.rating);
 	const ratingObj = allRating?.reduce(
-		(acc, el) => ((acc[el] = acc[el] + 1 || 1), acc),
+		(acc: { [key: number]: number }, el) => ((acc[el] = acc[el] + 1 || 1), acc),
 		{}
 	);
 
@@ -49,8 +49,8 @@ export default async function Reviews({
 						</CircleProgress>
 						<div className='flex flex-col gap-2'>
 							<RatingStars averageRating={averageRating} />
-							{count ? (
-								<p className='typography-R14'>From {count} reviews</p>
+							{totalCount ? (
+								<p className='typography-R14'>From {totalCount} reviews</p>
 							) : (
 								<p className='typography-R14'>No reviews</p>
 							)}

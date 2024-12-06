@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { LoaderCircleIcon, SearchIcon, XIcon } from 'lucide-react';
 
-import { getProducts } from 'features/products/api/products';
+import { getProducts } from 'features/products/apis';
 
 import { Input } from 'components/ui/input';
 import { Separator } from 'components/ui/separator';
@@ -65,7 +65,8 @@ export function Searchbar({ className }: { className?: string }) {
 					ref={ref}
 					className={cn(
 						'absolute inset-x-0 z-20 rounded-md bg-white p-2',
-						isSearchListOpen && 'sticky top-4'
+						isSearchListOpen &&
+							'sticky top-4 max-media-md:top-28 max-media-md:-translate-y-24'
 					)}>
 					<div className='relative'>
 						<Input

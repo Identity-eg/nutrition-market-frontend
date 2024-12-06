@@ -1,6 +1,6 @@
 import { useMutation } from '@tanstack/react-query';
 
-import { forgotPassword, resetPassword } from 'features/auth/api/auth';
+import { forgotPassword, resetPassword } from 'features/auth/apis/auth';
 
 // ##################### FORGOT PASSWORD #######################
 export function useForgotPassword() {
