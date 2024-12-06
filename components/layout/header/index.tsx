@@ -28,7 +28,7 @@ export default async function HeaderLayout() {
 					width={200}
 				/>
 			</Link>
-			<Suspense>
+			<Suspense fallback='Loading...'>
 				<Searchbar />
 			</Suspense>
 			<div className='text-black-3 flex items-center gap-6'>
@@ -70,7 +70,9 @@ export default async function HeaderLayout() {
 
 				<CartSidebar />
 			</div>
-			<Searchbar className='mx-auto mb-2 w-[95%]' />
+			<Suspense fallback='Loading...'>
+				<Searchbar className='mx-auto mb-2 w-[95%]' />
+			</Suspense>
 		</div>
 	);
 

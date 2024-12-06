@@ -51,14 +51,16 @@ export async function MobileFilter() {
 			<SheetContent className='flex w-full flex-col'>
 				<SheetHeader className='flex-row items-center justify-between border-b border-gray-40 pb-4'>
 					<SheetTitle>Filters</SheetTitle>
-					<ClearAllBtn />
+					<Suspense fallback='Loading...'>
+						<ClearAllBtn />
+					</Suspense>
 				</SheetHeader>
 				<article className='h-full overflow-y-auto overflow-x-hidden border-gray-50 media-md:hidden'>
 					<Accordion
 						defaultValue={Object.keys(FilterKeys)}
 						type='multiple'
 						className='w-full [&>*:last-child]:border-0'>
-						<Suspense>
+						<Suspense fallback='Loading...'>
 							<FacetedFilter
 								title='Company'
 								value={FilterKeys.company}
@@ -97,7 +99,7 @@ export async function MobileFilter() {
 								Ratings
 							</AccordionTrigger>
 							<AccordionContent className='space-y-2'>
-								<Suspense>
+								<Suspense fallback='Loading...'>
 									<RatingStarsFacet />
 								</Suspense>
 							</AccordionContent>
@@ -108,7 +110,7 @@ export async function MobileFilter() {
 								Price
 							</AccordionTrigger>
 							<AccordionContent className='space-y-2'>
-								<Suspense>
+								<Suspense fallback='Loading...'>
 									<InputsFacet />
 								</Suspense>
 							</AccordionContent>

@@ -44,7 +44,7 @@ export default async function ShopPage(props: {
 				</div>
 				<div className='mb-4 flex items-center justify-between'>
 					<MobileFilter />
-					<Suspense>
+					<Suspense fallback='Loading...'>
 						<SortBy />
 					</Suspense>
 				</div>

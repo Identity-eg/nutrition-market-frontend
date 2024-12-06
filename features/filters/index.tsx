@@ -44,7 +44,7 @@ export async function Filters() {
 					defaultValue={Object.keys(FilterKeys)}
 					type='multiple'
 					className='w-full [&>*:last-child]:border-0'>
-					<Suspense>
+					<Suspense fallback='Loading...'>
 						<FacetedFilter
 							title='Company'
 							value={FilterKeys.company}
@@ -83,7 +83,7 @@ export async function Filters() {
 							Ratings
 						</AccordionTrigger>
 						<AccordionContent className='space-y-2'>
-							<Suspense>
+							<Suspense fallback='Loading...'>
 								<RatingStarsFacet />
 							</Suspense>
 						</AccordionContent>
@@ -93,7 +93,7 @@ export async function Filters() {
 							Price
 						</AccordionTrigger>
 						<AccordionContent className='space-y-2'>
-							<Suspense>
+							<Suspense fallback='Loading...'>
 								<InputsFacet />
 							</Suspense>
 						</AccordionContent>

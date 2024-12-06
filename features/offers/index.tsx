@@ -38,7 +38,7 @@ export default async function OffersProducts({
 				))}
 			</div>
 			{lastPage > 1 && (
-				<Suspense>
+				<Suspense fallback='Loading...'>
 					<PaginationContainer
 						lastPage={lastPage}
 						currentPage={currentPage}
