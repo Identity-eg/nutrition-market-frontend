@@ -117,7 +117,7 @@ export async function MobileFilter() {
 						</AccordionItem>
 					</Accordion>
 				</article>
-				<SheetClose>
+				<SheetClose asChild>
 					<Button className='w-full'>See results</Button>
 				</SheetClose>
 			</SheetContent>

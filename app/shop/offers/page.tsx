@@ -5,13 +5,16 @@ import { ProductsLoading } from 'features/products/components/products-loading';
 import adPhoto from 'assets/ad.png';
 import { TSearchParams } from 'types/searchparams';
 import OffersProducts from 'features/offers';
+import { Filters } from 'features/filters';
+import { MobileFilter } from 'features/filters/components/mobile-filter';
 
 export default async function OffersPage(props: {
 	searchParams: Promise<TSearchParams>;
 }) {
 	const searchParams = await props.searchParams;
 	return (
-		<section className='container h-full py-12'>
+		<section className='container h-full grid-cols-[278px,1fr] gap-x-6 gap-y-8 py-12 media-md:grid'>
+			<Filters />
 			<div>
 				<div className='mb-4 flex min-h-56 flex-col items-center justify-between gap-6 rounded-md bg-[#d9f3fa] p-6 pr-10 media-sm:flex-row'>
 					<div>
@@ -34,6 +37,9 @@ export default async function OffersPage(props: {
 							src={adPhoto}
 						/>
 					</div>
+				</div>
+				<div className='mb-4 flex items-center justify-between'>
+					<MobileFilter />
 				</div>
 				<Suspense fallback={<ProductsLoading />}>
 					<OffersProducts searchParams={searchParams} />
