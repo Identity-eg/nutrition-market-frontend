@@ -7,20 +7,19 @@ import { useAction } from 'next-safe-action/hooks';
 import { LoadingDots } from 'components/utils/loading-dots';
 import { deleteItemFromCart } from 'features/cart/apis/cart';
 
-export interface ButtonProps
-	extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+export type ButtonProps = React.ComponentProps<'button'> & {
 	itemId: string;
-}
+};
 
-export const DeleteCartItemBtn = React.forwardRef<
-	HTMLButtonElement,
-	ButtonProps
->(({ className, itemId, ...props }, ref) => {
+export const DeleteCartItemBtn = ({
+	className,
+	itemId,
+	...props
+}: ButtonProps) => {
 	const { execute: deleteCartItem, isPending } = useAction(deleteItemFromCart);
 	return (
 		<button
 			{...props}
-			ref={ref}
 			onClick={() => {
 				deleteCartItem({ itemId });
 			}}
@@ -31,5 +30,4 @@ export const DeleteCartItemBtn = React.forwardRef<
 			{isPending ? <LoadingDots className='[&>*]:bg-white' /> : <X size={14} />}
 		</button>
 	);
-});
-DeleteCartItemBtn.displayName = 'DeleteCartItemBtn';
+};

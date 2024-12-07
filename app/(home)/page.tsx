@@ -10,6 +10,8 @@ import Companies from './companies';
 import { Suspense } from 'react';
 import BestSellerProducts from './best-seller-products';
 import Categories from './categories';
+import { Skeleton } from 'components/ui/skeleton';
+import { ProductsLoading } from 'features/products/components/products-loading';
 
 const FEATURES = [
 	{
@@ -35,7 +37,26 @@ export default async function HomePage() {
 	return (
 		<section>
 			<Hero />
-			<Suspense fallback='Categories Loading...'>
+			<Suspense
+				fallback={
+					<div className='container py-10'>
+						<h3 className='mb-6 flex flex-col items-center text-green-800 typography-B18 media-sm:gap-4 media-md:flex-row'>
+							<span>Featured Category</span>
+							<span className='text-gray-100 typography-R14'>
+								These categories feature top-selling products and trending items
+								that everyone loves.
+							</span>
+						</h3>
+						<div className='flex gap-4'>
+							{Array.from({ length: 6 }).map((_, i) => (
+								<Skeleton
+									key={i}
+									className='size-[180px] flex-shrink-0 bg-gray-30'
+								/>
+							))}
+						</div>
+					</div>
+				}>
 				<Categories />
 			</Suspense>
 
@@ -59,7 +80,19 @@ export default async function HomePage() {
 					/>
 				</div>
 			</div>
-			<Suspense fallback='Products Loading'>
+			<Suspense
+				fallback={
+					<div className='container py-10'>
+						<h3 className='mb-6 flex flex-col items-center text-center text-green-800 typography-B18 media-md:flex-row media-md:gap-4'>
+							Best Seller{' '}
+							<span className='text-gray-100 typography-R14'>
+								Shop our top-rated and most-loved products, handpicked by our
+								customers.
+							</span>
+						</h3>
+						<ProductsLoading number={5} />
+					</div>
+				}>
 				<BestSellerProducts />
 			</Suspense>
 

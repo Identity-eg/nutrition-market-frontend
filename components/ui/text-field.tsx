@@ -2,14 +2,12 @@
 
 import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from 'lib/utils';
-import { forwardRef, type InputHTMLAttributes, type ReactNode } from 'react';
 
-export interface InputProps
-	extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'size'>,
-		VariantProps<typeof inputVariants> {
-	prefixIcon?: ReactNode;
-	suffexIcon?: ReactNode;
-}
+export type InputProps = Omit<React.ComponentProps<'input'>, 'size'> &
+	VariantProps<typeof inputVariants> & {
+		prefixIcon?: React.ReactNode;
+		suffexIcon?: React.ReactNode;
+	};
 
 const inputVariants = cva(
 	'text-N500 w-full placeholder:text-gray-100 rounded-md border-[1px] px-3 gap-2 outline-none outline-[1.5px] -outline-offset-[1.5px] transition-all placeholder:typography-R14 focus-within:outline-green-300 hover:border-gray-40 focus:outline-green-300 focus-visible:border-green-300 disabled:bg-gray-20 disabled:placeholder:text-gray-50 disabled:border-gray-40 flex truncate ',
@@ -33,30 +31,32 @@ const inputVariants = cva(
 	}
 );
 
-const TextField = forwardRef<HTMLInputElement, InputProps>(
-	({ size, variant, className, prefixIcon, suffexIcon, ...props }, ref) => {
-		return (
-			<div className={cn(inputVariants({ variant, size, className }))}>
-				{prefixIcon && (
-					<div className='flex items-center justify-center text-gray-200'>
-						{prefixIcon}
-					</div>
-				)}
-				<input
-					ref={ref}
-					className='h-full w-full border-none bg-[transparent] outline-none'
-					{...props}
-				/>
-				{suffexIcon && (
-					<div className='flex items-center justify-center text-gray-200'>
-						{suffexIcon}
-					</div>
-				)}
-			</div>
-		);
-	}
-);
-
-TextField.displayName = 'TextField';
+const TextField = ({
+	size,
+	variant,
+	className,
+	prefixIcon,
+	suffexIcon,
+	...props
+}: InputProps) => {
+	return (
+		<div className={cn(inputVariants({ variant, size, className }))}>
+			{prefixIcon && (
+				<div className='flex items-center justify-center text-gray-200'>
+					{prefixIcon}
+				</div>
+			)}
+			<input
+				className='h-full w-full border-none bg-[transparent] outline-none'
+				{...props}
+			/>
+			{suffexIcon && (
+				<div className='flex items-center justify-center text-gray-200'>
+					{suffexIcon}
+				</div>
+			)}
+		</div>
+	);
+};
 
 export { TextField };

@@ -1,17 +1,18 @@
 'use client';
 
 import { cn } from 'lib/utils';
-import { forwardRef, InputHTMLAttributes } from 'react';
 
-const NumericField = forwardRef<
-	HTMLInputElement,
-	InputHTMLAttributes<HTMLInputElement> & {
-		changeHandler?: (numericValue: string) => void;
-	}
->(({ className, changeHandler, ...props }, ref) => {
+type NumericFieldProps = React.ComponentProps<'input'> & {
+	changeHandler?: (numericValue: string) => void;
+};
+
+const NumericField = ({
+	className,
+	changeHandler,
+	...props
+}: NumericFieldProps) => {
 	return (
 		<input
-			ref={ref}
 			onChange={e => {
 				const numericValue = e.target.value.replace(/\D/g, '');
 				const finalValue = +numericValue > 0 ? +numericValue : '';
@@ -26,8 +27,6 @@ const NumericField = forwardRef<
 			{...props}
 		/>
 	);
-});
-
-NumericField.displayName = 'NumericField';
+};
 
 export { NumericField };
