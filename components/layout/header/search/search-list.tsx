@@ -3,12 +3,12 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { TrendingCategory } from './trending-category';
 import { Price } from 'components/utils/price';
-import type { TProduct } from 'features/products/types/product';
+import type { TProductWithSingleVariant } from 'features/products/types/product';
 
 export const SearchList = forwardRef<
 	HTMLUListElement,
 	React.HTMLAttributes<HTMLUListElement> & {
-		products?: TProduct[];
+		products?: TProductWithSingleVariant[];
 		searchValue: string;
 		debouncedValue: string;
 		isPlaceholderData: boolean;
