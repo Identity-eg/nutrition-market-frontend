@@ -28,6 +28,7 @@
 		"@radix-ui/react-slot": "^1.1.0",
 		"@radix-ui/react-toast": "^1.2.1",
 		"@radix-ui/react-tooltip": "^1.1.2",
+		"@sentry/nextjs": "^8.42.0",
 		"@tanstack/react-query": "^5.55.4",
 		"@typescript-eslint/eslint-plugin": "^8.5.0",
 		"@typescript-eslint/parser": "^8.5.0",
