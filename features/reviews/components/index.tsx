@@ -7,7 +7,10 @@ import { RatingStars } from 'components/ui/rating-stars';
 import { AddForm } from 'features/reviews/components/forms/add-form';
 import { ReviewsList } from 'features/reviews/components/list';
 
-import { getReviews } from 'features/reviews/apis/reviews';
+import {
+	getProductReviewsDetails,
+	getReviews,
+} from 'features/reviews/apis/reviews';
 import { getMe } from 'features/auth/apis/user';
 
 import type { TProductWithSingleVariant } from 'features/products/types/product';
@@ -24,11 +27,7 @@ export default async function Reviews({
 	const { reviews, totalCount } = await getReviews({ productId });
 	const user = await getMe();
 
-	const allRating = reviews?.map(el => el.rating);
-	const ratingObj = allRating?.reduce(
-		(acc: { [key: number]: number }, el) => ((acc[el] = acc[el] + 1 || 1), acc),
-		{}
-	);
+	const { ratingCounts } = await getProductReviewsDetails({ productId });
 
 	const hasUserReview = reviews.some(review => review.user._id === user?._id);
 
@@ -52,31 +51,33 @@ export default async function Reviews({
 							{totalCount ? (
 								<p className='typography-R14'>From {totalCount} reviews</p>
 							) : (
-								<p className='typography-R14'>No reviews</p>
+								<p className='typography-R14'>No reviews yet.</p>
 							)}
 						</div>
 					</div>
 
-					<div className='w-[80%]'>
-						{[5, 4, 3, 2, 1].map((el, i) => (
-							<div
-								key={el}
-								className='mb-2 flex items-center gap-4'>
-								<p className='flex items-center gap-2'>
-									{el}
+					<div className='w-10/12 space-y-2'>
+						{Object.entries(ratingCounts).map(([key, val]) => {
+							const num = (val * 100) / (totalCount || 1);
+							const percentage = Math.floor(num) !== num ? num.toFixed(1) : num;
+							return (
+								<div
+									key={key}
+									className='grid grid-cols-[12px_15px_1fr_20px] items-center gap-x-1'>
+									<p>{key}</p>
 									<StarIcon
 										fill='currentColor'
 										className='text-orange-400'
 										size={16}
 									/>
-								</p>
-								<Progress
-									className='h-1 w-52 text-red-500'
-									value={ratingObj[el] * 100 || 0}
-								/>
-								<p>{ratingObj[el] || 0}</p>
-							</div>
-						))}
+									<Progress
+										className='ms-4 h-1 text-red-500'
+										value={+percentage}
+									/>
+									<p className='ms-4 typography-SB13'>{percentage}%</p>
+								</div>
+							);
+						})}
 					</div>
 
 					<AddForm

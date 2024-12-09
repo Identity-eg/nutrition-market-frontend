@@ -26,6 +26,19 @@ export const getReviews = async ({
 
 	return data;
 };
+export const getProductReviewsDetails = async ({
+	productId,
+}: {
+	productId: string;
+}): Promise<{
+	ratingCounts: Record<'1' | '2' | '3' | '4' | '5', number>;
+}> => {
+	const data = await request({
+		url: `/reviews/${productId}/details`,
+	});
+
+	return data;
+};
 
 export const getSingleReview = async ({ reviewId }: { reviewId: string }) => {
 	const data = await request({
@@ -35,10 +48,7 @@ export const getSingleReview = async ({ reviewId }: { reviewId: string }) => {
 	return data;
 };
 
-type TUpdateReviewProps = Pick<TReview, 'comment' | 'title' | 'rating'> & {
-	reviewId: string;
-};
-
+// ################################################
 const addReviewSchema = z.object({
 	productId: z.string().min(1, 'ProductId is required'),
 	rating: z.number().min(1, 'Rating is required').max(5, 'max Rating is 5'),
