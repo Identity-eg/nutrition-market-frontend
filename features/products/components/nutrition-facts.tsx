@@ -1,10 +1,10 @@
-import type { TProduct } from 'features/products/types/product';
+import type { TProductWithSingleVariant } from 'features/products/types/product';
 import { OtherIngredients } from './other-ingredients';
 
 export function NutritionFacts({
 	nutritionFacts,
 }: {
-	nutritionFacts: TProduct['nutritionFacts'];
+	nutritionFacts: TProductWithSingleVariant['nutritionFacts'];
 }) {
 	const mapperName = {
 		amountPerServing: 'Amount Per Serving',

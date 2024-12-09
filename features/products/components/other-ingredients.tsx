@@ -1,9 +1,9 @@
-import type { TProduct } from 'features/products/types/product';
+import type { TProductWithSingleVariant } from 'features/products/types/product';
 
 export function OtherIngredients({
 	otherIngredients,
 }: {
-	otherIngredients: TProduct['nutritionFacts']['otherIngredients'];
+	otherIngredients: TProductWithSingleVariant['nutritionFacts']['otherIngredients'];
 }) {
 	return (
 		<p className='flex-shrink-0 typography-B13'>

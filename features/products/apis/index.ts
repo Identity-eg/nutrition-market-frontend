@@ -2,14 +2,14 @@
 
 import { request } from 'apis/request';
 import type {
-	TProduct,
 	TProductWithMultipleVariants,
+	TProductWithSingleVariant,
 } from 'features/products/types/product';
 
 type TGetProductsReturn = {
 	currentPage: number;
 	lastPage: number;
-	products: TProduct[];
+	products: TProductWithSingleVariant[];
 	totalCount: number;
 };
 

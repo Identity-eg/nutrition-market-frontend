@@ -2,11 +2,11 @@
 
 import { revalidateTag } from 'next/cache';
 import { cookies } from 'next/headers';
+import { flattenValidationErrors } from 'next-safe-action';
 import { z } from 'zod';
 
 import { request } from 'apis/request';
 import { actionClient } from 'apis/action-clients';
-
 import { TTags } from 'types/revalidate-tags';
 import type { TCart } from 'features/cart/types/cart';
 
@@ -27,34 +27,44 @@ const addItemToCartSchema = z.object({
 	amount: z.number(),
 });
 
-export const addItemToCart = actionClient.schema(addItemToCartSchema).action(
-	async ({ parsedInput: { amount = 1, productId, variantId, companyId } }) => {
-		const data = await request({
-			url: '/carts',
-			body: {
-				productId,
-				companyId,
-				amount,
-				...(variantId && { variantId }),
-			},
-			method: 'POST',
-		});
+export const addItemToCart = actionClient
+	.metadata({ actionName: 'add-item-to-cart-action' })
+	.schema(addItemToCartSchema, {
+		// handleValidationErrorsShape: ve => flattenValidationErrors(ve).fieldErrors,
+	})
+	.action(
+		async ({
+			parsedInput: { amount = 1, productId, variantId, companyId },
+		}) => {
+			const data = await request({
+				url: '/carts',
+				body: {
+					productId,
+					companyId,
+					amount,
+					...(variantId && { variantId }),
+				},
+				method: 'POST',
+			});
 
-		if (data?.cartId) {
-			cookies().set(process.env.CART_ID ?? '', data?.cartId);
-		}
+			if (data?.cartId) {
+				cookies().set(process.env.CART_ID ?? '', data?.cartId);
+			}
 
-		return data;
-	},
-	{ onSettled: () => revalidateTag(TTags.cart) }
-);
+			return data;
+		},
+		{ onSettled: () => revalidateTag(TTags.cart) }
+	);
 
 // ##################### DELETE ITEM FROM CART ######################
 const itemOperationSchema = z.object({
 	itemId: z.string().min(1, 'ItemId is required'),
 });
 export const deleteItemFromCart = actionClient
-	.schema(itemOperationSchema)
+	.metadata({ actionName: 'delete-item-from-cart-action' })
+	.schema(itemOperationSchema, {
+		// handleValidationErrorsShape: ve => flattenValidationErrors(ve).fieldErrors,
+	})
 	.action<{ isCartEmpty: boolean; message: string }>(
 		async ({ parsedInput: { itemId } }) => {
 			const data = await request({
@@ -80,7 +90,10 @@ const increaseDecreaseSchema = z.object({
 });
 
 export const increaseItemByOne = actionClient
-	.schema(increaseDecreaseSchema)
+	.metadata({ actionName: 'inc-item-by-one-action' })
+	.schema(increaseDecreaseSchema, {
+		// handleValidationErrorsShape: ve => flattenValidationErrors(ve).fieldErrors,
+	})
 	.action(
 		async ({ parsedInput: { itemId } }) => {
 			const data = await request({
@@ -94,7 +107,10 @@ export const increaseItemByOne = actionClient
 	);
 
 export const decreaseItemByOne = actionClient
-	.schema(increaseDecreaseSchema)
+	.metadata({ actionName: 'dec-item-by-one-action' })
+	.schema(increaseDecreaseSchema, {
+		// handleValidationErrorsShape: ve => flattenValidationErrors(ve).fieldErrors,
+	})
 	.action(
 		async ({ parsedInput: { itemId } }) => {
 			const data = await request({

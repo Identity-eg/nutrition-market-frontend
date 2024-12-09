@@ -5,12 +5,12 @@ import noReviewFound from 'assets/no-review-found.svg';
 import { Comment } from 'features/reviews/components/comment';
 import { getReviews } from 'features/reviews/apis/reviews';
 import { getMe } from 'features/auth/apis/user';
-import type { TProduct } from 'features/products/types/product';
+import type { TProductWithSingleVariant } from 'features/products/types/product';
 
 export async function ReviewsList({
 	productId,
 }: {
-	productId: TProduct['_id'];
+	productId: TProductWithSingleVariant['_id'];
 }) {
 	const user = await getMe();
 	const { reviews, totalCount } = await getReviews({ productId });

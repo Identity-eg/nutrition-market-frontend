@@ -15,7 +15,7 @@ import {
 import { getTopSellingCategories } from 'apis/server/category';
 
 export async function Linksbar() {
-	const data = await getTopSellingCategories({ limit: 2 });
+	const data = await getTopSellingCategories({ limit: 1 });
 	const popularCategories = data.categories.map(cat => ({
 		label: cat.category.name,
 		to: `/categories/${cat.category.slug}`,
@@ -23,6 +23,8 @@ export async function Linksbar() {
 	const mainLinks = [
 		{ label: 'Home', to: '/' },
 		{ label: 'Offers', to: '/shop/offers' },
+		{ label: 'Categories', to: '/categories' },
+		{ label: 'Companies', to: '/companies' },
 		{ label: 'New Arrival', to: '/shop?sort=-createdAt' },
 		{ label: 'Best Selling', to: '/shop?sort=-sold' },
 		{ label: 'Best Customer Rating', to: '/shop?sort=-averageRating' },
@@ -30,7 +32,7 @@ export async function Linksbar() {
 
 	return (
 		<div className='hidden border-b border-gray-50 media-md:block'>
-			<div className='container flex items-center justify-center'>
+			<div className='container flex items-center'>
 				{/* <NavigationMenu>
 					<NavigationMenuList>
 						{mainLinks.concat(popularCategories).map(link => {
