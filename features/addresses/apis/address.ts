@@ -1,7 +1,8 @@
 'use server';
 
-import { z } from 'zod';
 import { revalidateTag } from 'next/cache';
+import { z } from 'zod';
+import { flattenValidationErrors } from 'next-safe-action';
 import { actionClient } from 'apis/action-clients';
 import { request } from 'apis/request';
 import type { TAddress } from 'features/addresses/types/address';
@@ -38,19 +39,24 @@ const addAddressSchema = z.object({
 	floor: z.string().optional(),
 });
 
-export const addAddress = actionClient.schema(addAddressSchema).action(
-	async ({ parsedInput: addressData }) => {
-		const data = await request({
-			url: '/addresses',
-			body: {
-				...addressData,
-			},
-			method: 'POST',
-		});
-		return data;
-	},
-	{ onSettled: async () => revalidateTag(TTags.addresses) }
-);
+export const addAddress = actionClient
+	.metadata({ actionName: 'add-address-action' })
+	.schema(addAddressSchema, {
+		handleValidationErrorsShape: ve => flattenValidationErrors(ve).fieldErrors,
+	})
+	.action(
+		async ({ parsedInput: addressData }) => {
+			const data = await request({
+				url: '/addresses',
+				body: {
+					...addressData,
+				},
+				method: 'POST',
+			});
+			return data;
+		},
+		{ onSettled: async () => revalidateTag(TTags.addresses) }
+	);
 
 const updateAddressSchema = z
 	.object({
@@ -67,16 +73,21 @@ const updateAddressSchema = z
 	})
 	.partial()
 	.extend({ addressId: z.string().min(1, 'Please provide address id') });
-export const updateAddress = actionClient.schema(updateAddressSchema).action(
-	async ({ parsedInput: { addressId, ...addressDate } }) => {
-		const data = await request({
-			url: `/addresses/${addressId}`,
-			body: {
-				...addressDate,
-			},
-			method: 'PATCH',
-		});
-		return data;
-	},
-	{ onSettled: async () => revalidateTag(TTags.addresses) }
-);
+export const updateAddress = actionClient
+	.metadata({ actionName: 'update-address-action' })
+	.schema(updateAddressSchema, {
+		handleValidationErrorsShape: ve => flattenValidationErrors(ve).fieldErrors,
+	})
+	.action(
+		async ({ parsedInput: { addressId, ...addressDate } }) => {
+			const data = await request({
+				url: `/addresses/${addressId}`,
+				body: {
+					...addressDate,
+				},
+				method: 'PATCH',
+			});
+			return data;
+		},
+		{ onSettled: async () => revalidateTag(TTags.addresses) }
+	);

@@ -1,12 +1,12 @@
 'use client';
 
-import { useEffect, useState, useTransition } from 'react';
+import { useEffect } from 'react';
 import Link from 'next/link';
 import { CheckCircle2, LoaderCircle } from 'lucide-react';
 import { useForm } from 'react-hook-form';
+import { useAction } from 'next-safe-action/hooks';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { cn } from 'lib/utils';
 
 import { Button } from 'components/ui/button';
 import {
@@ -22,9 +22,9 @@ import { Textarea } from 'components/ui/textarea';
 import { Separator } from 'components/ui/separator';
 import { RatingField } from 'components/ui/rating-field';
 
-import { useAddReview } from 'apis/reviews';
-
+import { cn } from 'lib/utils';
 import type { TUser } from 'features/auth/types/user';
+import { addReview } from 'features/reviews/apis/reviews';
 
 const reviewSchema = z
 	.object({
@@ -43,9 +43,8 @@ export const AddForm = ({
 	user?: TUser;
 	productId: string;
 }) => {
-	const [isSuccessMsgAllowedToDisplay, setIsSuccessMsgAllowedToDisplay] =
-		useState<boolean>(false);
-	const [isPending, startTransition] = useTransition();
+	const { execute, reset, isPending, hasErrored, hasSucceeded, result } =
+		useAction(addReview);
 
 	const form = useForm<z.infer<typeof reviewSchema>>({
 		resolver: zodResolver(reviewSchema),
@@ -56,27 +55,17 @@ export const AddForm = ({
 	});
 
 	useEffect(() => {
-		if (isSuccessMsgAllowedToDisplay) {
-			setTimeout(() => setIsSuccessMsgAllowedToDisplay(false), 10000);
+		if (hasSucceeded) {
+			setTimeout(() => reset(), 10000);
 		}
-	}, [isSuccessMsgAllowedToDisplay]);
-
-	const addReview = useAddReview();
+	}, [hasSucceeded]);
 
 	const onSubmit = (values: z.infer<typeof reviewSchema>) => {
-		startTransition(() => {
-			addReview.mutate(
-				{
-					productId,
-					...values,
-				},
-				{ onSuccess: async () => setIsSuccessMsgAllowedToDisplay(true) }
-			);
-		});
+		execute({ productId, ...values });
 	};
 
 	if (hasUserReview) {
-		return isSuccessMsgAllowedToDisplay ? (
+		return hasSucceeded ? (
 			<div>
 				<Separator className='mb-4 mt-8' />
 				<span className='flex gap-2 text-green-light-700 typography-M16'>
@@ -121,10 +110,9 @@ export const AddForm = ({
 
 			<form
 				onSubmit={form.handleSubmit(onSubmit)}
-				className={cn(
-					'space-y-6',
-					addReview.isError && `pointer-events-none opacity-50`
-				)}>
+				className={cn('space-y-6', {
+					'pointer-events-none opacity-50': hasErrored,
+				})}>
 				<Form {...form}>
 					<FormField
 						control={form.control}
@@ -188,9 +176,9 @@ export const AddForm = ({
 						)}
 					</Button>
 
-					{addReview.isError && (
+					{hasErrored && (
 						<h1 className='-mt-2 mb-4 border-t border-gray-40 pt-2 text-red-500'>
-							{addReview.error?.message}
+							{result.data.msg}
 						</h1>
 					)}
 				</Form>

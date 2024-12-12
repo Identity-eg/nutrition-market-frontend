@@ -1,10 +1,10 @@
 'use client';
 
-import { useTransition } from 'react';
 import { LoaderCircle } from 'lucide-react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useAction } from 'next-safe-action/hooks';
 
 import { Button } from 'components/ui/button';
 import {
@@ -20,9 +20,9 @@ import { Textarea } from 'components/ui/textarea';
 import { RatingField } from 'components/ui/rating-field';
 
 import { cn } from 'lib/utils';
-import { useUpdateReview } from 'apis/reviews';
 
 import type { TReview } from 'features/reviews/types/review';
+import { updateReview } from 'features/reviews/apis/reviews';
 
 const reviewSchema = z
 	.object({
@@ -37,9 +37,7 @@ export const EditableForm = ({
 	...review
 }: {
 	closeEditableMode: () => void;
-} & Partial<TReview>) => {
-	const [isPending, startTransition] = useTransition();
-
+} & Pick<TReview, '_id' | 'rating' | 'title' | 'comment'>) => {
 	const form = useForm<z.infer<typeof reviewSchema>>({
 		resolver: zodResolver(reviewSchema),
 		defaultValues: {
@@ -49,30 +47,42 @@ export const EditableForm = ({
 		},
 	});
 
-	const updateReview = useUpdateReview();
+	const {
+		execute,
+		isPending,
+		result: resultUpdateReview,
+		hasErrored,
+	} = useAction(updateReview, {
+		onSuccess() {
+			closeEditableMode();
+		},
+	});
 
 	const onSubmit = (values: z.infer<typeof reviewSchema>) => {
-		startTransition(() => {
-			updateReview.mutate(
-				{
-					reviewId: review._id!,
-					...values,
-				},
-				{
-					onSuccess: async () => closeEditableMode(),
-				}
-			);
-		});
+		execute({ reviewId: review._id, ...values });
 	};
 
 	return (
 		<form
 			onSubmit={form.handleSubmit(onSubmit)}
-			className={cn(
-				'space-y-6 rounded-md border border-gray-50 p-4',
-				updateReview.isError && `pointer-events-none opacity-50`
-			)}>
+			className={cn('space-y-6 rounded-md border border-gray-50 p-4', {
+				'pointer-events-none opacity-50': hasErrored,
+			})}>
 			<Form {...form}>
+				<FormField
+					control={form.control}
+					name='rating'
+					render={({ field }) => (
+						<FormItem>
+							<FormLabel>Rating</FormLabel>
+							<FormControl>
+								<RatingField {...field} />
+							</FormControl>
+							<FormMessage />
+						</FormItem>
+					)}
+				/>
+
 				<FormField
 					control={form.control}
 					name='title'
@@ -84,20 +94,6 @@ export const EditableForm = ({
 									placeholder='e.g. Easy To Use'
 									{...field}
 								/>
-							</FormControl>
-							<FormMessage />
-						</FormItem>
-					)}
-				/>
-
-				<FormField
-					control={form.control}
-					name='rating'
-					render={({ field }) => (
-						<FormItem>
-							<FormLabel>Rating</FormLabel>
-							<FormControl>
-								<RatingField {...field} />
 							</FormControl>
 							<FormMessage />
 						</FormItem>

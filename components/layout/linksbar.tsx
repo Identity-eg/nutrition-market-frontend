@@ -31,7 +31,7 @@ export async function Linksbar() {
 
 	return (
 		<div className='hidden border-b border-gray-50 media-md:block'>
-			<div className='container flex items-center justify-center'>
+			<div className='container flex items-center'>
 				{/* <NavigationMenu>
 					<NavigationMenuList>
 						{mainLinks.concat(popularCategories).map(link => {

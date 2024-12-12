@@ -1,10 +1,12 @@
 'use server';
 
-import { actionClient } from 'apis/action-clients';
 import { redirect } from 'next/navigation';
 import { cookies } from 'next/headers';
-import { ACCESS_COOKIE_OPTIONS, REFRESH_COOKIE_OPTIONS } from 'constants/auth';
+import { flattenValidationErrors } from 'next-safe-action';
 import { z } from 'zod';
+
+import { actionClient } from 'apis/action-clients';
+import { ACCESS_COOKIE_OPTIONS, REFRESH_COOKIE_OPTIONS } from 'constants/auth';
 import { request } from 'apis/request';
 
 type TForgotPasswordResponse = {
@@ -29,7 +31,10 @@ const loginSchema = z.object({
 });
 
 export const login = actionClient
-	.schema(loginSchema)
+	.metadata({ actionName: 'login-action' })
+	.schema(loginSchema, {
+		// handleValidationErrorsShape: ve => flattenValidationErrors(ve).fieldErrors,
+	})
 	.action(async ({ parsedInput: userData }) => {
 		const cookiesStore = await cookies();
 		const data = await request({
@@ -74,7 +79,10 @@ const registerSchema = z.object({
 });
 
 export const register = actionClient
-	.schema(registerSchema)
+	.metadata({ actionName: 'register-action' })
+	.schema(registerSchema, {
+		// handleValidationErrorsShape: ve => flattenValidationErrors(ve).fieldErrors,
+	})
 	.action(async ({ parsedInput: userData }) => {
 		const cookiesStore = await cookies();
 		const data = await request({
@@ -96,22 +104,24 @@ export const register = actionClient
 		return data;
 	});
 
-export const logout = actionClient.action(
-	async () => {
-		const cookiesStore = await cookies();
+export const logout = actionClient
+	.metadata({ actionName: 'logout-action' })
+	.action(
+		async () => {
+			const cookiesStore = await cookies();
 		await request({ url: '/auth/logout' });
-		cookiesStore.delete(process.env.ACCESS_TOKEN_NAME ?? '');
-		cookiesStore.delete(process.env.REFRESH_TOKEN_NAME ?? '');
-	},
-	{ onSuccess: async () => redirect('/') }
-);
+			cookiesStore.delete(process.env.ACCESS_TOKEN_NAME ?? '');
+			cookiesStore.delete(process.env.REFRESH_TOKEN_NAME ?? '');
+		},
+		{ onSuccess: async () => redirect('/') }
+	);
 
 export const refreshAccessTokenFn = async () => {
 	try {
 		const data = await request({ url: '/auth/refresh', method: 'GET' });
 		return data;
 	} catch {
-		logout;
+		logout();
 	}
 };
 

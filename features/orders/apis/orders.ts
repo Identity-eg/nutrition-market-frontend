@@ -1,11 +1,13 @@
 'use server';
 
+import { revalidateTag } from 'next/cache';
+import { flattenValidationErrors } from 'next-safe-action';
+import { z } from 'zod';
+
 import { actionClient } from 'apis/action-clients';
 import { request } from 'apis/request';
 import type { TOrder } from 'features/orders/types/order';
-import { revalidateTag } from 'next/cache';
 import { TTags } from 'types/revalidate-tags';
-import { z } from 'zod';
 
 export const getAllOrders = async (): Promise<TOrder[]> => {
 	const { orders } = await request({
@@ -37,16 +39,21 @@ const cancelOrderSchema = z.object({
 	}),
 });
 
-export const cancelOrder = actionClient.schema(cancelOrderSchema).action(
-	async ({ parsedInput: { cancelReason, orderId } }) => {
-		const { order } = await request({
-			url: `/orders/${orderId}`,
-			method: 'POST',
-			body: { cancelReason },
-		});
-		return order;
-	},
-	{
-		onSuccess: async () => revalidateTag(TTags.order),
-	}
-);
+export const cancelOrder = actionClient
+	.metadata({ actionName: 'cancel-order-action' })
+	.schema(cancelOrderSchema, {
+		// handleValidationErrorsShape: ve => flattenValidationErrors(ve).fieldErrors,
+	})
+	.action(
+		async ({ parsedInput: { cancelReason, orderId } }) => {
+			const { order } = await request({
+				url: `/orders/${orderId}`,
+				method: 'POST',
+				body: { cancelReason },
+			});
+			return order;
+		},
+		{
+			onSuccess: async () => revalidateTag(TTags.order),
+		}
+	);
