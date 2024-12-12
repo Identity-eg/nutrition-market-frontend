@@ -4,9 +4,9 @@ import { revalidatePath } from 'next/cache';
 import { z } from 'zod';
 
 import { request } from 'apis/request';
-import type { TReview } from 'features/reviews/types/review';
 import { actionClient } from 'apis/action-clients';
-import { flattenValidationErrors } from 'next-safe-action';
+
+import type { TReview } from 'features/reviews/types/review';
 
 type TGetReviewsReturn = {
 	reviews: TReview[];
@@ -75,7 +75,7 @@ export const addReview = actionClient
 			});
 			return data;
 		},
-		{ onSettled: () => revalidatePath('/shop/[slug]', 'page') }
+		{ onSettled: async () => revalidatePath('/shop/[slug]', 'page') }
 	);
 
 // ############################################################
@@ -106,7 +106,7 @@ export const updateReview = actionClient
 			});
 			return data;
 		},
-		{ onSettled: () => revalidatePath('/shop/[slug]', 'page') }
+		{ onSettled: async () => revalidatePath('/shop/[slug]', 'page') }
 	);
 
 // ######################################################
@@ -129,5 +129,5 @@ export const deleteReview = actionClient
 			});
 			return data;
 		},
-		{ onSettled: () => revalidatePath('/shop/[slug]', 'page') }
+		{ onSettled: async () => revalidatePath('/shop/[slug]', 'page') }
 	);
