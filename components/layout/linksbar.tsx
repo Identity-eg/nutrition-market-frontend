@@ -81,11 +81,9 @@ export async function Linksbar() {
 					<Link
 						key={link.label}
 						href={link.to}
-						className={cn(
-							'px-4 py-4 transition-all typography-M14 hover:text-[#bc6c25]',
-							{ 'text-[#bc6c25]': link.label === 'Offers' }
-						)}>
+						className='px-4 py-4 flex gap-2 transition-all typography-M14 hover:text-[#bc6c25]'>
 						{link.label}
+						{link.label === "Offers" && <span className='bg-red-500 typography-R12 px-2 rounded-full text-white'>Up to 50%</span>}
 					</Link>
 				))}
 			</div>
