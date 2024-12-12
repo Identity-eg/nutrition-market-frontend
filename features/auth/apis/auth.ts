@@ -150,7 +150,9 @@ export const resetPassword = async ({
 	return data;
 };
 
-export const loginWithGoogle = actionClient.action(async () => {
-	const { url } = await request({ url: '/auth/google' });
-	redirect(url);
-});
+export const loginWithGoogle = actionClient
+	.metadata({ actionName: 'login-with-google' })
+	.action(async () => {
+		const { url } = await request({ url: '/auth/google' });
+		redirect(url);
+	});
