@@ -102,7 +102,7 @@ export const register = actionClient
 			REFRESH_COOKIE_OPTIONS
 		);
 
-		cookies().delete(process.env.CART_ID ?? '');
+		cookiesStore.delete(process.env.CART_ID ?? '');
 		return data;
 	});
 
