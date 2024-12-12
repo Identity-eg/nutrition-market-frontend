@@ -101,6 +101,8 @@ export const register = actionClient
 			data.refreshToken,
 			REFRESH_COOKIE_OPTIONS
 		);
+
+		cookies().delete(process.env.CART_ID ?? '');
 		return data;
 	});
 
@@ -109,7 +111,7 @@ export const logout = actionClient
 	.action(
 		async () => {
 			const cookiesStore = await cookies();
-		await request({ url: '/auth/logout' });
+			await request({ url: '/auth/logout' });
 			cookiesStore.delete(process.env.ACCESS_TOKEN_NAME ?? '');
 			cookiesStore.delete(process.env.REFRESH_TOKEN_NAME ?? '');
 		},
@@ -156,3 +158,10 @@ export const resetPassword = async ({
 
 	return data;
 };
+
+export const loginWithGoogle = actionClient
+	.metadata({ actionName: 'login-with-google-action' })
+	.action(async () => {
+		const { url } = await request({ url: '/auth/google' });
+		redirect(url);
+	});
