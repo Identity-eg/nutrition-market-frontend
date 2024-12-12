@@ -98,7 +98,7 @@ export function ProductOptions({
 								<Tooltip
 									open={!similarId ? undefined : false}
 									delayDuration={0}>
-									<TooltipTrigger asChild>
+									<TooltipTrigger>
 										<Button
 											asChild
 											variant={
