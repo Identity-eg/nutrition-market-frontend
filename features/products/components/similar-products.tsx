@@ -1,7 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 
-import { getSimilarProducts } from 'features/products/api/products';
+import { getSimilarProducts } from 'features/products/apis';
 import { CardItem } from 'features/products/components/card-item';
 
 export default async function SimilarProducts({

@@ -20,7 +20,9 @@ import {
 import { Input } from 'components/ui/input';
 import { toast } from 'components/ui/use-toast';
 
-import { login } from 'features/auth/api/auth';
+import { login, loginWithGoogle } from 'features/auth/apis/auth';
+import { Separator } from 'components/ui/separator';
+import { GooogleIcon } from 'assets/icons/google-icon';
 
 const loginSchema = z.object({
 	email: z
@@ -58,6 +60,17 @@ export function LoginForm() {
 			});
 		},
 	});
+
+	const { execute: executeLoginWithGoogle, isPending: isLoggingWithProvider } =
+		useAction(loginWithGoogle, {
+			onError: ({ error }) => {
+				toast({
+					variant: 'destructive',
+					title: 'Server Error',
+					description: error.serverError,
+				});
+			},
+		});
 
 	function onSubmit(values: z.infer<typeof loginSchema>) {
 		execute(values);
@@ -121,6 +134,28 @@ export function LoginForm() {
 					'Sign in'
 				)}
 			</Button>
+			<div className='relative'>
+				<Separator />
+				<span className='absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 bg-white px-3 text-gray-200 typography-M13'>
+					or
+				</span>
+			</div>
+
+			<Button
+				type='button'
+				onClick={() => executeLoginWithGoogle()}
+				variant='outline'
+				className='w-full gap-2 shadow-none'>
+				{isLoggingWithProvider ? (
+					<Loader2 className='mr-2 h-4 w-4 animate-spin' />
+				) : (
+					<>
+						<GooogleIcon />
+						Continue with Google
+					</>
+				)}
+			</Button>
+
 			<p className='text-gray-6 typography-R14'>
 				Don’t have an account?{' '}
 				<Link

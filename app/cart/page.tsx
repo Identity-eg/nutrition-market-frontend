@@ -1,6 +1,6 @@
 import { CartItem } from 'features/cart/components/cart-item';
 import { CartSummary } from 'features/cart/components/cart-summary';
-import { getCart } from 'features/cart/api/cart';
+import { getCart } from 'features/cart/apis/cart';
 import NoCartFound from 'assets/icons/no-cart-found';
 
 export default async function Cart() {

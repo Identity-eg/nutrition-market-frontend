@@ -26,9 +26,9 @@ import {
 	CommandList,
 } from 'components/ui/command';
 import { useAction } from 'next-safe-action/hooks';
-import { addAddress, updateAddress } from 'features/addresses/api/address';
+import { addAddress, updateAddress } from 'features/addresses/apis/address';
 import { useToast } from 'components/ui/use-toast';
-import { getCities } from 'features/addresses/api/egypt';
+import { getCities } from 'features/addresses/apis/egypt';
 import { getDirtyFields } from 'lib/getDirtyValues';
 
 import type { TGovernorate } from 'features/addresses/types/egypt';
@@ -62,6 +62,7 @@ export function AddressForm({
 	isUserHasAddress,
 	addressToEdit,
 	setAddressToEdit,
+	setAddressId,
 	closeForm,
 }: {
 	userEmail?: string;
@@ -69,6 +70,7 @@ export function AddressForm({
 	isUserHasAddress: boolean;
 	addressToEdit?: TAddress;
 	setAddressToEdit: Dispatch<React.SetStateAction<TAddress | undefined>>;
+	setAddressId: Dispatch<React.SetStateAction<string>>;
 	closeForm: () => void;
 }) {
 	const [isGovMenuOpen, setIsGovMenuOpen] = useState(false);
@@ -77,7 +79,10 @@ export function AddressForm({
 	const { toast } = useToast();
 	const { execute: addAddressAction, isPending: isAddAddressPending } =
 		useAction(addAddress, {
-			onSuccess: closeForm,
+			onSuccess: async ({ data }) => {
+				setAddressId(data?.address._id ?? '');
+				closeForm();
+			},
 			onError: ({ error }) => {
 				toast({
 					variant: 'destructive',
@@ -286,8 +291,7 @@ export function AddressForm({
 																	const isCityHasValue = form.getValues('city');
 
 																	if (isSameValue) {
-																		setIsGovMenuOpen(false);
-																		return;
+																		return setIsGovMenuOpen(false);
 																	}
 
 																	form.setValue(

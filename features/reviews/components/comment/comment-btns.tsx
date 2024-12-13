@@ -1,9 +1,8 @@
-import { useTransition } from 'react';
+import { useAction } from 'next-safe-action/hooks';
 import { PencilIcon, Trash2Icon } from 'lucide-react';
 
 import { Button } from 'components/ui/button';
-
-import { useDeleteReview } from 'apis/reviews';
+import { deleteReview } from 'features/reviews/apis/reviews';
 
 export function CommentBtns({
 	reviewId,
@@ -12,8 +11,7 @@ export function CommentBtns({
 	reviewId: string;
 	openEditingMode: () => void;
 }) {
-	const [isPending, startTransition] = useTransition();
-	const deleteReview = useDeleteReview();
+	const { execute, isPending } = useAction(deleteReview);
 	return (
 		<div className='flex gap-2'>
 			<Button
@@ -22,9 +20,7 @@ export function CommentBtns({
 				size={'icon'}
 				className='text-red-300 hover:bg-red-30'
 				onClick={() => {
-					startTransition(() => {
-						deleteReview.mutate({ reviewId });
-					});
+					execute({ reviewId });
 				}}>
 				<Trash2Icon size={16} />
 			</Button>

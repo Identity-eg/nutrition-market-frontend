@@ -18,7 +18,7 @@ export default async function ShopPage(props: {
 	const searchParams = await props.searchParams;
 	return (
 		<section className='container h-full grid-cols-[278px,1fr] gap-x-6 gap-y-8 py-12 media-md:grid'>
-			<Filters className='hidden media-md:block' />
+			<Filters />
 			<div>
 				<div className='mb-4 flex min-h-56 flex-col items-center justify-between gap-6 rounded-md bg-[#d9f3fa] p-6 pr-10 media-sm:flex-row'>
 					<div>

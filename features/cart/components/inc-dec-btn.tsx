@@ -2,7 +2,7 @@
 
 import { useAction } from 'next-safe-action/hooks';
 
-import { decreaseItemByOne, increaseItemByOne } from 'features/cart/api/cart';
+import { decreaseItemByOne, increaseItemByOne } from 'features/cart/apis/cart';
 
 import { useToast } from 'components/ui/use-toast';
 import { LoadingDots } from 'components/utils/loading-dots';

@@ -1,9 +1,9 @@
 import { TCompany } from 'features/products/types/company';
-import type { TProduct, TVariant } from 'features/products/types/product';
+import type { TVariant } from 'features/products/types/product';
 
 export type TCartItem = {
 	_id: string;
-	product: TProduct;
+	product: string;
 	company: string;
 	variant: TVariant;
 	amount: number;

@@ -1,10 +1,22 @@
 import { createSafeActionClient } from 'next-safe-action';
+import z from 'zod';
+import * as Sentry from '@sentry/nextjs';
 
 export const actionClient = createSafeActionClient({
-	// Can also be an async function.
+	defineMetadataSchema() {
+		return z.object({
+			actionName: z.string(),
+		});
+	},
 	handleServerError(e, utils) {
-		// You can access these properties inside the `utils` object.
-		// const { clientInput, bindArgsClientInputs, metadata, ctx } = utils;
+		const { clientInput, bindArgsClientInputs, metadata, ctx } = utils;
+		Sentry.captureException(e, scope => {
+			scope.clear();
+			scope.setContext('serverError', { message: e.message });
+			scope.setContext('metadata', { actionName: metadata?.actionName });
+			scope.setContext('clientInput', { clientInput });
+			return scope;
+		});
 		return e.message || 'Oh no, something went wrong!';
 	},
 });

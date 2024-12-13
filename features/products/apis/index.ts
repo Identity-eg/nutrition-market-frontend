@@ -2,27 +2,16 @@
 
 import { request } from 'apis/request';
 import type {
-	TProduct,
 	TProductWithMultipleVariants,
+	TProductWithSingleVariant,
 } from 'features/products/types/product';
+import { TParams } from 'types/searchparams';
 
 type TGetProductsReturn = {
 	currentPage: number;
 	lastPage: number;
-	products: TProduct[];
+	products: TProductWithSingleVariant[];
 	totalCount: number;
-};
-
-export type TParams = {
-	name: string;
-	sort: string;
-	page: string;
-	limit: string;
-	averageRating: string;
-	price: string;
-	company: string;
-	category: string;
-	dosageForm: string;
 };
 
 export const getProducts = async ({

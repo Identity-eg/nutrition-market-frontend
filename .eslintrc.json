@@ -50,6 +50,7 @@
 		],
 		// React rules
 		"react/jsx-fragments": ["warn", "syntax"], // Shorthand syntax for React fragments
+		"react/no-unescaped-entities": ["error", {"forbid": [">", "}"]}],
 		"react/jsx-filename-extension": [
 			"warn",
 			{

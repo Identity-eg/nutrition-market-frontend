@@ -3,7 +3,7 @@ export type TCategory = {
 	name: string;
 	slug: string;
 	description: string;
-	cover: string;
+	cover: { name: string; size: number; url: string };
 	productsCount: number;
 	createdAt: string;
 	updatedAt: string;

@@ -1,12 +1,12 @@
-import React, { Suspense } from 'react';
+import { Suspense } from 'react';
 import qs from 'qs';
 
-import { getProducts, TParams } from 'features/products/api/products';
+import { getProducts } from 'features/products/apis';
 import { CardItem } from 'features/products/components/card-item';
 import { PaginationContainer } from 'features/products/components/pagination-container';
 
-import type { TSearchParams } from 'types/searchparams';
 import NoResultFound from 'assets/icons/no-result-found';
+import type { TParams, TSearchParams } from 'types/searchparams';
 
 export async function Products({
 	searchParams,

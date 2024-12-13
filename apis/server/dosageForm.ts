@@ -1,10 +1,10 @@
 'use server';
 
 import { request } from 'apis/request';
-import type { TCategory } from 'features/products/types/category';
+import { TDosageForm } from 'features/products/types/dosage-form';
 
 export const getDosageForms = async (): Promise<{
-	dosageForms: TCategory[];
+	dosageForms: TDosageForm[];
 }> => {
 	const data = await request({
 		url: `/dosage-forms`,

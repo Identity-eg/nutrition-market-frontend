@@ -47,6 +47,7 @@ export default function ShippingAddress({
 
 			{isInFormMode && (
 				<AddressForm
+					setAddressId={setAddressId}
 					userEmail={userEmail}
 					governorates={governorates}
 					isUserHasAddress={isUserHasAddress}

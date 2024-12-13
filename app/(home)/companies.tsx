@@ -13,7 +13,8 @@ export default async function Companies() {
 			<h3 className='mb-6 flex flex-col items-center text-center text-green-800 typography-B18 media-md:flex-row media-md:gap-4'>
 				Popular companies{' '}
 				<span className='text-gray-100 typography-R14'>
-					Shop the store by company
+					Featuring companies with the highest-selling products customers trust
+					and love.
 				</span>
 			</h3>
 			<div

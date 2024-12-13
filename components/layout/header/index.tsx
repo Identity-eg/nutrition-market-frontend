@@ -9,7 +9,7 @@ import { LoggedinBanner } from 'features/auth/components/loggedin-banner';
 
 import biovacLogo from 'assets/logo.png';
 import { CartSidebar } from './cartSidebar';
-import { getMe } from 'features/auth/api/user';
+import { getMe } from 'features/auth/apis/user';
 import { Searchbar } from './search/searchbar';
 import { MobileMenu } from './mobile-menu';
 

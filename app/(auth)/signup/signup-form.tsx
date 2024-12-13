@@ -19,7 +19,7 @@ import {
 import { Input } from 'components/ui/input';
 
 import { toast } from 'components/ui/use-toast';
-import { register } from 'features/auth/api/auth';
+import { register } from 'features/auth/apis/auth';
 
 const registerSchema = z.object({
 	firstName: z.string().min(1, {

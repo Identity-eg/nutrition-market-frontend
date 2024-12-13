@@ -1,7 +1,7 @@
-import { getUserAddresses } from 'features/addresses/api/address';
-import { getGovernorates } from 'features/addresses/api/egypt';
-import { getMe } from 'features/auth/api/user';
-import { getCart } from 'features/cart/api/cart';
+import { getUserAddresses } from 'features/addresses/apis/address';
+import { getGovernorates } from 'features/addresses/apis/egypt';
+import { getMe } from 'features/auth/apis/user';
+import { getCart } from 'features/cart/apis/cart';
 import Container from './container';
 
 export default async function CheckoutPage() {

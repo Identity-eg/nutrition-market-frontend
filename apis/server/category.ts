@@ -6,7 +6,6 @@ import type {
 	TGetCategoriesReturn,
 	TGetTopSellingCategoriesReturn,
 } from 'features/products/types/category';
-import { notFound } from 'next/navigation';
 
 export const getCategories = async (): Promise<TGetCategoriesReturn> => {
 	const data = await request({
@@ -33,15 +32,11 @@ export const getSingleCategory = async ({
 	slug,
 }: {
 	slug: string;
-}): Promise<TCategory> => {
-	try {
-		const data = await request({
-			url: `/categories/slug/${slug}`,
-			method: 'GET',
-		});
+}): Promise<{ category: TCategory }> => {
+	const data = await request({
+		url: `/categories/slug/${slug}`,
+		method: 'GET',
+	});
 
-		return data.category;
-	} catch {
-		notFound();
-	}
+	return data;
 };

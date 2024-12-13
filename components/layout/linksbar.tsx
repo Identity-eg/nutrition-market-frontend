@@ -15,22 +15,23 @@ import {
 import { getTopSellingCategories } from 'apis/server/category';
 
 export async function Linksbar() {
-	const data = await getTopSellingCategories({ limit: 2 });
+	const data = await getTopSellingCategories({ limit: 1 });
 	const popularCategories = data.categories.map(cat => ({
 		label: cat.category.name,
 		to: `/categories/${cat.category.slug}`,
 	}));
 	const mainLinks = [
 		{ label: 'Home', to: '/' },
-		{ label: 'Offers', to: '/shop' },
-		{ label: 'New Arrival', to: '/shop?sort=-createdAt' },
+		{ label: 'Offers', to: '/shop/offers' },
+		{ label: 'Categories', to: '/categories' },
+		{ label: 'Companies', to: '/companies' },
+		{ label: 'New', to: '/shop?sort=-createdAt' },
 		{ label: 'Best Selling', to: '/shop?sort=-sold' },
-		{ label: 'Best Customer Rating', to: '/shop?sort=-averageRating' },
 	];
 
 	return (
 		<div className='hidden border-b border-gray-50 media-md:block'>
-			<div className='container flex items-center justify-center'>
+			<div className='container flex items-center'>
 				{/* <NavigationMenu>
 					<NavigationMenuList>
 						{mainLinks.concat(popularCategories).map(link => {
@@ -79,10 +80,9 @@ export async function Linksbar() {
 					<Link
 						key={link.label}
 						href={link.to}
-						className={cn(
-							'px-4 py-4 transition-all typography-M14 hover:text-[#bc6c25]'
-						)}>
+						className='px-4 py-4 flex gap-2 transition-all typography-M14 hover:text-[#bc6c25]'>
 						{link.label}
+						{link.label === "Offers" && <span className='bg-red-500 typography-R12 px-2 rounded-full text-white'>Up to 50%</span>}
 					</Link>
 				))}
 			</div>
