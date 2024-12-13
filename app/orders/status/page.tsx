@@ -1,7 +1,5 @@
 import { MoveLeftIcon, TruckIcon } from 'lucide-react';
-import Image from 'next/image';
 import Link from 'next/link';
-import createOrderPng from 'assets/createOrder.png';
 
 import { Button } from 'components/ui/button';
 import { CopyBtn } from 'components/utils/copy-btn';
@@ -13,7 +11,7 @@ export default async function OrderStatus(props: {
 	const searchParams = await props.searchParams;
 	// const encpl = cookies()?.get('encpl')?.value;
 	// const values = JSON.parse(encpl ?? '{}');
-	// if (!encpl) {
+	// if (!encpl || !searchParams.orderId) {
 	// 	redirect('/');
 	// }
 	return (

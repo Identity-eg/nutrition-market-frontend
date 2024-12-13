@@ -27,20 +27,22 @@ export const payOnline = actionClient
 
 		return data;
 	});
-export const payCash = actionClient.schema(paySchema).action(
-	async ({ parsedInput: { addressId, cartId } }) => {
-		const data = await request({
-			method: 'POST',
-			url: '/orders/cash-on-delivery',
-			body: {
-				cartId,
-				addressId,
-			},
-		});
+export const payCash = actionClient
+	.schema(paySchema)
+	.action(
+		async ({ parsedInput: { addressId, cartId } }) => {
+			const data = await request({
+				method: 'POST',
+				url: '/orders/cash-on-delivery',
+				body: {
+					cartId,
+					addressId,
+				},
+			});
 
-		return data;
-	},
-	{
-		onSettled: () => revalidateTag(TTags.cart),
-	}
-);
+			return data;
+		},
+		{
+			onSettled: () => revalidateTag(TTags.cart),
+		}
+	);

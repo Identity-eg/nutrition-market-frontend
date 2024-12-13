@@ -42,9 +42,9 @@ const addAddressSchema = z.object({
 export const addAddress = actionClient
 	.metadata({ actionName: 'add-address-action' })
 	.schema(addAddressSchema, {
-		handleValidationErrorsShape: ve => flattenValidationErrors(ve).fieldErrors,
+		// handleValidationErrorsShape: ve => flattenValidationErrors(ve).fieldErrors,
 	})
-	.action(
+	.action<{ address: TAddress }>(
 		async ({ parsedInput: addressData }) => {
 			const data = await request({
 				url: '/addresses',

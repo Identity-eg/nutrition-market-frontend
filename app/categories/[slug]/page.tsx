@@ -25,8 +25,8 @@ export default async function CategoryPage(props: {
 	return (
 		<section>
 			<div className='relative flex h-48 w-full items-center justify-center bg-gray-30'>
-				<div className='absolute inset-0 z-30 bg-gradient-to-r from-[#00000023] from-10% via-[#01210c96] via-30% to-[#00000023] to-90% bg-blend-multiply mix-blend-multiply' />
-				<div className='z-40 text-center text-white [&>p]:leading-normal [&>p]:text-gray-200 [&>p]:typography-R14'>
+				<div className='absolute inset-0 z-[2] bg-gradient-to-r from-[#00000023] from-10% via-[#01210c96] via-30% to-[#00000023] to-90% bg-blend-multiply mix-blend-multiply' />
+				<div className='z-[4] text-center text-white [&>p]:leading-normal [&>p]:text-gray-200 [&>p]:typography-R14'>
 					<h3 className='mb-1 capitalize typography-B28'>{category.name}</h3>
 					<span className='text-white'>{parse(category.description)}</span>
 				</div>

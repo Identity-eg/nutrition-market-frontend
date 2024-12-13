@@ -62,6 +62,7 @@ export function AddressForm({
 	isUserHasAddress,
 	addressToEdit,
 	setAddressToEdit,
+	setAddressId,
 	closeForm,
 }: {
 	userEmail?: string;
@@ -69,6 +70,7 @@ export function AddressForm({
 	isUserHasAddress: boolean;
 	addressToEdit?: TAddress;
 	setAddressToEdit: Dispatch<React.SetStateAction<TAddress | undefined>>;
+	setAddressId: Dispatch<React.SetStateAction<string>>;
 	closeForm: () => void;
 }) {
 	const [isGovMenuOpen, setIsGovMenuOpen] = useState(false);
@@ -77,7 +79,10 @@ export function AddressForm({
 	const { toast } = useToast();
 	const { execute: addAddressAction, isPending: isAddAddressPending } =
 		useAction(addAddress, {
-			onSuccess: closeForm,
+			onSuccess: async ({ data }) => {
+				setAddressId(data?.address._id ?? '');
+				closeForm();
+			},
 			onError: ({ error }) => {
 				toast({
 					variant: 'destructive',
@@ -286,8 +291,7 @@ export function AddressForm({
 																	const isCityHasValue = form.getValues('city');
 
 																	if (isSameValue) {
-																		setIsGovMenuOpen(false);
-																		return;
+																		return setIsGovMenuOpen(false);
 																	}
 
 																	form.setValue(
