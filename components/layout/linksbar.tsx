@@ -25,9 +25,8 @@ export async function Linksbar() {
 		{ label: 'Offers', to: '/shop/offers' },
 		{ label: 'Categories', to: '/categories' },
 		{ label: 'Companies', to: '/companies' },
-		{ label: 'New Arrival', to: '/shop?sort=-createdAt' },
+		{ label: 'New', to: '/shop?sort=-createdAt' },
 		{ label: 'Best Selling', to: '/shop?sort=-sold' },
-		{ label: 'Best Customer Rating', to: '/shop?sort=-averageRating' },
 	];
 
 	return (

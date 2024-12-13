@@ -76,7 +76,7 @@ const updateAddressSchema = z
 export const updateAddress = actionClient
 	.metadata({ actionName: 'update-address-action' })
 	.schema(updateAddressSchema, {
-		handleValidationErrorsShape: ve => flattenValidationErrors(ve).fieldErrors,
+		// handleValidationErrorsShape: ve => flattenValidationErrors(ve).fieldErrors,
 	})
 	.action(
 		async ({ parsedInput: { addressId, ...addressDate } }) => {
