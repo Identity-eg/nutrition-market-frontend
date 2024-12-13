@@ -1,4 +1,3 @@
-import Image from 'next/image';
 import { CartItem } from 'features/cart/components/cart-item';
 import { CartSummary } from 'features/cart/components/cart-summary';
 import { getCart } from 'features/cart/apis/cart';

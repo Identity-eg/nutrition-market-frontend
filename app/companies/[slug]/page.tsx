@@ -1,5 +1,4 @@
 import { Suspense } from 'react';
-import { notFound } from 'next/navigation';
 import parse from 'html-react-parser';
 import { CircleCheckIcon } from 'lucide-react';
 
@@ -21,12 +20,13 @@ export default async function CompanyPage(props: {
 	const params = await props.params;
 	const { slug } = params;
 
-	const company = await getSingleCompany({ slug });
+	const { company } = await getSingleCompany({ slug });
 
 	const newSearchParams = {
 		...searchParams,
 		company: slug,
 	};
+
 	return (
 		<section>
 			<div className='h-48 w-full bg-gray-30' />

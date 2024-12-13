@@ -1,5 +1,4 @@
 import { Suspense } from 'react';
-import { notFound } from 'next/navigation';
 import parse from 'html-react-parser';
 import { CircleCheckIcon } from 'lucide-react';
 
@@ -17,11 +16,7 @@ export default async function CategoryPage(props: {
 	const params = await props.params;
 	const { slug } = params;
 
-	const category = await getSingleCategory({ slug });
-
-	if (!category) {
-		return notFound();
-	}
+	const { category } = await getSingleCategory({ slug });
 
 	const newSearchParams = {
 		...searchParams,

@@ -3,7 +3,7 @@
 import { actionClient } from 'apis/action-clients';
 import { request } from 'apis/request';
 import { revalidateTag } from 'next/cache';
-import { TTags } from 'types/revalidate-tags';
+import { TTags } from 'constants/revalidate-tags';
 import { z } from 'zod';
 
 const paySchema = z.object({

@@ -6,7 +6,7 @@ import { flattenValidationErrors } from 'next-safe-action';
 import { actionClient } from 'apis/action-clients';
 import { request } from 'apis/request';
 import type { TAddress } from 'features/addresses/types/address';
-import { TTags } from 'types/revalidate-tags';
+import { TTags } from 'constants/revalidate-tags';
 
 export const getUserAddresses = async (): Promise<TAddress[]> => {
 	const data = await request({

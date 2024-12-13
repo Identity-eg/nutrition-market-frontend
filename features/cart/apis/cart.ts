@@ -7,7 +7,7 @@ import { z } from 'zod';
 
 import { request } from 'apis/request';
 import { actionClient } from 'apis/action-clients';
-import { TTags } from 'types/revalidate-tags';
+import { TTags } from 'constants/revalidate-tags';
 import type { TCart } from 'features/cart/types/cart';
 
 export const getCart = async (): Promise<TCart> => {

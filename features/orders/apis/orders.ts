@@ -7,7 +7,7 @@ import { z } from 'zod';
 import { actionClient } from 'apis/action-clients';
 import { request } from 'apis/request';
 import type { TOrder } from 'features/orders/types/order';
-import { TTags } from 'types/revalidate-tags';
+import { TTags } from 'constants/revalidate-tags';
 
 export const getAllOrders = async (): Promise<TOrder[]> => {
 	const { orders } = await request({
