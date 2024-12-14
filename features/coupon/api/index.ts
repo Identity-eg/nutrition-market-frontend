@@ -2,8 +2,8 @@
 
 import { actionClient } from 'apis/action-clients';
 import { request } from 'apis/request';
+import { TTags } from 'constants/revalidate-tags';
 import { revalidateTag } from 'next/cache';
-import { TTags } from 'types/revalidate-tags';
 import { z } from 'zod';
 
 const applyCouponSchema = z.object({
@@ -23,19 +23,22 @@ const removeCouponFromCartSchema = z.object({
 	}),
 });
 
-export const applyCoupon = actionClient.schema(applyCouponSchema).action(
-	async ({ parsedInput: { cartId, couponCode } }) => {
-		const data = await request({
-			url: `/coupons/apply-coupon`,
-			method: 'POST',
-			body: { cartId, couponCode },
-		});
-		return data;
-	},
-	{
-		onSuccess: () => revalidateTag(TTags.cart),
-	}
-);
+export const applyCoupon = actionClient
+	.metadata({ actionName: 'apply-coupon-action' })
+	.schema(applyCouponSchema)
+	.action(
+		async ({ parsedInput: { cartId, couponCode } }) => {
+			const data = await request({
+				url: `/coupons/apply-coupon`,
+				method: 'POST',
+				body: { cartId, couponCode },
+			});
+			return data;
+		},
+		{
+			onSuccess: () => revalidateTag(TTags.cart),
+		}
+	);
 
 export const removeCouponFromCart = actionClient
 	.schema(removeCouponFromCartSchema)
