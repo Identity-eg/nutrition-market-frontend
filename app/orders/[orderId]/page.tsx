@@ -121,7 +121,7 @@ function OrderSummary({ order }: { order: TOrder }) {
 
 	return (
 		<Card className='flex max-w-[380px] flex-1 flex-col justify-between self-start overflow-hidden p-6'>
-			<h3 className='mb-4 capitalize text-gray-800 typography-SB20'>
+			<h3 className='mb-4 capitalize text-gray-800 typography-SB16'>
 				Delivery
 			</h3>
 			<div className='mb-4 border-b border-gray-40 pb-4'>
@@ -131,8 +131,8 @@ function OrderSummary({ order }: { order: TOrder }) {
 						size={20}
 					/>
 					<div>
-						<p>Address</p>
-						<p className='text-gray-200 typography-R14'>
+						<p className='typography-M14'>Address</p>
+						<p className='text-gray-200 typography-R13'>
 							{`${order.shippingAddress.street} - ${order.shippingAddress.city} - ${order.shippingAddress.governorate}`}
 						</p>
 					</div>
@@ -144,8 +144,8 @@ function OrderSummary({ order }: { order: TOrder }) {
 						size={20}
 					/>
 					<div>
-						<p>Phone</p>
-						<p className='text-gray-200 typography-R14'>
+						<p className='typography-M14'>Phone</p>
+						<p className='text-gray-200 typography-R13'>
 							{order.shippingAddress.phone}
 						</p>
 					</div>
@@ -157,15 +157,15 @@ function OrderSummary({ order }: { order: TOrder }) {
 						size={20}
 					/>
 					<div>
-						<p>Payment method</p>
-						<p className='text-gray-200 typography-R14'>
+						<p className='typography-M14'>Payment method</p>
+						<p className='text-gray-200 typography-R13'>
 							{paymentMethod?.name}
 						</p>
 					</div>
 				</div>
 			</div>
 
-			<h3 className='mb-4 capitalize text-gray-800 typography-SB20'>
+			<h3 className='mb-4 capitalize text-gray-800 typography-SB16'>
 				Order summary
 			</h3>
 			<div className='mb-4 border-b border-gray-40 pb-4 text-gray-200 typography-R14'>
@@ -178,7 +178,7 @@ function OrderSummary({ order }: { order: TOrder }) {
 					<span>{convertToReadableNumber(order.shippingFee)} EGP</span>
 				</div>
 			</div>
-			<div className='flex items-center justify-between text-green-light-700 typography-SB18'>
+			<div className='flex items-center justify-between text-green-light-700 typography-SB16'>
 				<p className='text-green-800'>Total Price</p>
 				{convertToReadableNumber(order.total)} EGP
 			</div>

@@ -2,9 +2,13 @@ import Link from 'next/link';
 import NotFoundIcon from 'assets/icons/not-found';
 import { Button } from 'components/ui/button';
 
+export const metadata = {
+	title: 'Page Not Found',
+};
+
 export default function NotFound() {
 	return (
-		<div className='container flex flex-col items-center justify-center py-32'>
+		<div className='container flex min-h-[calc(100vh-150px)] flex-col items-center justify-center'>
 			<NotFoundIcon />
 			<span className='mb-2 mt-8 text-black typography-SB24'>
 				Page Not Found

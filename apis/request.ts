@@ -1,10 +1,15 @@
 'use server';
 
 import { cookies } from 'next/headers';
+import { notFound } from 'next/navigation';
 import { getAccessToken } from './helpers';
 import qs from 'qs';
 
 const baseURL = process.env.NEXT_PUBLIC_API_URL;
+
+interface CustomError extends Error {
+	cause: { statusCode: number };
+}
 
 type TOptions =
 	| (Omit<RequestInit, 'body'> & {
@@ -50,10 +55,14 @@ export const request = async ({ ...options }: TOptions) => {
 
 		if (!res.ok) {
 			const data = await res.json();
-			throw new Error(data.msg);
+			throw new Error(data.msg, { cause: { statusCode: res.status } });
 		}
 		return await res.json();
 	} catch (err) {
-		throw new Error((err as Error).message);
+		const error = err as CustomError;
+		if (error.cause.statusCode === 404) {
+			notFound();
+		}
+		throw new Error(error.message);
 	}
 };

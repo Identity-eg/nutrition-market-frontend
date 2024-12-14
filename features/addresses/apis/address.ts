@@ -6,7 +6,7 @@ import { flattenValidationErrors } from 'next-safe-action';
 import { actionClient } from 'apis/action-clients';
 import { request } from 'apis/request';
 import type { TAddress } from 'features/addresses/types/address';
-import { TTags } from 'types/revalidate-tags';
+import { TTags } from 'constants/revalidate-tags';
 
 export const getUserAddresses = async (): Promise<TAddress[]> => {
 	const data = await request({
@@ -42,9 +42,9 @@ const addAddressSchema = z.object({
 export const addAddress = actionClient
 	.metadata({ actionName: 'add-address-action' })
 	.schema(addAddressSchema, {
-		handleValidationErrorsShape: ve => flattenValidationErrors(ve).fieldErrors,
+		// handleValidationErrorsShape: ve => flattenValidationErrors(ve).fieldErrors,
 	})
-	.action(
+	.action<{ address: TAddress }>(
 		async ({ parsedInput: addressData }) => {
 			const data = await request({
 				url: '/addresses',
@@ -76,7 +76,7 @@ const updateAddressSchema = z
 export const updateAddress = actionClient
 	.metadata({ actionName: 'update-address-action' })
 	.schema(updateAddressSchema, {
-		handleValidationErrorsShape: ve => flattenValidationErrors(ve).fieldErrors,
+		// handleValidationErrorsShape: ve => flattenValidationErrors(ve).fieldErrors,
 	})
 	.action(
 		async ({ parsedInput: { addressId, ...addressDate } }) => {

@@ -1,7 +1,6 @@
 import { Suspense } from 'react';
-import { notFound } from 'next/navigation';
+import Image from 'next/image';
 import parse from 'html-react-parser';
-import { CircleCheckIcon } from 'lucide-react';
 
 import FilterProducts from './filter';
 import { Products } from 'features/products/components';
@@ -17,11 +16,7 @@ export default async function CategoryPage(props: {
 	const params = await props.params;
 	const { slug } = params;
 
-	const category = await getSingleCategory({ slug });
-
-	if (!category) {
-		return notFound();
-	}
+	const { category } = await getSingleCategory({ slug });
 
 	const newSearchParams = {
 		...searchParams,
@@ -29,33 +24,21 @@ export default async function CategoryPage(props: {
 	};
 	return (
 		<section>
-			<div className='h-48 w-full bg-gray-30' />
-			<div className='container -mt-8'>
-				<div className='flex flex-col gap-2 media-md:flex-row'>
-					{/* <Avatar className='size-36 flex-shrink-0 rounded-full border-8 border-white bg-gray-30'>
-						<AvatarImage />
-						<AvatarFallback className='rounded-md bg-gray-30 text-gray-100'>
-							<BuildingPlaceholder size={64} />
-						</AvatarFallback>
-					</Avatar> */}
-					<div className='media-md:mt-10 [&>p]:leading-normal [&>p]:text-gray-200 [&>p]:typography-R14'>
-						<div className='mb-1 capitalize text-black typography-B28'>
-							{category.name}
-						</div>
-						<div className='mb-3 flex flex-row items-center gap-4'>
-							<span className='flex gap-1 text-gray-200 typography-R14'>
-								<CircleCheckIcon
-									size={18}
-									className='flex-shrink-0 text-white'
-									fill='#76828d'
-								/>
-								150 orders in last week
-							</span>
-						</div>
-						{parse(category.description)}
-					</div>
+			<div className='relative flex h-48 w-full items-center justify-center bg-gray-30'>
+				<div className='absolute inset-0 z-[2] bg-gradient-to-r from-[#00000023] from-10% via-[#01210c96] via-30% to-[#00000023] to-90% bg-blend-multiply mix-blend-multiply' />
+				<div className='z-[4] text-center text-white [&>p]:leading-normal [&>p]:text-gray-200 [&>p]:typography-R14'>
+					<h3 className='mb-1 capitalize typography-B28'>{category.name}</h3>
+					<span className='text-white'>{parse(category.description)}</span>
 				</div>
-
+				<Image
+					alt={`${category.name} cover photo`}
+					width={1000}
+					height={200}
+					src={category.cover?.url}
+					className='absolute inset-0 h-full w-full origin-center object-cover object-center bg-blend-overlay'
+				/>
+			</div>
+			<div className='container -mt-8'>
 				<div className='grid gap-x-6 gap-y-8 py-12 media-md:grid-cols-[278px,1fr]'>
 					<FilterProducts />
 					<Suspense

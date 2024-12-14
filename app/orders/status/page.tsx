@@ -11,7 +11,7 @@ export default async function OrderStatus(props: {
 	const searchParams = await props.searchParams;
 	// const encpl = cookies()?.get('encpl')?.value;
 	// const values = JSON.parse(encpl ?? '{}');
-	// if (!encpl) {
+	// if (!encpl || !searchParams.orderId) {
 	// 	redirect('/');
 	// }
 	return (
