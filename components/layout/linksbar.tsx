@@ -1,58 +1,88 @@
-import { cn } from 'lib/utils';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import parse from 'html-react-parser';
+
 import {
 	NavigationMenu,
 	NavigationMenuContent,
-	NavigationMenuIndicator,
 	NavigationMenuItem,
 	NavigationMenuLink,
 	NavigationMenuList,
 	NavigationMenuTrigger,
-	NavigationMenuViewport,
 	navigationMenuTriggerStyle,
 } from 'components/ui/navigation-menu';
-import { getTopSellingCategories } from 'apis/server/category';
+
+import { cn } from 'lib/utils';
+import { getCategories } from 'apis/server/category';
+import { getCompanies } from 'apis/server/company';
 
 export async function Linksbar() {
-	const data = await getTopSellingCategories({ limit: 1 });
-	const popularCategories = data.categories.map(cat => ({
-		label: cat.category.name,
-		to: `/categories/${cat.category.slug}`,
+	const categoriesData = await getCategories();
+	const categories = categoriesData.categories.map(cat => ({
+		_id: cat._id,
+		label: cat.name,
+		description: cat.description,
+		to: `/categories/${cat.slug}`,
 	}));
+
+	const companiesData = await getCompanies();
+	const companies = companiesData.companies.map(com => ({
+		_id: com._id,
+		label: com.name,
+		description: com.description,
+		to: `/companies/${com.slug}`,
+	}));
+
 	const mainLinks = [
 		{ label: 'Home', to: '/' },
 		{ label: 'Offers', to: '/shop/offers' },
-		{ label: 'Categories', to: '/categories' },
-		{ label: 'Companies', to: '/companies' },
-		{ label: 'New', to: '/shop?sort=-createdAt' },
-		{ label: 'Best Selling', to: '/shop?sort=-sold' },
+		{ label: 'Categories', to: '/categories', children: categories },
+		{ label: 'Brands', to: '/companies', children: companies },
 	];
 
 	return (
 		<div className='hidden border-b border-gray-50 media-md:block'>
 			<div className='container flex items-center'>
-				{/* <NavigationMenu>
+				<NavigationMenu>
 					<NavigationMenuList>
-						{mainLinks.concat(popularCategories).map(link => {
+						{mainLinks.map((link, idx, arr) => {
 							if (link.children) {
 								return (
-									<NavigationMenuItem key={link.label}>
-										<NavigationMenuTrigger>{link.label}</NavigationMenuTrigger>
+									<NavigationMenuItem
+										key={link.label}
+										className='typography-M14 hover:text-orange-700'>
+										<NavigationMenuTrigger>
+											<Link href={link.to}>{link.label}</Link>
+										</NavigationMenuTrigger>
 
-										<NavigationMenuContent className='grid grid-cols-2 gap-4 p-4'>
+										<NavigationMenuContent
+											className={cn('grid list-none gap-4 p-4', {
+												'grid-cols-2 media-lg:grid-cols-3':
+													arr[idx].children && arr[idx].children?.length < 13,
+												'grid-cols-3 media-lg:grid-cols-4':
+													arr[idx].children &&
+													arr[idx].children?.length > 12 &&
+													arr.length < 21,
+												'grid-cols-4 media-lg:grid-cols-5':
+													arr[idx].children && arr[idx].children?.length > 20,
+											})}>
 											{link.children?.map(child => {
 												return (
-													<Link
-														key={child.label}
-														href={child.to}
-														legacyBehavior
-														passHref>
-														<NavigationMenuLink
-															className={navigationMenuTriggerStyle()}>
-															{child.label}
+													<li key={child._id}>
+														<NavigationMenuLink asChild>
+															<Link
+																href={child.to}
+																className={cn(
+																	'block cursor-pointer select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-gray-20 focus:bg-gray-20'
+																)}>
+																<div className='text-sm font-medium leading-none'>
+																	{child.label}
+																</div>
+																<p className='line-clamp-2 text-xs leading-snug text-gray-100'>
+																	{parse(child.description)}
+																</p>
+															</Link>
 														</NavigationMenuLink>
-													</Link>
+													</li>
 												);
 											})}
 										</NavigationMenuContent>
@@ -60,14 +90,21 @@ export async function Linksbar() {
 								);
 							} else {
 								return (
-									<NavigationMenuItem key={link.label}>
+									<NavigationMenuItem
+										key={link.label} //[#bc6c25]
+										className='typography-M14 hover:text-orange-700'>
 										<Link
-											href='/shop'
+											href={link.to}
 											legacyBehavior
 											passHref>
 											<NavigationMenuLink
 												className={navigationMenuTriggerStyle()}>
 												{link.label}
+												{link.label === 'Offers' && (
+													<span className='ms-2 rounded-full bg-red-500 px-2 text-white typography-R12'>
+														Up to 50%
+													</span>
+												)}
 											</NavigationMenuLink>
 										</Link>
 									</NavigationMenuItem>
@@ -75,16 +112,7 @@ export async function Linksbar() {
 							}
 						})}
 					</NavigationMenuList>
-				</NavigationMenu> */}
-				{mainLinks.concat(popularCategories).map(link => (
-					<Link
-						key={link.label}
-						href={link.to}
-						className='px-4 py-4 flex gap-2 transition-all typography-M14 hover:text-[#bc6c25]'>
-						{link.label}
-						{link.label === "Offers" && <span className='bg-red-500 typography-R12 px-2 rounded-full text-white'>Up to 50%</span>}
-					</Link>
-				))}
+				</NavigationMenu>
 			</div>
 		</div>
 	);
