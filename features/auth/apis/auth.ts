@@ -76,27 +76,34 @@ export const register = actionClient
 	.schema(registerSchema, {
 		// handleValidationErrorsShape: ve => flattenValidationErrors(ve).fieldErrors,
 	})
-	.action(async ({ parsedInput: userData }) => {
-		const data = await request({
-			url: '/auth/register',
-			body: userData,
-			method: 'POST',
-		});
-		cookies().set(
-			process.env.ACCESS_TOKEN_NAME ?? '',
-			data.accessToken,
-			ACCESS_COOKIE_OPTIONS
-		);
+	.action(
+		async ({ parsedInput: userData }) => {
+			const data = await request({
+				url: '/auth/register',
+				body: userData,
+				method: 'POST',
+			});
 
-		cookies().set(
-			process.env.REFRESH_TOKEN_NAME ?? '',
-			data.refreshToken,
-			REFRESH_COOKIE_OPTIONS
-		);
+			// cookies().set(
+			// 	process.env.ACCESS_TOKEN_NAME ?? '',
+			// 	data.accessToken,
+			// 	ACCESS_COOKIE_OPTIONS
+			// );
 
-		cookies().delete(process.env.CART_ID ?? '');
-		return data;
-	});
+			// cookies().set(
+			// 	process.env.REFRESH_TOKEN_NAME ?? '',
+			// 	data.refreshToken,
+			// 	REFRESH_COOKIE_OPTIONS
+			// );
+
+			// cookies().delete(process.env.CART_ID ?? '');
+			// return data;
+		},
+		{
+			onSuccess: async ({ parsedInput }) =>
+				redirect(`/otp?email=${parsedInput?.email}`),
+		}
+	);
 
 export const logout = actionClient
 	.metadata({ actionName: 'logout-action' })
@@ -150,7 +157,9 @@ export const resetPassword = async ({
 	return data;
 };
 
-export const loginWithGoogle = actionClient.metadata({ actionName: 'login-with-google-action' }).action(async () => {
-	const { url } = await request({ url: '/auth/google' });
-	redirect(url);
-});
+export const loginWithGoogle = actionClient
+	.metadata({ actionName: 'login-with-google-action' })
+	.action(async () => {
+		const { url } = await request({ url: '/auth/google' });
+		redirect(url);
+	});
