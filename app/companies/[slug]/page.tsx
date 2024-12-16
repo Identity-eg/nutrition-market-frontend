@@ -1,15 +1,12 @@
 import { Suspense } from 'react';
 import parse from 'html-react-parser';
-import { CircleCheckIcon } from 'lucide-react';
 
-import { RatingStars } from 'components/ui/rating-stars';
 import FilterProducts from './filter';
 import { Products } from 'features/products/components';
 import { ProductsLoading } from 'features/products/components/products-loading';
 import BuildingPlaceholder from 'assets/icons/building-placeholder';
 import { Avatar, AvatarFallback, AvatarImage } from 'components/ui/avatar';
 import { getSingleCompany } from 'apis/server/company';
-import { Separator } from 'components/ui/separator';
 import type { TSearchParams } from 'types/searchparams';
 
 export default async function CompanyPage(props: {
@@ -38,24 +35,9 @@ export default async function CompanyPage(props: {
 							<BuildingPlaceholder size={64} />
 						</AvatarFallback>
 					</Avatar>
-					<div className='media-md:mt-10 [&>p]:leading-normal [&>p]:text-gray-200 [&>p]:typography-R14'>
-						<div className='mb-1 capitalize text-black typography-B28'>
+					<div className='space-y-1 media-md:mt-10 [&>p]:leading-normal [&>p]:text-gray-200 [&>p]:typography-R14'>
+						<div className='capitalize text-black typography-B28'>
 							{company.name}
-						</div>
-						<div className='mb-3 flex flex-row items-center gap-4'>
-							<RatingStars averageRating={2} />
-							<Separator
-								orientation='vertical'
-								className='h-4'
-							/>
-							<span className='flex gap-1 text-gray-200 typography-R14'>
-								<CircleCheckIcon
-									size={18}
-									className='flex-shrink-0 text-white'
-									fill='#76828d'
-								/>
-								150 orders in last week
-							</span>
 						</div>
 						{parse(company.description)}
 					</div>

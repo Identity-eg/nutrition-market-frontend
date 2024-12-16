@@ -6,15 +6,15 @@ import { Avatar, AvatarFallback, AvatarImage } from 'components/ui/avatar';
 import { getPopularCompanies } from 'apis/server/company';
 import { RatingStars } from 'components/ui/rating-stars';
 
-export default async function Companies() {
-	const { companies } = await getPopularCompanies();
+export default async function Brands() {
+	const { companies } = await getPopularCompanies({ limit: 3 });
 	return (
 		<div className='container py-10'>
 			<h3 className='mb-6 flex flex-col items-center text-center text-green-800 typography-B18 media-md:flex-row media-md:gap-4'>
-				Popular companies{' '}
+				Popular brands
 				<span className='text-gray-100 typography-R14'>
-					Featuring companies with the highest-selling products customers trust
-					and love.
+					Featuring brands with the highest-selling products customers trust and
+					love.
 				</span>
 			</h3>
 			<div

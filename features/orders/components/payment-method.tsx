@@ -10,13 +10,15 @@ export default function PaymentMethod({
 	setPaymentMethodId: Dispatch<React.SetStateAction<string>>;
 }) {
 	return (
-		<Card className='p-6'>
-			<div className='mb-6 typography-SB20'>Payment method</div>
+		<Card>
+			<div className='border-b border-gray-40 p-6 typography-SB20'>
+				Payment method
+			</div>
 			<RadioGroup
 				asChild
 				onValueChange={pId => setPaymentMethodId(pId)}
 				defaultValue={PAYMENT_METHODS_MAPPER[0].id}>
-				<ul className='space-y-4'>
+				<ul className='space-y-4 p-6'>
 					{PAYMENT_METHODS_MAPPER.map(method => (
 						<li
 							key={method.id}

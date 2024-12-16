@@ -6,7 +6,7 @@ import promoImage from 'assets/promo.webp';
 import { PaymentIcon } from 'assets/icons/payment-icon';
 import { DeliveryIcon } from 'assets/icons/delivery-icon';
 import { SaleIcon } from 'assets/icons/sale-icon';
-import Companies from './companies';
+import Companies from './brands';
 import { Suspense } from 'react';
 import BestSellerProducts from './best-seller-products';
 import Categories from './categories';

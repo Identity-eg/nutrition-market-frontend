@@ -23,12 +23,12 @@ export function Addresses({
 			asChild
 			defaultValue={addresses[0]._id}
 			onValueChange={addrId => setAddressId(addrId)}
-			className='gap-0 divide-y divide-gray-50'>
+			className='gap-0 divide-y divide-gray-40 px-6'>
 			<ul>
 				{addresses.map(addr => (
 					<li
 						key={addr._id}
-						className='flex flex-col justify-between gap-4 py-6 last:pb-0 media-md:flex-row media-md:items-center'>
+						className='flex flex-col justify-between gap-4 py-6 media-md:flex-row media-md:items-center'>
 						<div className='flex items-center gap-4'>
 							<RadioGroupItem
 								value={addr._id}
@@ -47,12 +47,12 @@ export function Addresses({
 						<Button
 							variant='outline'
 							className='gap-2'
+							size='icon'
 							onClick={() => {
 								openForm();
 								setAddressToEdit(addr);
 							}}>
 							<Pencil size={16} />
-							Edit
 						</Button>
 					</li>
 				))}

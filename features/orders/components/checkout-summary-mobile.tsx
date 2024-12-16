@@ -1,6 +1,5 @@
 import { PlaceOrderBtn } from 'features/orders/components/place-order-btn';
 import { Button } from 'components/ui/button';
-import { convertToReadableNumber } from 'lib/utils';
 import {
 	Drawer,
 	DrawerClose,
@@ -11,7 +10,9 @@ import {
 } from 'components/ui/drawer';
 import CheckoutCartItem from '../../../app/checkout/checkout-cart-item';
 import { TCart } from 'features/cart/types/cart';
-import { Input } from 'components/ui/input';
+import { Coupon } from 'features/coupon/components/coupon';
+import { Separator } from 'components/ui/separator';
+import { Price } from 'components/utils/price';
 
 export function CheckoutSummaryMobile({
 	cart,
@@ -22,10 +23,6 @@ export function CheckoutSummaryMobile({
 	paymentMethodId: string;
 	addressId: string;
 }) {
-	const priceBeforeDiscount = cart.items.reduce((acc, item) => {
-		acc += item.variant.price * item.amount;
-		return acc;
-	}, 0);
 	return (
 		<Drawer>
 			<DrawerTrigger asChild>
@@ -49,21 +46,40 @@ export function CheckoutSummaryMobile({
 					<div className='mb-4 border-b border-gray-40 pb-4 text-gray-200 typography-R14'>
 						<div className='mb-2 flex items-center justify-between'>
 							<p>Total Price</p>
-							<span>{convertToReadableNumber(priceBeforeDiscount)} EGP</span>
+							<Price
+								className='mb-0'
+								finalPriceClassName='typography-M14 text-gray-200'
+								price={cart.totalPrice}
+							/>
 						</div>
 						<div className='mb-2 flex items-center justify-between'>
 							<p>Total Price After Discount</p>
-							<span>{convertToReadableNumber(cart.totalPrice)} EGP</span>
+							{cart.totalPriceAfterCoupon ? (
+								<Price
+									className='mb-0'
+									finalPriceClassName='typography-M14 text-gray-200'
+									price={cart.totalPriceAfterCoupon}
+								/>
+							) : (
+								'No discount'
+							)}
 						</div>
 						<div className='mb-2 flex items-center justify-between'>
 							<p>Shipping Fee</p>
-							<span>0 EGP</span>
+							<span>Free</span>
 						</div>
 					</div>
+					<Coupon cart={cart} />
+
+					<Separator className='mb-4' />
 
 					<div className='mb-4 flex items-center justify-between text-green-light-700 typography-SB18'>
 						<p className='text-green-800'>Total Price</p>
-						{convertToReadableNumber(cart.totalPrice)} EGP
+						<Price
+							finalPriceClassName='typography-SB18'
+							className='mb-0'
+							price={cart.totalPriceAfterCoupon ?? cart.totalPrice}
+						/>
 					</div>
 				</DrawerHeader>
 				<DrawerFooter>

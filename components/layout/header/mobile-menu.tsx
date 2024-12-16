@@ -8,12 +8,6 @@ import {
 	SheetTitle,
 	SheetTrigger,
 } from 'components/ui/sheet';
-import {
-	Accordion,
-	AccordionContent,
-	AccordionItem,
-	AccordionTrigger,
-} from 'components/ui/accordion';
 import { loggedinLinks } from 'constants/navLinks';
 import { Separator } from 'components/ui/separator';
 import { LogoutButton } from 'features/auth/components/logout-button';

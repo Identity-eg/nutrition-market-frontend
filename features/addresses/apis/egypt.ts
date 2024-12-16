@@ -1,6 +1,7 @@
 import { actionClient } from 'apis/action-clients';
 import { request } from 'apis/request';
 import type { TCity, TGovernorate } from 'features/addresses/types/egypt';
+import { flattenValidationErrors } from 'next-safe-action';
 import { z } from 'zod';
 
 export const getGovernorates = async (): Promise<TGovernorate[]> => {
@@ -16,7 +17,10 @@ const getCitiesSchema = z.object({
 });
 
 export const getCities = actionClient
-	.schema(getCitiesSchema)
+	.metadata({ actionName: 'get-cities-action' })
+	.schema(getCitiesSchema, {
+		// handleValidationErrorsShape: ve => flattenValidationErrors(ve).fieldErrors,
+	})
 	.action(async ({ parsedInput: { govId } }) => {
 		const data = await request({
 			url: `/cities/${govId}`,

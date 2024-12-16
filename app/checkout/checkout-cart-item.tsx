@@ -1,15 +1,15 @@
 import Image from 'next/image';
-import { convertToReadableNumber } from 'lib/utils';
 import type { TCartItem } from 'features/cart/types/cart';
+import { TicketIcon } from 'lucide-react';
+import { Price } from 'components/utils/price';
 
 export default function CheckoutCartItem({
 	_id,
 	totalProductPrice,
+	totalProductPriceAfterCoupon,
 	variant,
 	amount,
 }: TCartItem) {
-	const totalPrice = convertToReadableNumber(totalProductPrice);
-
 	return (
 		<li
 			key={_id}
@@ -28,8 +28,22 @@ export default function CheckoutCartItem({
 			</div>
 
 			<div className='flex w-full flex-col justify-between text-gray-400 typography-M14'>
-				<h3 className='line-clamp-2 text-left'>{variant.name}</h3>
-				<span className='self-end'>{totalPrice} EGP</span>
+				<div className='flex justify-between'>
+					<h3 className='line-clamp-2 text-left'>{variant.name}</h3>
+					{totalProductPriceAfterCoupon && (
+						<div className='flex aspect-square size-5 items-center justify-center rounded-full bg-green-light-600'>
+							<TicketIcon
+								size={14}
+								className='text-white'
+							/>
+						</div>
+					)}
+				</div>
+				<Price
+					className='mb-0 ml-auto'
+					finalPriceClassName='typography-M14 text-gray-200'
+					price={totalProductPriceAfterCoupon ?? totalProductPrice}
+				/>
 			</div>
 		</li>
 	);

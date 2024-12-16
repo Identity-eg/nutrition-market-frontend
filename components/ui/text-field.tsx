@@ -2,7 +2,7 @@
 
 import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from 'lib/utils';
-import { forwardRef, type InputHTMLAttributes, type ReactNode } from 'react';
+import { forwardRef, type ReactNode } from 'react';
 
 export interface InputProps
 	extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'size'>,
@@ -20,7 +20,7 @@ const inputVariants = cva(
 				fill: 'border-gray-20 bg-gray-20',
 			},
 			size: {
-				xs: 'h-[32px]',
+				xs: 'h-[36px]',
 				sm: 'h-[40px]',
 				md: 'h-[44px]',
 				lg: 'h-[48px]',

@@ -1,6 +1,5 @@
 import Image from 'next/image';
 import {
-	CheckCheckIcon,
 	CheckIcon,
 	CircleAlertIcon,
 	CircleDollarSignIcon,
@@ -9,7 +8,6 @@ import {
 	PhoneIcon,
 	TruckIcon,
 	UnplugIcon,
-	XIcon,
 } from 'lucide-react';
 import dayjs from 'dayjs';
 
@@ -23,8 +21,8 @@ import {
 import { cn, convertToReadableNumber } from 'lib/utils';
 import type { TOrder, TOrderItem } from 'features/orders/types/order';
 import { Separator } from 'components/ui/separator';
-import { Button } from 'components/ui/button';
 import { CancelOrderButton } from 'features/orders/components/cancel-order-button';
+import { Price } from 'components/utils/price';
 
 const orderLabel = {
 	true: { label: 'Paid', color: 'bg-green-light-500' },
@@ -85,7 +83,12 @@ function OrderDetails({
 	));
 }
 
-function OrderItem({ amount, totalProductPrice, variant }: TOrderItem) {
+function OrderItem({
+	amount,
+	totalProductPrice,
+	totalProductPriceAfterCoupon,
+	variant,
+}: TOrderItem) {
 	return (
 		<li className='flex w-full gap-4 border-b border-gray-40 pb-6 last:border-0 last:pb-0'>
 			<div className='relative size-20 flex-shrink-0 rounded-md bg-gray-30'>
@@ -105,9 +108,11 @@ function OrderItem({ amount, totalProductPrice, variant }: TOrderItem) {
 				<h4 className='line-clamp-2'>{variant.name}</h4>
 				<div className='flex h-full justify-between'>
 					<span className='mt-2 typography-R14'>{variant.unitCount} Caps</span>
-					<span className='mt-auto self-end'>
-						{convertToReadableNumber(+totalProductPrice)} EGP
-					</span>
+					<Price
+						className='mb-0 ml-auto'
+						finalPriceClassName='typography-M14 text-gray-400'
+						price={Number(totalProductPriceAfterCoupon ?? totalProductPrice)}
+					/>
 				</div>
 			</div>
 		</li>
@@ -121,7 +126,7 @@ function OrderSummary({ order }: { order: TOrder }) {
 
 	return (
 		<Card className='flex max-w-[380px] flex-1 flex-col justify-between self-start overflow-hidden p-6'>
-			<h3 className='mb-4 capitalize text-gray-800 typography-SB20'>
+			<h3 className='mb-4 capitalize text-gray-800 typography-SB16'>
 				Delivery
 			</h3>
 			<div className='mb-4 border-b border-gray-40 pb-4'>
@@ -131,8 +136,8 @@ function OrderSummary({ order }: { order: TOrder }) {
 						size={20}
 					/>
 					<div>
-						<p>Address</p>
-						<p className='text-gray-200 typography-R14'>
+						<p className='typography-M14'>Address</p>
+						<p className='text-gray-200 typography-R13'>
 							{`${order.shippingAddress.street} - ${order.shippingAddress.city} - ${order.shippingAddress.governorate}`}
 						</p>
 					</div>
@@ -144,8 +149,8 @@ function OrderSummary({ order }: { order: TOrder }) {
 						size={20}
 					/>
 					<div>
-						<p>Phone</p>
-						<p className='text-gray-200 typography-R14'>
+						<p className='typography-M14'>Phone</p>
+						<p className='text-gray-200 typography-R13'>
 							{order.shippingAddress.phone}
 						</p>
 					</div>
@@ -157,15 +162,15 @@ function OrderSummary({ order }: { order: TOrder }) {
 						size={20}
 					/>
 					<div>
-						<p>Payment method</p>
-						<p className='text-gray-200 typography-R14'>
+						<p className='typography-M14'>Payment method</p>
+						<p className='text-gray-200 typography-R13'>
 							{paymentMethod?.name}
 						</p>
 					</div>
 				</div>
 			</div>
 
-			<h3 className='mb-4 capitalize text-gray-800 typography-SB20'>
+			<h3 className='mb-4 capitalize text-gray-800 typography-SB16'>
 				Order summary
 			</h3>
 			<div className='mb-4 border-b border-gray-40 pb-4 text-gray-200 typography-R14'>
@@ -178,7 +183,7 @@ function OrderSummary({ order }: { order: TOrder }) {
 					<span>{convertToReadableNumber(order.shippingFee)} EGP</span>
 				</div>
 			</div>
-			<div className='flex items-center justify-between text-green-light-700 typography-SB18'>
+			<div className='flex items-center justify-between text-green-light-700 typography-SB16'>
 				<p className='text-green-800'>Total Price</p>
 				{convertToReadableNumber(order.total)} EGP
 			</div>

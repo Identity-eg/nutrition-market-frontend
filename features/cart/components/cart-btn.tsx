@@ -1,7 +1,7 @@
-import { convertToReadableNumber } from 'lib/utils';
 import { ShoppingBasket } from 'lucide-react';
 
 import { TCart } from 'features/cart/types/cart';
+import { Price } from 'components/utils/price';
 
 export function CartBtn({ cart }: { cart: TCart }) {
 	return (
@@ -14,9 +14,10 @@ export function CartBtn({ cart }: { cart: TCart }) {
 			</div>
 			<div className='hidden flex-col items-start typography-M14 media-md:flex'>
 				<p className='text-black'>Cart</p>
-				<p className='text-[#bc6c25]'>
-					{convertToReadableNumber(cart.totalPrice)} EGP
-				</p>
+				<Price
+					finalPriceClassName='typography-M14 '
+					price={cart.totalPriceAfterCoupon ?? cart.totalPrice}
+				/>
 			</div>
 		</>
 	);

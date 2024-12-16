@@ -7,6 +7,7 @@ export type TOrderItem = {
 	product: string;
 	amount: number;
 	totalProductPrice: string;
+	totalProductPriceAfterCoupon: string;
 	variant: TVariant;
 };
 
