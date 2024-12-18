@@ -65,7 +65,7 @@ export default async function FilterProducts() {
 						/>
 					</Suspense>
 
-					<AccordionItem value={FilterKeys.price}>
+					<AccordionItem value={FilterKeys.averageRating}>
 						<AccordionTrigger className='typography-M14'>
 							Rating
 						</AccordionTrigger>

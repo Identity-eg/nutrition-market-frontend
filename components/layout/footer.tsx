@@ -80,7 +80,11 @@ const Footer = () => {
 					</div>
 				</div>
 				<p className='typography-R14'>
-					All Rights Reserved <span className='text-[#a3b18a]'>BIOVAC</span>.
+					All Rights Reserved <span className='text-[#a3b18a]'>IDENT</span>.
+				</p>
+				<p className='typography-R14'>
+					Developed By{' '}
+					<span className='text-[#a3b18a]'>Amr Tawfik & hady Tawfik</span>.
 				</p>
 			</div>
 		</footer>

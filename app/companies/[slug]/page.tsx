@@ -1,4 +1,5 @@
 import { Suspense } from 'react';
+import Image from 'next/image';
 import parse from 'html-react-parser';
 
 import FilterProducts from './filter';
@@ -26,11 +27,19 @@ export default async function CompanyPage(props: {
 
 	return (
 		<section>
-			<div className='h-48 w-full bg-gray-30' />
+			<div className='h-48'>
+				<Image
+					alt={`${company.name} cover photo`}
+					width={1000}
+					height={200}
+					src={company.cover?.url ?? ''}
+					className='h-full w-full origin-center object-cover object-center bg-blend-overlay'
+				/>
+			</div>
 			<div className='container -mt-8'>
 				<div className='flex flex-col gap-2 media-md:flex-row'>
 					<Avatar className='size-36 flex-shrink-0 rounded-full border-8 border-white bg-gray-30'>
-						<AvatarImage />
+						<AvatarImage src={company.logo?.url} />
 						<AvatarFallback className='rounded-md bg-gray-30 text-gray-100'>
 							<BuildingPlaceholder size={64} />
 						</AvatarFallback>

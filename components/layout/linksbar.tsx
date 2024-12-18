@@ -34,6 +34,7 @@ export async function Linksbar() {
 
 	const mainLinks = [
 		{ label: 'Home', to: '/' },
+		{ label: 'Shop', to: '/shop' },
 		{ label: 'Offers', to: '/shop/offers' },
 		{ label: 'Categories', to: '/categories', children: categories },
 		{ label: 'Brands', to: '/companies', children: companies },

@@ -1,8 +1,6 @@
-import { Button } from 'components/ui/button';
 import { getProducts } from 'features/products/apis';
 import { CardItem } from 'features/products/components/card-item';
-import { MoveRightIcon } from 'lucide-react';
-import Link from 'next/link';
+import SectionWrapper from './section-wrapper';
 
 export default async function BestSellerProducts() {
 	const products = await getProducts({
@@ -10,24 +8,11 @@ export default async function BestSellerProducts() {
 		limit: '5',
 	});
 	return (
-		<div className='container py-10'>
-			<div className='flex items-start justify-between'>
-				<h3 className='mb-6 flex flex-col items-center text-center text-green-800 typography-B18 media-md:flex-row media-md:gap-4'>
-					Best Seller{' '}
-					<span className='text-gray-100 typography-R14'>
-						Shop our top-rated and most-loved products, handpicked by our
-						customers.
-					</span>
-				</h3>
-				<Button
-					className='hidden gap-2 media-md:flex'
-					variant='link'
-					asChild>
-					<Link href='/shop?sort=-sold'>
-						View All <MoveRightIcon size={16} />
-					</Link>
-				</Button>
-			</div>
+		<SectionWrapper
+			title='Best Seller'
+			description='Shop our top-rated and most-loved products, handpicked by our
+						customers.'
+			href='/shop?sort=-sold'>
 			<div className='grid grid-cols-2 gap-2 self-baseline overflow-hidden media-sm:grid-cols-[repeat(auto-fill,minmax(200px,1fr))] media-sm:gap-4'>
 				{products.products.map(product => (
 					<CardItem
@@ -36,6 +21,6 @@ export default async function BestSellerProducts() {
 					/>
 				))}
 			</div>
-		</div>
+		</SectionWrapper>
 	);
 }

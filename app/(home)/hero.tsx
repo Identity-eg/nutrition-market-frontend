@@ -1,13 +1,15 @@
+import Link from 'next/link';
+import Image from 'next/image';
+import parse from 'html-react-parser';
+
 import {
 	CarouselContent,
 	CarouselDots,
 	CarouselItem,
 } from 'components/ui/carousel';
-import Image from 'next/image';
 import CarouselWrapper from './carousel-wrapper';
-import parse from 'html-react-parser';
 import { Button } from 'components/ui/button';
-import Link from 'next/link';
+
 import { getHeroImages } from 'apis/server/hero';
 
 export default async function Hero() {

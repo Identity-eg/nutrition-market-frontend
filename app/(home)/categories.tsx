@@ -1,8 +1,7 @@
-import { getTopSellingCategories } from 'apis/server/category';
-import React from 'react';
+import Link from 'next/link';
+
 import CarouselWrapper from './carousel-wrapper';
 import { CarouselContent, CarouselItem } from 'components/ui/carousel';
-import Link from 'next/link';
 import { Card } from 'components/ui/card';
 import { BoneIcon } from 'assets/icons/bone-icon';
 import { RespiratoryIcon } from 'assets/icons/respiratory-icon';
@@ -13,6 +12,9 @@ import { NailsIcon } from 'assets/icons/nails-icon';
 import { NervousIcon } from 'assets/icons/nervous-icon';
 import { MaleIcon } from 'assets/icons/male-icon';
 import { FemaleIcon } from 'assets/icons/female-icon';
+
+import { getTopSellingCategories } from 'apis/server/category';
+import SectionWrapper from './section-wrapper';
 
 const iconMapper = {
 	'bone-and-joint-health': <BoneIcon />,
@@ -30,14 +32,11 @@ export default async function Categories() {
 	const data = await getTopSellingCategories({ limit: 7 });
 
 	return (
-		<div className='container py-10'>
-			<h3 className='mb-6 flex flex-col items-center text-green-800 typography-B18 media-sm:gap-4 media-md:flex-row'>
-				<span>Featured Category</span>
-				<span className='text-gray-100 typography-R14'>
-					These categories feature top-selling products and trending items that
-					everyone loves.
-				</span>
-			</h3>
+		<SectionWrapper
+			title='Featured Category'
+			description='These categories feature top-selling products and trending items
+						that everyone loves.'
+			href='/categories'>
 			<CarouselWrapper
 				opts={{ loop: true }}
 				className='typography-SB16'>
@@ -62,6 +61,6 @@ export default async function Categories() {
 					})}
 				</CarouselContent>
 			</CarouselWrapper>
-		</div>
+		</SectionWrapper>
 	);
 }

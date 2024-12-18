@@ -4,58 +4,47 @@ import parse from 'html-react-parser';
 import BuildingPlaceholder from 'assets/icons/building-placeholder';
 import { Avatar, AvatarFallback, AvatarImage } from 'components/ui/avatar';
 import { getPopularCompanies } from 'apis/server/company';
-import { RatingStars } from 'components/ui/rating-stars';
+import SectionWrapper from './section-wrapper';
 
 export default async function Brands() {
-	const { companies } = await getPopularCompanies({ limit: 3 });
+	const { companies } = await getPopularCompanies({ limit: 5 });
 	return (
-		<div className='container py-10'>
-			<h3 className='mb-6 flex flex-col items-center text-center text-green-800 typography-B18 media-md:flex-row media-md:gap-4'>
-				Popular brands
-				<span className='text-gray-100 typography-R14'>
-					Featuring brands with the highest-selling products customers trust and
-					love.
-				</span>
-			</h3>
+		<SectionWrapper
+			title='Popular brands'
+			description='Featuring brands with the highest-selling products customers trust
+						and love.'
+			href='/companies'>
 			<div
-				className='col-span-2 grid divide-y divide-gray-50 self-baseline overflow-hidden rounded-md border border-gray-50 media-md:col-span-1 media-md:divide-x'
+				className='grid gap-4 divide-y divide-gray-50 self-baseline overflow-hidden rounded-md border border-gray-50 px-4 media-md:divide-none'
 				style={{
-					gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))',
+					gridTemplateColumns: 'repeat(auto-fill, minmax(350px, 1fr))',
 				}}>
 				{companies.map(company => (
 					<div
 						key={company._id}
-						className='p-4'>
-						<div
-							key={company._id}
-							className='mb-4 flex items-center gap-4 border-b border-gray-40 pb-4'>
-							<Avatar className='size-16 rounded-md'>
-								<AvatarImage />
-								<AvatarFallback className='rounded-md bg-gray-30 text-gray-100'>
-									<BuildingPlaceholder />
-								</AvatarFallback>
-							</Avatar>
-							<div className='flex flex-col'>
-								<Link
-									href={`/companies/${company.slug}`}
-									className='mb-1 typography-SB16 hover:underline'>
-									{company.name}{' '}
-									<span className='text-gray-200 typography-R16'>
-										({company.productsCount})
-									</span>
-								</Link>
-								<RatingStars
-									averageRating={4}
-									size={14}
-								/>
-							</div>
+						className='flex gap-4 py-4'>
+						<Avatar className='size-20 rounded-md'>
+							<AvatarImage src={company.logo?.url} />
+							<AvatarFallback className='rounded-md bg-gray-30 text-gray-100'>
+								<BuildingPlaceholder />
+							</AvatarFallback>
+						</Avatar>
+						<div className='flex flex-col'>
+							<Link
+								href={`/companies/${company.slug}`}
+								className='mb-1 typography-SB16 hover:underline'>
+								{company.name}{' '}
+								<span className='text-gray-200 typography-R16'>
+									({company.productsCount})
+								</span>
+							</Link>
+							<span className='line-clamp-2 text-gray-200 typography-R14'>
+								{parse(company.description)}
+							</span>
 						</div>
-						<span className='line-clamp-2 text-gray-200 typography-R14'>
-							{parse(company.description)}
-						</span>
 					</div>
 				))}
 			</div>
-		</div>
+		</SectionWrapper>
 	);
 }
