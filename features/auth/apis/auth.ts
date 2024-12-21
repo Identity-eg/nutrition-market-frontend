@@ -28,6 +28,7 @@ const loginSchema = z.object({
 		.string()
 		.min(1, { message: 'Password is required' })
 		.min(6, { message: 'Password must be greater than 6 characters' }),
+	from: z.string().nullable(),
 });
 
 export const login = actionClient
@@ -35,26 +36,35 @@ export const login = actionClient
 	.schema(loginSchema, {
 		// handleValidationErrorsShape: ve => flattenValidationErrors(ve).fieldErrors,
 	})
-	.action(async ({ parsedInput: userData }) => {
-		const data = await request({
-			url: '/auth/login',
-			body: userData,
-			method: 'POST',
-		});
-		cookies().set(
-			process.env.ACCESS_TOKEN_NAME ?? '',
-			data.accessToken,
-			ACCESS_COOKIE_OPTIONS
-		);
+	.action(
+		async ({ parsedInput: userData }) => {
+			const data = await request({
+				url: '/auth/login',
+				body: userData,
+				method: 'POST',
+			});
+			cookies().set(
+				process.env.ACCESS_TOKEN_NAME ?? '',
+				data.accessToken,
+				ACCESS_COOKIE_OPTIONS
+			);
 
-		cookies().set(
-			process.env.REFRESH_TOKEN_NAME ?? '',
-			data.refreshToken,
-			REFRESH_COOKIE_OPTIONS
-		);
-		cookies().delete(process.env.CART_ID ?? '');
-		return data;
-	});
+			cookies().set(
+				process.env.REFRESH_TOKEN_NAME ?? '',
+				data.refreshToken,
+				REFRESH_COOKIE_OPTIONS
+			);
+			cookies().delete(process.env.CART_ID ?? '');
+			return data;
+		},
+		{
+			onSuccess: data => {
+				if (!data.hasRedirected) {
+					redirect(data.parsedInput.from ?? '/');
+				}
+			},
+		}
+	);
 
 const registerSchema = z.object({
 	firstName: z.string().min(1, { message: 'First Name is required' }),
@@ -76,32 +86,48 @@ export const register = actionClient
 	.schema(registerSchema, {
 		// handleValidationErrorsShape: ve => flattenValidationErrors(ve).fieldErrors,
 	})
+	.action(async ({ parsedInput: userData }) => {
+		await request({
+			url: '/auth/register',
+			body: userData,
+			method: 'POST',
+		});
+	});
+
+const otpSchema = z.object({
+	otp: z.string().min(1, { message: 'Otp is required' }),
+});
+
+export const verifyOtp = actionClient
+	.metadata({ actionName: 'verifiy-otp-action' })
+	.schema(otpSchema, {
+		// handleValidationErrorsShape: ve => flattenValidationErrors(ve).fieldErrors,
+	})
 	.action(
-		async ({ parsedInput: userData }) => {
+		async ({ parsedInput: { otp } }) => {
 			const data = await request({
-				url: '/auth/register',
-				body: userData,
+				url: '/auth/verify-otp',
+				body: { otp },
 				method: 'POST',
 			});
 
-			// cookies().set(
-			// 	process.env.ACCESS_TOKEN_NAME ?? '',
-			// 	data.accessToken,
-			// 	ACCESS_COOKIE_OPTIONS
-			// );
+			cookies().set(
+				process.env.ACCESS_TOKEN_NAME ?? '',
+				data.accessToken,
+				ACCESS_COOKIE_OPTIONS
+			);
 
-			// cookies().set(
-			// 	process.env.REFRESH_TOKEN_NAME ?? '',
-			// 	data.refreshToken,
-			// 	REFRESH_COOKIE_OPTIONS
-			// );
+			cookies().set(
+				process.env.REFRESH_TOKEN_NAME ?? '',
+				data.refreshToken,
+				REFRESH_COOKIE_OPTIONS
+			);
 
-			// cookies().delete(process.env.CART_ID ?? '');
-			// return data;
+			cookies().delete(process.env.CART_ID ?? '');
+			return data;
 		},
 		{
-			onSuccess: async ({ parsedInput }) =>
-				redirect(`/otp?email=${parsedInput?.email}`),
+			onSuccess: async () => redirect(`/`),
 		}
 	);
 
@@ -137,6 +163,18 @@ export const forgotPassword = async ({
 	});
 
 	return data;
+};
+
+export const getUserForOtp = async ({
+	id,
+}: {
+	id: string;
+}): Promise<{ email: string }> => {
+	const { user } = await request({
+		url: `/users/otp/${id}`,
+	});
+
+	return user;
 };
 
 export const resetPassword = async ({

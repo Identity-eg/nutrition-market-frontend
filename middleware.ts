@@ -1,5 +1,4 @@
 import {
-	certainRoutes,
 	privateRoutesMiddleware,
 	refreshToken,
 	unAuthenticatedRoutesMiddleware,
@@ -10,7 +9,6 @@ const middlewares = [
 	refreshToken,
 	privateRoutesMiddleware,
 	unAuthenticatedRoutesMiddleware,
-	certainRoutes,
 ];
 
 export default chain(middlewares);

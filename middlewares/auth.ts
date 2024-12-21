@@ -84,26 +84,3 @@ export function privateRoutesMiddleware(middleware: CustomMiddleware) {
 		return middleware(request, event, response);
 	};
 }
-
-export function certainRoutes(middleware: CustomMiddleware) {
-	return async (
-		request: NextRequest,
-		event: NextFetchEvent,
-		response: NextResponse
-	) => {
-		const { nextUrl, headers } = request;
-
-		if (nextUrl.pathname === '/otp') {
-			if (headers.get('referer')?.includes('signup')) {
-				response = NextResponse.next({
-					request: {
-						headers: request.headers,
-					},
-				});
-				response.headers.set('x-hello-from-middleware2', 'hello');
-			}
-		}
-
-		return middleware(request, event, response);
-	};
-}
