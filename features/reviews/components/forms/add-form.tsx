@@ -43,8 +43,14 @@ export const AddForm = ({
 	user?: TUser;
 	productId: string;
 }) => {
-	const { execute, reset, isPending, hasErrored, hasSucceeded, result } =
-		useAction(addReview);
+	const {
+		execute,
+		reset: resetAction,
+		isPending,
+		hasErrored,
+		hasSucceeded,
+		result,
+	} = useAction(addReview);
 
 	const form = useForm<z.infer<typeof reviewSchema>>({
 		resolver: zodResolver(reviewSchema),
@@ -56,12 +62,13 @@ export const AddForm = ({
 
 	useEffect(() => {
 		if (hasSucceeded) {
-			setTimeout(() => reset(), 10000);
+			setTimeout(() => resetAction(), 8000);
 		}
 	}, [hasSucceeded]);
 
 	const onSubmit = (values: z.infer<typeof reviewSchema>) => {
 		execute({ productId, ...values });
+		form.reset();
 	};
 
 	if (hasUserReview) {
@@ -175,14 +182,13 @@ export const AddForm = ({
 							'Submit'
 						)}
 					</Button>
-
-					{hasErrored && (
-						<h1 className='-mt-2 mb-4 border-t border-gray-40 pt-2 text-red-500'>
-							{result.data.msg}
-						</h1>
-					)}
 				</Form>
 			</form>
+			{hasErrored && (
+				<h1 className='-mt-2 mb-4 border-t border-gray-40 pt-2 text-red-500'>
+					{result.serverError}
+				</h1>
+			)}
 		</div>
 	);
 };

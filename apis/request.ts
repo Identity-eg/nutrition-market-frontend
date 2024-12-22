@@ -1,7 +1,7 @@
 'use server';
 
 import { cookies } from 'next/headers';
-import { notFound } from 'next/navigation';
+import { notFound, redirect } from 'next/navigation';
 import { getAccessToken } from './helpers';
 import qs from 'qs';
 
@@ -44,23 +44,28 @@ export const request = async ({ ...options }: TOptions) => {
 
 	const finalBaseUrl = options.baseUrl ?? baseURL;
 
+	const res = await fetch(`${finalBaseUrl}${options.url}${queryString}`, {
+		credentials: 'include',
+		...options,
+
+		headers: { ...defaultHeaders, ...options.headers },
+		body: options.body ? JSON.stringify(options.body) : undefined,
+	});
+
+	if (res.redirected) {
+		redirect(res.url);
+	}
+
 	try {
-		const res = await fetch(`${finalBaseUrl}${options.url}${queryString}`, {
-			credentials: 'include',
-			...options,
-
-			headers: { ...defaultHeaders, ...options.headers },
-			body: options.body ? JSON.stringify(options.body) : undefined,
-		});
-
 		if (!res.ok) {
 			const data = await res.json();
 			throw new Error(data.msg, { cause: { statusCode: res.status } });
 		}
+
 		return await res.json();
 	} catch (err) {
 		const error = err as CustomError;
-		if (error.cause.statusCode === 404) {
+		if (error?.cause?.statusCode === 404) {
 			notFound();
 		}
 		throw new Error(error.message);

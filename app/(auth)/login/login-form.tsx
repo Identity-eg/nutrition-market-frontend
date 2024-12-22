@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useSearchParams } from 'next/navigation';
 import { Loader2 } from 'lucide-react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -38,7 +38,6 @@ const loginSchema = z.object({
 });
 
 export function LoginForm() {
-	const router = useRouter();
 	const searchParams = useSearchParams();
 	const from = searchParams.get('from');
 	const form = useForm<z.infer<typeof loginSchema>>({
@@ -51,7 +50,6 @@ export function LoginForm() {
 	});
 
 	const { execute, isPending } = useAction(login, {
-		onSuccess: () => router.replace(from ?? '/'),
 		onError: ({ error }) => {
 			toast({
 				variant: 'destructive',
@@ -73,7 +71,7 @@ export function LoginForm() {
 		});
 
 	function onSubmit(values: z.infer<typeof loginSchema>) {
-		execute(values);
+		execute({ ...values, from });
 	}
 	return (
 		<form

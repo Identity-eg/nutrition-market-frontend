@@ -1,6 +1,5 @@
 'use client';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { Loader2 } from 'lucide-react';
@@ -43,8 +42,6 @@ const registerSchema = z.object({
 	rememberMe: z.boolean(),
 });
 export function SignupForm() {
-	const router = useRouter();
-	const from = '/';
 	const form = useForm<z.infer<typeof registerSchema>>({
 		defaultValues: {
 			firstName: '',
@@ -57,7 +54,6 @@ export function SignupForm() {
 	});
 
 	const { execute, isPending } = useAction(register, {
-		onSuccess: () => router.replace(from),
 		onError: ({ error }) => {
 			toast({
 				variant: 'destructive',
