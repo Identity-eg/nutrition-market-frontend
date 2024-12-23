@@ -1,11 +1,11 @@
 'use client';
 
 import { InputOTP, InputOTPGroup, InputOTPSlot } from 'components/ui/input-otp';
-import { verifyOtp } from 'features/auth/apis/auth';
+import { verifyEmail } from 'features/auth/apis/auth';
 import { useAction } from 'next-safe-action/hooks';
 
 export function InputContainer() {
-	const { execute, result } = useAction(verifyOtp);
+	const { execute, result } = useAction(verifyEmail);
 
 	return (
 		<>

@@ -228,7 +228,8 @@ export default async function ProductPage(props: {
 
 			<Suspense fallback='Loading'>
 				<Reviews
-					productId={product._id}
+					_id={product._id}
+					slug={product.slug}
 					averageRating={product.averageRating}
 				/>
 			</Suspense>

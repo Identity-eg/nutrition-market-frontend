@@ -98,15 +98,15 @@ const otpSchema = z.object({
 	otp: z.string().min(1, { message: 'Otp is required' }),
 });
 
-export const verifyOtp = actionClient
-	.metadata({ actionName: 'verifiy-otp-action' })
+export const verifyEmail = actionClient
+	.metadata({ actionName: 'verifiy-email-action' })
 	.schema(otpSchema, {
 		// handleValidationErrorsShape: ve => flattenValidationErrors(ve).fieldErrors,
 	})
 	.action(
 		async ({ parsedInput: { otp } }) => {
 			const data = await request({
-				url: '/auth/verify-otp',
+				url: '/auth/verify-email',
 				body: { otp },
 				method: 'POST',
 			});
@@ -171,7 +171,7 @@ export const getUserForOtp = async ({
 	id: string;
 }): Promise<{ email: string }> => {
 	const { user } = await request({
-		url: `/users/otp/${id}`,
+		url: `/users/verify-email/${id}`,
 	});
 
 	return user;

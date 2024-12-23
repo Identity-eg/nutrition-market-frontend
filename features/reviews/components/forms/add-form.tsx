@@ -38,10 +38,12 @@ export const AddForm = ({
 	user,
 	hasUserReview,
 	productId,
+	productSlug,
 }: {
 	hasUserReview: boolean;
 	user?: TUser;
 	productId: string;
+	productSlug: string;
 }) => {
 	const {
 		execute,
@@ -98,7 +100,7 @@ export const AddForm = ({
 				<Button
 					asChild
 					className='w-full capitalize'>
-					<Link href={`/login?from=shop/${productId}`}>Write a review</Link>
+					<Link href={`/login?from=shop/${productSlug}`}>Write a review</Link>
 				</Button>
 			</div>
 		);

@@ -16,12 +16,10 @@ import { getMe } from 'features/auth/apis/user';
 import type { TProductWithSingleVariant } from 'features/products/types/product';
 
 export default async function Reviews({
-	productId,
+	_id: productId,
+	slug: productSlug,
 	averageRating,
-}: {
-	productId: TProductWithSingleVariant['_id'];
-	averageRating: TProductWithSingleVariant['averageRating'];
-}) {
+}: Pick<TProductWithSingleVariant, '_id' | 'slug' | 'averageRating'>) {
 	const ratingPrecentage = (averageRating / 5) * 100;
 
 	const { reviews, totalCount } = await getReviews({ productId });
@@ -84,6 +82,7 @@ export default async function Reviews({
 						hasUserReview={hasUserReview}
 						user={user}
 						productId={productId}
+						productSlug={productSlug}
 					/>
 				</article>
 
