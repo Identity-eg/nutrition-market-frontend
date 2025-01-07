@@ -70,7 +70,7 @@ export function ProductAccordions({
 								{category.displayName}
 							</span>
 						</AccordionTrigger>
-						<AccordionContent className='leading-6 typography-R16 [&>ul]:ml-6 [&>ul]:list-disc'>
+						<AccordionContent className='leading-6 typography-R16 [&>ul]:ms-6 [&>ul]:list-disc'>
 							{category.name === 'nutritionFacts' ? (
 								<NutritionFacts nutritionFacts={product.nutritionFacts} />
 							) : (

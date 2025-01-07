@@ -6,7 +6,6 @@ import {
 	NextResponse,
 } from 'next/server';
 
-// type MiddlewareFactory = (middleware: NextMiddleware) => NextMiddleware;
 export type CustomMiddleware = (
 	request: NextRequest,
 	event: NextFetchEvent,

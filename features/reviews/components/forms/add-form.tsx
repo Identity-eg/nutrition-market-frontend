@@ -177,7 +177,7 @@ export const AddForm = ({
 						disabled={isPending}>
 						{isPending ? (
 							<>
-								<LoaderCircle className='mr-2 h-4 w-4 animate-spin' />
+								<LoaderCircle className='me-2 h-4 w-4 animate-spin' />
 								Please wait
 							</>
 						) : (

@@ -271,7 +271,7 @@ export function AddressForm({
 																	field.value
 															)?.governorate_name_en
 														: 'Select...'}
-													<ChevronsUpDown className='ml-2 h-4 w-4 shrink-0 opacity-50' />
+													<ChevronsUpDown className='ms-2 h-4 w-4 shrink-0 opacity-50' />
 												</Button>
 											</FormControl>
 										</PopoverTrigger>
@@ -316,7 +316,7 @@ export function AddressForm({
 																}}>
 																<Check
 																	className={cn(
-																		'mr-2 h-4 w-4',
+																		'me-2 h-4 w-4',
 																		governorate.governorate_name_en ===
 																			field.value
 																			? 'opacity-100'
@@ -361,7 +361,7 @@ export function AddressForm({
 																	city => city.city_name_en === field.value
 																)?.city_name_en
 															: 'Select...'}
-														<ChevronsUpDown className='ml-2 h-4 w-4 shrink-0 opacity-50' />
+														<ChevronsUpDown className='ms-2 h-4 w-4 shrink-0 opacity-50' />
 													</Button>
 												</FormControl>
 											</PopoverTrigger>
@@ -385,7 +385,7 @@ export function AddressForm({
 																	}}>
 																	<Check
 																		className={cn(
-																			'mr-2 h-4 w-4',
+																			'me-2 h-4 w-4',
 																			city.city_name_en === field.value
 																				? 'opacity-100'
 																				: 'opacity-0'
@@ -464,7 +464,7 @@ export function AddressForm({
 			<div className='flex'>
 				<Button
 					type='submit'
-					className='mr-2 w-full media-md:w-auto'
+					className='me-2 w-full media-md:w-auto'
 					disabled={
 						isAddAddressPending ||
 						isUpdateAddressPending ||
@@ -472,7 +472,7 @@ export function AddressForm({
 					}>
 					{isAddAddressPending || isUpdateAddressPending ? (
 						<>
-							<Loader2 className='mr-2 h-4 w-4 animate-spin' />
+							<Loader2 className='me-2 h-4 w-4 animate-spin' />
 							Please wait
 						</>
 					) : addressToEdit ? (

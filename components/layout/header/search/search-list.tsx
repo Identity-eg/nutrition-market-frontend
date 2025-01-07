@@ -29,7 +29,7 @@ export const SearchList = forwardRef<
 		return (
 			<ul
 				ref={ref}
-				className='left-0 z-50 mt-2 max-h-[400px] w-full overflow-auto bg-white text-base'>
+				className='start-0 z-50 mt-2 max-h-[400px] w-full overflow-auto bg-white text-base'>
 				{products?.map(p => {
 					return (
 						<li

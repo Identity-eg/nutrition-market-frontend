@@ -62,7 +62,7 @@ export function PlaceOrderBtn({
 			className='rounded-md py-3 text-center'>
 			{onlinePending || cashPending ? (
 				<>
-					<Loader2Icon className='mr-2 h-4 w-4 animate-spin' />
+					<Loader2Icon className='me-2 h-4 w-4 animate-spin' />
 					Please wait
 				</>
 			) : (

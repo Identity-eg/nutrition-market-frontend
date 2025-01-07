@@ -1,0 +1,15 @@
+{
+	"LocaleLayout": {
+		"title": {
+			"template": "%s | The Nutrition Market ar",
+			"default": "The Nutrition Market default"
+		},
+		"description": "Supplement | Your healthy choice ar",
+		"applicationName": "The Nutrition Market ar"
+	},
+	"HomePage": {
+		"linksbar": {
+			"home": "الرئيسية"
+		}
+	}
+}

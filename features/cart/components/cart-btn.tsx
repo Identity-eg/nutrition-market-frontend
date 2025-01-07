@@ -1,14 +1,21 @@
+import { useLocale } from 'next-intl';
 import { ShoppingBasket } from 'lucide-react';
 
 import { TCart } from 'features/cart/types/cart';
 import { Price } from 'components/utils/price';
+import { cn } from 'lib/utils';
 
 export function CartBtn({ cart }: { cart: TCart }) {
+	const locale = useLocale();
 	return (
 		<>
 			<div className='relative'>
 				<ShoppingBasket />
-				<span className='absolute -top-3/4 right-1/2 flex size-[18px] translate-x-1/2 items-center justify-center rounded-full bg-[#dda15e] text-white typography-M12'>
+				<span
+					className={cn(
+						'absolute -top-3/4 end-1/2 flex size-[18px] translate-x-1/2 items-center justify-center rounded-full bg-[#dda15e] text-white typography-M12',
+						{ '-translate-x-1/2': locale === 'ar' }
+					)}>
 					{cart.totalItems}
 				</span>
 			</div>

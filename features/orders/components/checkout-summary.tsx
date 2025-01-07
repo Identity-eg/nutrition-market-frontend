@@ -1,6 +1,6 @@
 import { redirect } from 'next/navigation';
 import { Card } from 'components/ui/card';
-import CheckoutCartItem from 'app/checkout/checkout-cart-item';
+import CheckoutCartItem from 'app/[locale]/checkout/checkout-cart-item';
 import { PlaceOrderBtn } from 'features/orders/components/place-order-btn';
 import { TCart } from 'features/cart/types/cart';
 import { Separator } from 'components/ui/separator';

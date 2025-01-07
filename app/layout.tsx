@@ -1,47 +1,31 @@
+import type { ReactNode } from 'react';
 import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
+import { getTranslations } from 'next-intl/server';
+import 'app/globals.css';
 
-import Providers from './providers';
-import Header from '../components/layout/header';
-import { Topbar } from '../components/layout/topbar';
-import { Linksbar } from '../components/layout/linksbar';
-import { Toaster } from 'components/ui/toaster';
-
-import './globals.css';
-import Footer from 'components/layout/footer';
-
-const inter = Inter({
-	subsets: ['latin'],
-	display: 'swap',
-	weight: ['300', '400', '500', '600', '700', '800'],
-});
-
-export const metadata: Metadata = {
-	title: {
-		template: '%s | The Nutrition Market',
-		default: 'The Nutrition Market',
-	},
-	description: 'Supplement | Your healthy choice',
-	applicationName: 'The Nutrition Market',
+type Props = {
+	children: ReactNode;
 };
 
-export default function RootLayout({
-	children,
-}: Readonly<{
-	children: React.ReactNode;
-}>) {
-	return (
-		<html lang='en'>
-			<body className={`text-black ${inter.className}`}>
-				<Providers>
-					<Topbar />
-					<Header />
-					<Linksbar />
-					<main className='min-h-[calc(100vh-150px)]'>{children}</main>
-					<Footer />
-					<Toaster />
-				</Providers>
-			</body>
-		</html>
-	);
+export async function generateMetadata({
+	params: { locale },
+}: {
+	params: { locale: string };
+}): Promise<Metadata> {
+	const t = await getTranslations({ locale, namespace: 'LocaleLayout' });
+
+	return {
+		title: {
+			template: t('title.template'),
+			default: t('title.default'),
+		},
+		description: t('description'),
+		applicationName: t('applicationName'),
+	};
+}
+
+// Since we have a `not-found.tsx` page on the root, a layout file
+// is required, even if it's just passing children through.
+export default function RootLayout({ children }: Props) {
+	return children;
 }

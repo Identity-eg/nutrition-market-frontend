@@ -46,12 +46,12 @@ export function Searchbar({ className }: { className?: string }) {
 		resetInput();
 	}, [pathname, searchParam]);
 
-	const { data, isPlaceholderData, isFetching } = useQuery({
-		queryKey: ['products', debouncedValue],
-		queryFn: () => getProducts({ name: debouncedValue }),
-		enabled: !!debouncedValue,
-		placeholderData: previousData => previousData,
-	});
+	// const { data, isPlaceholderData, isFetching } = useQuery({
+	// 	queryKey: ['products', debouncedValue],
+	// 	queryFn: () => getProducts({ name: debouncedValue }),
+	// 	enabled: !!debouncedValue,
+	// 	placeholderData: previousData => previousData,
+	// });
 
 	return (
 		<div className={cn('relative w-1/2 p-8', className)}>
@@ -76,13 +76,13 @@ export function Searchbar({ className }: { className?: string }) {
 							className='rounded-full bg-gray-30'
 							placeholder='Explore vitamins, supplements, ...etc'
 						/>
-						<div className='absolute right-4 top-1/2 flex -translate-y-1/2 cursor-pointer items-center gap-2 text-green-500'>
+						<div className='absolute end-4 top-1/2 flex -translate-y-1/2 cursor-pointer items-center gap-2 text-green-500'>
 							<div
 								className={cn(
 									'hidden scale-0 items-center gap-2 transition-all behavior-discrete',
 									!!searchValue && 'flex scale-100 starting:scale-0'
 								)}>
-								{isFetching ? (
+								{/* {isFetching ? (
 									<LoaderCircleIcon
 										size={20}
 										className='animate-spin'
@@ -92,7 +92,7 @@ export function Searchbar({ className }: { className?: string }) {
 										onClick={resetInput}
 										size={20}
 									/>
-								)}
+								)} */}
 								<Separator
 									orientation='vertical'
 									className='h-6 w-[1px]'
@@ -102,14 +102,14 @@ export function Searchbar({ className }: { className?: string }) {
 						</div>
 					</div>
 
-					{isSearchListOpen && (
+					{/* {isSearchListOpen && (
 						<SearchList
 							isPlaceholderData={isPlaceholderData}
 							searchValue={searchValue}
 							debouncedValue={debouncedValue}
 							products={data?.products}
 						/>
-					)}
+					)} */}
 				</div>
 			</div>
 			<Overlay isSearchListOpen={isSearchListOpen} />

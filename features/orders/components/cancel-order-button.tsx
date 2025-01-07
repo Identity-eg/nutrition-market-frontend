@@ -96,7 +96,7 @@ export function CancelOrderButton({ orderId }: { orderId: string }) {
 						disabled={isPending}>
 						{isPending ? (
 							<>
-								<Loader2Icon className='mr-2 h-4 w-4 animate-spin' />
+								<Loader2Icon className='me-2 h-4 w-4 animate-spin' />
 								Please wait
 							</>
 						) : (

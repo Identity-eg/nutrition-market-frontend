@@ -8,7 +8,7 @@ import {
 	DrawerHeader,
 	DrawerTrigger,
 } from 'components/ui/drawer';
-import CheckoutCartItem from '../../../app/checkout/checkout-cart-item';
+import CheckoutCartItem from 'app/[locale]/checkout/checkout-cart-item';
 import { TCart } from 'features/cart/types/cart';
 import { Coupon } from 'features/coupon/components/coupon';
 import { Separator } from 'components/ui/separator';

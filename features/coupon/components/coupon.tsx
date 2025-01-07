@@ -88,7 +88,7 @@ export function Coupon({ cart }: { cart: TCart }) {
 								cartId={cart._id}
 								couponId={coupon._id}
 							/>
-							<span className='mr-1 border-r border-dashed border-gray-100 pr-1'>
+							<span className='me-1 border-r border-dashed border-gray-100 pe-1'>
 								{`${coupon.sale}%`}
 							</span>
 							<span>

@@ -1,4 +1,8 @@
+import createNextIntlPlugin from 'next-intl/plugin';
 import { withSentryConfig } from '@sentry/nextjs';
+
+const withNextIntl = createNextIntlPlugin();
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
 	typescript: {
@@ -17,7 +21,7 @@ const nextConfig = {
 	logging: { fetches: { fullUrl: true } },
 };
 
-export default withSentryConfig(nextConfig, {
+export default withSentryConfig(withNextIntl(nextConfig), {
 	// For all available options, see:
 	// https://github.com/getsentry/sentry-webpack-plugin#options
 

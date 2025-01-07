@@ -1,25 +1,18 @@
-import Link from 'next/link';
-import NotFoundIcon from 'assets/icons/not-found';
-import { Button } from 'components/ui/button';
+import type { Metadata } from 'next';
 
-export const metadata = {
-	title: 'Page Not Found',
+import BaseLayout from 'components/layout/base-layout';
+import NotFoundPage from 'components/layout/not-found-page';
+import { routing } from 'i18n/routing';
+// This page renders when a route like `/unknown.txt` is requested.
+// In this case, the layout at `app/[locale]/layout.tsx` receives
+// an invalid value as the `[locale]` param and calls `notFound()`.
+export const metadata: Metadata = {
+	title: 'Page Not Found outside',
 };
-
-export default function NotFound() {
+export default function GlobalNotFound() {
 	return (
-		<div className='container flex min-h-[calc(100vh-150px)] flex-col items-center justify-center'>
-			<NotFoundIcon />
-			<span className='mb-2 mt-8 text-black typography-SB24'>
-				Page Not Found
-			</span>
-			<p className='mb-4 max-w-[40ch] text-center text-gray-200'>
-				It looks like nothing was found at this location. Maybe try to search
-				for what you are looking for?
-			</p>
-			<Button asChild>
-				<Link href='/'>Go to home</Link>
-			</Button>
-		</div>
+		<BaseLayout locale={routing.defaultLocale}>
+			<NotFoundPage />
+		</BaseLayout>
 	);
 }

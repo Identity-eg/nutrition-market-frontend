@@ -1,5 +1,7 @@
 import Link from 'next/link';
 import parse from 'html-react-parser';
+import { useTranslations } from 'next-intl';
+import { getTranslations } from 'next-intl/server';
 
 import {
 	NavigationMenu,
@@ -16,6 +18,7 @@ import { getCategories } from 'apis/server/category';
 import { getCompanies } from 'apis/server/company';
 
 export async function Linksbar() {
+	const t = await getTranslations('HomePage.linksbar');
 	const categoriesData = await getCategories();
 	const categories = categoriesData.categories.map(cat => ({
 		_id: cat._id,
@@ -33,7 +36,7 @@ export async function Linksbar() {
 	}));
 
 	const mainLinks = [
-		{ label: 'Home', to: '/' },
+		{ label: t('home'), to: '/' },
 		{ label: 'Shop', to: '/shop' },
 		{ label: 'Offers', to: '/shop/offers' },
 		{ label: 'Categories', to: '/categories', children: categories },

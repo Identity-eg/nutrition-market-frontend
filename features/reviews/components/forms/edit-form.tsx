@@ -121,10 +121,10 @@ export const EditableForm = ({
 					type='submit'
 					disabled={isPending}
 					variant={'primary'}
-					className='mr-2'>
+					className='me-2'>
 					{isPending ? (
 						<>
-							<LoaderCircle className='mr-2 h-4 w-4 animate-spin' />
+							<LoaderCircle className='me-2 h-4 w-4 animate-spin' />
 							Please wait
 						</>
 					) : (

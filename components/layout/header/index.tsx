@@ -13,14 +13,14 @@ import { getMe } from 'features/auth/apis/user';
 import { Searchbar } from './search/searchbar';
 import { MobileMenu } from './mobile-menu';
 
-export default async function HeaderLayout() {
+export async function Header() {
 	const user = await getMe();
 
 	const desktop = (
 		<div className='container hidden items-center justify-between gap-2 py-4 media-md:flex'>
 			<Link
 				href='/'
-				className='ml-0 w-32 flex-shrink-0'>
+				className='ms-0 w-32 flex-shrink-0'>
 				<Image
 					className='h-full w-full'
 					alt='Biovac pharmacy supplements'
@@ -59,7 +59,7 @@ export default async function HeaderLayout() {
 
 				<Link
 					href='/'
-					className='ml-0 w-32 flex-shrink-0'>
+					className='ms-0 w-32 flex-shrink-0'>
 					<Image
 						className='h-full w-full'
 						alt='Biovac pharmacy supplements'

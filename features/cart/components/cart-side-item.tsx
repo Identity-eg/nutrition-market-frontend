@@ -60,7 +60,7 @@ export function CartSideItem({
 				<Price
 					finalPriceClassName='typography-M16 text-gray-400'
 					previousPriceClassName='typography-R14 text-gray-400'
-					className='ml-auto'
+					className='ms-auto'
 					price={totalProductPrice}
 					priceAfterDiscount={totalProductPriceAfterCoupon}
 				/>
