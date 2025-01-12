@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react';
 import Link from 'next/link';
-import { useLocale } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 import { MoveRightIcon, MoveLeftIcon } from 'lucide-react';
 
 import { Button } from 'components/ui/button';
@@ -17,6 +17,7 @@ export default function SectionWrapper({
 	children: ReactNode;
 }) {
 	const locale = useLocale();
+	const t = useTranslations('HomePage');
 	return (
 		<section className='container space-y-4 py-10'>
 			<div className='flex items-end justify-between'>
@@ -29,7 +30,7 @@ export default function SectionWrapper({
 					variant='link'
 					asChild>
 					<Link href={href}>
-						View All{' '}
+						{t('viewAll')}{' '}
 						{locale === 'ar' ? (
 							<MoveLeftIcon size={16} />
 						) : (

@@ -134,7 +134,7 @@ export function LoginForm() {
 			</Button>
 			<div className='relative'>
 				<Separator />
-				<span className='absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 bg-white px-3 text-gray-200 typography-M13'>
+				<span className='absolute start-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 bg-white px-3 text-gray-200 typography-M13'>
 					or
 				</span>
 			</div>

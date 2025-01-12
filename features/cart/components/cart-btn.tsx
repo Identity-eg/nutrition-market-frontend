@@ -1,4 +1,4 @@
-import { useLocale } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 import { ShoppingBasket } from 'lucide-react';
 
 import { TCart } from 'features/cart/types/cart';
@@ -7,6 +7,7 @@ import { cn } from 'lib/utils';
 
 export function CartBtn({ cart }: { cart: TCart }) {
 	const locale = useLocale();
+	const t = useTranslations('Cart');
 	return (
 		<>
 			<div className='relative'>
@@ -20,7 +21,7 @@ export function CartBtn({ cart }: { cart: TCart }) {
 				</span>
 			</div>
 			<div className='hidden flex-col items-start typography-M14 media-md:flex'>
-				<p className='text-black'>Cart</p>
+				<p className='text-black'>{t('cart')}</p>
 				<Price
 					finalPriceClassName='typography-M14 '
 					price={cart.totalPriceAfterCoupon ?? cart.totalPrice}

@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { getTranslations } from 'next-intl/server';
 
 import CarouselWrapper from './carousel-wrapper';
 import { CarouselContent, CarouselItem } from 'components/ui/carousel';
@@ -30,12 +31,12 @@ const iconMapper = {
 
 export default async function Categories() {
 	const data = await getTopSellingCategories({ limit: 7 });
+	const t = await getTranslations('HomePage');
 
 	return (
 		<SectionWrapper
-			title='Featured Category'
-			description='These categories feature top-selling products and trending items
-						that everyone loves.'
+			title={t('featuredCategories.title')}
+			description={t('featuredCategories.description')}
 			href='/categories'>
 			<CarouselWrapper
 				opts={{ loop: true }}

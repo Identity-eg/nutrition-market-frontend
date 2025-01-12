@@ -1,6 +1,7 @@
 import { HtmlHTMLAttributes } from 'react';
-import { cn, convertToReadableNumber } from 'lib/utils';
+import { useTranslations } from 'next-intl';
 
+import { cn, convertToReadableNumber } from 'lib/utils';
 import type { TVariant } from 'features/products/types/product';
 
 interface PriceProp
@@ -19,6 +20,7 @@ export function Price({
 	previousPriceClassName,
 	className,
 }: PriceProp) {
+	const t = useTranslations('Cart');
 	return (
 		<div className={cn('mb-4 flex flex-wrap items-center gap-2', className)}>
 			<span
@@ -26,7 +28,7 @@ export function Price({
 					'flex justify-start gap-1 text-[#bc6c25] typography-SB20',
 					finalPriceClassName
 				)}>
-				{convertToReadableNumber(priceAfterDiscount || price)} EGP
+				{convertToReadableNumber(priceAfterDiscount || price)} {t('currency')}
 			</span>
 			{priceAfterDiscount ? (
 				<span

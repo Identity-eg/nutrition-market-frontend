@@ -1,5 +1,7 @@
 import Link from 'next/link';
+import { getTranslations } from 'next-intl/server';
 import { CircleUserRoundIcon, LogOutIcon, MenuIcon } from 'lucide-react';
+
 import {
 	Sheet,
 	SheetClose,
@@ -34,6 +36,7 @@ function MobileNavLink({
 }
 
 export async function MobileMenu({ user }: { user?: TUser }) {
+	const t = await getTranslations('Auth');
 	const data = await getTopSellingCategories({ limit: 7 });
 	const popularCategories = data.categories.map(cat => ({
 		label: cat.category.name,
@@ -84,7 +87,7 @@ export async function MobileMenu({ user }: { user?: TUser }) {
 							<SheetClose className='w-full'>
 								<LogoutButton className='gap-2 rounded-md px-2 py-4 text-green-800 typography-R16 hover:bg-green-50'>
 									<LogOutIcon className='text-green-500' />
-									Log out
+									{t('logout')}
 								</LogoutButton>
 							</SheetClose>
 						</>
@@ -93,7 +96,7 @@ export async function MobileMenu({ user }: { user?: TUser }) {
 							<Link href='/login'>
 								<li className='flex items-center gap-2 rounded-md px-2 py-4 text-green-800 typography-R16 hover:bg-green-50'>
 									<CircleUserRoundIcon className='text-green-500' />
-									Login
+									{t('login')}
 								</li>
 							</Link>
 						</SheetClose>

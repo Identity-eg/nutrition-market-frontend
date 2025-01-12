@@ -1,6 +1,7 @@
 import { Suspense } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { getTranslations } from 'next-intl/server';
 
 import { Button } from 'components/ui/button';
 import { Separator } from 'components/ui/separator';
@@ -15,7 +16,7 @@ import { MobileMenu } from './mobile-menu';
 
 export async function Header() {
 	const user = await getMe();
-
+	const t = await getTranslations('Auth');
 	const desktop = (
 		<div className='container hidden items-center justify-between gap-2 py-4 media-md:flex'>
 			<Link
@@ -43,7 +44,7 @@ export async function Header() {
 					<Button
 						asChild
 						size='sm'>
-						<Link href='/login'>Login</Link>
+						<Link href='/login'>{t('login')}</Link>
 					</Button>
 				)}
 			</div>

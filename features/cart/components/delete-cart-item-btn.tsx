@@ -25,7 +25,7 @@ export const DeleteCartItemBtn = React.forwardRef<
 				deleteCartItem({ itemId });
 			}}
 			className={cn(
-				'absolute right-0 top-0 flex size-[20px] -translate-y-1/2 translate-x-1/2 cursor-pointer items-center justify-center rounded-full bg-gray-300 text-white',
+				'absolute end-0 top-0 flex size-[20px] -translate-y-1/2 translate-x-1/2 cursor-pointer items-center justify-center rounded-full bg-gray-300 text-white',
 				className
 			)}>
 			{isPending ? <LoadingDots className='[&>*]:bg-white' /> : <X size={14} />}

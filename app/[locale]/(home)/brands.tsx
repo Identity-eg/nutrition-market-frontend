@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import parse from 'html-react-parser';
+import { getTranslations } from 'next-intl/server';
 
 import BuildingPlaceholder from 'assets/icons/building-placeholder';
 import { Avatar, AvatarFallback, AvatarImage } from 'components/ui/avatar';
@@ -8,11 +9,11 @@ import SectionWrapper from './section-wrapper';
 
 export default async function Brands() {
 	const { companies } = await getPopularCompanies({ limit: 5 });
+	const t = await getTranslations('HomePage');
 	return (
 		<SectionWrapper
-			title='Popular brands'
-			description='Featuring brands with the highest-selling products customers trust
-						and love.'
+			title={t('popularBrands.title')}
+			description={t('popularBrands.description')}
 			href='/companies'>
 			<div
 				className='grid gap-4 divide-y divide-gray-50 self-baseline overflow-hidden rounded-md border border-gray-50 px-4 media-md:divide-none'

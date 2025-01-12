@@ -30,7 +30,7 @@ function OrderItem({
 					alt={variant.name}
 					className='h-full w-full object-contain object-center p-2 mix-blend-multiply'
 				/>
-				<div className='absolute right-0 top-0 flex size-[18px] -translate-y-1/2 translate-x-1/2 items-center justify-center rounded-full bg-gray-50 py-2 typography-M12'>
+				<div className='absolute end-0 top-0 flex size-[18px] -translate-y-1/2 translate-x-1/2 items-center justify-center rounded-full bg-gray-50 py-2 typography-M12'>
 					{amount}
 				</div>
 			</div>

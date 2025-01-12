@@ -21,7 +21,7 @@ export function DeleteCouponButton({
 				})
 			}
 			className={cn(
-				'invisible absolute right-0 top-1/2 z-20 flex size-4 -translate-y-1/2 translate-x-1/2 cursor-pointer items-center justify-center rounded-full bg-gray-300 text-white transition-all group-hover:visible',
+				'invisible absolute end-0 top-1/2 z-20 flex size-4 -translate-y-1/2 translate-x-1/2 cursor-pointer items-center justify-center rounded-full bg-gray-300 text-white transition-all group-hover:visible',
 				isPending && 'visible'
 			)}>
 			{isPending ? <LoadingDots color='bg-white' /> : <XIcon size={12} />}

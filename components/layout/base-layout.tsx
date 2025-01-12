@@ -3,10 +3,10 @@ import { Inter, Noto_Kufi_Arabic } from 'next/font/google';
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages } from 'next-intl/server';
 
-import { Header } from 'components/layout/header';
-import { Topbar } from 'components/layout/topbar';
 import { Linksbar } from 'components/layout/linksbar';
 import { Toaster } from 'components/ui/toaster';
+import { Header } from './header';
+import { Topbar } from './topbar';
 
 import Footer from 'components/layout/footer';
 import RTLdirection from './RTL-direction';

@@ -31,7 +31,7 @@ export async function Filters() {
 	} as const;
 
 	return (
-		<article className='sticky left-0 top-6 hidden self-start rounded-lg border border-gray-50 media-md:block'>
+		<article className='sticky start-0 top-6 hidden self-start rounded-lg border border-gray-50 media-md:block'>
 			<div className='flex items-center justify-between border-b border-gray-50 p-4 pb-4 shadow-sm'>
 				<h4 className='capitalize typography-B16'>filter option</h4>
 				<Suspense fallback='Loading..'>

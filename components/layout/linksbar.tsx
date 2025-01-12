@@ -1,6 +1,5 @@
 import Link from 'next/link';
 import parse from 'html-react-parser';
-import { useTranslations } from 'next-intl';
 import { getTranslations } from 'next-intl/server';
 
 import {
@@ -37,10 +36,10 @@ export async function Linksbar() {
 
 	const mainLinks = [
 		{ label: t('home'), to: '/' },
-		{ label: 'Shop', to: '/shop' },
-		{ label: 'Offers', to: '/shop/offers' },
-		{ label: 'Categories', to: '/categories', children: categories },
-		{ label: 'Brands', to: '/companies', children: companies },
+		{ label: t('shop'), to: '/shop' },
+		{ label: t('offers'), to: '/shop/offers' },
+		{ label: t('categories'), to: '/categories', children: categories },
+		{ label: t('brands'), to: '/companies', children: companies },
 	];
 
 	return (
@@ -104,7 +103,7 @@ export async function Linksbar() {
 											<NavigationMenuLink
 												className={navigationMenuTriggerStyle()}>
 												{link.label}
-												{link.label === 'Offers' && (
+												{link.label === t('offers') && (
 													<span className='ms-2 rounded-full bg-red-500 px-2 text-white typography-R12'>
 														Up to 50%
 													</span>

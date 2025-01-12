@@ -1,8 +1,9 @@
 'use client';
 
-import { HTMLAttributes, ReactNode } from 'react';
-import { logout } from 'features/auth/apis/auth';
+import type { HTMLAttributes } from 'react';
 import { useAction } from 'next-safe-action/hooks';
+
+import { logout } from 'features/auth/apis/auth';
 import { cn } from 'lib/utils';
 
 export function LogoutButton({

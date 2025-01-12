@@ -13,7 +13,8 @@ export default function CarouselWrapper(
 					delay: 3000,
 				}),
 			]}
-			{...props}>
+			{...props}
+			dir='ltr'>
 			{props.children as React.ReactNode}
 		</Carousel>
 	);

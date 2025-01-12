@@ -49,7 +49,7 @@ export const CardItem = ({
 					variantId={variants._id}
 				/>
 
-				<div className='absolute -right-10 top-0 flex flex-col gap-2 text-gray-500 transition-all duration-300 group-hover:right-0'>
+				<div className='absolute -end-10 top-0 flex flex-col gap-2 text-gray-500 transition-all duration-300 group-hover:end-0'>
 					{/* <QuickViewButton
 						name={name}
 						images={images}
@@ -67,7 +67,7 @@ export const CardItem = ({
             <div className="p-2 bg-gray-100 rounded-md cursor-pointer hover:bg-red-500 hover:text-white">
               <AiOutlineHeart size={24} />
             </div>
-            <span className="bg-gray-500 text-white absolute top-8 right-[43px] -translate-y-full whitespace-nowrap  invisible opacity-0 px-2 py-1 text-sm rounded-md group-hover:visible group-hover/wishlist:opacity-100 transition pointer-events-none">
+            <span className="bg-gray-500 text-white absolute top-8 end-[43px] -translate-y-full whitespace-nowrap  invisible opacity-0 px-2 py-1 text-sm rounded-md group-hover:visible group-hover/wishlist:opacity-100 transition pointer-events-none">
               WishList
             </span>
           </button> */}

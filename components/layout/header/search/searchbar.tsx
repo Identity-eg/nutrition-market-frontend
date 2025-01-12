@@ -2,6 +2,8 @@
 
 import { useEffect, useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
+import { usePathname, useSearchParams } from 'next/navigation';
+import { useTranslations } from 'next-intl';
 import { LoaderCircleIcon, SearchIcon, XIcon } from 'lucide-react';
 
 import { getProducts } from 'features/products/apis';
@@ -15,9 +17,9 @@ import { useGetBodyHeight } from 'components/layout/header/search/use-get-body-h
 import { useOutsideClick } from 'lib/use-outside-click';
 import { cn } from 'lib/utils';
 import useDebounce from 'lib/use-debounce';
-import { usePathname, useSearchParams } from 'next/navigation';
 
 export function Searchbar({ className }: { className?: string }) {
+	const t = useTranslations('HomePage');
 	const [isSearchListOpen, setIsSearchListOpen] = useState(false);
 	const [searchValue, setSearchValue] = useState('');
 	const pathname = usePathname();
@@ -74,7 +76,7 @@ export function Searchbar({ className }: { className?: string }) {
 							onFocus={() => setIsSearchListOpen(true)}
 							value={searchValue}
 							className='rounded-full bg-gray-30'
-							placeholder='Explore vitamins, supplements, ...etc'
+							placeholder={t('searchbarPlaceholder')}
 						/>
 						<div className='absolute end-4 top-1/2 flex -translate-y-1/2 cursor-pointer items-center gap-2 text-green-500'>
 							<div

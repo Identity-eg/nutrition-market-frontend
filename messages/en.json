@@ -1,15 +1,47 @@
 {
-	"LocaleLayout": {
+	"LayoutMetadata": {
 		"title": {
-			"template": "%s | The Nutrition Market en",
+			"template": "%s | The Nutrition Market",
 			"default": "The Nutrition Market default"
 		},
 		"description": "Supplement | Your healthy choice",
 		"applicationName": "The Nutrition Market"
 	},
+	"LocaleSwitcher": {
+		"label": "{locale, select, ar {عربي} en {English} other {Unknown}}"
+	},
+	"Auth": {
+		"login": "Login",
+		"register": "Register",
+		"logout": "Log out",
+		"welcome": "Welcome"
+	},
 	"HomePage": {
+		"pageMetadata": "Home",
+		"searchbarPlaceholder": "Explore vitamins, supplements, ...etc",
 		"linksbar": {
-			"home": "Home"
-		}
+			"home": "Home",
+			"shop": "Shop",
+			"offers": "Offers",
+			"categories": "Categories",
+			"brands": "Brands"
+		},
+		"featuredCategories": {
+			"title": "Featured Categories",
+			"description": "These categories feature top-selling products and trending items that everyone loves."
+		},
+		"bestSeller": {
+			"title": "Best Seller",
+			"description": "Shop our top-rated and most-loved products, handpicked by our customers."
+		},
+		"popularBrands": {
+			"title": "Popular Brands",
+			"description": "Featuring brands with the highest-selling products customers trust and love."
+		},
+		"viewAll": "View all"
+	},
+	"Cart": {
+		"cart": "Cart",
+		"currency": "EGP"
 	}
 }

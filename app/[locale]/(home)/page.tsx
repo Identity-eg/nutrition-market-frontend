@@ -1,6 +1,7 @@
 import { Suspense } from 'react';
 import Image from 'next/image';
 import type { Metadata } from 'next';
+import { getTranslations } from 'next-intl/server';
 
 import Hero from './hero';
 import biotinImage from 'assets/biotin.png';
@@ -33,9 +34,17 @@ const FEATURES = [
 	},
 ];
 
-export const metadata: Metadata = {
-	title: 'Home',
-};
+export async function generateMetadata({
+	params: { locale },
+}: {
+	params: { locale: string };
+}): Promise<Metadata> {
+	const t = await getTranslations({ locale, namespace: 'HomePage' });
+
+	return {
+		title: t('pageMetadata'),
+	};
+}
 
 export default function HomePage() {
 	return (
@@ -60,7 +69,7 @@ export default function HomePage() {
 						alt='Promo image'
 						width={500}
 						height={500}
-						className='-top-10 right-4 w-[300px] media-md:absolute media-lg:w-[500px]'
+						className='-top-10 end-4 w-[300px] media-md:absolute media-lg:w-[500px]'
 					/>
 				</div>
 			</div>

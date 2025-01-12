@@ -1,3 +1,5 @@
+import { getTranslations } from 'next-intl/server';
+
 import { getProducts } from 'features/products/apis';
 import { CardItem } from 'features/products/components/card-item';
 import SectionWrapper from './section-wrapper';
@@ -7,11 +9,11 @@ export default async function BestSellerProducts() {
 		sort: '-sold',
 		limit: '5',
 	});
+	const t = await getTranslations('HomePage');
 	return (
 		<SectionWrapper
-			title='Best Seller'
-			description='Shop our top-rated and most-loved products, handpicked by our
-						customers.'
+			title={t('bestSeller.title')}
+			description={t('bestSeller.description')}
 			href='/shop?sort=-sold'>
 			<div className='grid grid-cols-2 gap-2 self-baseline overflow-hidden media-sm:grid-cols-[repeat(auto-fill,minmax(200px,1fr))] media-sm:gap-4'>
 				{products.products.map(product => (

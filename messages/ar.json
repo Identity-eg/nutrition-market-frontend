@@ -1,15 +1,47 @@
 {
-	"LocaleLayout": {
+	"LayoutMetadata": {
 		"title": {
-			"template": "%s | The Nutrition Market ar",
-			"default": "The Nutrition Market default"
+			"template": "%s | ماركت التغذية",
+			"default": "ماركت التغذية"
 		},
-		"description": "Supplement | Your healthy choice ar",
-		"applicationName": "The Nutrition Market ar"
+		"description": "المكملات الغذائية | الأختيار الأول لصحتك",
+		"applicationName": "ماركت التغذية"
+	},
+	"LocaleSwitcher": {
+		"label": "{locale, select, ar {عربي} en {English} other {Unknown}}"
+	},
+	"Auth": {
+		"login": "تسجيل الدخول",
+		"register": "إنشاء حساب",
+		"logout": "تسجيل الخروج",
+		"welcome": "مرحباً"
 	},
 	"HomePage": {
+		"pageMetadata": "الصفحة الرئيسية",
+		"searchbarPlaceholder": "إبحث عن الفيتامينات والمكملات الغذائية ...",
 		"linksbar": {
-			"home": "الرئيسية"
-		}
+			"home": "الرئيسية",
+			"shop": "منتجاتنا",
+			"offers": "العروض",
+			"categories": "الفئات",
+			"brands": "الشركات"
+		},
+		"featuredCategories": {
+			"title": "الفئات المميزة",
+			"description": "تضم هذه الفئات المنتجات الأكثر مبيعًا والعناصر الرائجة التي يحبها الجميع."
+		},
+		"bestSeller": {
+			"title": "الأكثر مبيعا",
+			"description": "تسوق من بين منتجاتنا الأعلى تقييمًا والأكثر تفضيلاً، والتي اختارها عملاؤنا بعناية."
+		},
+		"popularBrands": {
+			"title": "الماركات الأشهر",
+			"description": "يضم العلامات التجارية التي تحتوي على المنتجات الأكثر مبيعًا والتي يثق بها العملاء ويحبونها."
+		},
+		"viewAll": "مشاهدة الكل"
+	},
+	"Cart": {
+		"cart": "عربة التسوق",
+		"currency": "ج.م"
 	}
 }

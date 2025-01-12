@@ -82,8 +82,8 @@ export function Coupon({ cart }: { cart: TCart }) {
 						<li
 							key={coupon.code}
 							className='group relative inline-block rounded-sm bg-gray-30 px-3 py-1 typography-R13'>
-							<div className='absolute left-0 top-1/2 size-3 -translate-x-1/2 -translate-y-1/2 rounded-full bg-white' />
-							<div className='absolute right-0 top-1/2 size-3 -translate-y-1/2 translate-x-1/2 rounded-full bg-white' />
+							<div className='absolute start-0 top-1/2 size-3 -translate-x-1/2 -translate-y-1/2 rounded-full bg-white' />
+							<div className='absolute end-0 top-1/2 size-3 -translate-y-1/2 translate-x-1/2 rounded-full bg-white' />
 							<DeleteCouponButton
 								cartId={cart._id}
 								couponId={coupon._id}
