@@ -1,6 +1,8 @@
 'use client';
 
 import { useRouter, useSearchParams } from 'next/navigation';
+import { useTranslations } from 'next-intl';
+
 import {
 	AccordionContent,
 	AccordionItem,
@@ -21,6 +23,8 @@ type TFacetedFilter = {
 export function FacetedFilter({ title, value, options }: TFacetedFilter) {
 	const router = useRouter();
 	const searchParams = new URLSearchParams(useSearchParams());
+
+	const t = useTranslations('Filter');
 
 	const facet = searchParams.getAll(value);
 	return (
@@ -64,7 +68,7 @@ export function FacetedFilter({ title, value, options }: TFacetedFilter) {
 							searchParams.delete(value);
 							router.push(`?${searchParams.toString()}`);
 						}}>
-						Clear
+						{t('clear')}
 					</Button>
 				)}
 			</AccordionContent>

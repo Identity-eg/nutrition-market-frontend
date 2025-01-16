@@ -1,16 +1,27 @@
 import { Suspense } from 'react';
 import Image from 'next/image';
+import type { Metadata } from 'next';
+import { getTranslations } from 'next-intl/server';
 
 import { ProductsLoading } from 'features/products/components/products-loading';
-import adPhoto from 'assets/ad.png';
 import { TSearchParams } from 'types/searchparams';
 import OffersProducts from 'features/offers';
 import { Filters } from 'features/filters';
 import { MobileFilter } from 'features/filters/components/mobile-filter';
 
-export const metadata = {
-	title: 'Offers',
-};
+import adPhoto from 'assets/ad.png';
+
+export async function generateMetadata({
+	params: { locale },
+}: {
+	params: { locale: string };
+}): Promise<Metadata> {
+	const t = await getTranslations({ locale, namespace: 'OfferPage' });
+
+	return {
+		title: t('pageMetadata'),
+	};
+}
 export default async function OffersPage(props: {
 	searchParams: Promise<TSearchParams>;
 }) {

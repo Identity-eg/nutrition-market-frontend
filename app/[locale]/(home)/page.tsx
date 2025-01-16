@@ -1,38 +1,32 @@
 import { Suspense } from 'react';
-import Image from 'next/image';
+import Link from 'next/link';
 import type { Metadata } from 'next';
 import { getTranslations } from 'next-intl/server';
+import { useTranslations } from 'next-intl';
 
 import Hero from './hero';
 import biotinImage from 'assets/biotin.png';
-import { Button } from 'components/ui/button';
 import promoImage from 'assets/promo.webp';
-import { PaymentIcon } from 'assets/icons/payment-icon';
-import { DeliveryIcon } from 'assets/icons/delivery-icon';
-import { SaleIcon } from 'assets/icons/sale-icon';
 import Companies from './brands';
 import BestSellerProducts from './best-seller-products';
 import Categories from './categories';
-
-const FEATURES = [
-	{
-		title: 'Secure Payment',
-		description:
-			'Enjoy a worry-free shopping experience with our trusted payment methods.',
-		Icon: PaymentIcon,
-	},
-	{
-		title: 'Fast Delivery',
-		description: 'Enjoy the speed and convenience of Fast Delivery today!',
-		Icon: DeliveryIcon,
-	},
-	{
-		title: 'New stocks and sales',
-		description:
-			'Discover the freshest additions to our inventory and take advantage of our exciting sales',
-		Icon: SaleIcon,
-	},
-];
+import {
+	Banner,
+	BannerContent,
+	BannerDescription,
+	BannerImage,
+	BannerTitle,
+} from 'features/home/banner';
+import {
+	Advertisement,
+	AdvertisementContent,
+	AdvertisementDescription,
+	AdvertisementFooter,
+	AdvertisementImage,
+	AdvertisementTitle,
+} from 'features/home/advertisement';
+import OurFeatures from 'features/home/our-features';
+import { Button } from 'components/ui/button';
 
 export async function generateMetadata({
 	params: { locale },
@@ -47,32 +41,27 @@ export async function generateMetadata({
 }
 
 export default function HomePage() {
+	const t = useTranslations('HomePage');
 	return (
 		<section>
 			<Hero />
 			<Suspense fallback='Categories Loading...'>
 				<Categories />
 			</Suspense>
-			<div className='container'>
-				<div className='relative flex flex-col items-center justify-between gap-6 overflow-hidden rounded-md border border-[#cae8f0] bg-[#f0faf9] p-4 text-center media-md:flex-row media-md:text-start'>
-					<div>
-						<h4 className='text-[#365486] typography-B20'>
-							Your health & safety is our top priority
-						</h4>
-						<span className='text-gray-200 typography-R14'>
-							The only supermarket that makes your life easier, makes you enjoy
-							life and makes it better
-						</span>
-					</div>
-					<Image
-						src={promoImage}
-						alt='Promo image'
-						width={500}
-						height={500}
-						className='-top-10 end-4 w-[300px] media-md:absolute media-lg:w-[500px]'
-					/>
-				</div>
-			</div>
+			<Banner className='border-[#cae8f0] bg-[#f0faf9]'>
+				<BannerContent>
+					<BannerTitle className='text-[#365486]'>
+						{t('banners.title1')}
+					</BannerTitle>
+					<BannerDescription>{t('banners.description1')}</BannerDescription>
+				</BannerContent>
+				<BannerImage
+					src={promoImage}
+					alt='image'
+					height={500}
+					width={500}
+				/>
+			</Banner>
 			<Suspense fallback='Products Loading'>
 				<BestSellerProducts />
 			</Suspense>
@@ -80,55 +69,34 @@ export default function HomePage() {
 			<Suspense fallback='Companies Loading'>
 				<Companies />
 			</Suspense>
+			<Advertisement className='bg-[#f8f4fe]'>
+				<AdvertisementImage
+					src={biotinImage}
+					alt='image'
+					width={300}
+					height={300}
+				/>
+				<AdvertisementContent>
+					<AdvertisementTitle className='text-[#593889]'>
+						{t('advertisements.name1')}
+					</AdvertisementTitle>
+					<AdvertisementDescription>
+						{t('advertisements.description1')}
+					</AdvertisementDescription>
+					<AdvertisementFooter>
+						<Button className='bg-[#593889] hover:bg-[#593889]/90'>
+							{t('buyNow')}
+						</Button>
 
-			<div className='container py-10'>
-				<div className='grid-cols-2 items-center rounded-md bg-[#f8f4fe] media-md:grid'>
-					<div className='flex items-center justify-center p-6'>
-						<Image
-							alt=''
-							width={300}
-							height={300}
-							className='w-full max-w-[300px] mix-blend-multiply'
-							src={biotinImage}
-						/>
-					</div>
-					<div className='p-6'>
-						<h3 className='mb-2 text-[#593889] typography-B28'>
-							Biotin 2500 mcg
-						</h3>
-						<p className='mb-6 text-gray-200'>
-							Enjoying something sweet and delicious shouldn&apos;t mean
-							you&apos;ve lost track of your health and fitness goals. Premier
-							Protein® packs powerful nutrition & amazing flavor into each one
-							of its protein powders.
-						</p>
-						<div className='flex gap-2'>
-							<Button className='bg-[#593889] hover:bg-[#593889]/90'>
-								Buy now
-							</Button>
-							<Button variant='outline'>See more</Button>
-						</div>
-					</div>
-				</div>
-			</div>
-
-			<div className='container flex flex-wrap items-center justify-between gap-8 py-10'>
-				{FEATURES.map(f => (
-					<div
-						key={f.title}
-						className='flex gap-4'>
-						<div className='flex'>
-							<f.Icon className='size-[68px] object-contain' />
-						</div>
-						<div>
-							<p className='mb-1 typography-SB16'>{f.title}</p>
-							<p className='text-gray-200 typography-R13 media-md:max-w-[30ch]'>
-								{f.description}
-							</p>
-						</div>
-					</div>
-				))}
-			</div>
+						<Button
+							asChild
+							variant='outline'>
+							<Link href='/shop'>{t('viewAll')}</Link>
+						</Button>
+					</AdvertisementFooter>
+				</AdvertisementContent>
+			</Advertisement>
+			<OurFeatures />
 		</section>
 	);
 }

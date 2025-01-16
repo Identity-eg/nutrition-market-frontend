@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
+import { useTranslations } from 'next-intl';
 
 import { Button } from 'components/ui/button';
 import { NumericField } from 'components/ui/numeric-field';
@@ -10,6 +11,8 @@ import { cn } from 'lib/utils';
 export function InputsFacet() {
 	const [from, setFrom] = useState<string>('');
 	const [to, setTo] = useState<string>('');
+
+	const t = useTranslations('Filter');
 
 	const searchParams = useSearchParams();
 	const manipulatedSearchParam = new URLSearchParams(searchParams);
@@ -65,7 +68,7 @@ export function InputsFacet() {
 					<label
 						htmlFor='from'
 						className='text-gray-200 typography-R13'>
-						From
+						{t('from')}
 					</label>
 					<NumericField
 						id='from'
@@ -80,7 +83,7 @@ export function InputsFacet() {
 					<label
 						htmlFor='to'
 						className='text-gray-200 typography-R13'>
-						To
+						{t('to')}
 					</label>
 					<NumericField
 						id='to'
@@ -97,7 +100,7 @@ export function InputsFacet() {
 					className='mb-2 w-full'
 					size={'sm'}
 					onClick={submitFilters}>
-					Apply
+					{t('apply')}
 				</Button>
 				{priceUrl && (
 					<Button
@@ -108,7 +111,7 @@ export function InputsFacet() {
 							manipulatedSearchParam.delete('price');
 							router.push(`?${manipulatedSearchParam.toString()}`);
 						}}>
-						Clear
+						{t('clear')}
 					</Button>
 				)}
 			</div>

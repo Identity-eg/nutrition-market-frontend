@@ -1,6 +1,7 @@
 'use client';
 
 import { useRouter, useSearchParams } from 'next/navigation';
+import { useTranslations } from 'next-intl';
 
 import { Button } from 'components/ui/button';
 import { RatingStars } from 'components/ui/rating-stars';
@@ -9,6 +10,8 @@ import { Checkbox } from 'components/ui/checkbox';
 export function RatingStarsFacet() {
 	const router = useRouter();
 	const searchParams = new URLSearchParams(useSearchParams());
+
+	const t = useTranslations('Filter');
 
 	const facetValue = searchParams.get('averageRating');
 
@@ -56,7 +59,7 @@ export function RatingStarsFacet() {
 						searchParams.delete('averageRating');
 						router.push(`?${searchParams.toString()}`);
 					}}>
-					Clear
+					{t('clear')}
 				</Button>
 			)}
 		</div>

@@ -6,9 +6,11 @@ type PartialOrId<T, K extends keyof T> = Partial<T> | T[K];
 
 type TProduct<VariantType> = {
 	_id: string;
-	name: string;
+	name_en: string;
+	name_ar: string;
 	slug: string;
-	description: string;
+	description_en: string;
+	description_ar: string;
 	directionOfUse: string;
 	warnings: string;
 	storageConditions: string;

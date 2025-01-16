@@ -10,31 +10,26 @@ import BuildingPlaceholder from 'assets/icons/building-placeholder';
 import { Avatar, AvatarFallback, AvatarImage } from 'components/ui/avatar';
 import { getSingleCompany } from 'apis/server/company';
 import type { TSearchParams } from 'types/searchparams';
+import type { TLocale } from 'i18n/config';
 
 type TProps = {
-	params: Promise<{ [key: string]: string }>;
+	params: Promise<{ slug: string; locale: TLocale }>;
 	searchParams: Promise<TSearchParams>;
 };
 export async function generateMetadata({ params }: TProps): Promise<Metadata> {
 	const slug = (await params).slug;
 	const { company } = await getSingleCompany({ slug });
-	// optionally access and extend (rather than replace) parent metadata
-	// const previousImages = (await parent).openGraph?.images || [];
+	const locale = (await params).locale;
+
 	return {
-		title: company.name,
-		// openGraph: {
-		// 	images: ['/some-specific-page-image.jpg', ...previousImages],
-		// },
+		title: locale === 'ar' ? company.name_ar : company.name_en,
 	};
 }
 
-export default async function CompanyPage(props: {
-	params: Promise<{ [key: string]: string }>;
-	searchParams: Promise<TSearchParams>;
-}) {
+export default async function CompanyPage(props: TProps) {
 	const searchParams = await props.searchParams;
 	const params = await props.params;
-	const { slug } = params;
+	const { slug, locale } = params;
 
 	const { company } = await getSingleCompany({ slug });
 
@@ -47,7 +42,7 @@ export default async function CompanyPage(props: {
 		<section>
 			<div className='h-48'>
 				<Image
-					alt={`${company.name} cover photo`}
+					alt={`${locale === 'ar' ? company.name_ar : company.name_en} cover photo`}
 					width={1000}
 					height={200}
 					src={company.cover?.url ?? ''}
@@ -64,9 +59,11 @@ export default async function CompanyPage(props: {
 					</Avatar>
 					<div className='space-y-1 media-md:mt-10 [&>p]:leading-normal [&>p]:text-gray-200 [&>p]:typography-R14'>
 						<div className='capitalize text-black typography-B28'>
-							{company.name}
+							{locale === 'ar' ? company.name_ar : company.name_en}
 						</div>
-						{parse(company.description)}
+						{parse(
+							locale === 'ar' ? company.description_ar : company.description_en
+						)}
 					</div>
 				</div>
 

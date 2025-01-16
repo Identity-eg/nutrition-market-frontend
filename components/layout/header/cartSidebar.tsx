@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { cn } from 'lib/utils';
+import { getLocale } from 'next-intl/server';
 
 import { Button } from 'components/ui/button';
 import {
@@ -13,13 +13,12 @@ import {
 } from 'components/ui/sheet';
 import { Separator } from 'components/ui/separator';
 import { Price } from 'components/utils/price';
-
 import { CartSideItem } from 'features/cart/components/cart-side-item';
 import { CartBtn } from 'features/cart/components/cart-btn';
-
 import { getCart } from 'features/cart/apis/cart';
 import NoCartFound from 'assets/icons/no-cart-found';
 import CouponBanner from 'features/coupon/components/coupon-banner';
+import { cn } from 'lib/utils';
 
 export async function CartSidebar({
 	triggerClassName,
@@ -29,6 +28,7 @@ export async function CartSidebar({
 	contentClassName?: string;
 }) {
 	const cart = await getCart();
+	const locale = await getLocale();
 	const isCartEmpty = cart.items.length === 0;
 	return (
 		<Sheet>
@@ -40,7 +40,9 @@ export async function CartSidebar({
 				<CartBtn cart={cart} />
 			</SheetTrigger>
 
-			<SheetContent className={cn('flex w-full flex-col', contentClassName)}>
+			<SheetContent
+				side={locale === 'ar' ? 'left' : 'right'}
+				className={cn('flex w-full flex-col', contentClassName)}>
 				<SheetHeader className='border-b border-gray-50 pb-4'>
 					<SheetTitle>Cart</SheetTitle>
 				</SheetHeader>

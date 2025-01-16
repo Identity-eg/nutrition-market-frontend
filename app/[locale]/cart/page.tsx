@@ -1,12 +1,22 @@
 import type { Metadata } from 'next';
+import { getTranslations } from 'next-intl/server';
+
 import { CartItem } from 'features/cart/components/cart-item';
 import { CartSummary } from 'features/cart/components/cart-summary';
 import { getCart } from 'features/cart/apis/cart';
 import NoCartFound from 'assets/icons/no-cart-found';
 
-export const metadata: Metadata = {
-	title: 'Cart',
-};
+export async function generateMetadata({
+	params: { locale },
+}: {
+	params: { locale: string };
+}): Promise<Metadata> {
+	const t = await getTranslations({ locale, namespace: 'CartPage' });
+
+	return {
+		title: t('pageMetadata'),
+	};
+}
 
 export default async function Cart() {
 	const cart = await getCart();

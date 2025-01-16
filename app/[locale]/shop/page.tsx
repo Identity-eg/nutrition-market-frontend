@@ -1,21 +1,28 @@
 import { Suspense } from 'react';
 import type { Metadata } from 'next';
 import Image from 'next/image';
-
-import adPhoto from 'assets/ad.png';
+import { getTranslations } from 'next-intl/server';
 
 import { Filters } from 'features/filters';
 import { SortBy } from 'features/filters/components/sort-by';
-
 import { Products } from 'features/products/components';
 import { ProductsLoading } from 'features/products/components/products-loading';
-
-import type { TSearchParams } from 'types/searchparams';
 import { MobileFilter } from 'features/filters/components/mobile-filter';
 
-export const metadata: Metadata = {
-	title: 'Shop',
-};
+import type { TSearchParams } from 'types/searchparams';
+import adPhoto from 'assets/ad.png';
+
+export async function generateMetadata({
+	params: { locale },
+}: {
+	params: { locale: string };
+}): Promise<Metadata> {
+	const t = await getTranslations({ locale, namespace: 'ShopPage' });
+
+	return {
+		title: t('pageMetadata'),
+	};
+}
 
 export default async function ShopPage(props: {
 	searchParams: Promise<TSearchParams>;

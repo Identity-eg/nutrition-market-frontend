@@ -1,3 +1,5 @@
+import { Suspense } from 'react';
+import { getLocale, getTranslations } from 'next-intl/server';
 import {
 	Accordion,
 	AccordionContent,
@@ -5,15 +7,14 @@ import {
 	AccordionTrigger,
 } from 'components/ui/accordion';
 
-import { getCompanies } from 'apis/server/company';
-import { getCategories } from 'apis/server/category';
-import { getDosageForms } from 'apis/server/dosageForm';
-
 import { ClearAllBtn } from 'features/filters/components/clear-all-btn';
 import { InputsFacet } from 'features/filters/components/price-inputs-facet';
 import { FacetedFilter } from 'features/filters/components/faceted-filter';
-import { Suspense } from 'react';
 import { RatingStarsFacet } from './components/rating-stars-facet';
+
+import { getCompanies } from 'apis/server/company';
+import { getCategories } from 'apis/server/category';
+import { getDosageForms } from 'apis/server/dosageForm';
 
 export async function Filters() {
 	const [companies, categories, dosageForms] = await Promise.all([
@@ -21,6 +22,9 @@ export async function Filters() {
 		getCategories(),
 		getDosageForms(),
 	]);
+
+	const locale = await getLocale();
+	const t = await getTranslations('Filter');
 
 	const FilterKeys = {
 		company: 'company',
@@ -33,7 +37,7 @@ export async function Filters() {
 	return (
 		<article className='sticky start-0 top-6 hidden self-start rounded-lg border border-gray-50 media-md:block'>
 			<div className='flex items-center justify-between border-b border-gray-50 p-4 pb-4 shadow-sm'>
-				<h4 className='capitalize typography-B16'>filter option</h4>
+				<h4 className='capitalize typography-B16'>{t('filter')}</h4>
 				<Suspense fallback='Loading..'>
 					<ClearAllBtn />
 				</Suspense>
@@ -46,32 +50,32 @@ export async function Filters() {
 					className='w-full [&>*:last-child]:border-0'>
 					<Suspense>
 						<FacetedFilter
-							title='Company'
+							title={t('brand')}
 							value={FilterKeys.company}
 							options={
 								companies?.companies.map(c => ({
-									label: c.name,
+									label: locale === 'ar' ? c.name_ar : c.name_en,
 									value: c.slug,
 								})) ?? []
 							}
 						/>
 						<FacetedFilter
-							title='Dosage form'
+							title={t('dosageForm')}
 							value={FilterKeys.dosageForm}
 							options={
 								dosageForms?.dosageForms.map(f => ({
-									label: f.name,
+									label: locale === 'ar' ? f.name_ar : f.name_en,
 									value: f.slug,
 								})) ?? []
 							}
 						/>
 
 						<FacetedFilter
-							title='Category'
+							title={t('category')}
 							value={FilterKeys.category}
 							options={
 								categories?.categories.map(c => ({
-									label: c.name,
+									label: locale === 'ar' ? c.name_ar : c.name_en,
 									value: c.slug,
 								})) ?? []
 							}
@@ -80,7 +84,7 @@ export async function Filters() {
 
 					<AccordionItem value={FilterKeys.averageRating}>
 						<AccordionTrigger className='typography-M14'>
-							Ratings
+							{t('rating')}
 						</AccordionTrigger>
 						<AccordionContent className='space-y-2'>
 							<Suspense>
@@ -90,7 +94,7 @@ export async function Filters() {
 					</AccordionItem>
 					<AccordionItem value={FilterKeys.price}>
 						<AccordionTrigger className='typography-M14'>
-							Price
+							{t('price')}
 						</AccordionTrigger>
 						<AccordionContent className='space-y-2'>
 							<Suspense>

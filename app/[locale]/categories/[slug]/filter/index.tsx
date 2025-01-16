@@ -1,4 +1,5 @@
 import { Suspense } from 'react';
+import { getLocale, getTranslations } from 'next-intl/server';
 // UI
 import {
 	Accordion,
@@ -20,6 +21,9 @@ export default async function FilterProducts() {
 		getDosageForms(),
 	]);
 
+	const locale = await getLocale();
+	const t = await getTranslations('Filter');
+
 	const FilterKeys = {
 		dosageForm: 'dosageForm',
 		category: 'category',
@@ -30,7 +34,7 @@ export default async function FilterProducts() {
 	return (
 		<article className='hidden self-start rounded-lg border border-gray-50 media-md:block'>
 			<div className='flex items-center justify-between border-b border-gray-50 p-4 pb-4 shadow-sm'>
-				<h4 className='capitalize typography-B16'>filter option</h4>
+				<h4 className='capitalize typography-B16'>{t('filter')}</h4>
 				<Suspense fallback='Loading..'>
 					<ClearAllBtn />
 				</Suspense>
@@ -43,22 +47,22 @@ export default async function FilterProducts() {
 					className='w-full [&>*:last-child]:border-0'>
 					<Suspense>
 						<FacetedFilter
-							title='Dosage form'
+							title={t('dosageForm')}
 							value={FilterKeys.dosageForm}
 							options={
 								dosageForms?.dosageForms.map(f => ({
-									label: f.name,
+									label: locale === 'ar' ? f.name_ar : f.name_en,
 									value: f.slug,
 								})) ?? []
 							}
 						/>
 
 						<FacetedFilter
-							title='Company'
+							title={t('brand')}
 							value={FilterKeys.category}
 							options={
 								companies?.companies.map(c => ({
-									label: c.name,
+									label: locale === 'ar' ? c.name_ar : c.name_en,
 									value: c.slug,
 								})) ?? []
 							}
@@ -67,7 +71,7 @@ export default async function FilterProducts() {
 
 					<AccordionItem value={FilterKeys.averageRating}>
 						<AccordionTrigger className='typography-M14'>
-							Rating
+							{t('rating')}
 						</AccordionTrigger>
 						<AccordionContent className='space-y-2'>
 							<Suspense>
@@ -77,7 +81,7 @@ export default async function FilterProducts() {
 					</AccordionItem>
 					<AccordionItem value={FilterKeys.price}>
 						<AccordionTrigger className='typography-M14'>
-							Price
+							{t('price')}
 						</AccordionTrigger>
 						<AccordionContent className='space-y-2'>
 							<Suspense>

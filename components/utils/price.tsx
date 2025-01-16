@@ -20,7 +20,7 @@ export function Price({
 	previousPriceClassName,
 	className,
 }: PriceProp) {
-	const t = useTranslations('Cart');
+	const t = useTranslations('CartPage');
 	return (
 		<div className={cn('mb-4 flex flex-wrap items-center gap-2', className)}>
 			<span
@@ -36,7 +36,7 @@ export function Price({
 						'flex items-start gap-1 text-gray-800 line-through underline-offset-2 typography-R16',
 						previousPriceClassName
 					)}>
-					{convertToReadableNumber(price)} EGP
+					{convertToReadableNumber(price)} {t('currency')}
 				</span>
 			) : undefined}
 		</div>

@@ -1,8 +1,10 @@
 export type TCompany = {
 	_id: string;
-	name: string;
+	name_en: string;
+	name_ar: string;
 	slug: string;
-	description: string;
+	description_en: string;
+	description_ar: string;
 	logo?: {
 		name: string;
 		size: number;

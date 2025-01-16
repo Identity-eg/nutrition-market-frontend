@@ -7,7 +7,7 @@ import { cn } from 'lib/utils';
 
 export function CartBtn({ cart }: { cart: TCart }) {
 	const locale = useLocale();
-	const t = useTranslations('Cart');
+	const t = useTranslations('CartPage');
 	return (
 		<>
 			<div className='relative'>

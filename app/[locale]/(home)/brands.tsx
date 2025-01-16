@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import parse from 'html-react-parser';
-import { getTranslations } from 'next-intl/server';
+import { getLocale, getTranslations } from 'next-intl/server';
 
 import BuildingPlaceholder from 'assets/icons/building-placeholder';
 import { Avatar, AvatarFallback, AvatarImage } from 'components/ui/avatar';
@@ -10,6 +10,7 @@ import SectionWrapper from './section-wrapper';
 export default async function Brands() {
 	const { companies } = await getPopularCompanies({ limit: 5 });
 	const t = await getTranslations('HomePage');
+	const locale = await getLocale();
 	return (
 		<SectionWrapper
 			title={t('popularBrands.title')}
@@ -34,13 +35,17 @@ export default async function Brands() {
 							<Link
 								href={`/companies/${company.slug}`}
 								className='mb-1 typography-SB16 hover:underline'>
-								{company.name}{' '}
+								{locale === 'ar' ? company.name_ar : company.name_en}{' '}
 								<span className='text-gray-200 typography-R16'>
 									({company.productsCount})
 								</span>
 							</Link>
 							<span className='line-clamp-2 text-gray-200 typography-R14'>
-								{parse(company.description)}
+								{parse(
+									locale === 'ar'
+										? company.description_ar
+										: company.description_en
+								)}
 							</span>
 						</div>
 					</div>

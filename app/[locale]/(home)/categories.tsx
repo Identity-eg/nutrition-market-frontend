@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { getTranslations } from 'next-intl/server';
+import { getLocale, getTranslations } from 'next-intl/server';
 
 import CarouselWrapper from './carousel-wrapper';
 import { CarouselContent, CarouselItem } from 'components/ui/carousel';
@@ -32,6 +32,7 @@ const iconMapper = {
 export default async function Categories() {
 	const data = await getTopSellingCategories({ limit: 7 });
 	const t = await getTranslations('HomePage');
+	const locale = await getLocale();
 
 	return (
 		<SectionWrapper
@@ -53,7 +54,9 @@ export default async function Categories() {
 											{iconMapper[cat.category.slug as keyof typeof iconMapper]}
 										</span>
 										<span className='self-start text-center text-gray-700'>
-											{cat.category.name}
+											{locale === 'ar'
+												? cat.category.name_ar
+												: cat.category.name_en}
 										</span>
 									</Card>
 								</Link>

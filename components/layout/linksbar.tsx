@@ -1,6 +1,6 @@
 import Link from 'next/link';
+import { getLocale, getTranslations } from 'next-intl/server';
 import parse from 'html-react-parser';
-import { getTranslations } from 'next-intl/server';
 
 import {
 	NavigationMenu,
@@ -18,19 +18,20 @@ import { getCompanies } from 'apis/server/company';
 
 export async function Linksbar() {
 	const t = await getTranslations('HomePage.linksbar');
+	const locale = await getLocale();
 	const categoriesData = await getCategories();
 	const categories = categoriesData.categories.map(cat => ({
 		_id: cat._id,
-		label: cat.name,
-		description: cat.description,
+		label: locale === 'ar' ? cat.name_ar : cat.name_en,
+		description: locale === 'ar' ? cat.description_ar : cat.description_en,
 		to: `/categories/${cat.slug}`,
 	}));
 
 	const companiesData = await getCompanies();
 	const companies = companiesData.companies.map(com => ({
 		_id: com._id,
-		label: com.name,
-		description: com.description,
+		label: locale === 'ar' ? com.name_ar : com.name_en,
+		description: locale === 'ar' ? com.description_ar : com.description_en,
 		to: `/companies/${com.slug}`,
 	}));
 
@@ -43,7 +44,7 @@ export async function Linksbar() {
 	];
 
 	return (
-		<div className='hidden border-b border-gray-50 media-md:block'>
+		<div className='hidden border-b border-gray-50 media-md:block '>
 			<div className='container flex items-center'>
 				<NavigationMenu>
 					<NavigationMenuList>
