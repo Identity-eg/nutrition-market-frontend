@@ -7,12 +7,13 @@ import { Button } from 'components/ui/button';
 import { Separator } from 'components/ui/separator';
 import { ProfileDropdown } from 'features/auth/components/profile-drop-down';
 import { LoggedinBanner } from 'features/auth/components/loggedin-banner';
-
 import biovacLogo from 'assets/logo.png';
 import { CartSidebar } from './cartSidebar';
 import { getMe } from 'features/auth/apis/user';
 import { Searchbar } from './search/searchbar';
 import { MobileMenu } from './mobile-menu';
+
+import { authRoutes } from 'constants/routes';
 
 export async function Header() {
 	const user = await getMe();
@@ -44,7 +45,7 @@ export async function Header() {
 					<Button
 						asChild
 						size='sm'>
-						<Link href='/login'>{t('login')}</Link>
+						<Link href={authRoutes.login}>{t('login')}</Link>
 					</Button>
 				)}
 			</div>

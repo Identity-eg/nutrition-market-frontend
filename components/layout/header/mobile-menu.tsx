@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { getTranslations } from 'next-intl/server';
+import { getLocale, getTranslations } from 'next-intl/server';
 import { CircleUserRoundIcon, LogOutIcon, MenuIcon } from 'lucide-react';
 
 import {
@@ -14,7 +14,9 @@ import { loggedinLinks } from 'constants/navLinks';
 import { Separator } from 'components/ui/separator';
 import { LogoutButton } from 'features/auth/components/logout-button';
 import type { TUser } from 'features/auth/types/user';
-import { getTopSellingCategories } from 'apis/server/category';
+import { getCategories } from 'apis/server/category';
+import { authRoutes, publicRoutes } from 'constants/routes';
+import { getCompanies } from 'apis/server/company';
 
 function MobileNavLink({
 	link,
@@ -36,15 +38,33 @@ function MobileNavLink({
 }
 
 export async function MobileMenu({ user }: { user?: TUser }) {
-	const t = await getTranslations('Auth');
-	const data = await getTopSellingCategories({ limit: 7 });
-	const popularCategories = data.categories.map(cat => ({
-		label: cat.category.name,
-		to: `/categories/${cat.category.slug}`,
+	const t = await getTranslations('HomePage.linksbar');
+	const locale = await getLocale();
+	const categoriesData = await getCategories();
+	const categories = categoriesData.categories.map(cat => ({
+		_id: cat._id,
+		label: locale === 'ar' ? cat.name_ar : cat.name_en,
+		description: locale === 'ar' ? cat.description_ar : cat.description_en,
+		to: `/categories/${cat.slug}`,
+	}));
+
+	const companiesData = await getCompanies();
+	const companies = companiesData.companies.map(com => ({
+		_id: com._id,
+		label: locale === 'ar' ? com.name_ar : com.name_en,
+		description: locale === 'ar' ? com.description_ar : com.description_en,
+		to: `/companies/${com.slug}`,
 	}));
 	const mainLinks = [
-		{ label: 'Home', to: '/' },
-		{ label: 'Offers', to: '/shop' },
+		{ label: t('home'), to: publicRoutes.home },
+		{ label: t('shop'), to: publicRoutes.shop },
+		{ label: t('offers'), to: publicRoutes.offers },
+		{
+			label: t('categories'),
+			to: publicRoutes.categories,
+			children: categories,
+		},
+		{ label: t('brands'), to: publicRoutes.companies, children: companies },
 	];
 	return (
 		<Sheet>
@@ -54,11 +74,11 @@ export async function MobileMenu({ user }: { user?: TUser }) {
 
 			<SheetContent className='flex w-full flex-col'>
 				<SheetHeader className='border-b border-gray-40 pb-4'>
-					<SheetTitle>Menu</SheetTitle>
+					<SheetTitle>{t('menu')}</SheetTitle>
 				</SheetHeader>
 
 				<ul>
-					{mainLinks.concat(popularCategories).map(link => {
+					{mainLinks.map(link => {
 						return (
 							<MobileNavLink
 								key={link.label}
@@ -93,7 +113,7 @@ export async function MobileMenu({ user }: { user?: TUser }) {
 						</>
 					) : (
 						<SheetClose asChild>
-							<Link href='/login'>
+							<Link href={authRoutes.login}>
 								<li className='flex items-center gap-2 rounded-md px-2 py-4 text-green-800 typography-R16 hover:bg-green-50'>
 									<CircleUserRoundIcon className='text-green-500' />
 									{t('login')}

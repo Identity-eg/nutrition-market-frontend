@@ -1,4 +1,3 @@
-import { cookies } from 'next/headers';
 import { NextFetchEvent, NextRequest, NextResponse } from 'next/server';
 
 import {
@@ -20,8 +19,12 @@ export function unAuthenticatedRoutesMiddleware(middleware: CustomMiddleware) {
 	) => {
 		const { nextUrl, url, cookies } = request;
 		const accessToken = await getAccessToken(cookies);
+		const locale = cookies.get('NEXT_LOCALE')?.value;
+
 		if (
-			UNAUTHENTICATED_ROUTES.some(route => nextUrl.pathname.startsWith(route))
+			UNAUTHENTICATED_ROUTES.some(route =>
+				nextUrl.pathname.startsWith(`/${locale}${route}`)
+			)
 		) {
 			if (accessToken) {
 				return NextResponse.redirect(new URL('/', url));
@@ -37,10 +40,11 @@ export const refreshToken = (middleware: CustomMiddleware) => {
 		event: NextFetchEvent,
 		response: NextResponse
 	) => {
+		const { cookies } = request;
 		const accessToken = await getAccessToken();
 		if (
 			!accessToken &&
-			cookies().get(process.env.REFRESH_TOKEN_NAME ?? '')?.value
+			cookies.get(process.env.REFRESH_TOKEN_NAME ?? '')?.value
 		) {
 			const data = await refreshAccessTokenFn();
 

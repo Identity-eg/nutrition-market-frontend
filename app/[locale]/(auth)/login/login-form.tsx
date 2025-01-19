@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
+import { useTranslations } from 'next-intl';
 import { Loader2 } from 'lucide-react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -24,22 +25,25 @@ import { login, loginWithGoogle } from 'features/auth/apis/auth';
 import { Separator } from 'components/ui/separator';
 import { GooogleIcon } from 'assets/icons/google-icon';
 
-const loginSchema = z.object({
-	email: z
-		.string()
-		.min(1, {
-			message: 'Email is required',
-		})
-		.email('Please enter a valid email address'),
-	password: z.string().min(1, {
-		message: 'Password is required',
-	}),
-	rememberMe: z.boolean(),
-});
-
 export function LoginForm() {
 	const searchParams = useSearchParams();
 	const from = searchParams.get('from');
+
+	const t = useTranslations('Auth');
+
+	const loginSchema = z.object({
+		email: z
+			.string()
+			.min(1, {
+				message: 'Email is required',
+			})
+			.email('Please enter a valid email address'),
+		password: z.string().min(1, {
+			message: 'Password is required',
+		}),
+		rememberMe: z.boolean(),
+	});
+
 	const form = useForm<z.infer<typeof loginSchema>>({
 		defaultValues: {
 			email: 'mazen@amr.com',
@@ -83,7 +87,7 @@ export function LoginForm() {
 					name='email'
 					render={({ field }) => (
 						<FormItem>
-							<FormLabel>Email</FormLabel>
+							<FormLabel>{t('email')}</FormLabel>
 							<FormControl>
 								<Input
 									required
@@ -101,11 +105,11 @@ export function LoginForm() {
 					render={({ field }) => (
 						<FormItem>
 							<div className='flex items-center'>
-								<FormLabel>Password</FormLabel>
+								<FormLabel>{t('password')}</FormLabel>
 								<Link
 									href='/forgot-password'
 									className='ms-auto inline-block text-sm underline'>
-									Forgot password?
+									{t('forgotPassword')}
 								</Link>
 							</div>
 							<FormControl>
@@ -126,16 +130,16 @@ export function LoginForm() {
 				{isPending ? (
 					<>
 						<Loader2 className='me-2 h-4 w-4 animate-spin' />
-						Please wait
+						{t('pleaseWait')}
 					</>
 				) : (
-					'Sign in'
+					t('continue')
 				)}
 			</Button>
 			<div className='relative'>
 				<Separator />
-				<span className='absolute start-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 bg-white px-3 text-gray-200 typography-M13'>
-					or
+				<span className='absolute start-1/2 top-1/2 -translate-y-1/2 translate-x-1/2 bg-white px-3 text-gray-200 typography-M13'>
+					{t('or')}
 				</span>
 			</div>
 
@@ -149,17 +153,17 @@ export function LoginForm() {
 				) : (
 					<>
 						<GooogleIcon />
-						Continue with Google
+						{t('continueWithGoogle')}
 					</>
 				)}
 			</Button>
 
 			<p className='text-gray-6 typography-R14'>
-				Don’t have an account?{' '}
+				{t("don'tHaveAccount")}{' '}
 				<Link
-					className='text-black-3 typography-M14'
+					className='text-black-3 underline typography-M14'
 					href='/signup'>
-					Sign up
+					{t('register')}
 				</Link>
 			</p>
 		</form>

@@ -8,28 +8,12 @@ import { z } from 'zod';
 import { actionClient } from 'apis/action-clients';
 import { ACCESS_COOKIE_OPTIONS, REFRESH_COOKIE_OPTIONS } from 'constants/auth';
 import { request } from 'apis/request';
-
-type TForgotPasswordResponse = {
-	msg: string;
-};
-
-type TResetPasswordResponse = {
-	msg: string;
-};
-
-const loginSchema = z.object({
-	email: z
-		.string()
-		.min(1, {
-			message: 'Email is required',
-		})
-		.email('Please enter a valid email address'),
-	password: z
-		.string()
-		.min(1, { message: 'Password is required' })
-		.min(6, { message: 'Password must be greater than 6 characters' }),
-	from: z.string().nullable(),
-});
+import {
+	forgotPasswordSchema,
+	loginSchema,
+	registerSchema,
+	resetPasswordSchema,
+} from './schema';
 
 export const login = actionClient
 	.metadata({ actionName: 'login-action' })
@@ -65,21 +49,6 @@ export const login = actionClient
 			},
 		}
 	);
-
-const registerSchema = z.object({
-	firstName: z.string().min(1, { message: 'First Name is required' }),
-	lastName: z.string().min(1, { message: 'Last Name is required' }),
-	email: z
-		.string()
-		.min(1, {
-			message: 'Email is required',
-		})
-		.email('Please enter a valid email address'),
-	password: z
-		.string()
-		.min(1, { message: 'Password is required' })
-		.min(6, { message: 'Password must be greater than 6 characters' }),
-});
 
 export const register = actionClient
 	.metadata({ actionName: 'register-action' })
@@ -151,19 +120,19 @@ export const refreshAccessTokenFn = async () => {
 	}
 };
 
-export const forgotPassword = async ({
-	email,
-}: {
-	email: string;
-}): Promise<TForgotPasswordResponse> => {
-	const data = await request({
-		url: '/auth/forgot-password',
-		method: 'POST',
-		body: { email },
+export const forgotPassword = actionClient
+	.metadata({ actionName: 'forgot-password-action' })
+	.schema(forgotPasswordSchema, {
+		// handleValidationErrorsShape: ve => flattenValidationErrors(ve).fieldErrors,
+	})
+	.action(async ({ parsedInput: userData }): Promise<{ msg: string }> => {
+		const data = await request({
+			url: '/auth/forgot-password',
+			body: userData,
+			method: 'POST',
+		});
+		return data;
 	});
-
-	return data;
-};
 
 export const getUserForOtp = async ({
 	id,
@@ -177,23 +146,23 @@ export const getUserForOtp = async ({
 	return user;
 };
 
-export const resetPassword = async ({
-	password,
-	confirmPassword,
-	token,
-}: {
-	password: string;
-	confirmPassword: string;
-	token: string;
-}): Promise<TResetPasswordResponse> => {
-	const data = await request({
-		url: `/auth/reset-password/${token}`,
-		method: 'PUT',
-		body: { password, confirmPassword },
-	});
-
-	return data;
-};
+export const resetPassword = actionClient
+	.metadata({ actionName: 'reset-password-action' })
+	.schema(resetPasswordSchema, {
+		// handleValidationErrorsShape: ve => flattenValidationErrors(ve).fieldErrors,
+	})
+	.action(
+		async ({
+			parsedInput: { token, ...userData },
+		}): Promise<{ msg: string }> => {
+			const data = await request({
+				url: `/auth/reset-password/${token}`,
+				body: userData,
+				method: 'PATCH',
+			});
+			return data;
+		}
+	);
 
 export const loginWithGoogle = actionClient
 	.metadata({ actionName: 'login-with-google-action' })

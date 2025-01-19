@@ -1,5 +1,6 @@
 'use client';
 import Link from 'next/link';
+import { useTranslations } from 'next-intl';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { Loader2 } from 'lucide-react';
@@ -19,29 +20,29 @@ import { Input } from 'components/ui/input';
 
 import { toast } from 'components/ui/use-toast';
 import { register } from 'features/auth/apis/auth';
+import { authRoutes } from 'constants/routes';
 
-const registerSchema = z.object({
-	firstName: z.string().min(1, {
-		message: 'First name is required',
-	}),
-	lastName: z.string().min(1, {
-		message: 'Last name is required',
-	}),
-	email: z
-		.string()
-		.min(1, {
-			message: 'Email is required',
-		})
-		.email('Please enter a valid email address'),
-	password: z
-		.string()
-		.min(1, {
-			message: 'Password is required',
-		})
-		.min(6, { message: 'Password must be at least 6 characters' }),
-	rememberMe: z.boolean(),
-});
 export function SignupForm() {
+	const t = useTranslations('Auth');
+	const registerSchema = z.object({
+		firstName: z.string().min(1, {
+			message: `${t('firstName')} ${t('required')}`,
+		}),
+		lastName: z.string().min(1, {
+			message: `${t('lastName')} ${t('required')}`,
+		}),
+		email: z
+			.string()
+			.min(1, {
+				message: `${t('email')} ${t('required')}`,
+			})
+			.email(t('invalidEmailError')),
+		password: z
+			.string()
+			.min(1, `${t('password')} ${t('required')}`)
+			.min(6, t('passwordMaxLengthError')),
+		rememberMe: z.boolean(),
+	});
 	const form = useForm<z.infer<typeof registerSchema>>({
 		defaultValues: {
 			firstName: '',
@@ -77,7 +78,7 @@ export function SignupForm() {
 						name='firstName'
 						render={({ field }) => (
 							<FormItem>
-								<FormLabel>First Name</FormLabel>
+								<FormLabel>{t('firstName')}</FormLabel>
 								<FormControl>
 									<Input
 										type='text'
@@ -94,7 +95,7 @@ export function SignupForm() {
 						name='lastName'
 						render={({ field }) => (
 							<FormItem>
-								<FormLabel>Last Name</FormLabel>
+								<FormLabel>{t('lastName')}</FormLabel>
 								<FormControl>
 									<Input
 										type='text'
@@ -112,7 +113,7 @@ export function SignupForm() {
 					name='email'
 					render={({ field }) => (
 						<FormItem>
-							<FormLabel>Email</FormLabel>
+							<FormLabel>{t('email')}</FormLabel>
 							<FormControl>
 								<Input
 									type='email'
@@ -129,7 +130,7 @@ export function SignupForm() {
 					name='password'
 					render={({ field }) => (
 						<FormItem>
-							<FormLabel>Password</FormLabel>
+							<FormLabel>{t('password')}</FormLabel>
 							<FormControl>
 								<Input
 									type='password'
@@ -149,18 +150,18 @@ export function SignupForm() {
 				{isPending ? (
 					<>
 						<Loader2 className='me-2 h-4 w-4 animate-spin' />
-						Please wait
+						{t('pleaseWait')}
 					</>
 				) : (
-					'Register'
+					t('continue')
 				)}
 			</Button>
 			<p className='text-gray-6 typography-R14'>
-				Already have an account?{' '}
+				{t('haveAccount')}{' '}
 				<Link
-					href='/login'
+					href={authRoutes.login}
 					className='text-black-3 typography-M14'>
-					Log in
+					{t('login')}
 				</Link>
 			</p>
 		</form>

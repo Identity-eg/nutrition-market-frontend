@@ -44,7 +44,7 @@ export async function Linksbar() {
 	];
 
 	return (
-		<div className='hidden border-b border-gray-50 media-md:block '>
+		<div className='hidden border-b border-gray-50 bg-green-500 media-md:block'>
 			<div className='container flex items-center'>
 				<NavigationMenu>
 					<NavigationMenuList>
@@ -53,7 +53,7 @@ export async function Linksbar() {
 								return (
 									<NavigationMenuItem
 										key={link.label}
-										className='typography-M14 hover:text-orange-700'>
+										className='text-white typography-M14 hover:text-orange-700'>
 										<NavigationMenuTrigger>
 											<Link href={link.to}>{link.label}</Link>
 										</NavigationMenuTrigger>
@@ -96,7 +96,7 @@ export async function Linksbar() {
 								return (
 									<NavigationMenuItem
 										key={link.label} //[#bc6c25]
-										className='typography-M14 hover:text-orange-700'>
+										className='text-white typography-M14 hover:text-orange-700'>
 										<Link
 											href={link.to}
 											legacyBehavior
@@ -106,7 +106,7 @@ export async function Linksbar() {
 												{link.label}
 												{link.label === t('offers') && (
 													<span className='ms-2 rounded-full bg-red-500 px-2 text-white typography-R12'>
-														Up to 50%
+														{t('upTo')} 50%
 													</span>
 												)}
 											</NavigationMenuLink>
