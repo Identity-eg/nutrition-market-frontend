@@ -33,10 +33,13 @@ export async function generateMetadata({
 }: {
 	params: { locale: string };
 }): Promise<Metadata> {
-	const t = await getTranslations({ locale, namespace: 'HomePage' });
+	const t = await getTranslations({
+		locale,
+		namespace: 'HomePage.pageMetadata',
+	});
 
 	return {
-		title: t('pageMetadata'),
+		title: t('title'),
 	};
 }
 

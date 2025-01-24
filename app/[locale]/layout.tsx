@@ -1,10 +1,29 @@
 import { ReactNode } from 'react';
 import { notFound } from 'next/navigation';
-import { setRequestLocale } from 'next-intl/server';
+import { Inter, Noto_Kufi_Arabic } from 'next/font/google';
+import { getMessages, setRequestLocale } from 'next-intl/server';
+import { NextIntlClientProvider } from 'next-intl';
 
-import BaseLayout from 'components/layout/base-layout';
+import { Linksbar } from 'components/layout/linksbar';
+import { Toaster } from 'components/ui/toaster';
+import { Header } from 'components/layout/header';
+import { Topbar } from 'components/layout/topbar';
+import { Footer } from 'components/layout/footer';
+import RTLdirection from 'components/layout/RTL-direction';
+
 import { routing } from 'i18n/routing';
 import type { TLocale } from 'i18n/config';
+import { cn } from 'lib/utils';
+
+const inter = Inter({
+	subsets: ['latin'],
+	weight: ['300', '400', '500', '600', '700', '800'],
+});
+
+const notoKufiArabic = Noto_Kufi_Arabic({
+	subsets: ['latin'],
+	weight: ['300', '400', '500', '600', '700', '800'],
+});
 
 export function generateStaticParams() {
 	return routing.locales.map(locale => ({ locale }));
@@ -19,10 +38,31 @@ export default async function LocaleLayout({
 	children,
 	params: { locale },
 }: TProps) {
+	const messages = await getMessages();
 	if (!routing.locales.includes(locale as TLocale)) {
 		notFound();
 	}
-	// Enable static rendering
 	setRequestLocale(locale);
-	return <BaseLayout locale={locale}>{children}</BaseLayout>;
+	return (
+		<html
+			lang={locale}
+			dir={locale === 'ar' ? 'rtl' : 'ltr'}>
+			<body
+				className={cn('text-black', {
+					[notoKufiArabic.className]: locale === 'ar',
+					[inter.className]: locale !== 'ar',
+				})}>
+				<NextIntlClientProvider messages={messages}>
+					<RTLdirection>
+						<Topbar />
+						<Header />
+						<Linksbar />
+						<main className='min-h-[calc(100vh-150px)]'>{children}</main>
+						<Footer />
+						<Toaster />
+					</RTLdirection>
+				</NextIntlClientProvider>
+			</body>
+		</html>
+	);
 }

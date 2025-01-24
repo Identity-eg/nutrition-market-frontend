@@ -13,18 +13,30 @@ const ar = {
 	LocaleSwitcher: {
 		label: '{locale, select, ar {عربي} en {English} other {Unknown}}',
 	},
+	NotFoundPage: {
+		title: 'الصفحة غير موجودة',
+		description:
+			'يبدو أنه لم يتم العثور على أي شيء في هذه الصفحة. ربما يمكنك محاولة البحث عما تبحث عنه؟',
+		goHome: 'الرجوع إلي الصفحة الرئيسية',
+	},
 	...authAr,
 	...homeAr,
 	ShopPage: {
-		pageMetadata: 'منتجاتنا',
+		pageMetadata: { title: 'منتجاتنا' },
 	},
 	OfferPage: {
-		pageMetadata: 'العروض',
+		pageMetadata: { title: 'العروض' },
 	},
 	CartPage: {
-		pageMetadata: 'عربة التسوق',
+		pageMetadata: { title: 'عربة التسوق' },
 		cart: 'عربة التسوق',
 		currency: 'ج.م',
+	},
+	CheckoutPage: {
+		pageMetadata: {
+			title: 'الدفع',
+			description: '',
+		},
 	},
 	Filter: {
 		filter: 'الفلتر',

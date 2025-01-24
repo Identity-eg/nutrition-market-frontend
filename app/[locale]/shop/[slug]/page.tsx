@@ -1,6 +1,7 @@
 import { Suspense } from 'react';
-import { Metadata } from 'next';
+import type { Metadata } from 'next';
 import Link from 'next/link';
+import { Circle } from 'lucide-react';
 
 import { cn } from 'lib/utils';
 
@@ -23,16 +24,18 @@ import type { TSearchParams } from 'types/searchparams';
 import { ProductInfo } from 'features/products/components/product-info';
 import { ProductOptions } from 'features/products/components/product-options';
 import { ProductAccordions } from 'features/products/components/product-accordions';
-import { Circle } from 'lucide-react';
 import { ProductsLoading } from 'features/products/components/products-loading';
+import { TLocale } from 'i18n/config';
 
-export async function generateMetadata(props: {
-	params: Promise<{ slug: string }>;
+type TProps = {
+	params: Promise<{ slug: string; locale: TLocale }>;
 	searchParams: Promise<TSearchParams>;
-}): Promise<Metadata> {
+};
+export async function generateMetadata(props: TProps): Promise<Metadata> {
 	const searchParams = await props.searchParams;
 	const params = await props.params;
-	const { slug } = params;
+
+	const { slug, locale } = params;
 
 	const product = await getSingleProductBySlug({ slug });
 	const variant =
@@ -41,14 +44,12 @@ export async function generateMetadata(props: {
 
 	return {
 		title: variant.name,
-		description: product.description,
+		description:
+			locale === 'ar' ? product.description_ar : product.description_en,
 	};
 }
 
-export default async function ProductPage(props: {
-	searchParams: Promise<TSearchParams>;
-	params: Promise<{ slug: string }>;
-}) {
+export default async function ProductPage(props: TProps) {
 	const params = await props.params;
 	const searchParams = await props.searchParams;
 	const variantId: string = searchParams.variant;
@@ -84,7 +85,11 @@ export default async function ProductPage(props: {
 					<ProductInfo
 						NFSA_REG_NO={product.NFSA_REG_NO}
 						averageRating={product.averageRating}
-						companyName={product.company.name}
+						companyName={
+							params.locale === 'ar'
+								? product.company.name_ar
+								: product.company.name_en
+						}
 						companySlug={product.company.slug}
 						numReviews={product.numReviews}
 					/>
@@ -113,7 +118,9 @@ export default async function ProductPage(props: {
 									asChild
 									variant='outline'
 									className='rounded-md border border-gray-40 px-4 py-1 text-gray-500'>
-									<Link href={`/categories/${cat.slug}`}>{cat.name}</Link>
+									<Link href={`/categories/${cat.slug}`}>
+										{params.locale === 'ar' ? cat.name_ar : cat.name_en}
+									</Link>
 								</Button>
 							))}
 						</ul>
@@ -151,7 +158,11 @@ export default async function ProductPage(props: {
 					<ProductInfo
 						NFSA_REG_NO={product.NFSA_REG_NO}
 						averageRating={product.averageRating}
-						companyName={product.company.name}
+						companyName={
+							params.locale === 'ar'
+								? product.company.name_ar
+								: product.company.name_en
+						}
 						companySlug={product.company.slug}
 						numReviews={product.numReviews}
 					/>
@@ -184,7 +195,9 @@ export default async function ProductPage(props: {
 									asChild
 									variant='outline'
 									className='rounded-md border border-gray-40 px-4 py-1 text-gray-500'>
-									<Link href={`/categories/${cat.slug}`}>{cat.name}</Link>
+									<Link href={`/categories/${cat.slug}`}>
+										{params.locale === 'ar' ? cat.name_ar : cat.name_en}
+									</Link>
 								</Button>
 							))}
 						</ul>

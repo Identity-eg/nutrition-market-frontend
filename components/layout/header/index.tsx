@@ -13,7 +13,7 @@ import { getMe } from 'features/auth/apis/user';
 import { Searchbar } from './search/searchbar';
 import { MobileMenu } from './mobile-menu';
 
-import { authRoutes } from 'constants/routes';
+import { AUTH_ROUTES } from 'constants/routes';
 
 export async function Header() {
 	const user = await getMe();
@@ -45,7 +45,7 @@ export async function Header() {
 					<Button
 						asChild
 						size='sm'>
-						<Link href={authRoutes.login}>{t('login')}</Link>
+						<Link href={AUTH_ROUTES.login}>{t('login')}</Link>
 					</Button>
 				)}
 			</div>

@@ -1,16 +1,16 @@
-export const authRoutes = {
+export const AUTH_ROUTES = {
 	login: '/login',
 	signup: '/signup',
 	forgotPassword: '/forgot-password',
 	resetPassword: '/reset-password',
 };
 
-export const privateRoutes = {
+export const PRIVATE_ROUTES = {
 	chechout: '/chechout',
 	orders: '/orders',
 };
 
-export const publicRoutes = {
+export const PUBLIC_ROUTES = {
 	home: '/',
 	shop: '/shop',
 	offers: '/shop/offers',

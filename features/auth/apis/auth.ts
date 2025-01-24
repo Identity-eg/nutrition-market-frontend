@@ -1,9 +1,10 @@
 'use server';
 
-import { redirect } from 'next/navigation';
 import { cookies } from 'next/headers';
 import { flattenValidationErrors } from 'next-safe-action';
 import { z } from 'zod';
+import { getLocale } from 'next-intl/server';
+import { redirect } from 'i18n/routing';
 
 import { actionClient } from 'apis/action-clients';
 import { ACCESS_COOKIE_OPTIONS, REFRESH_COOKIE_OPTIONS } from 'constants/auth';
@@ -42,9 +43,10 @@ export const login = actionClient
 			return data;
 		},
 		{
-			onSuccess: data => {
+			onSuccess: async data => {
 				if (!data.hasRedirected) {
-					redirect(data.parsedInput.from ?? '/');
+					const locale = await getLocale();
+					redirect({ locale, href: data.parsedInput.from ?? '/' });
 				}
 			},
 		}
@@ -96,7 +98,10 @@ export const verifyEmail = actionClient
 			return data;
 		},
 		{
-			onSuccess: async () => redirect(`/`),
+			onSuccess: async () => {
+				const locale = await getLocale();
+				redirect({ locale, href: `/` });
+			},
 		}
 	);
 
@@ -108,7 +113,12 @@ export const logout = actionClient
 			cookies().delete(process.env.ACCESS_TOKEN_NAME ?? '');
 			cookies().delete(process.env.REFRESH_TOKEN_NAME ?? '');
 		},
-		{ onSuccess: async () => redirect('/') }
+		{
+			onSuccess: async () => {
+				const locale = await getLocale();
+				redirect({ locale, href: '/' });
+			},
+		}
 	);
 
 export const refreshAccessTokenFn = async () => {
@@ -168,5 +178,6 @@ export const loginWithGoogle = actionClient
 	.metadata({ actionName: 'login-with-google-action' })
 	.action(async () => {
 		const { url } = await request({ url: '/auth/google' });
-		redirect(url);
+		const locale = await getLocale();
+		redirect({ locale, href: url });
 	});

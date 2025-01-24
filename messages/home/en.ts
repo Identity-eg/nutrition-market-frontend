@@ -1,6 +1,6 @@
 const homeEn = {
 	HomePage: {
-		pageMetadata: 'Home',
+		pageMetadata: { title: 'Home' },
 		searchbarPlaceholder: 'Explore vitamins, supplements, ...etc',
 		banners: {
 			title1: 'Your health & safety is our top priority',

@@ -16,10 +16,13 @@ export async function generateMetadata({
 }: {
 	params: { locale: string };
 }): Promise<Metadata> {
-	const t = await getTranslations({ locale, namespace: 'OfferPage' });
+	const t = await getTranslations({
+		locale,
+		namespace: 'OfferPage.pageMetadata',
+	});
 
 	return {
-		title: t('pageMetadata'),
+		title: t('title'),
 	};
 }
 export default async function OffersPage(props: {

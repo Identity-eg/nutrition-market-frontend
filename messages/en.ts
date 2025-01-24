@@ -13,18 +13,27 @@ const en = {
 	LocaleSwitcher: {
 		label: '{locale, select, ar {عربي} en {English} other {Unknown}}',
 	},
+	NotFoundPage: {
+		title: 'Page Not Found',
+		description:
+			'It looks like nothing was found at this location. Maybe try to search for what you are looking for ?',
+		goHome: 'Go to home',
+	},
 	...authEn,
 	...homeEn,
 	ShopPage: {
-		pageMetadata: 'Shop',
+		pageMetadata: { title: 'Shop' },
 	},
 	OfferPage: {
-		pageMetadata: 'Offer',
+		pageMetadata: { title: 'Offer' },
 	},
 	CartPage: {
-		pageMetadata: 'Cart',
+		pageMetadata: { title: 'Cart' },
 		cart: 'Cart',
 		currency: 'EGP',
+	},
+	CheckoutPage: {
+		pageMetadata: { title: 'Checkout' },
 	},
 	Filter: {
 		filter: 'Filter',

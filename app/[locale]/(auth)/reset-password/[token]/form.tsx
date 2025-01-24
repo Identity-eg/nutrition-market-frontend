@@ -21,7 +21,7 @@ import { Input } from 'components/ui/input';
 import { resetPasswordSchema } from 'features/auth/apis/schema';
 import { useToast } from 'components/ui/use-toast';
 import { resetPassword } from 'features/auth/apis/auth';
-import { authRoutes } from 'constants/routes';
+import { AUTH_ROUTES } from 'constants/routes';
 
 const resetPasswordFormSchema = resetPasswordSchema
 	.omit({ token: true })
@@ -54,7 +54,7 @@ export default function ResetPasswordForm() {
 			toast({
 				title: data?.msg,
 			});
-			router.push(authRoutes.login);
+			router.push(AUTH_ROUTES.login);
 		},
 		onError: ({ error }) => {
 			toast({

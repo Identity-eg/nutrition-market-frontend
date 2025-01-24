@@ -15,7 +15,7 @@ import { Separator } from 'components/ui/separator';
 import { LogoutButton } from 'features/auth/components/logout-button';
 import type { TUser } from 'features/auth/types/user';
 import { getCategories } from 'apis/server/category';
-import { authRoutes, publicRoutes } from 'constants/routes';
+import { AUTH_ROUTES, PUBLIC_ROUTES } from 'constants/routes';
 import { getCompanies } from 'apis/server/company';
 
 function MobileNavLink({
@@ -56,15 +56,15 @@ export async function MobileMenu({ user }: { user?: TUser }) {
 		to: `/companies/${com.slug}`,
 	}));
 	const mainLinks = [
-		{ label: t('home'), to: publicRoutes.home },
-		{ label: t('shop'), to: publicRoutes.shop },
-		{ label: t('offers'), to: publicRoutes.offers },
+		{ label: t('home'), to: PUBLIC_ROUTES.home },
+		{ label: t('shop'), to: PUBLIC_ROUTES.shop },
+		{ label: t('offers'), to: PUBLIC_ROUTES.offers },
 		{
 			label: t('categories'),
-			to: publicRoutes.categories,
+			to: PUBLIC_ROUTES.categories,
 			children: categories,
 		},
-		{ label: t('brands'), to: publicRoutes.companies, children: companies },
+		{ label: t('brands'), to: PUBLIC_ROUTES.companies, children: companies },
 	];
 	return (
 		<Sheet>
@@ -113,7 +113,7 @@ export async function MobileMenu({ user }: { user?: TUser }) {
 						</>
 					) : (
 						<SheetClose asChild>
-							<Link href={authRoutes.login}>
+							<Link href={AUTH_ROUTES.login}>
 								<li className='flex items-center gap-2 rounded-md px-2 py-4 text-green-800 typography-R16 hover:bg-green-50'>
 									<CircleUserRoundIcon className='text-green-500' />
 									{t('login')}

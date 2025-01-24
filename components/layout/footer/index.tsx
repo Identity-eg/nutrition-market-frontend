@@ -1,6 +1,6 @@
 import { Headset } from 'lucide-react';
 
-const Footer = () => {
+export function Footer() {
 	const myAccount = [
 		// "Product Support",
 		'Checkout',
@@ -19,7 +19,6 @@ const Footer = () => {
 		'Delivery & Dispatch',
 		'Problems with Order',
 	];
-
 	return (
 		<footer className='mt-auto bg-[#344e41] py-12'>
 			<div className='container text-white'>
@@ -89,6 +88,4 @@ const Footer = () => {
 			</div>
 		</footer>
 	);
-};
-
-export default Footer;
+}

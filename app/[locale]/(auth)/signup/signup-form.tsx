@@ -20,7 +20,7 @@ import { Input } from 'components/ui/input';
 
 import { toast } from 'components/ui/use-toast';
 import { register } from 'features/auth/apis/auth';
-import { authRoutes } from 'constants/routes';
+import { AUTH_ROUTES } from 'constants/routes';
 
 export function SignupForm() {
 	const t = useTranslations('Auth');
@@ -159,7 +159,7 @@ export function SignupForm() {
 			<p className='text-gray-6 typography-R14'>
 				{t('haveAccount')}{' '}
 				<Link
-					href={authRoutes.login}
+					href={AUTH_ROUTES.login}
 					className='text-black-3 typography-M14'>
 					{t('login')}
 				</Link>

@@ -1,13 +1,27 @@
 import type { Metadata } from 'next';
-import { getUserAddresses } from 'features/addresses/apis/address';
-import { getGovernorates } from 'features/addresses/apis/egypt';
-import { getMe } from 'features/auth/apis/user';
-import { getCart } from 'features/cart/apis/cart';
+import { getTranslations } from 'next-intl/server';
+
 import Container from './container';
 
-export const metadata: Metadata = {
-	title: 'Checkout',
-};
+import { getCart } from 'features/cart/apis/cart';
+import { getMe } from 'features/auth/apis/user';
+import { getUserAddresses } from 'features/addresses/apis/address';
+import { getGovernorates } from 'features/addresses/apis/egypt';
+
+export async function generateMetadata({
+	params: { locale },
+}: {
+	params: { locale: string };
+}): Promise<Metadata> {
+	const t = await getTranslations({
+		locale,
+		namespace: 'CheckoutPage.pageMetadata',
+	});
+
+	return {
+		title: t('title'),
+	};
+}
 export default async function CheckoutPage() {
 	const [addresses, governorates, user, cart] = await Promise.all([
 		getUserAddresses(),
