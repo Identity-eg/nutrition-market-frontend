@@ -1,22 +1,28 @@
 import { Dispatch, useState } from 'react';
-import { Card } from 'components/ui/card';
-import { Button } from 'components/ui/button';
 import { Plus } from 'lucide-react';
 
-import { Addresses } from 'features/addresses/components/addresses';
-import { AddressForm } from 'features/addresses/components/form';
+import { Card } from 'components/ui/card';
+import { Button } from 'components/ui/button';
+import { Addresses } from './addresses';
+import { AddressForm } from './form';
 
-import type { TAddress } from 'features/addresses/types/address';
-import type { TGovernorate } from 'features/addresses/types/egypt';
+import type { TAddress } from '../types/address';
+import type { TGovernorate } from '../types/egypt';
 
 export default function ShippingAddress({
 	setAddressId,
+	userFirstName,
+	userLastName,
 	userEmail,
+	userPhoneNumber,
 	governorates,
 	addresses,
 }: {
 	setAddressId: Dispatch<React.SetStateAction<string>>;
+	userFirstName?: string;
+	userLastName?: string;
 	userEmail?: string;
+	userPhoneNumber?: string;
 	governorates: TGovernorate[];
 	addresses: TAddress[];
 }) {
@@ -48,7 +54,10 @@ export default function ShippingAddress({
 			{isInFormMode && (
 				<AddressForm
 					setAddressId={setAddressId}
+					userFirstName={userFirstName}
+					userLastName={userLastName}
 					userEmail={userEmail}
+					userPhoneNumber={userPhoneNumber}
 					governorates={governorates}
 					isUserHasAddress={isUserHasAddress}
 					addressToEdit={addressToEdit}

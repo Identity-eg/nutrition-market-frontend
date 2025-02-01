@@ -45,6 +45,9 @@ export default async function CheckoutPage() {
 					addresses={addresses}
 					governorates={governorates}
 					userEmail={user?.email}
+					userFirstName={user?.firstName}
+					userLastName={user?.lastName}
+					userPhoneNumber={user?.phoneNumber}
 				/>
 			</div>
 		</div>

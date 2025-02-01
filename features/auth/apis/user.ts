@@ -6,6 +6,7 @@ export const getMe = async (): Promise<TUser | undefined> => {
 		const data = await request({
 			url: '/users/getMe',
 			method: 'GET',
+			cache: 'force-cache',
 		});
 		return data.user;
 	} catch (error) {

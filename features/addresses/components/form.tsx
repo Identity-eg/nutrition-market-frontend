@@ -4,6 +4,9 @@ import { Dispatch, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { Check, ChevronsUpDown, Loader2 } from 'lucide-react';
+import { useAction } from 'next-safe-action/hooks';
+
 import { Input } from 'components/ui/input';
 import {
 	Form,
@@ -15,8 +18,6 @@ import {
 } from 'components/ui/form';
 import { Popover, PopoverContent, PopoverTrigger } from 'components/ui/popover';
 import { Button } from 'components/ui/button';
-import { cn } from 'lib/utils';
-import { Check, ChevronsUpDown, Loader2 } from 'lucide-react';
 import {
 	Command,
 	CommandEmpty,
@@ -25,39 +26,21 @@ import {
 	CommandItem,
 	CommandList,
 } from 'components/ui/command';
-import { useAction } from 'next-safe-action/hooks';
-import { addAddress, updateAddress } from 'features/addresses/apis/address';
 import { useToast } from 'components/ui/use-toast';
-import { getCities } from 'features/addresses/apis/egypt';
+
+import { cn } from 'lib/utils';
 import { getDirtyFields } from 'lib/getDirtyValues';
-
-import type { TGovernorate } from 'features/addresses/types/egypt';
-import type { TAddress } from 'features/addresses/types/address';
-
-export const addAddressSchema = z.object({
-	firstName: z.string().min(1, 'First name is required'),
-	lastName: z.string().min(1, 'Last name is required'),
-	email: z
-		.string()
-		.min(1, {
-			message: 'Email is required',
-		})
-		.email('Please enter a valid email address'),
-	phone: z.coerce.number({
-		invalid_type_error: 'Phone is required',
-	}),
-	additionalPhone: z.coerce.number({
-		invalid_type_error: 'Additional phone is required',
-	}),
-	governorate: z.string().min(1, 'Governorate is required'),
-	city: z.string().min(1, 'City is required'),
-	street: z.string().min(1, 'Street is required'),
-	buildingNo: z.string().min(1, 'Building number is required'),
-	floor: z.string().optional(),
-});
+import { addAddress, updateAddress } from '../apis/address';
+import { getCities } from '../apis/egypt';
+import { addressSchema } from '../apis/schema';
+import type { TGovernorate } from '../types/egypt';
+import type { TAddress } from '../types/address';
 
 export function AddressForm({
+	userFirstName,
+	userLastName,
 	userEmail,
+	userPhoneNumber,
 	governorates,
 	isUserHasAddress,
 	addressToEdit,
@@ -65,7 +48,10 @@ export function AddressForm({
 	setAddressId,
 	closeForm,
 }: {
+	userFirstName?: string;
+	userLastName?: string;
 	userEmail?: string;
+	userPhoneNumber?: string;
 	governorates: TGovernorate[];
 	isUserHasAddress: boolean;
 	addressToEdit?: TAddress;
@@ -108,20 +94,20 @@ export function AddressForm({
 		result: { data: cities },
 	} = useAction(getCities);
 
-	const form = useForm<z.infer<typeof addAddressSchema>>({
+	const form = useForm<z.infer<typeof addressSchema>>({
 		defaultValues: {
-			firstName: addressToEdit?.firstName ?? '',
-			lastName: addressToEdit?.lastName ?? '',
+			firstName: addressToEdit?.firstName ?? userFirstName,
+			lastName: addressToEdit?.lastName ?? userLastName,
 			email: addressToEdit?.email ?? userEmail,
-			phone: addressToEdit?.phone ?? undefined,
-			additionalPhone: addressToEdit?.additionalPhone ?? undefined,
+			phone: addressToEdit?.phone ?? userPhoneNumber,
+			additionalPhone: addressToEdit?.additionalPhone ?? '',
 			governorate: addressToEdit?.governorate ?? '',
 			city: addressToEdit?.city ?? '',
 			street: addressToEdit?.street ?? '',
 			buildingNo: addressToEdit?.buildingNo ?? '',
 			floor: addressToEdit?.floor ?? '',
 		},
-		resolver: zodResolver(addAddressSchema),
+		resolver: zodResolver(addressSchema),
 	});
 
 	useEffect(() => {
@@ -135,7 +121,7 @@ export function AddressForm({
 		}
 	}, [addressToEdit]);
 
-	function onSubmit(values: z.infer<typeof addAddressSchema>) {
+	function onSubmit(values: z.infer<typeof addressSchema>) {
 		if (addressToEdit) {
 			const dirtyValues = getDirtyFields(values, form.formState.dirtyFields);
 			updateAddressAction({ addressId: addressToEdit._id, ...dirtyValues });
@@ -216,7 +202,6 @@ export function AddressForm({
 									<Input
 										variant='outline'
 										size='sm'
-										type='number'
 										placeholder='e.g. 01234567891'
 										{...field}
 									/>
@@ -235,7 +220,6 @@ export function AddressForm({
 									<Input
 										variant='outline'
 										size='sm'
-										type='number'
 										{...field}
 									/>
 								</FormControl>

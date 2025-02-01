@@ -41,10 +41,11 @@ export async function Linksbar() {
 		{ label: t('offers'), to: '/shop/offers' },
 		{ label: t('categories'), to: '/categories', children: categories },
 		{ label: t('brands'), to: '/companies', children: companies },
+		{ label: t('blogs'), to: '/blogs' },
 	];
 
 	return (
-		<div className='hidden border-b border-gray-50 bg-green-500 media-md:block'>
+		<div className='sticky top-0 z-20 hidden border-b border-gray-50 bg-green-500 media-md:block'>
 			<div className='container flex items-center'>
 				<NavigationMenu>
 					<NavigationMenuList>

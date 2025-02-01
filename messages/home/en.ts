@@ -31,6 +31,7 @@ const homeEn = {
 			upTo: 'Up To',
 			categories: 'Categories',
 			brands: 'Brands',
+			blogs: 'Blogs',
 			login: 'Login',
 			logout: 'Logout',
 		},

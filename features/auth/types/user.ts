@@ -4,10 +4,12 @@ export type TUser = {
 	lastName: string;
 	fullName: string;
 	email: string;
+	phoneNumber: string;
 	role: 'admin' | 'user';
 	ordersCount: number;
 	purchasedProducts: string[];
 	blocked: boolean;
+	isVerified: boolean;
 	createdAt: string;
 	updatedAt: string;
 };

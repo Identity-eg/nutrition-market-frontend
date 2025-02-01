@@ -31,6 +31,7 @@ const homeAr = {
 			upTo: 'لحد',
 			categories: 'الفئات',
 			brands: 'العلامات التجارية',
+			blogs: 'المدونات',
 			login: 'تسجيل الدخول',
 			logout: 'تسجيل الخروج',
 		},

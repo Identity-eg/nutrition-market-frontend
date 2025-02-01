@@ -7,6 +7,7 @@ import { actionClient } from 'apis/action-clients';
 import { request } from 'apis/request';
 import type { TAddress } from 'features/addresses/types/address';
 import { TTags } from 'constants/revalidate-tags';
+import { addressSchema } from './schema';
 
 export const getUserAddresses = async (): Promise<TAddress[]> => {
 	const data = await request({
@@ -17,31 +18,9 @@ export const getUserAddresses = async (): Promise<TAddress[]> => {
 	return data.addresses;
 };
 
-const addAddressSchema = z.object({
-	firstName: z.string().min(1, 'First name is required'),
-	lastName: z.string().min(1, 'Last name is required'),
-	email: z
-		.string()
-		.min(1, {
-			message: 'Email is required',
-		})
-		.email('Please enter a valid email address'),
-	phone: z.coerce.number({
-		invalid_type_error: 'Phone is required',
-	}),
-	additionalPhone: z.coerce.number({
-		invalid_type_error: 'Additional phone is required',
-	}),
-	governorate: z.string().min(1, 'Governorate is required'),
-	city: z.string().min(1, 'City is required'),
-	street: z.string().min(1, 'Street is required'),
-	buildingNo: z.string().min(1, 'Building number is required'),
-	floor: z.string().optional(),
-});
-
 export const addAddress = actionClient
 	.metadata({ actionName: 'add-address-action' })
-	.schema(addAddressSchema, {
+	.schema(addressSchema, {
 		// handleValidationErrorsShape: ve => flattenValidationErrors(ve).fieldErrors,
 	})
 	.action<{ address: TAddress }>(
@@ -63,8 +42,8 @@ const updateAddressSchema = z
 		firstName: z.string(),
 		lastName: z.string(),
 		email: z.string().email('Please enter a valid email address'),
-		phone: z.coerce.number(),
-		additionalPhone: z.coerce.number(),
+		phone: z.string(),
+		additionalPhone: z.string(),
 		governorate: z.string(),
 		city: z.string(),
 		street: z.string(),

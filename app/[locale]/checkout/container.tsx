@@ -14,16 +14,22 @@ import { Price } from 'components/utils/price';
 
 export default function Container({
 	cart,
+	userFirstName,
+	userLastName,
 	userEmail,
+	userPhoneNumber,
 	governorates,
 	addresses,
 }: {
 	cart: TCart;
+	userFirstName?: string;
+	userLastName?: string;
 	userEmail?: string;
+	userPhoneNumber?: string;
 	governorates: TGovernorate[];
 	addresses: TAddress[];
 }) {
-	const [addressId, setAddressId] = useState(addresses[0]?._id ?? "");
+	const [addressId, setAddressId] = useState(addresses[0]?._id ?? '');
 	const [paymentMethodId, setPaymentMethodId] = useState('1');
 
 	return (
@@ -32,7 +38,10 @@ export default function Container({
 				<div className='flex-1 space-y-4 self-start'>
 					<ShippingAddress
 						setAddressId={setAddressId}
+						userFirstName={userFirstName}
+						userLastName={userLastName}
 						userEmail={userEmail}
+						userPhoneNumber={userPhoneNumber}
 						governorates={governorates}
 						addresses={addresses}
 					/>

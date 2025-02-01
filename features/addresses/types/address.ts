@@ -3,8 +3,8 @@ export type TAddress = {
 	firstName: string;
 	lastName: string;
 	email: string;
-	phone: number;
-	additionalPhone: number;
+	phone: string;
+	additionalPhone: string;
 	governorate: string;
 	city: string;
 	street: string;
