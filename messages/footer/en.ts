@@ -1,0 +1,26 @@
+const footerEn = {
+	phoneNumber: 'Phone number',
+	customerService: 'Customer service',
+	myAccount: 'My account',
+	myProfile: 'My profile',
+	cart: 'Cart',
+	checkout: 'Checkout',
+	contactUs: 'Contact us',
+	orderTracking: 'Order tracking',
+	suggestProduct: 'Suggest a product',
+	shippingPolicy: 'Shipping Policy',
+	RefundPolicy: 'Refund Policy',
+	ourLocation: 'Our location',
+	cairoEgy: 'Cairo, Egypt',
+	quickLinks: 'Quick links',
+	offers: 'Offers',
+	allProduct: 'All products',
+	allCategories: 'All categories',
+	allBrands: 'All brands',
+	rightsReserved: 'All rights reserved',
+	developedBy: 'Developed By',
+	ident: 'IDENT',
+	ourNames: 'Amr Tawfik & hady Tawfik',
+};
+
+export default footerEn;

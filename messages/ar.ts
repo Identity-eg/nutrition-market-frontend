@@ -1,4 +1,5 @@
 import authAr from './auth/ar';
+import footerAr from './footer/ar';
 import homeAr from './home/ar';
 
 const ar = {
@@ -20,7 +21,7 @@ const ar = {
 		goHome: 'الرجوع إلي الصفحة الرئيسية',
 	},
 	...authAr,
-	...homeAr,
+	HomePage: homeAr,
 	ShopPage: {
 		pageMetadata: { title: 'منتجاتنا' },
 	},
@@ -51,5 +52,6 @@ const ar = {
 		clear: 'مسح',
 		clearAll: 'مسح الكل',
 	},
+	Footer: footerAr,
 };
 export default ar;

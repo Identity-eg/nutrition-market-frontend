@@ -1,40 +1,65 @@
-import { Headset } from 'lucide-react';
+import Link from 'next/link';
+import { useTranslations } from 'next-intl';
+import { HeadsetIcon, MapPinIcon } from 'lucide-react';
 
 export function Footer() {
+	const t = useTranslations('Footer');
 	const myAccount = [
-		// "Product Support",
-		'Checkout',
-		'Shopping Cart',
-		// "Wishlist",
-		// "Terms & Conditions",
-		// "Redeem Voucher",
+		{ label: t('myProfile'), link: '/profile' },
+		{ label: t('cart'), link: '/cart' },
+		{ label: t('checkout'), link: '/checkout' },
 	];
-	const quickLinks = ['Store Location', 'My account', 'Order Tracking', 'FAQs'];
+	const quickLinks = [
+		{ label: t('offers'), link: '/shop/offers' },
+		{ label: t('allProduct'), link: '/shop' },
+		{ label: t('allCategories'), link: '/categories' },
+		{ label: t('allBrands'), link: '/companies' },
+	];
 
-	const customerCare = [
-		'New Customers',
-		'How to use Account',
-		'Placing an Order',
-		'Payment Methods',
-		'Delivery & Dispatch',
-		'Problems with Order',
+	const customerService = [
+		{ label: t('contactUs'), link: '/contact-us' },
+		{ label: t('orderTracking'), link: '/orders' },
+		{ label: t('suggestProduct'), link: '/suggest-product' },
+		{ label: t('shippingPolicy'), link: '/shipping' },
 	];
+
 	return (
 		<footer className='mt-auto bg-[#344e41] py-12'>
 			<div className='container text-white'>
 				<div className='mb-4 grid grid-cols-2 gap-x-4 gap-y-10 border-b border-green-400 pb-8 text-sm media-md:grid-cols-4'>
 					<div className='flex flex-col gap-4 media-md:gap-6'>
-						<h2 className='text-[#a3b18a] typography-M16'>Let&apos;s Talk</h2>
+						{/* <h2 className='text-[#a3b18a] typography-M16'>Let&apos;s Talk</h2> */}
 						<div>
 							<div className='mb-2 flex items-center gap-2'>
-								<Headset
+								<HeadsetIcon
 									size={48}
 									className='text-[#dda15e]'
 								/>
 								<div>
-									<h3>Phone number</h3>
-									<h2 className='font-semibold text-[#dda15e] media-md:text-lg'>
+									<h3>{t('phoneNumber')}</h3>
+									<h2
+										dir='ltr'
+										className='font-semibold text-[#dda15e] media-md:text-lg'>
+										+02 0100 571 2891
+									</h2>
+									<h2
+										dir='ltr'
+										className='font-semibold text-[#dda15e] media-md:text-lg'>
 										+02 0111 598 2393
+									</h2>
+								</div>
+							</div>
+							<div className='mb-2 flex items-center gap-2'>
+								<MapPinIcon
+									size={48}
+									className='text-[#dda15e]'
+								/>
+								<div>
+									<h3>{t('ourLocation')}</h3>
+									<h2
+										dir='ltr'
+										className='text-[#dda15e] typography-SB14'>
+										{t('cairoEgy')}
 									</h2>
 								</div>
 							</div>
@@ -42,48 +67,51 @@ export function Footer() {
 					</div>
 
 					<div className='flex flex-col gap-4 media-md:gap-6'>
-						<h2 className='text-[#a3b18a] typography-M16'>My Account</h2>
+						<h2 className='text-[#a3b18a] typography-M16'>{t('myAccount')}</h2>
 						<ul className='flex flex-col gap-2'>
 							{myAccount.map((item, i) => (
 								<li
 									key={i}
 									className='cursor-pointer transition-all duration-200 hover:translate-x-2 hover:text-[#dda15e]'>
-									<a>{item}</a>
+									<Link href={item.link}>{item.label}</Link>
 								</li>
 							))}
 						</ul>
 					</div>
 					<div className='flex flex-col gap-4 media-md:gap-6'>
-						<h2 className='text-[#a3b18a] typography-M16'>My Quick Links</h2>
+						<h2 className='text-[#a3b18a] typography-M16'>{t('quickLinks')}</h2>
 						<ul className='flex flex-col gap-2'>
 							{quickLinks.map((item, i) => (
 								<li
 									key={i}
 									className='cursor-pointer transition-all hover:translate-x-2 hover:text-[#dda15e]'>
-									<a>{item}</a>
+									<Link href={item.link}>{item.label}</Link>
 								</li>
 							))}
 						</ul>
 					</div>
 					<div className='flex flex-col gap-4 media-md:gap-6'>
-						<h2 className='text-[#a3b18a] typography-M16'>My Customer Care</h2>
+						<h2 className='text-[#a3b18a] typography-M16'>
+							{t('customerService')}
+						</h2>
 						<ul className='flex flex-col gap-2'>
-							{customerCare.map((item, i) => (
+							{customerService.map((item, i) => (
 								<li
 									key={i}
 									className='cursor-pointer transition-all hover:translate-x-2 hover:text-[#dda15e]'>
-									<a>{item}</a>
+									<Link href={item.link}>{item.label}</Link>
 								</li>
 							))}
 						</ul>
 					</div>
 				</div>
 				<p className='typography-R14'>
-					All Rights Reserved <span className='text-[#a3b18a]'>IDENT</span>.
+					{t('rightsReserved')}{' '}
+					<span className='text-[#a3b18a]'>{t('ident')}</span> .
 				</p>
 				<p className='typography-R14'>
-					Developed By{' '}
-					<span className='text-[#a3b18a]'>Amr Tawfik & hady Tawfik</span>.
+					{t('developedBy')}{' '}
+					<span className='text-[#a3b18a]'>{t('ourNames')}</span> .
 				</p>
 			</div>
 		</footer>

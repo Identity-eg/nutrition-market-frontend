@@ -12,11 +12,32 @@ import {
 } from 'components/ui/dropdown-menu';
 
 import { LogoutButton } from 'features/auth/components/logout-button';
-import { loggedinLinks } from 'constants/navLinks';
 import type { TUser } from 'features/auth/types/user';
+import {
+	MessageCircleQuestionIcon,
+	SendToBackIcon,
+	UserRoundPenIcon,
+} from 'lucide-react';
 
 export function ProfileDropdown({ user }: { user: TUser }) {
 	const t = useTranslations('Auth');
+	const loggedinLinks = [
+		{
+			label: t('myProfile'),
+			to: '/profile',
+			Icon: UserRoundPenIcon,
+		},
+		{
+			label: t('myOrders'),
+			to: '/orders',
+			Icon: SendToBackIcon,
+		},
+		{
+			label: t('needHelp'),
+			to: '/orders',
+			Icon: MessageCircleQuestionIcon,
+		},
+	];
 	return (
 		<DropdownMenu>
 			<DropdownMenuTrigger asChild>

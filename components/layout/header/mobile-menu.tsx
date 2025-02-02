@@ -1,6 +1,13 @@
 import Link from 'next/link';
 import { getLocale, getTranslations } from 'next-intl/server';
-import { CircleUserRoundIcon, LogOutIcon, MenuIcon } from 'lucide-react';
+import {
+	MessageCircleQuestionIcon,
+	SendToBackIcon,
+	UserRoundPenIcon,
+	CircleUserRoundIcon,
+	LogOutIcon,
+	MenuIcon,
+} from 'lucide-react';
 
 import {
 	Sheet,
@@ -10,9 +17,9 @@ import {
 	SheetTitle,
 	SheetTrigger,
 } from 'components/ui/sheet';
-import { loggedinLinks } from 'constants/navLinks';
 import { Separator } from 'components/ui/separator';
 import { LogoutButton } from 'features/auth/components/logout-button';
+
 import type { TUser } from 'features/auth/types/user';
 import { getCategories } from 'apis/server/category';
 import { AUTH_ROUTES, PUBLIC_ROUTES } from 'constants/routes';
@@ -66,6 +73,24 @@ export async function MobileMenu({ user }: { user?: TUser }) {
 		},
 		{ label: t('brands'), to: PUBLIC_ROUTES.companies, children: companies },
 	];
+
+	const dropDownLinks = [
+		{
+			label: t('myProfile'),
+			to: '/profile',
+			Icon: UserRoundPenIcon,
+		},
+		{
+			label: t('myOrders'),
+			to: '/orders',
+			Icon: SendToBackIcon,
+		},
+		{
+			label: t('needHelp'),
+			to: '/orders',
+			Icon: MessageCircleQuestionIcon,
+		},
+	];
 	return (
 		<Sheet>
 			<SheetTrigger className='relative flex items-center gap-2 text-green-500'>
@@ -92,7 +117,7 @@ export async function MobileMenu({ user }: { user?: TUser }) {
 				<ul>
 					{user ? (
 						<>
-							{loggedinLinks.map(link => (
+							{dropDownLinks.map(link => (
 								<SheetClose
 									key={link.label}
 									asChild>

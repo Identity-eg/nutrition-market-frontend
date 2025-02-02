@@ -1,5 +1,8 @@
 const authEn = {
 	Auth: {
+		myProfile: 'My profile',
+		myOrders: 'My orders',
+		needHelp: 'Need help ?',
 		login: 'Login',
 		loginDescription: 'Enter your email below to login to your account',
 		register: 'Register',

@@ -1,5 +1,8 @@
 const authAr = {
 	Auth: {
+		myProfile: 'الملف الشخصي',
+		myOrders: 'طلباتي',
+		needHelp: 'تحتاج مساعدة ؟',
 		login: 'تسجيل الدخول',
 		loginDescription: 'أدخل بريدك الإلكتروني أدناه لتسجيل الدخول إلى حسابك',
 		register: 'إنشاء حساب',

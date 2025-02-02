@@ -1,15 +1,17 @@
+import { Suspense } from 'react';
+import { getLocale } from 'next-intl/server';
+import { FilterIcon } from 'lucide-react';
+
 import { Button } from 'components/ui/button';
 import {
 	Sheet,
 	SheetClose,
-	SheetContent,
 	SheetHeader,
+	SheetContent,
 	SheetTitle,
 	SheetTrigger,
 } from 'components/ui/sheet';
-import { FilterIcon } from 'lucide-react';
 import { ClearAllBtn } from './clear-all-btn';
-import { Suspense } from 'react';
 import {
 	Accordion,
 	AccordionTrigger,
@@ -18,10 +20,11 @@ import {
 } from 'components/ui/accordion';
 import { FacetedFilter } from './faceted-filter';
 import { InputsFacet } from './price-inputs-facet';
+import { RatingStarsFacet } from './rating-stars-facet';
+
 import { getCompanies } from 'apis/server/company';
 import { getCategories } from 'apis/server/category';
 import { getDosageForms } from 'apis/server/dosageForm';
-import { RatingStarsFacet } from './rating-stars-facet';
 
 export async function MobileFilter() {
 	const [companies, categories, dosageForms] = await Promise.all([
@@ -29,6 +32,7 @@ export async function MobileFilter() {
 		getCategories(),
 		getDosageForms(),
 	]);
+	const locale = await getLocale();
 	const FilterKeys = {
 		company: 'company',
 		dosageForm: 'dosageForm',
@@ -64,7 +68,7 @@ export async function MobileFilter() {
 								value={FilterKeys.company}
 								options={
 									companies?.companies.map(c => ({
-										label: c.name,
+										label: locale === 'ar' ? c.name_ar : c.name_en,
 										value: c.slug,
 									})) ?? []
 								}
@@ -74,7 +78,7 @@ export async function MobileFilter() {
 								value={FilterKeys.dosageForm}
 								options={
 									dosageForms?.dosageForms.map(f => ({
-										label: f.name,
+										label: locale === 'ar' ? f.name_ar : f.name_en,
 										value: f.slug,
 									})) ?? []
 								}
@@ -85,7 +89,7 @@ export async function MobileFilter() {
 								value={FilterKeys.category}
 								options={
 									categories?.categories.map(c => ({
-										label: c.name,
+										label: locale === 'ar' ? c.name_ar : c.name_en,
 										value: c.slug,
 									})) ?? []
 								}

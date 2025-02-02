@@ -1,4 +1,5 @@
 import authEn from './auth/en';
+import footerEn from './footer/en';
 import homeEn from './home/en';
 
 const en = {
@@ -20,7 +21,7 @@ const en = {
 		goHome: 'Go to home',
 	},
 	...authEn,
-	...homeEn,
+	HomePage: homeEn,
 	ShopPage: {
 		pageMetadata: { title: 'Shop' },
 	},
@@ -48,6 +49,7 @@ const en = {
 		clear: 'Clear',
 		clearAll: 'Clear all',
 	},
+	Footer: footerEn,
 };
 
 export default en;
