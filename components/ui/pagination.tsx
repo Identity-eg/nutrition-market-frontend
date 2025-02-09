@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { ChevronLeft, ChevronRight, MoreHorizontal } from 'lucide-react';
 import Link from 'next/link';
+import { useLocale, useTranslations } from 'next-intl';
 
 import { ButtonProps, buttonVariants } from 'components/ui/button';
 import { cn } from 'lib/utils';
@@ -69,31 +70,47 @@ PaginationLink.displayName = 'PaginationLink';
 const PaginationPrevious = ({
 	className,
 	...props
-}: React.ComponentProps<typeof PaginationLink>) => (
-	<PaginationLink
-		aria-label='Go to previous page'
-		size='default'
-		className={cn('gap-1 ps-2.5', className)}
-		{...props}>
-		<ChevronLeft className='h-4 w-4 text-green-500' />
-		<span>Previous</span>
-	</PaginationLink>
-);
+}: React.ComponentProps<typeof PaginationLink>) => {
+	const t = useTranslations('ShopPage.pagination');
+	const locale = useLocale();
+	return (
+		<PaginationLink
+			aria-label='Go to previous page'
+			size='default'
+			className={cn('gap-1 ps-2.5', className)}
+			{...props}>
+			{locale === 'ar' ? (
+				<ChevronRight className='h-4 w-4 text-green-500' />
+			) : (
+				<ChevronLeft className='h-4 w-4 text-green-500' />
+			)}
+			<span>{t('previous')}</span>
+		</PaginationLink>
+	);
+};
 PaginationPrevious.displayName = 'PaginationPrevious';
 
 const PaginationNext = ({
 	className,
 	...props
-}: React.ComponentProps<typeof PaginationLink>) => (
-	<PaginationLink
-		aria-label='Go to next page'
-		size='default'
-		className={cn('gap-1 pe-2.5', className)}
-		{...props}>
-		<span>Next</span>
-		<ChevronRight className='h-4 w-4 text-green-500' />
-	</PaginationLink>
-);
+}: React.ComponentProps<typeof PaginationLink>) => {
+	const t = useTranslations('ShopPage.pagination');
+	const locale = useLocale();
+	return (
+		<PaginationLink
+			aria-label='Go to next page'
+			size='default'
+			className={cn('gap-1 pe-2.5', className)}
+			{...props}>
+			<span>{t('next')}</span>
+			{locale === 'ar' ? (
+				<ChevronLeft className='h-4 w-4 text-green-500' />
+			) : (
+				<ChevronRight className='h-4 w-4 text-green-500' />
+			)}
+		</PaginationLink>
+	);
+};
 PaginationNext.displayName = 'PaginationNext';
 
 const PaginationEllipsis = ({

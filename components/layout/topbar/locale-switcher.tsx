@@ -17,6 +17,8 @@ import { routing, usePathname, useRouter } from 'i18n/routing';
 import type { TLocale } from 'i18n/config';
 import EgyptFlag from 'assets/icons/egypt-flag';
 import UsaFlag from 'assets/icons/usa-flag';
+import { cn } from 'lib/utils';
+import { inter, notoKufiArabic } from 'assets/fonts';
 
 type TProps = {
 	defaultLocale: string;
@@ -63,7 +65,13 @@ export function LocaleSwitcher({ defaultLocale }: TProps) {
 										<UsaFlag width={20} />
 									)}
 								</span>
-								<span>{t('label', { locale })}</span>
+								<span
+									className={cn({
+										[notoKufiArabic.className]: locale === 'ar',
+										[inter.className]: locale !== 'ar',
+									})}>
+									{t('label', { locale })}
+								</span>
 							</div>
 						</SelectItem>
 					))}

@@ -5,7 +5,7 @@ import { notFound, redirect } from 'next/navigation';
 import { getAccessToken } from './helpers';
 import qs from 'qs';
 
-const baseURL = process.env.NEXT_PUBLIC_API_URL;
+const baseURL = process.env.NEXT_PUBLIC_API_DEV_URL;
 
 interface CustomError extends Error {
 	cause: { statusCode: number };

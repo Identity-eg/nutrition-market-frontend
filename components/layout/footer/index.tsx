@@ -11,9 +11,9 @@ export function Footer() {
 	];
 	const quickLinks = [
 		{ label: t('offers'), link: '/shop/offers' },
-		{ label: t('allProduct'), link: '/shop' },
-		{ label: t('allCategories'), link: '/categories' },
-		{ label: t('allBrands'), link: '/companies' },
+		{ label: t('bestSeller'), link: '/shop?sort=-sold' },
+		{ label: t('newArrivals'), link: '/shop?sort=-createdAt' },
+		// { label: t('allBrands'), link: '/companies' },
 	];
 
 	const customerService = [

@@ -1,4 +1,5 @@
 import authEn from './auth/en';
+import filterEn from './filter/en';
 import footerEn from './footer/en';
 import homeEn from './home/en';
 
@@ -24,6 +25,10 @@ const en = {
 	HomePage: homeEn,
 	ShopPage: {
 		pageMetadata: { title: 'Shop' },
+		pagination: {
+			previous: 'Previous',
+			next: 'Next',
+		},
 	},
 	OfferPage: {
 		pageMetadata: { title: 'Offer' },
@@ -36,19 +41,7 @@ const en = {
 	CheckoutPage: {
 		pageMetadata: { title: 'Checkout' },
 	},
-	Filter: {
-		filter: 'Filter',
-		brand: 'Brand',
-		category: 'Category',
-		price: 'Price',
-		rating: 'Rating',
-		dosageForm: 'Dosage Form',
-		from: 'from',
-		to: 'to',
-		apply: 'Apply',
-		clear: 'Clear',
-		clearAll: 'Clear all',
-	},
+	Filter: filterEn,
 	Footer: footerEn,
 };
 

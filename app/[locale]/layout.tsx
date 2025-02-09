@@ -1,6 +1,5 @@
 import { ReactNode } from 'react';
 import { notFound } from 'next/navigation';
-import { Inter, Noto_Kufi_Arabic } from 'next/font/google';
 import { getMessages, setRequestLocale } from 'next-intl/server';
 import { NextIntlClientProvider } from 'next-intl';
 
@@ -14,16 +13,7 @@ import RTLdirection from 'components/layout/RTL-direction';
 import { routing } from 'i18n/routing';
 import type { TLocale } from 'i18n/config';
 import { cn } from 'lib/utils';
-
-const inter = Inter({
-	subsets: ['latin'],
-	weight: ['300', '400', '500', '600', '700', '800'],
-});
-
-const notoKufiArabic = Noto_Kufi_Arabic({
-	subsets: ['latin'],
-	weight: ['300', '400', '500', '600', '700', '800'],
-});
+import { inter, notoKufiArabic } from 'assets/fonts';
 
 export function generateStaticParams() {
 	return routing.locales.map(locale => ({ locale }));

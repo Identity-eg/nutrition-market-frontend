@@ -1,4 +1,5 @@
 import authAr from './auth/ar';
+import filterAr from './filter/ar';
 import footerAr from './footer/ar';
 import homeAr from './home/ar';
 
@@ -24,6 +25,10 @@ const ar = {
 	HomePage: homeAr,
 	ShopPage: {
 		pageMetadata: { title: 'منتجاتنا' },
+		pagination: {
+			previous: 'السابق',
+			next: 'التالي',
+		},
 	},
 	OfferPage: {
 		pageMetadata: { title: 'العروض' },
@@ -39,19 +44,7 @@ const ar = {
 			description: '',
 		},
 	},
-	Filter: {
-		filter: 'الفلتر',
-		brand: 'العلامة التجارية',
-		category: 'الفئة',
-		price: 'السعر',
-		rating: 'التقيم',
-		dosageForm: 'شكل المنتج',
-		from: 'من',
-		to: 'إلي',
-		apply: 'فلتر',
-		clear: 'مسح',
-		clearAll: 'مسح الكل',
-	},
+	Filter: filterAr,
 	Footer: footerAr,
 };
 export default ar;

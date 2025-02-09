@@ -1,7 +1,11 @@
 {
-	"name": "frontend",
+	"name": "nutrition-market-frontend",
 	"version": "0.1.0",
 	"private": true,
+	"author": {
+		"name": "Amr tawfik",
+		"email": "amr86tawfik@gmail.com"
+	},
 	"scripts": {
 		"dev": "next dev",
 		"build": "next build",
