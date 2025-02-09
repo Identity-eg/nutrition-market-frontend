@@ -1,6 +1,8 @@
 'use client';
 
 import { useState } from 'react';
+import { useTranslations } from 'next-intl';
+
 import ShippingAddress from 'features/addresses/components';
 import PaymentMethod from 'features/orders/components/payment-method';
 import { CheckoutSummary } from 'features/orders/components/checkout-summary';
@@ -29,6 +31,7 @@ export default function Container({
 	governorates: TGovernorate[];
 	addresses: TAddress[];
 }) {
+	const t = useTranslations('CheckoutPage')
 	const [addressId, setAddressId] = useState(addresses[0]?._id ?? '');
 	const [paymentMethodId, setPaymentMethodId] = useState('1');
 
@@ -55,7 +58,7 @@ export default function Container({
 			</div>
 			<div className='fixed inset-x-0 bottom-0 flex w-full items-center justify-between border-t border-gray-40 bg-white p-6 shadow-2xl media-md:hidden'>
 				<span className='flex flex-col typography-B16'>
-					Total price
+					{t('total')}
 					<Price
 						finalPriceClassName='typography-SB18'
 						className='mb-0'

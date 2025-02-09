@@ -3,7 +3,7 @@ import type { TVariant } from 'features/products/types/product';
 
 export type TCartItem = {
 	_id: string;
-	product: string;
+	product: { _id: string; slug: string };
 	company: string;
 	variant: TVariant;
 	amount: number;

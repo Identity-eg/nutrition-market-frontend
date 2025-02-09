@@ -30,14 +30,16 @@ export default async function CheckoutPage() {
 		getCart(),
 	]);
 
+	const t = await getTranslations('CheckoutPage');
+
 	return (
 		<div className='relative'>
 			<div className='absolute inset-x-0 top-0 -z-10 h-56 bg-gray-20' />
 			<div className='container flex min-h-screen flex-col gap-4 py-10'>
 				<div>
-					<h3 className='text-gray-800 typography-B24'>Checkout</h3>
+					<h3 className='text-gray-800 typography-B24'>{t('checkout')}</h3>
 					<p className='mb-8 text-gray-200 typography-R16'>
-						Showing your choices product
+						{t('checkoutDesc')}
 					</p>
 				</div>
 				<Container

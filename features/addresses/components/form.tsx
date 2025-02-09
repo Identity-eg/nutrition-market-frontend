@@ -6,6 +6,7 @@ import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Check, ChevronsUpDown, Loader2 } from 'lucide-react';
 import { useAction } from 'next-safe-action/hooks';
+import { useTranslations } from 'next-intl';
 
 import { Input } from 'components/ui/input';
 import {
@@ -59,6 +60,7 @@ export function AddressForm({
 	setAddressId: Dispatch<React.SetStateAction<string>>;
 	closeForm: () => void;
 }) {
+	const t = useTranslations('CheckoutPage');
 	const [isGovMenuOpen, setIsGovMenuOpen] = useState(false);
 	const [isCityMenuOpen, setIsCityMenuOpen] = useState(false);
 
@@ -141,7 +143,7 @@ export function AddressForm({
 						name='firstName'
 						render={({ field }) => (
 							<FormItem className='flex w-full flex-col'>
-								<FormLabel>First Name</FormLabel>
+								<FormLabel>{t('firstName')}</FormLabel>
 								<FormControl>
 									<Input
 										size='sm'
@@ -159,7 +161,7 @@ export function AddressForm({
 						name='lastName'
 						render={({ field }) => (
 							<FormItem className='flex w-full flex-col'>
-								<FormLabel>Last Name</FormLabel>
+								<FormLabel>{t('lastName')}</FormLabel>
 								<FormControl>
 									<Input
 										size='sm'
@@ -178,7 +180,7 @@ export function AddressForm({
 					name='email'
 					render={({ field }) => (
 						<FormItem className='flex w-full flex-col'>
-							<FormLabel>Email</FormLabel>
+							<FormLabel>{t('email')}</FormLabel>
 							<FormControl className='media-md:w-[50%]'>
 								<Input
 									size='sm'
@@ -197,7 +199,7 @@ export function AddressForm({
 						name='phone'
 						render={({ field }) => (
 							<FormItem className='flex flex-col'>
-								<FormLabel>Phone Number</FormLabel>
+								<FormLabel>{t('phone')}</FormLabel>
 								<FormControl>
 									<Input
 										variant='outline'
@@ -215,7 +217,7 @@ export function AddressForm({
 						name='additionalPhone'
 						render={({ field }) => (
 							<FormItem className='flex flex-col'>
-								<FormLabel>Additional Phone</FormLabel>
+								<FormLabel>{t('additionalPhone')}</FormLabel>
 								<FormControl>
 									<Input
 										variant='outline'
@@ -234,7 +236,7 @@ export function AddressForm({
 						name='governorate'
 						render={({ field }) => (
 							<FormItem className='flex w-full flex-col'>
-								<FormLabel>Governorate</FormLabel>
+								<FormLabel>{t('governorate')}</FormLabel>
 								<FormControl>
 									<Popover
 										open={isGovMenuOpen}
@@ -326,7 +328,7 @@ export function AddressForm({
 						render={({ field }) => {
 							return (
 								<FormItem className='flex w-full flex-col'>
-									<FormLabel>City</FormLabel>
+									<FormLabel>{t('city')}</FormLabel>
 									<FormControl>
 										<Popover
 											open={isCityMenuOpen}
@@ -395,7 +397,7 @@ export function AddressForm({
 					name='street'
 					render={({ field }) => (
 						<FormItem className='flex flex-col'>
-							<FormLabel>Street</FormLabel>
+							<FormLabel>{t('street')}</FormLabel>
 							<FormControl>
 								<Input
 									size='sm'
@@ -414,7 +416,7 @@ export function AddressForm({
 						name='buildingNo'
 						render={({ field }) => (
 							<FormItem className='flex flex-col'>
-								<FormLabel>Building</FormLabel>
+								<FormLabel>{t('building')}</FormLabel>
 								<FormControl>
 									<Input
 										size='sm'
@@ -431,7 +433,7 @@ export function AddressForm({
 						name='floor'
 						render={({ field }) => (
 							<FormItem className='flex flex-col'>
-								<FormLabel>Floor</FormLabel>
+								<FormLabel>{t('floor')}</FormLabel>
 								<FormControl>
 									<Input
 										size='sm'
@@ -457,12 +459,12 @@ export function AddressForm({
 					{isAddAddressPending || isUpdateAddressPending ? (
 						<>
 							<Loader2 className='me-2 h-4 w-4 animate-spin' />
-							Please wait
+							{t('pleaseWait')}
 						</>
 					) : addressToEdit ? (
-						'Edit Address'
+						t('editAddress')
 					) : (
-						'Save Address'
+						t('saveAddress')
 					)}
 				</Button>
 				{isUserHasAddress && (
@@ -473,7 +475,7 @@ export function AddressForm({
 							closeForm();
 						}}
 						variant='secondary-gray'>
-						Cancel
+						{t('cancel')}
 					</Button>
 				)}
 			</div>

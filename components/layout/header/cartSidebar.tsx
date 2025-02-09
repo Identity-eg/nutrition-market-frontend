@@ -1,5 +1,6 @@
 import Link from 'next/link';
-import { getLocale } from 'next-intl/server';
+import { getLocale, getTranslations } from 'next-intl/server';
+import { MoveLeftIcon, MoveRightIcon } from 'lucide-react';
 
 import { Button } from 'components/ui/button';
 import {
@@ -28,6 +29,7 @@ export async function CartSidebar({
 	contentClassName?: string;
 }) {
 	const cart = await getCart();
+	const t = await getTranslations('CartPage');
 	const locale = await getLocale();
 	const isCartEmpty = cart.items.length === 0;
 	return (
@@ -44,7 +46,7 @@ export async function CartSidebar({
 				side={locale === 'ar' ? 'left' : 'right'}
 				className={cn('flex w-full flex-col', contentClassName)}>
 				<SheetHeader className='border-b border-gray-50 pb-4'>
-					<SheetTitle>Cart</SheetTitle>
+					<SheetTitle>{t('cart')}</SheetTitle>
 				</SheetHeader>
 
 				{!!cart.coupons?.length && <CouponBanner coupons={cart.coupons} />}
@@ -53,7 +55,7 @@ export async function CartSidebar({
 					<div className='mt-8 flex flex-col items-center justify-center gap-y-4'>
 						<NoCartFound />
 						<h1 className='text-center text-gray-800 typography-M16'>
-							Your cart is empty
+							{t('emptyCart')}
 						</h1>
 					</div>
 				) : (
@@ -74,9 +76,9 @@ export async function CartSidebar({
 						<SheetFooter className='mt-auto flex-col space-y-4'>
 							<div className='flex items-start justify-between gap-2 text-base font-medium text-gray-900'>
 								<div>
-									<p>Subtotal</p>
+									<p>{t('subtotal')}</p>
 									<p className='mt-0.5 text-gray-300 typography-R14'>
-										Shipping and taxes calculated at checkout.
+										{t('taxesCalc')}
 									</p>
 								</div>
 								<Price
@@ -89,26 +91,30 @@ export async function CartSidebar({
 							<div className='grid grid-cols-2 gap-2'>
 								<SheetClose asChild>
 									<Button asChild>
-										<Link href='/checkout'>Checkout</Link>
+										<Link href='/checkout'>{t('checkout')}</Link>
 									</Button>
 								</SheetClose>
 								<SheetClose asChild>
 									<Button
 										variant='outline'
 										asChild>
-										<Link href='/cart'>View Cart</Link>
+										<Link href='/cart'>{t('viewCart')}</Link>
 									</Button>
 								</SheetClose>
 							</div>
 							<div className='flex justify-center text-center text-sm text-gray-500'>
-								<p>
-									or{' '}
+								<p className='flex items-center gap-x-2'>
+									{t('or')}
 									<SheetClose asChild>
 										<Link
 											href='/shop'
-											className='text-neutral-800 hover:text-neutral-700 font-medium'>
-											Continue Shopping
-											<span aria-hidden='true'> &rarr;</span>
+											className='text-neutral-800 hover:text-neutral-700 flex items-center gap-x-2 font-medium underline'>
+											{t('continueShopping')}
+											{locale === 'ar' ? (
+												<MoveLeftIcon size={18} />
+											) : (
+												<MoveRightIcon size={18} />
+											)}
 										</Link>
 									</SheetClose>
 								</p>

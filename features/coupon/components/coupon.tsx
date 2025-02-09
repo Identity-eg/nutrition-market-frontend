@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import { useAction } from 'next-safe-action/hooks';
 import { CircleCheckIcon, LoaderCircleIcon, TicketIcon } from 'lucide-react';
+import { useLocale, useTranslations } from 'next-intl';
 
 import { TextField } from 'components/ui/text-field';
 import { applyCoupon } from 'features/coupon/api';
@@ -13,6 +14,8 @@ import { Button } from 'components/ui/button';
 import { DeleteCouponButton } from './delete-coupon-button';
 
 export function Coupon({ cart }: { cart: TCart }) {
+	const t = useTranslations('CartPage');
+	const locale = useLocale();
 	const [couponCode, setCouponCode] = useState('');
 	const [isSuccess, setIsSuccess] = useState(false);
 	const { execute: executeApplyCoupon, isPending: isApplyingCoupon } =
@@ -40,7 +43,7 @@ export function Coupon({ cart }: { cart: TCart }) {
 		<div className='relative mb-4 overflow-hidden rounded-md'>
 			<div className='mb-2 flex items-center gap-2'>
 				<TicketIcon className='text-green-light-600' />
-				<h4 className='text-gray-500 typography-SB14'>Discount code</h4>
+				<h4 className='text-gray-500 typography-SB14'>{t('code')}</h4>
 			</div>
 
 			<div className='flex gap-2'>
@@ -73,7 +76,7 @@ export function Coupon({ cart }: { cart: TCart }) {
 						if (!couponCode || isApplyingCoupon) return;
 						executeApplyCoupon({ cartId: cart._id, couponCode });
 					}}>
-					Redeem
+					{t('redeem')}
 				</Button>
 			</div>
 			{!!cart.coupons?.length && (
@@ -94,7 +97,9 @@ export function Coupon({ cart }: { cart: TCart }) {
 							<span>
 								{coupon.code}{' '}
 								<i className='text-gray-200 typography-R12'>
-									({coupon.company.name})
+									{locale === 'ar'
+										? coupon.company.name_ar
+										: coupon.company.name_en}
 								</i>
 							</span>
 						</li>

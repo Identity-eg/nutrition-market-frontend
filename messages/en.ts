@@ -1,4 +1,6 @@
 import authEn from './auth/en';
+import cartEn from './cart/en';
+import checkoutEn from './checkout/en';
 import filterEn from './filter/en';
 import footerEn from './footer/en';
 import homeEn from './home/en';
@@ -33,14 +35,9 @@ const en = {
 	OfferPage: {
 		pageMetadata: { title: 'Offer' },
 	},
-	CartPage: {
-		pageMetadata: { title: 'Cart' },
-		cart: 'Cart',
-		currency: 'EGP',
-	},
-	CheckoutPage: {
-		pageMetadata: { title: 'Checkout' },
-	},
+	CartPage: cartEn,
+	CheckoutPage: checkoutEn,
+	
 	Filter: filterEn,
 	Footer: footerEn,
 };

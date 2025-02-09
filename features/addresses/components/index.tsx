@@ -1,5 +1,6 @@
 import { Dispatch, useState } from 'react';
 import { Plus } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 
 import { Card } from 'components/ui/card';
 import { Button } from 'components/ui/button';
@@ -26,6 +27,7 @@ export default function ShippingAddress({
 	governorates: TGovernorate[];
 	addresses: TAddress[];
 }) {
+	const t = useTranslations('CheckoutPage')
 	const isUserHasAddress = addresses.length !== 0;
 	const [isInFormMode, setIsInFormMode] = useState(!isUserHasAddress);
 	const [addressToEdit, setAddressToEdit] = useState<TAddress | undefined>(
@@ -38,7 +40,7 @@ export default function ShippingAddress({
 	return (
 		<Card>
 			<div className='flex justify-between border-b border-gray-40 p-6 typography-SB20'>
-				Shipping Address
+				{t('shippingAddress')}
 				{!isInFormMode && (
 					<Button
 						onClick={openForm}

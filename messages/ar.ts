@@ -1,4 +1,6 @@
 import authAr from './auth/ar';
+import cartAr from './cart/ar';
+import checkoutAr from './checkout/ar';
 import filterAr from './filter/ar';
 import footerAr from './footer/ar';
 import homeAr from './home/ar';
@@ -33,17 +35,9 @@ const ar = {
 	OfferPage: {
 		pageMetadata: { title: 'العروض' },
 	},
-	CartPage: {
-		pageMetadata: { title: 'عربة التسوق' },
-		cart: 'عربة التسوق',
-		currency: 'ج.م',
-	},
-	CheckoutPage: {
-		pageMetadata: {
-			title: 'الدفع',
-			description: '',
-		},
-	},
+	CartPage: cartAr,
+	CheckoutPage: checkoutAr,
+	
 	Filter: filterAr,
 	Footer: footerAr,
 };

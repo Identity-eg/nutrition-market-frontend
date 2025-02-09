@@ -1,14 +1,13 @@
 import Link from 'next/link';
 import Image from 'next/image';
+import { TicketIcon } from 'lucide-react';
 
 import { SheetClose } from 'components/ui/sheet';
-
+import { Price } from 'components/utils/price';
 import { DeleteCartItemBtn } from 'features/cart/components/delete-cart-item-btn';
 import { IncDecBtn } from 'features/cart/components/inc-dec-btn';
 
 import type { TCartItem } from 'features/cart/types/cart';
-import { Price } from 'components/utils/price';
-import { TicketIcon } from 'lucide-react';
 
 export function CartSideItem({
 	amount,

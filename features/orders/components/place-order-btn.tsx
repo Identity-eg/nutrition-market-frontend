@@ -1,10 +1,11 @@
+import { useRouter } from 'next/navigation';
+import { useAction } from 'next-safe-action/hooks';
+import { Loader2Icon } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 import { payCash, payOnline } from 'apis/server/payment';
 import { Button } from 'components/ui/button';
 import { useToast } from 'components/ui/use-toast';
 import { PAYMENT_METHODS_IDS } from 'constants/index';
-import { Loader2Icon } from 'lucide-react';
-import { useAction } from 'next-safe-action/hooks';
-import { useRouter } from 'next/navigation';
 
 export function PlaceOrderBtn({
 	paymentMethodId,
@@ -15,6 +16,7 @@ export function PlaceOrderBtn({
 	addressId: string;
 	cartId: string;
 }) {
+	const t = useTranslations('CheckoutPage');
 	const router = useRouter();
 	const { toast } = useToast();
 	const { execute: payOnlineOrder, isPending: onlinePending } = useAction(
@@ -63,10 +65,10 @@ export function PlaceOrderBtn({
 			{onlinePending || cashPending ? (
 				<>
 					<Loader2Icon className='me-2 h-4 w-4 animate-spin' />
-					Please wait
+					{t('pleaseWait')}
 				</>
 			) : (
-				'Place order'
+				t('placeOrder')
 			)}
 		</Button>
 	);

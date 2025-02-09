@@ -1,11 +1,14 @@
 import Link from 'next/link';
-import { cn } from 'lib/utils';
+import { useTranslations } from 'next-intl';
+
 import { Card } from 'components/ui/card';
 import { Button } from 'components/ui/button';
-import type { TCart } from 'features/cart/types/cart';
 import { Price } from 'components/utils/price';
 import { Separator } from 'components/ui/separator';
 import { Coupon } from 'features/coupon/components/coupon';
+
+import type { TCart } from 'features/cart/types/cart';
+import { cn } from 'lib/utils';
 
 export function CartSummary({
 	isCartEmpty,
@@ -14,15 +17,16 @@ export function CartSummary({
 	isCartEmpty: boolean;
 	cart: TCart;
 }) {
+	const t = useTranslations('CartPage');
 	return (
 		<Card className='hidden max-w-[380px] flex-1 flex-col justify-between self-start p-6 media-md:flex'>
 			<h1 className='mb-4 border-b border-gray-40 pb-4 capitalize text-gray-800 typography-SB20'>
-				Product summary
+				{t('summary')}
 			</h1>
 
 			<div className='mb-4 border-b border-gray-40 pb-4 text-gray-200 typography-R14'>
 				<div className='mb-2 flex items-center justify-between'>
-					<p>Total Price</p>
+					<p>{t('subtotal')}</p>
 					<Price
 						className='mb-0'
 						finalPriceClassName='typography-M14 text-gray-200'
@@ -30,7 +34,7 @@ export function CartSummary({
 					/>
 				</div>
 				<div className='mb-2 flex items-center justify-between'>
-					<p>Total Price After Discount</p>
+					<p>{t('discount')}</p>
 					{cart.totalPriceAfterCoupon ? (
 						<Price
 							className='mb-0'
@@ -38,12 +42,12 @@ export function CartSummary({
 							price={cart.totalPriceAfterCoupon}
 						/>
 					) : (
-						'No discount'
+						t('noDiscount')
 					)}
 				</div>
 				<div className='mb-2 flex items-center justify-between'>
-					<p>Shipping Fee</p>
-					<span>Free</span>
+					<p>{t('shipping')}</p>
+					<span>{t('free')}</span>
 				</div>
 			</div>
 			<Coupon cart={cart} />
@@ -51,7 +55,7 @@ export function CartSummary({
 			<Separator className='mb-4' />
 
 			<div className='mb-4 flex items-center justify-between text-green-light-700 typography-SB18'>
-				<p className='text-green-800'>Total Price</p>
+				<p className='text-green-800'>{t('total')}</p>
 				<Price
 					finalPriceClassName='typography-SB18'
 					className='mb-0'
@@ -65,7 +69,7 @@ export function CartSummary({
 						: 'bg-green-500 text-white'
 				)}
 				asChild>
-				<Link href='/checkout'>Checkout</Link>
+				<Link href='/checkout'>{t('checkout')}</Link>
 			</Button>
 		</Card>
 	);
