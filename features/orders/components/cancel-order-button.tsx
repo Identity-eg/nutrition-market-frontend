@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { FrownIcon, Loader2Icon, XIcon } from 'lucide-react';
 import { useAction } from 'next-safe-action/hooks';
+import { useTranslations } from 'next-intl';
 
 import { cancelOrder } from 'features/orders/apis/orders';
 import {
@@ -18,6 +19,7 @@ import { Button } from 'components/ui/button';
 import { toast } from 'components/ui/use-toast';
 
 export function CancelOrderButton({ orderId }: { orderId: string }) {
+	const t = useTranslations('OrderPage');
 	const [isOpen, setIsOpen] = useState(false);
 	const [cancelReason, setCancelReason] = useState('');
 	const [error, setError] = useState('');
@@ -42,7 +44,7 @@ export function CancelOrderButton({ orderId }: { orderId: string }) {
 			<DialogTrigger asChild>
 				<Button className='mt-auto flex w-full items-center gap-1 border border-orange-300 bg-orange-40 text-orange-600 hover:bg-orange-300 hover:text-white'>
 					<XIcon size={20} />
-					Cancel order
+					{t('cancelOrder')}
 				</Button>
 			</DialogTrigger>
 			<DialogContent className='media-sm:max-w-[425px]'>

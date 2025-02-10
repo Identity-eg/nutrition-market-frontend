@@ -1,4 +1,6 @@
 import Image from 'next/image';
+import { useTranslations } from 'next-intl';
+import { getTranslations } from 'next-intl/server';
 import {
 	CheckIcon,
 	CircleAlertIcon,
@@ -25,10 +27,10 @@ import { CancelOrderButton } from 'features/orders/components/cancel-order-butto
 import { Price } from 'components/utils/price';
 
 const orderLabel = {
-	true: { label: 'Paid', color: 'bg-green-light-500' },
-	false: { label: 'Unpaid', color: 'bg-orange-500' },
-	cancelled: { label: 'Cancelled', color: 'bg-red-500' },
-};
+	true: { label: 'paid', color: 'bg-green-light-500' },
+	false: { label: 'unpaid', color: 'bg-orange-500' },
+	cancelled: { label: 'cancelled', color: 'bg-red-500' },
+} as const;
 function OrderLabel({
 	isPaid,
 	status,
@@ -36,6 +38,7 @@ function OrderLabel({
 	isPaid: boolean;
 	status?: TOrderStatus;
 }) {
+	const t = useTranslations('OrderPage');
 	const isCancelled = status === ORDER_STATUS.cancelled;
 	const orderState = ((isCancelled && status) ||
 		String(isPaid)) as keyof typeof orderLabel;
@@ -45,7 +48,7 @@ function OrderLabel({
 
 	return (
 		<div className={cn('rounded-md px-4 text-white typography-M14', color)}>
-			{label}
+			{t(label)}
 		</div>
 	);
 }
@@ -59,12 +62,13 @@ function OrderDetails({
 	createdAt: string;
 	updatedAt?: string;
 }) {
+	const t = useTranslations('OrderPage');
 	const formattedCreatedAtDate = dayjs(createdAt).format('MMMM D, YYYY');
 	const formattedUpdatedAtDate = dayjs(updatedAt).format('MMMM D, YYYY');
 
 	const orderDetails = {
-		item: { label: 'Item', text: itemsNumber },
-		orderDate: { label: 'Order date', text: formattedCreatedAtDate },
+		item: { label: t('item'), text: itemsNumber },
+		orderDate: { label: t('orderDate'), text: formattedCreatedAtDate },
 		...(updatedAt && {
 			updatedAt: {
 				label: `Updated at`,
@@ -120,14 +124,15 @@ function OrderItem({
 }
 
 function OrderSummary({ order }: { order: TOrder }) {
+	const t = useTranslations('OrderPage');
 	const paymentMethod = PAYMENT_METHODS_MAPPER.find(
 		method => method.id === order.paymentMethod.id
-	);
+	)!;
 
 	return (
 		<Card className='flex max-w-[380px] flex-1 flex-col justify-between self-start overflow-hidden p-6'>
 			<h3 className='mb-4 capitalize text-gray-800 typography-SB16'>
-				Delivery
+				{t('delivery')}
 			</h3>
 			<div className='mb-4 border-b border-gray-40 pb-4'>
 				<div className='mb-4 flex items-start gap-2'>
@@ -136,7 +141,7 @@ function OrderSummary({ order }: { order: TOrder }) {
 						size={20}
 					/>
 					<div>
-						<p className='typography-M14'>Address</p>
+						<p className='typography-M14'>{t('address')}</p>
 						<p className='text-gray-200 typography-R13'>
 							{`${order.shippingAddress.street} - ${order.shippingAddress.city} - ${order.shippingAddress.governorate}`}
 						</p>
@@ -149,7 +154,7 @@ function OrderSummary({ order }: { order: TOrder }) {
 						size={20}
 					/>
 					<div>
-						<p className='typography-M14'>Phone</p>
+						<p className='typography-M14'>{t('phone')}</p>
 						<p className='text-gray-200 typography-R13'>
 							{order.shippingAddress.phone}
 						</p>
@@ -162,58 +167,71 @@ function OrderSummary({ order }: { order: TOrder }) {
 						size={20}
 					/>
 					<div>
-						<p className='typography-M14'>Payment method</p>
+						<p className='typography-M14'>{t('paymentMethod')}</p>
 						<p className='text-gray-200 typography-R13'>
-							{paymentMethod?.name}
+							{t(paymentMethod.name)}
 						</p>
 					</div>
 				</div>
 			</div>
 
 			<h3 className='mb-4 capitalize text-gray-800 typography-SB16'>
-				Order summary
+				{t('summary')}
 			</h3>
 			<div className='mb-4 border-b border-gray-40 pb-4 text-gray-200 typography-R14'>
 				<div className='mb-2 flex items-center justify-between'>
-					<p>Sub Total Price</p>
-					<span>{convertToReadableNumber(order.subtotal)} EGP</span>
+					<p>{t('subtotal')}</p>
+					<Price
+						finalPriceClassName='typography-R14 text-gray-200'
+						className='mb-0'
+						price={order.subtotal}
+					/>
 				</div>
 				<div className='mb-2 flex items-center justify-between'>
-					<p>Shipping Fee</p>
-					<span>{convertToReadableNumber(order.shippingFee)} EGP</span>
+					<p>{t('shippingFee')}</p>
+					<Price
+						finalPriceClassName='typography-R14 text-gray-200'
+						className='mb-0'
+						price={order.shippingFee}
+					/>
 				</div>
 			</div>
 			<div className='flex items-center justify-between text-green-light-700 typography-SB16'>
-				<p className='text-green-800'>Total Price</p>
-				{convertToReadableNumber(order.total)} EGP
+				<p className='text-green-800'>{t('total')}</p>
+				<Price
+					finalPriceClassName='typography-SB18'
+					className='mb-0'
+					price={order.total}
+				/>
 			</div>
 		</Card>
 	);
 }
 
 export function OrderTracker({ status }: { status: TOrderStatus }) {
+	const t = useTranslations('OrderPage');
 	const trackingStatus: Record<Partial<TOrderStatus>, any> = {
 		[ORDER_STATUS.processing]: {
 			order: 1,
 			label: {
-				pending: 'Processing',
-				completed: 'Processed',
+				pending: t('processing'),
+				completed: t('processed'),
 			},
 			icon: <UnplugIcon className='flex-shrink-0' />,
 		},
 		[ORDER_STATUS.shipped]: {
 			order: 2,
 			label: {
-				pending: 'Shipping',
-				completed: 'Shipped',
+				pending: t('shipping'),
+				completed: t('shipped'),
 			},
 			icon: <PackageCheckIcon className='flex-shrink-0' />,
 		},
 		[ORDER_STATUS.delivered]: {
 			order: 3,
 			label: {
-				pending: 'Delivering',
-				completed: 'Delivered',
+				pending: t('delivering'),
+				completed: t('delivered'),
 			},
 			icon: <TruckIcon className='flex-shrink-0' />,
 		},
@@ -274,6 +292,7 @@ export function OrderTracker({ status }: { status: TOrderStatus }) {
 export default async function Order(props: {
 	params: Promise<{ orderId: string }>;
 }) {
+	const t = await getTranslations('OrderPage');
 	const params = await props.params;
 	const order = await getSingleOrder({ orderId: params.orderId });
 	const orderItemsNumber = order.orderItems.reduce((acc, currValue) => {
@@ -286,7 +305,7 @@ export default async function Order(props: {
 			<div className='flex gap-6'>
 				<Card className='flex flex-1 flex-col self-start bg-white p-6'>
 					<h4 className='mb-4 flex items-center gap-4 text-green-700 typography-SB24'>
-						Order No.: {params.orderId}{' '}
+						{t('orderId')} : {params.orderId}{' '}
 						<OrderLabel
 							status={order.status}
 							isPaid={order.paid}
@@ -325,8 +344,7 @@ export default async function Order(props: {
 						<div className='mt-6 rounded-[12px] border border-orange-80 bg-orange-40 p-4 text-orange-600 typography-R13'>
 							<div className='mb-4 flex gap-2'>
 								<CircleAlertIcon size={20} />
-								Please note that you can only cancel your order if it is in
-								processing state
+								<p>{t('cancelDesc')}</p>
 							</div>
 							<CancelOrderButton orderId={order._id} />
 						</div>

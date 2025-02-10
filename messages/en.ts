@@ -4,6 +4,7 @@ import checkoutEn from './checkout/en';
 import filterEn from './filter/en';
 import footerEn from './footer/en';
 import homeEn from './home/en';
+import orderEn from './order/en';
 
 const en = {
 	LayoutMetadata: {
@@ -37,7 +38,8 @@ const en = {
 	},
 	CartPage: cartEn,
 	CheckoutPage: checkoutEn,
-	
+	OrderPage: orderEn,
+
 	Filter: filterEn,
 	Footer: footerEn,
 };

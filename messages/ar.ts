@@ -4,6 +4,7 @@ import checkoutAr from './checkout/ar';
 import filterAr from './filter/ar';
 import footerAr from './footer/ar';
 import homeAr from './home/ar';
+import orderAr from './order/ar';
 
 const ar = {
 	LayoutMetadata: {
@@ -37,7 +38,8 @@ const ar = {
 	},
 	CartPage: cartAr,
 	CheckoutPage: checkoutAr,
-	
+	OrderPage: orderAr,
+
 	Filter: filterAr,
 	Footer: footerAr,
 };

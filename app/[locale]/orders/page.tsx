@@ -1,25 +1,41 @@
+import type { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
-import type { Metadata } from 'next';
+import { getLocale, getTranslations } from 'next-intl/server';
+import { useLocale } from 'next-intl';
 import dayjs from 'dayjs';
+import 'dayjs/locale/ar';
+import 'dayjs/locale/en';
 
 import { getAllOrders } from 'features/orders/apis/orders';
 import { Button } from 'components/ui/button';
 import { Card } from 'components/ui/card';
 import { ORDER_STATUS } from 'constants/index';
-import { cn, convertToReadableNumber } from 'lib/utils';
+import { cn } from 'lib/utils';
 import type { TOrderItem } from 'features/orders/types/order';
 import { Price } from 'components/utils/price';
 
-export const metadata: Metadata = {
-	title: 'Orders',
-};
+export async function generateMetadata({
+	params: { locale },
+}: {
+	params: { locale: string };
+}): Promise<Metadata> {
+	const t = await getTranslations({
+		locale,
+		namespace: 'OrderPage.pageMetadata',
+	});
+
+	return {
+		title: t('title'),
+	};
+}
 function OrderItem({
 	amount,
 	totalProductPrice,
 	totalProductPriceAfterCoupon,
 	variant,
 }: TOrderItem) {
+	const locale = useLocale();
 	return (
 		<li className='flex w-full gap-4'>
 			<div className='relative size-20 flex-shrink-0 rounded-md bg-gray-30'>
@@ -30,7 +46,14 @@ function OrderItem({
 					alt={variant.name}
 					className='h-full w-full object-contain object-center p-2 mix-blend-multiply'
 				/>
-				<div className='absolute end-0 top-0 flex size-[18px] -translate-y-1/2 translate-x-1/2 items-center justify-center rounded-full bg-gray-50 py-2 typography-M12'>
+				<div
+					className={cn(
+						'absolute end-0 top-0 flex size-[18px] -translate-y-1/2 items-center justify-center rounded-full bg-gray-50 py-2 typography-M12',
+						{
+							'translate-x-1/2': locale === 'ar',
+							'-translate-x-1/2': locale !== 'en',
+						}
+					)}>
 					{amount}
 				</div>
 			</div>
@@ -54,25 +77,21 @@ export default async function Orders() {
 	const orders = await getAllOrders();
 	const ordersNumber = orders.length;
 
+	const t = await getTranslations('OrderPage');
+	const locale = await getLocale();
+
 	return (
 		<div className='container flex min-h-screen flex-col py-14'>
 			<h3 className='mb-6 flex items-center gap-2 typography-M20'>
-				My order {'   '}
+				{t('myOrders')}
 				<div className='flex size-6 items-center justify-center rounded-md bg-gray-30 typography-M16'>
 					<span>{ordersNumber}</span>
 				</div>
 			</h3>
 			{orders.map(order => {
-				const formattedCreatedAtDate = dayjs(order.createdAt).format(
-					'MMMM D, YYYY'
-				);
-				const orderDetails = {
-					orderDate: { label: 'Order date', text: formattedCreatedAtDate },
-					totalPrice: {
-						label: 'Total price',
-						text: `${convertToReadableNumber(order.total)} EGP`,
-					},
-				};
+				const formattedCreatedAtDate = dayjs(order.createdAt)
+					.locale(locale)
+					.format('MMMM D, YYYY');
 
 				return (
 					<Card
@@ -80,8 +99,10 @@ export default async function Orders() {
 						className='relative mb-8 max-w-[800px] overflow-hidden'>
 						<div className='flex items-center justify-between p-4'>
 							<div className='flex flex-col'>
-								<span className='text-gray-200 typography-R14'>Order Id</span>
-								<span className='typography-M18'>#{order._id}</span>
+								<span className='text-gray-200 typography-R14'>
+									{t('orderId')}
+								</span>
+								<span className='typography-M18'>{order._id}</span>
 							</div>
 							<div
 								className={cn(
@@ -97,7 +118,7 @@ export default async function Orders() {
 											order.status === ORDER_STATUS.cancelled,
 									}
 								)}>
-								{order.status}
+								{t(order.status)}
 							</div>
 						</div>
 
@@ -114,19 +135,23 @@ export default async function Orders() {
 								<div className='absolute inset-x-0 bottom-0 h-[150px] w-full bg-gradient-to-t from-white to-[rgba(255,255,255,0)]' />
 							)} */}
 						{/* </div> */}
-						<div className='flex items-center gap-6 border-t border-gray-40 bg-gray-20 p-4'>
-							{Object.entries(orderDetails).map(([key, value]) => {
-								return (
-									<p
-										key={key}
-										className='flex flex-col'>
-										<span className='capitalize text-gray-200 typography-R14'>
-											{value.label}
-										</span>
-										{value.text}
-									</p>
-								);
-							})}
+						<div className='flex items-center gap-x-12 border-t border-gray-40 bg-gray-20 p-4'>
+							<div className='flex flex-col'>
+								<span className='capitalize text-gray-200 typography-R14'>
+									{t('orderDate')}
+								</span>
+								<span>{formattedCreatedAtDate}</span>
+							</div>
+							<div className='flex flex-col'>
+								<span className='capitalize text-gray-200 typography-R14'>
+									{t('total')}
+								</span>
+								<Price
+									finalPriceClassName='typography-SB16'
+									className='mb-0'
+									price={order.total}
+								/>
+							</div>
 							<div className='ms-auto flex gap-2'>
 								<Button
 									variant={
@@ -136,8 +161,8 @@ export default async function Orders() {
 									}>
 									<Link href={`orders/${order._id}`}>
 										{order.status === ORDER_STATUS.delivered
-											? 'Order details'
-											: 'Track order'}
+											? t('orderDetails')
+											: t('trackOrder')}
 									</Link>
 								</Button>
 								{order.status === ORDER_STATUS.delivered && (

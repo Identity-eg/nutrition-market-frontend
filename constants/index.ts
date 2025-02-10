@@ -20,4 +20,20 @@ export const PAYMENT_METHODS_IDS = {
 	wallet: '3925355',
 } as const;
 
-
+export const PAYMENT_METHODS_MAPPER = [
+	{
+		id: PAYMENT_METHODS_IDS.cashOnDelivery,
+		name: 'cash',
+		Icon: CashIcon,
+	},
+	{
+		id: PAYMENT_METHODS_IDS.masterCard,
+		name: 'card',
+		Icon: VisaIcon,
+	},
+	{
+		id: PAYMENT_METHODS_IDS.wallet,
+		name: 'wallet',
+		Icon: WalletIcon,
+	},
+] as const;

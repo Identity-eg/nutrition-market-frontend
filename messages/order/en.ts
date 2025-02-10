@@ -1,0 +1,37 @@
+const orderEn = {
+	pageMetadata: {
+		title: 'Orders',
+		description: '',
+	},
+	myOrders: 'My orders',
+	orderId: 'Order ID',
+	orderDate: 'Order date',
+	total: 'Total price',
+	trackOrder: 'Track order',
+	orderDetails: 'Order details',
+	processing: 'Processing',
+	processed: 'Processed',
+	shipping: 'Shipping',
+	shipped: 'Shipped',
+	delivering: 'Delivering',
+	delivered: 'Delivered',
+	cancelled: 'Cancelled',
+	paid: 'Paid',
+	unpaid: 'Unpaid',
+	delivery: 'Delivery',
+	summary: 'Order summary',
+	subtotal: 'Subtotal',
+	address: 'Address',
+	phone: 'Phone number',
+	item: 'Items',
+	shippingFee: 'Shipping fee',
+	paymentMethod: 'Payment method',
+	cash: 'Cash on delivery',
+	card: 'Online Master Card',
+	wallet: 'Mobile Wallet',
+	cancelOrder: 'Cancel Order',
+	cancelDesc:
+		'Please note that you can only cancel your order if it is in processing state.',
+};
+
+export default orderEn;
