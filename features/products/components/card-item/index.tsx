@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import Image from 'next/image';
+import { useLocale } from 'next-intl';
 
 import { RatingStars } from 'components/ui/rating-stars';
 import { Price } from 'components/utils/price';
@@ -15,6 +16,7 @@ export const CardItem = ({
 	slug,
 	_id,
 }: TProductWithSingleVariant) => {
+	const locale = useLocale();
 	const primaryImage = variants.images[0];
 
 	const variantPath = `/shop/${slug}?variant=${variants._id}`;
@@ -95,7 +97,7 @@ export const CardItem = ({
 			<Link
 				className='mb-4 line-clamp-2 underline-offset-1 typography-M14 hover:underline'
 				href={variantPath}>
-				{variants.name}
+				{locale === 'ar' ? variants.name_ar : variants.name_en}
 			</Link>
 
 			<div className='mt-auto'>

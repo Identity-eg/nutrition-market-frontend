@@ -22,7 +22,7 @@ export default function CheckoutCartItem({
 					src={variant.images[0].url}
 					width={50}
 					height={50}
-					alt={variant.name}
+					alt={variant.name_en}
 					className='h-full w-full object-contain object-center p-2 mix-blend-multiply'
 				/>
 				<div
@@ -39,7 +39,9 @@ export default function CheckoutCartItem({
 
 			<div className='flex w-full flex-col justify-between text-gray-400 typography-M14'>
 				<div className='flex justify-between'>
-					<h3 className='line-clamp-2 text-left'>{variant.name}</h3>
+					<h3 className='line-clamp-2 text-left'>
+						{locale === 'ar' ? variant.name_ar : variant.name_en}
+					</h3>
 					{totalProductPriceAfterCoupon && (
 						<div className='flex aspect-square size-5 items-center justify-center rounded-full bg-green-light-600'>
 							<TicketIcon

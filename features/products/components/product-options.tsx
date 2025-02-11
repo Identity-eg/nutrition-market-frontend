@@ -1,4 +1,6 @@
 import Link from 'next/link';
+import { useLocale } from 'next-intl';
+
 import {
 	Tooltip,
 	TooltipContent,
@@ -6,13 +8,13 @@ import {
 	TooltipTrigger,
 } from 'components/ui/tooltip';
 import { Button } from 'components/ui/button';
-import { cn } from 'lib/utils';
 
 import type {
 	TProductWithMultipleVariants,
 	TVariant,
 } from 'features/products/types/product';
 import type { TSearchParams } from 'types/searchparams';
+import { cn } from 'lib/utils';
 
 type TOptions = {
 	[key: string]: {
@@ -41,15 +43,20 @@ export function ProductOptions({
 	currentVariant: TVariant;
 	searchParams: TSearchParams;
 }) {
+	const locale = useLocale();
 	const options: TOptions = {
 		count: {},
 		flavor: {},
 	};
 
 	product.variants.forEach(variant => {
-		const { flavor, unitCount, _id } = variant;
+		const { flavor_en, flavor_ar, unitCount, _id } = variant;
 
-		addVariantToOptions(flavor, _id, options.flavor);
+		addVariantToOptions(
+			locale === 'ar' ? flavor_ar : flavor_en,
+			_id,
+			options.flavor
+		);
 		addVariantToOptions(`${unitCount}`, _id, options.count);
 	});
 
@@ -59,8 +66,12 @@ export function ProductOptions({
 			otherVariantHasSameOption: options.count[currentVariant.unitCount],
 		},
 		flavor: {
-			option: currentVariant.flavor,
-			otherVariantHasSameOption: options.flavor[currentVariant.flavor],
+			option:
+				locale === 'ar' ? currentVariant.flavor_ar : currentVariant.flavor_en,
+			otherVariantHasSameOption:
+				options.flavor[
+					locale === 'ar' ? currentVariant.flavor_ar : currentVariant.flavor_en
+				],
 		},
 	} as const;
 

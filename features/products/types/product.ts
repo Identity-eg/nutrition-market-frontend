@@ -46,11 +46,13 @@ export type TNutritionFacts = {
 
 export type TVariant = {
 	_id: string;
-	name: string;
+	name_en: string;
+	name_ar: string;
 	slug: string;
 	unitCount: number;
 	quantity: number;
-	flavor: string;
+	flavor_en: string;
+	flavor_ar: string;
 	price: number;
 	priceAfterDiscount: number;
 	images: { url: string; name: string; size: number; _id: string }[];

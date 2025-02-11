@@ -24,6 +24,7 @@ const orderEn = {
 	address: 'Address',
 	phone: 'Phone number',
 	item: 'Items',
+	updatedAt: 'Updated at',
 	shippingFee: 'Shipping fee',
 	paymentMethod: 'Payment method',
 	cash: 'Cash on delivery',

@@ -1,6 +1,7 @@
 import { Pill } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { useLocale } from 'next-intl';
 
 import type { TCartItem } from 'features/cart/types/cart';
 import { IncDecBtn } from 'features/cart/components/inc-dec-btn';
@@ -16,6 +17,7 @@ export function CartItem({
 	totalProductPriceAfterCoupon,
 	variant,
 }: TCartItem) {
+	const locale = useLocale();
 	return (
 		<li
 			key={_id}
@@ -31,7 +33,7 @@ export function CartItem({
 					src={variant.images[0].url}
 					width={500}
 					height={500}
-					alt={variant.name}
+					alt={variant.name_en}
 					className='h-full w-full object-contain object-center p-2 mix-blend-multiply'
 				/>
 			</div>
@@ -41,7 +43,7 @@ export function CartItem({
 					<Link
 						href={`/shop/${product}?variant=${variant._id}`}
 						className='mb-2 line-clamp-2 text-green-700 typography-SB16'>
-						{variant.name}
+						{locale === 'ar' ? variant.name_ar : variant.name_en}
 					</Link>
 					<span className='flex items-center justify-start gap-2 self-start rounded-md border border-gray-40 px-2 py-1'>
 						{variant.unitCount} <Pill size={16} />

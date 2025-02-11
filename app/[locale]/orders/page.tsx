@@ -43,7 +43,7 @@ function OrderItem({
 					src={variant.images[0].url}
 					width={64}
 					height={64}
-					alt={variant.name}
+					alt={variant.name_en}
 					className='h-full w-full object-contain object-center p-2 mix-blend-multiply'
 				/>
 				<div
@@ -59,7 +59,9 @@ function OrderItem({
 			</div>
 
 			<div className='flex w-full flex-col text-gray-400 typography-M16'>
-				<h4 className='line-clamp-2'>{variant.name}</h4>
+				<h4 className='line-clamp-2'>
+					{locale === 'ar' ? variant.name_ar : variant.name_en}
+				</h4>
 				<div className='flex h-full justify-between'>
 					<span className='mt-2 typography-R14'>{variant.unitCount} Caps</span>
 					<Price

@@ -24,6 +24,7 @@ const orderAr = {
 	address: 'العنوان',
 	phone: 'رقم الهاتف',
 	item: 'العناصر',
+	updatedAt: 'تم التحديث في',
 	shippingFee: 'مصاريف الشحن',
 	paymentMethod: 'طريقة الدفع',
 	cash: 'الدفع عند الاستلام',

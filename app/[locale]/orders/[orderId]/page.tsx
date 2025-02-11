@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import { useTranslations } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 import { getTranslations } from 'next-intl/server';
 import {
 	CheckIcon,
@@ -72,15 +72,20 @@ function OrderDetails({
 	updatedAt?: string;
 }) {
 	const t = useTranslations('OrderPage');
-	const formattedCreatedAtDate = dayjs(createdAt).format('MMMM D, YYYY');
-	const formattedUpdatedAtDate = dayjs(updatedAt).format('MMMM D, YYYY');
+	const locale = useLocale();
+	const formattedCreatedAtDate = dayjs(createdAt)
+		.locale(locale)
+		.format('MMMM D, YYYY');
+	const formattedUpdatedAtDate = dayjs(updatedAt)
+		.locale(locale)
+		.format('MMMM D, YYYY');
 
 	const orderDetails = {
 		item: { label: t('item'), text: itemsNumber },
 		orderDate: { label: t('orderDate'), text: formattedCreatedAtDate },
 		...(updatedAt && {
 			updatedAt: {
-				label: `Updated at`,
+				label: t('updatedAt'),
 				text: formattedUpdatedAtDate,
 			},
 		}),
@@ -102,6 +107,7 @@ function OrderItem({
 	totalProductPriceAfterCoupon,
 	variant,
 }: TOrderItem) {
+	const locale = useLocale();
 	return (
 		<li className='flex w-full gap-4 border-b border-gray-40 pb-6 last:border-0 last:pb-0'>
 			<div className='relative size-20 flex-shrink-0 rounded-md bg-gray-30'>
@@ -109,7 +115,7 @@ function OrderItem({
 					src={variant.images[0].url}
 					width={64}
 					height={64}
-					alt={variant.name}
+					alt={variant.name_en}
 					className='h-full w-full object-contain object-center p-2 mix-blend-multiply'
 				/>
 				<div className='absolute end-0 top-0 flex size-[18px] -translate-y-1/2 translate-x-1/2 items-center justify-center rounded-full bg-gray-50 py-2 typography-M12'>
@@ -118,7 +124,9 @@ function OrderItem({
 			</div>
 
 			<div className='flex w-full flex-col text-gray-400 typography-M16'>
-				<h4 className='line-clamp-2 h-8'>{variant.name}</h4>
+				<h4 className='line-clamp-2 h-8'>
+					{locale === 'ar' ? variant.name_ar : variant.name_en}
+				</h4>
 				<div className='flex h-full justify-between'>
 					<span className='mt-2 typography-R14'>{variant.unitCount} Caps</span>
 					<Price

@@ -3,28 +3,23 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { Circle } from 'lucide-react';
 
-import { cn } from 'lib/utils';
-
 import { Price } from 'components/utils/price';
-
 import { Button } from 'components/ui/button';
 import { Separator } from 'components/ui/separator';
-
 import { getSingleProductBySlug } from 'features/products/apis';
-
 import { ProductImages } from 'features/products/components/product-images';
 import { Allergen } from 'features/products/components/allergen';
-
 import ActionBtns from 'features/products/components/action-btns';
 import SimilarProducts from 'features/products/components/similar-products';
-
 import Reviews from 'features/reviews/components';
-import type { TSearchParams } from 'types/searchparams';
 
 import { ProductInfo } from 'features/products/components/product-info';
 import { ProductOptions } from 'features/products/components/product-options';
 import { ProductAccordions } from 'features/products/components/product-accordions';
 import { ProductsLoading } from 'features/products/components/products-loading';
+
+import type { TSearchParams } from 'types/searchparams';
+import { cn } from 'lib/utils';
 import { TLocale } from 'i18n/config';
 
 type TProps = {
@@ -43,7 +38,7 @@ export async function generateMetadata(props: TProps): Promise<Metadata> {
 		product.variants[0];
 
 	return {
-		title: variant.name,
+		title: locale === 'ar' ? variant.name_ar : variant.name_en,
 		description:
 			locale === 'ar' ? product.description_ar : product.description_en,
 	};
@@ -54,6 +49,7 @@ export default async function ProductPage(props: TProps) {
 	const searchParams = await props.searchParams;
 	const variantId: string = searchParams.variant;
 
+	const locale = params.locale;
 	const product = await getSingleProductBySlug({ slug: params.slug });
 
 	const variant =
@@ -70,7 +66,7 @@ export default async function ProductPage(props: TProps) {
 			<div className='p-6'>
 				<div className='mb-4 border-b border-gray-50'>
 					<h2 className='mb-4 items-center justify-center text-green-500 typography-SB32'>
-						{variant.name}
+						{locale === 'ar' ? variant.name_ar : variant.name_en}
 						<Circle
 							size={14}
 							className={cn(
@@ -86,7 +82,7 @@ export default async function ProductPage(props: TProps) {
 						NFSA_REG_NO={product.NFSA_REG_NO}
 						averageRating={product.averageRating}
 						companyName={
-							params.locale === 'ar'
+							locale === 'ar'
 								? product.company.name_ar
 								: product.company.name_en
 						}
@@ -119,7 +115,7 @@ export default async function ProductPage(props: TProps) {
 									variant='outline'
 									className='rounded-md border border-gray-40 px-4 py-1 text-gray-500'>
 									<Link href={`/categories/${cat.slug}`}>
-										{params.locale === 'ar' ? cat.name_ar : cat.name_en}
+										{locale === 'ar' ? cat.name_ar : cat.name_en}
 									</Link>
 								</Button>
 							))}
@@ -143,7 +139,7 @@ export default async function ProductPage(props: TProps) {
 			<div className='mt-2'>
 				<div className='mb-4 border-b border-gray-50'>
 					<h2 className='mb-2 items-center justify-center text-green-500 typography-SB24'>
-						{variant.name}
+						{locale === 'ar' ? variant.name_ar : variant.name_en}
 						<Circle
 							size={10}
 							className={cn(
@@ -159,7 +155,7 @@ export default async function ProductPage(props: TProps) {
 						NFSA_REG_NO={product.NFSA_REG_NO}
 						averageRating={product.averageRating}
 						companyName={
-							params.locale === 'ar'
+							locale === 'ar'
 								? product.company.name_ar
 								: product.company.name_en
 						}
@@ -196,7 +192,7 @@ export default async function ProductPage(props: TProps) {
 									variant='outline'
 									className='rounded-md border border-gray-40 px-4 py-1 text-gray-500'>
 									<Link href={`/categories/${cat.slug}`}>
-										{params.locale === 'ar' ? cat.name_ar : cat.name_en}
+										{locale === 'ar' ? cat.name_ar : cat.name_en}
 									</Link>
 								</Button>
 							))}

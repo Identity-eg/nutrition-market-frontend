@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { TicketIcon } from 'lucide-react';
+import { useLocale } from 'next-intl';
 
 import { SheetClose } from 'components/ui/sheet';
 import { Price } from 'components/utils/price';
@@ -17,6 +18,7 @@ export function CartSideItem({
 	totalProductPriceAfterCoupon,
 	variant,
 }: TCartItem) {
+	const locale = useLocale();
 	return (
 		<li
 			key={_id}
@@ -27,7 +29,7 @@ export function CartSideItem({
 						src={variant.images[0]?.url}
 						width={70}
 						height={70}
-						alt={variant.name}
+						alt={variant.name_en}
 						className='h-full w-full object-contain object-center p-2 mix-blend-multiply'
 					/>
 					<DeleteCartItemBtn itemId={_id} />
@@ -44,7 +46,7 @@ export function CartSideItem({
 						<Link
 							href={`/shop/${product.slug}?variant=${variant._id}`}
 							className='line-clamp-2 text-green-700 typography-M16'>
-							{variant.name}
+							{locale === 'ar' ? variant.name_ar : variant.name_en}
 						</Link>
 					</SheetClose>
 					{totalProductPriceAfterCoupon && (

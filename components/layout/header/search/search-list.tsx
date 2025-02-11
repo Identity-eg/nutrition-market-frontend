@@ -1,6 +1,8 @@
 import { forwardRef } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useLocale } from 'next-intl';
+
 import { TrendingCategory } from './trending-category';
 import { Price } from 'components/utils/price';
 import type { TProductWithSingleVariant } from 'features/products/types/product';
@@ -14,6 +16,7 @@ export const SearchList = forwardRef<
 		isPlaceholderData: boolean;
 	}
 >(({ products, searchValue, debouncedValue }, ref) => {
+	const locale = useLocale();
 	if (searchValue && !!products && products?.length === 0) {
 		return (
 			<div className='flex flex-col gap-2 bg-white p-4'>
@@ -49,7 +52,7 @@ export const SearchList = forwardRef<
 								</div>
 								<div>
 									<span className='line-clamp-1 text-green-500 typography-SB14'>
-										{p.variants.name}
+										{locale === 'ar' ? p.variants.name_ar : p.variants.name_en}
 									</span>
 									<Price
 										finalPriceClassName='typography-M14'
