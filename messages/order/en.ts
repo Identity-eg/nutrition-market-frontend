@@ -32,6 +32,10 @@ const orderEn = {
 	cancelOrder: 'Cancel Order',
 	cancelDesc:
 		'Please note that you can only cancel your order if it is in processing state.',
+	thxForOrder: 'Thanks for your order!',
+	thxDesc:
+		'Your order will be sent to your address via the selected delivery service after confirmation by the most branch. You can track your order by order ID.',
+	backMain: 'Back to main page',
 };
 
 export default orderEn;

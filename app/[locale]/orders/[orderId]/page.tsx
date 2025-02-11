@@ -15,16 +15,25 @@ import dayjs from 'dayjs';
 
 import { getSingleOrder } from 'features/orders/apis/orders';
 import { Card } from 'components/ui/card';
+import type { TOrder, TOrderItem } from 'features/orders/types/order';
+import { Separator } from 'components/ui/separator';
+import { CancelOrderButton } from 'features/orders/components/cancel-order-button';
+import { Price } from 'components/utils/price';
+
 import {
 	ORDER_STATUS,
 	PAYMENT_METHODS_MAPPER,
 	TOrderStatus,
 } from 'constants/index';
-import { cn, convertToReadableNumber } from 'lib/utils';
-import type { TOrder, TOrderItem } from 'features/orders/types/order';
-import { Separator } from 'components/ui/separator';
-import { CancelOrderButton } from 'features/orders/components/cancel-order-button';
-import { Price } from 'components/utils/price';
+import { cn } from 'lib/utils';
+import type { Metadata } from 'next';
+
+export async function generateMetadata(): Promise<Metadata> {
+	const t = await getTranslations('OrderPage');
+	return {
+		title: t('orderDetails'),
+	};
+}
 
 const orderLabel = {
 	true: { label: 'paid', color: 'bg-green-light-500' },
@@ -109,7 +118,7 @@ function OrderItem({
 			</div>
 
 			<div className='flex w-full flex-col text-gray-400 typography-M16'>
-				<h4 className='line-clamp-2'>{variant.name}</h4>
+				<h4 className='line-clamp-2 h-8'>{variant.name}</h4>
 				<div className='flex h-full justify-between'>
 					<span className='mt-2 typography-R14'>{variant.unitCount} Caps</span>
 					<Price

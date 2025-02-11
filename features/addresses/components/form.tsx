@@ -148,7 +148,6 @@ export function AddressForm({
 									<Input
 										size='sm'
 										variant='outline'
-										placeholder='e.g. Mohamed'
 										{...field}
 									/>
 								</FormControl>
@@ -166,7 +165,6 @@ export function AddressForm({
 									<Input
 										size='sm'
 										variant='outline'
-										placeholder='e.g. Mohamed'
 										{...field}
 									/>
 								</FormControl>
@@ -185,7 +183,6 @@ export function AddressForm({
 								<Input
 									size='sm'
 									variant='outline'
-									placeholder='e.g. john@doe.com'
 									{...field}
 								/>
 							</FormControl>
@@ -204,7 +201,6 @@ export function AddressForm({
 									<Input
 										variant='outline'
 										size='sm'
-										placeholder='e.g. 01234567891'
 										{...field}
 									/>
 								</FormControl>
@@ -256,16 +252,16 @@ export function AddressForm({
 																	governorate.governorate_name_en ===
 																	field.value
 															)?.governorate_name_en
-														: 'Select...'}
+														: t('select')}
 													<ChevronsUpDown className='ms-2 h-4 w-4 shrink-0 opacity-50' />
 												</Button>
 											</FormControl>
 										</PopoverTrigger>
 										<PopoverContent className='w-[257px] p-0'>
 											<Command>
-												<CommandInput placeholder='Search governorate...' />
+												<CommandInput placeholder={t('searchGov')} />
 												<CommandList>
-													<CommandEmpty>No governorates found.</CommandEmpty>
+													<CommandEmpty>{t('noGov')}</CommandEmpty>
 													<CommandGroup>
 														{governorates.map(governorate => (
 															<CommandItem
@@ -346,16 +342,16 @@ export function AddressForm({
 															? cities?.find(
 																	city => city.city_name_en === field.value
 																)?.city_name_en
-															: 'Select...'}
+															: t('select')}
 														<ChevronsUpDown className='ms-2 h-4 w-4 shrink-0 opacity-50' />
 													</Button>
 												</FormControl>
 											</PopoverTrigger>
 											<PopoverContent className='w-[257px] p-0'>
 												<Command>
-													<CommandInput placeholder='Search city...' />
+													<CommandInput placeholder={t('searchCity')} />
 													<CommandList>
-														<CommandEmpty>No Cities found.</CommandEmpty>
+														<CommandEmpty>{t('noCity')}</CommandEmpty>
 														<CommandGroup>
 															{cities?.map(city => (
 																<CommandItem
@@ -402,7 +398,6 @@ export function AddressForm({
 								<Input
 									size='sm'
 									variant='outline'
-									placeholder='Street name or special landmark'
 									{...field}
 								/>
 							</FormControl>

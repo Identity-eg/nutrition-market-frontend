@@ -2,6 +2,8 @@ import Image from 'next/image';
 import type { TCartItem } from 'features/cart/types/cart';
 import { TicketIcon } from 'lucide-react';
 import { Price } from 'components/utils/price';
+import { cn } from 'lib/utils';
+import { useLocale } from 'next-intl';
 
 export default function CheckoutCartItem({
 	_id,
@@ -10,6 +12,7 @@ export default function CheckoutCartItem({
 	variant,
 	amount,
 }: TCartItem) {
+	const locale = useLocale();
 	return (
 		<li
 			key={_id}
@@ -22,7 +25,14 @@ export default function CheckoutCartItem({
 					alt={variant.name}
 					className='h-full w-full object-contain object-center p-2 mix-blend-multiply'
 				/>
-				<div className='absolute end-0 top-0 flex size-[18px] -translate-y-1/2 translate-x-1/2 items-center justify-center rounded-full bg-gray-50 py-2 typography-M12'>
+				<div
+					className={cn(
+						'absolute end-0 top-0 flex size-[18px] -translate-y-1/2 items-center justify-center rounded-full bg-gray-50 py-2 typography-M12',
+						{
+							'-translate-x-1/2': locale === 'ar',
+							'translate-x-1/2': locale === 'en',
+						}
+					)}>
 					{amount}
 				</div>
 			</div>
