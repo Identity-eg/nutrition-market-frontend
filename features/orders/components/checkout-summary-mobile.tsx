@@ -30,10 +30,10 @@ export function CheckoutSummaryMobile({
 			</DrawerTrigger>
 			<DrawerContent className='bg-white'>
 				<DrawerHeader>
-					<h1 className='mb-4 border-b border-gray-40 pb-4 capitalize text-gray-800 typography-SB20'>
+					<h1 className='border-gray-40 typography-SB20 mb-4 border-b pb-4 text-gray-800 capitalize'>
 						Product summary
 					</h1>
-					<ul className='relative mb-4 flex-1 space-y-4 rounded-md border-b border-gray-40 pb-4'>
+					<ul className='border-gray-40 relative mb-4 flex-1 space-y-4 rounded-md border-b pb-4'>
 						{cart?.items?.map(item => {
 							return (
 								<CheckoutCartItem
@@ -43,7 +43,7 @@ export function CheckoutSummaryMobile({
 							);
 						})}
 					</ul>
-					<div className='mb-4 border-b border-gray-40 pb-4 text-gray-200 typography-R14'>
+					<div className='border-gray-40 typography-R14 mb-4 border-b pb-4 text-gray-200'>
 						<div className='mb-2 flex items-center justify-between'>
 							<p>Total Price</p>
 							<Price
@@ -73,7 +73,7 @@ export function CheckoutSummaryMobile({
 
 					<Separator className='mb-4' />
 
-					<div className='mb-4 flex items-center justify-between text-green-light-700 typography-SB18'>
+					<div className='text-green-light-700 typography-SB18 mb-4 flex items-center justify-between'>
 						<p className='text-green-800'>Total Price</p>
 						<Price
 							finalPriceClassName='typography-SB18'

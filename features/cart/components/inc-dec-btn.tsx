@@ -29,7 +29,7 @@ export function IncDecBtn({
 		useAction(decreaseItemByOne);
 
 	return (
-		<div className='flex max-w-[107px] flex-1 items-center justify-between rounded-md border border-gray-40'>
+		<div className='border-gray-40 flex max-w-[107px] flex-1 items-center justify-between rounded-md border'>
 			<button
 				onClick={() => {
 					if (isIncreasePending || isDecreasePending) return;
@@ -48,7 +48,7 @@ export function IncDecBtn({
 					if (isIncreasePending || isDecreasePending) return;
 					increaseItemByOneAction({ itemId });
 				}}
-				className='cursor-pointer px-2 text-green-light-700'>
+				className='text-green-light-700 cursor-pointer px-2'>
 				+
 			</button>
 		</div>

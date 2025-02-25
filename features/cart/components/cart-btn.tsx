@@ -14,13 +14,13 @@ export function CartBtn({ cart }: { cart: TCart }) {
 				<ShoppingBasket />
 				<span
 					className={cn(
-						'absolute -top-3/4 end-1/2 flex size-[18px] translate-x-1/2 items-center justify-center rounded-full bg-[#dda15e] text-white typography-M12',
+						'typography-M12 absolute end-1/2 -top-3/4 flex size-[18px] translate-x-1/2 items-center justify-center rounded-full bg-[#dda15e] text-white',
 						{ '-translate-x-1/2': locale === 'ar' }
 					)}>
 					{cart.totalItems}
 				</span>
 			</div>
-			<div className='hidden flex-col items-start typography-M14 media-md:flex'>
+			<div className='typography-M14 media-md:flex hidden flex-col items-start'>
 				<p className='text-black'>{t('cart')}</p>
 				<Price
 					finalPriceClassName='typography-M14 '

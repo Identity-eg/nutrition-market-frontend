@@ -25,11 +25,11 @@ export default function CheckEmail({ email }: { email: string }) {
 		<section className='flex flex-col items-center gap-y-4'>
 			<EmailSentSuccessfully />
 			<div className='mt-6 flex flex-col items-center'>
-				<h1 className='capitalize typography-B20'>{t('checkYourEmail')}</h1>
+				<h1 className='typography-B20 capitalize'>{t('checkYourEmail')}</h1>
 				<p className='text-gray-90 typography-L14'>{t('weSendTo')}</p>
 				<p className='text-gray-90 typography-R14'>{email}</p>
 			</div>
-			<p className='bg-gray-20 p-2 text-red-500 typography-R14'>
+			<p className='bg-gray-20 typography-R14 p-2 text-red-500'>
 				{t('linkExpires')}
 			</p>
 			<div>

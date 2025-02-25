@@ -17,7 +17,7 @@ export default async function Brands() {
 			description={t('popularBrands.description')}
 			href='/companies'>
 			<div
-				className='grid gap-4 divide-y divide-gray-50 self-baseline overflow-hidden rounded-md border border-gray-50 px-4 media-md:divide-none'
+				className='media-md:divide-none grid gap-4 divide-y divide-gray-50 self-baseline overflow-hidden rounded-md border border-gray-50 px-4'
 				style={{
 					gridTemplateColumns: 'repeat(auto-fill, minmax(350px, 1fr))',
 				}}>
@@ -27,20 +27,20 @@ export default async function Brands() {
 						className='flex gap-4 py-4'>
 						<Avatar className='size-20 rounded-md'>
 							<AvatarImage src={company.logo?.url} />
-							<AvatarFallback className='rounded-md bg-gray-30 text-gray-100'>
+							<AvatarFallback className='bg-gray-30 rounded-md text-gray-100'>
 								<BuildingPlaceholder />
 							</AvatarFallback>
 						</Avatar>
 						<div className='flex flex-col'>
 							<Link
 								href={`/companies/${company.slug}`}
-								className='mb-1 typography-SB16 hover:underline'>
+								className='typography-SB16 mb-1 hover:underline'>
 								{locale === 'ar' ? company.name_ar : company.name_en}{' '}
-								<span className='text-gray-200 typography-R16'>
+								<span className='typography-R16 text-gray-200'>
 									({company.productsCount})
 								</span>
 							</Link>
-							<span className='line-clamp-2 text-gray-200 typography-R14'>
+							<span className='typography-R14 line-clamp-2 text-gray-200'>
 								{parse(
 									locale === 'ar'
 										? company.description_ar

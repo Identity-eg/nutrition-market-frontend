@@ -31,10 +31,10 @@ export default async function Reviews({
 
 	return (
 		<section>
-			<h3 className='mb-6 typography-M16'>What Others Are Saying</h3>
+			<h3 className='typography-M16 mb-6'>What Others Are Saying</h3>
 
-			<div className='grid-cols-[1fr_2fr] gap-4 media-md:grid'>
-				<article className='hidden gap-y-6 self-start rounded-lg border border-gray-50 p-4 media-md:flex media-md:flex-col'>
+			<div className='media-md:grid grid-cols-[1fr_2fr] gap-4'>
+				<article className='media-md:flex media-md:flex-col hidden gap-y-6 self-start rounded-lg border border-gray-50 p-4'>
 					<div className='flex items-center gap-2'>
 						<CircleProgress
 							circleSize={72}
@@ -72,7 +72,7 @@ export default async function Reviews({
 										className='ms-4 h-1 text-red-500'
 										value={+percentage}
 									/>
-									<p className='ms-4 typography-SB13'>{percentage}%</p>
+									<p className='typography-SB13 ms-4'>{percentage}%</p>
 								</div>
 							);
 						})}

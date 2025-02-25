@@ -42,7 +42,7 @@ export function CancelOrderButton({ orderId }: { orderId: string }) {
 			open={isOpen}
 			onOpenChange={setIsOpen}>
 			<DialogTrigger asChild>
-				<Button className='mt-auto flex w-full items-center gap-1 border border-orange-300 bg-orange-40 text-orange-600 hover:bg-orange-300 hover:text-white'>
+				<Button className='bg-orange-40 mt-auto flex w-full items-center gap-1 border border-orange-300 text-orange-600 hover:bg-orange-300 hover:text-white'>
 					<XIcon size={20} />
 					{t('cancelOrder')}
 				</Button>
@@ -54,7 +54,7 @@ export function CancelOrderButton({ orderId }: { orderId: string }) {
 						We're Sorry to See You Go!
 					</DialogTitle>
 					<DialogDescription className='flex flex-col'>
-						<span className='mt-4 inline-block typography-M16'>
+						<span className='typography-M16 mt-4 inline-block'>
 							Before you proceed, we’d love to understand your reasons?
 						</span>
 					</DialogDescription>
@@ -81,7 +81,7 @@ export function CancelOrderButton({ orderId }: { orderId: string }) {
 						</Button>
 					))}
 					{error && (
-						<span className='text-red-500 typography-R14'>{error}</span>
+						<span className='typography-R14 text-red-500'>{error}</span>
 					)}
 				</div>
 

@@ -18,7 +18,7 @@ export function CommentBtns({
 				data-state={isPending && 'deleting'}
 				variant='secondary-white'
 				size={'icon'}
-				className='text-red-300 hover:bg-red-30'
+				className='hover:bg-red-30 text-red-300'
 				onClick={() => {
 					execute({ reviewId });
 				}}>

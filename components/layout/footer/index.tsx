@@ -26,8 +26,8 @@ export function Footer() {
 	return (
 		<footer className='mt-auto bg-[#344e41] py-12'>
 			<div className='container text-white'>
-				<div className='mb-4 grid grid-cols-2 gap-x-4 gap-y-10 border-b border-green-400 pb-8 text-sm media-md:grid-cols-4'>
-					<div className='flex flex-col gap-4 media-md:gap-6'>
+				<div className='media-md:grid-cols-4 mb-4 grid grid-cols-2 gap-x-4 gap-y-10 border-b border-green-400 pb-8 text-sm'>
+					<div className='media-md:gap-6 flex flex-col gap-4'>
 						{/* <h2 className='text-[#a3b18a] typography-M16'>Let&apos;s Talk</h2> */}
 						<div>
 							<div className='mb-2 flex items-center gap-2'>
@@ -39,12 +39,12 @@ export function Footer() {
 									<h3>{t('phoneNumber')}</h3>
 									<h2
 										dir='ltr'
-										className='font-semibold text-[#dda15e] media-md:text-lg'>
+										className='media-md:text-lg font-semibold text-[#dda15e]'>
 										+02 0100 571 2891
 									</h2>
 									<h2
 										dir='ltr'
-										className='font-semibold text-[#dda15e] media-md:text-lg'>
+										className='media-md:text-lg font-semibold text-[#dda15e]'>
 										+02 0111 598 2393
 									</h2>
 								</div>
@@ -58,7 +58,7 @@ export function Footer() {
 									<h3>{t('ourLocation')}</h3>
 									<h2
 										dir='ltr'
-										className='text-[#dda15e] typography-SB14'>
+										className='typography-SB14 text-[#dda15e]'>
 										{t('cairoEgy')}
 									</h2>
 								</div>
@@ -66,8 +66,8 @@ export function Footer() {
 						</div>
 					</div>
 
-					<div className='flex flex-col gap-4 media-md:gap-6'>
-						<h2 className='text-[#a3b18a] typography-M16'>{t('myAccount')}</h2>
+					<div className='media-md:gap-6 flex flex-col gap-4'>
+						<h2 className='typography-M16 text-[#a3b18a]'>{t('myAccount')}</h2>
 						<ul className='flex flex-col gap-2'>
 							{myAccount.map((item, i) => (
 								<li
@@ -78,8 +78,8 @@ export function Footer() {
 							))}
 						</ul>
 					</div>
-					<div className='flex flex-col gap-4 media-md:gap-6'>
-						<h2 className='text-[#a3b18a] typography-M16'>{t('quickLinks')}</h2>
+					<div className='media-md:gap-6 flex flex-col gap-4'>
+						<h2 className='typography-M16 text-[#a3b18a]'>{t('quickLinks')}</h2>
 						<ul className='flex flex-col gap-2'>
 							{quickLinks.map((item, i) => (
 								<li
@@ -90,8 +90,8 @@ export function Footer() {
 							))}
 						</ul>
 					</div>
-					<div className='flex flex-col gap-4 media-md:gap-6'>
-						<h2 className='text-[#a3b18a] typography-M16'>
+					<div className='media-md:gap-6 flex flex-col gap-4'>
+						<h2 className='typography-M16 text-[#a3b18a]'>
 							{t('customerService')}
 						</h2>
 						<ul className='flex flex-col gap-2'>

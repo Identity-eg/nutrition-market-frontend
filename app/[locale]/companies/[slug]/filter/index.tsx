@@ -32,15 +32,15 @@ export default async function FilterProducts() {
 	} as const;
 
 	return (
-		<article className='hidden self-start rounded-lg border border-gray-50 media-md:block'>
-			<div className='flex items-center justify-between border-b border-gray-50 p-4 pb-4 shadow-sm'>
-				<h4 className='capitalize typography-B16'>{t('filter')}</h4>
+		<article className='media-md:block hidden self-start rounded-lg border border-gray-50'>
+			<div className='flex items-center justify-between border-b border-gray-50 p-4 pb-4 shadow-xs'>
+				<h4 className='typography-B16 capitalize'>{t('filter')}</h4>
 				<Suspense fallback='Loading..'>
 					<ClearAllBtn />
 				</Suspense>
 			</div>
 
-			<div className='h-[60vh] overflow-y-auto overflow-x-hidden p-4 pt-0'>
+			<div className='h-[60vh] overflow-x-hidden overflow-y-auto p-4 pt-0'>
 				<Accordion
 					defaultValue={Object.keys(FilterKeys)}
 					type='multiple'

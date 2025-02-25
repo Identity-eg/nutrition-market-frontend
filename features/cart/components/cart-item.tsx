@@ -28,7 +28,7 @@ export function CartItem({
 					itemId={_id}
 				/>
 			</div>
-			<div className='relative aspect-square size-24 flex-shrink-0 rounded-md bg-gray-30'>
+			<div className='bg-gray-30 relative aspect-square size-24 shrink-0 rounded-md'>
 				<Image
 					src={variant.images[0].url}
 					width={500}
@@ -42,10 +42,10 @@ export function CartItem({
 				<h3 className='flex justify-between gap-4'>
 					<Link
 						href={`/shop/${product}?variant=${variant._id}`}
-						className='mb-2 line-clamp-2 text-green-700 typography-SB16'>
+						className='typography-SB16 mb-2 line-clamp-2 text-green-700'>
 						{locale === 'ar' ? variant.name_ar : variant.name_en}
 					</Link>
-					<span className='flex items-center justify-start gap-2 self-start rounded-md border border-gray-40 px-2 py-1'>
+					<span className='border-gray-40 flex items-center justify-start gap-2 self-start rounded-md border px-2 py-1'>
 						{variant.unitCount} <Pill size={16} />
 					</span>
 				</h3>

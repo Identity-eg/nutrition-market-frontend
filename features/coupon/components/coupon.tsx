@@ -43,7 +43,7 @@ export function Coupon({ cart }: { cart: TCart }) {
 		<div className='relative mb-4 overflow-hidden rounded-md'>
 			<div className='mb-2 flex items-center gap-2'>
 				<TicketIcon className='text-green-light-600' />
-				<h4 className='text-gray-500 typography-SB14'>{t('code')}</h4>
+				<h4 className='typography-SB14 text-gray-500'>{t('code')}</h4>
 			</div>
 
 			<div className='flex gap-2'>
@@ -84,7 +84,7 @@ export function Coupon({ cart }: { cart: TCart }) {
 					{cart.coupons.map(coupon => (
 						<li
 							key={coupon.code}
-							className='group relative inline-block rounded-sm bg-gray-30 px-3 py-1 typography-R13'>
+							className='group bg-gray-30 typography-R13 relative inline-block rounded-xs px-3 py-1'>
 							<div className='absolute start-0 top-1/2 size-3 -translate-x-1/2 -translate-y-1/2 rounded-full bg-white' />
 							<div className='absolute end-0 top-1/2 size-3 -translate-y-1/2 translate-x-1/2 rounded-full bg-white' />
 							<DeleteCouponButton
@@ -96,7 +96,7 @@ export function Coupon({ cart }: { cart: TCart }) {
 							</span>
 							<span>
 								{coupon.code}{' '}
-								<i className='text-gray-200 typography-R12'>
+								<i className='typography-R12 text-gray-200'>
 									{locale === 'ar'
 										? coupon.company.name_ar
 										: coupon.company.name_en}
@@ -109,7 +109,7 @@ export function Coupon({ cart }: { cart: TCart }) {
 
 			{!!cart.coupons?.length && (
 				<CouponBanner
-					className='mt-4 border border-green-light-200 bg-green-light-50 text-green-light-700'
+					className='border-green-light-200 bg-green-light-50 text-green-light-700 mt-4 border'
 					coupons={cart.coupons}
 				/>
 			)}

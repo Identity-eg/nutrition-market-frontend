@@ -19,10 +19,10 @@ export async function Header() {
 	const user = await getMe();
 	const t = await getTranslations('Auth');
 	const desktop = (
-		<div className='container hidden items-center justify-between gap-2 py-4 media-md:flex'>
+		<div className='media-md:flex container hidden items-center justify-between gap-2 py-4'>
 			<Link
 				href='/'
-				className='ms-0 w-32 flex-shrink-0'>
+				className='ms-0 w-32 shrink-0'>
 				<Image
 					className='h-full w-full'
 					alt='Biovac pharmacy supplements'
@@ -61,7 +61,7 @@ export async function Header() {
 
 				<Link
 					href='/'
-					className='ms-0 w-32 flex-shrink-0'>
+					className='ms-0 w-32 shrink-0'>
 					<Image
 						className='h-full w-full'
 						alt='Biovac pharmacy supplements'

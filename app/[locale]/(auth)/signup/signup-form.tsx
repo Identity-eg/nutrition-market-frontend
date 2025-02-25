@@ -160,7 +160,7 @@ export function SignupForm() {
 				{t('haveAccount')}{' '}
 				<Link
 					href={AUTH_ROUTES.login}
-					className='text-black-3 typography-M14'>
+					className='text-black-3 typography-M14 underline'>
 					{t('login')}
 				</Link>
 			</p>

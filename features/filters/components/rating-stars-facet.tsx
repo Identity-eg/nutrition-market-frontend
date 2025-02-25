@@ -23,7 +23,7 @@ export function RatingStarsFacet() {
 					.map(el => (
 						<div
 							key={el}
-							className='flex items-center gap-2 text-gray-400 typography-R13 has-[[data-state=checked]]:text-black has-[[data-state=checked]]:typography-SB13'>
+							className='typography-R13 has-data-[state=checked]:typography-SB13 flex items-center gap-2 text-gray-400 has-data-[state=checked]:text-black'>
 							<Checkbox
 								id={el}
 								onCheckedChange={checked => {

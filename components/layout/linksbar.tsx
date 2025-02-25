@@ -45,7 +45,7 @@ export async function Linksbar() {
 	];
 
 	return (
-		<div className='sticky top-0 z-20 hidden border-b border-gray-50 bg-green-500 media-md:block'>
+		<div className='media-md:block sticky top-0 z-20 hidden border-b border-gray-50 bg-green-500'>
 			<div className='container flex items-center'>
 				<NavigationMenu>
 					<NavigationMenuList>
@@ -54,20 +54,20 @@ export async function Linksbar() {
 								return (
 									<NavigationMenuItem
 										key={link.label}
-										className='text-white typography-M14 hover:text-orange-700'>
+										className='typography-M14 text-white hover:text-orange-700'>
 										<NavigationMenuTrigger>
 											<Link href={link.to}>{link.label}</Link>
 										</NavigationMenuTrigger>
 
 										<NavigationMenuContent
 											className={cn('grid list-none gap-4 p-4', {
-												'grid-cols-2 media-lg:grid-cols-3':
+												'media-lg:grid-cols-3 grid-cols-2':
 													arr[idx].children && arr[idx].children?.length < 13,
-												'grid-cols-3 media-lg:grid-cols-4':
+												'media-lg:grid-cols-4 grid-cols-3':
 													arr[idx].children &&
 													arr[idx].children?.length > 12 &&
 													arr.length < 21,
-												'grid-cols-4 media-lg:grid-cols-5':
+												'media-lg:grid-cols-5 grid-cols-4':
 													arr[idx].children && arr[idx].children?.length > 20,
 											})}>
 											{link.children?.map(child => {
@@ -77,9 +77,9 @@ export async function Linksbar() {
 															<Link
 																href={child.to}
 																className={cn(
-																	'block cursor-pointer select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-gray-20 focus:bg-gray-20'
+																	'hover:bg-gray-20 focus:bg-gray-20 block cursor-pointer space-y-1 rounded-md p-3 leading-none no-underline outline-hidden transition-colors select-none'
 																)}>
-																<div className='text-sm font-medium leading-none'>
+																<div className='text-sm leading-none font-medium'>
 																	{child.label}
 																</div>
 																<p className='line-clamp-2 text-xs leading-snug text-gray-100'>
@@ -97,7 +97,7 @@ export async function Linksbar() {
 								return (
 									<NavigationMenuItem
 										key={link.label} //[#bc6c25]
-										className='text-white typography-M14 hover:text-orange-700'>
+										className='typography-M14 text-white hover:text-orange-700'>
 										<Link
 											href={link.to}
 											legacyBehavior
@@ -106,7 +106,7 @@ export async function Linksbar() {
 												className={navigationMenuTriggerStyle()}>
 												{link.label}
 												{link.label === t('offers') && (
-													<span className='ms-2 rounded-full bg-red-500 px-2 text-white typography-R12'>
+													<span className='typography-R12 ms-2 rounded-full bg-red-500 px-2 text-white'>
 														{t('upTo')} 50%
 													</span>
 												)}

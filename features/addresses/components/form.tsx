@@ -137,7 +137,7 @@ export function AddressForm({
 			onSubmit={form.handleSubmit(onSubmit)}
 			className='space-y-8 p-6'>
 			<Form {...form}>
-				<div className='flex w-full gap-2 media-md:gap-4'>
+				<div className='media-md:gap-4 flex w-full gap-2'>
 					<FormField
 						control={form.control}
 						name='firstName'
@@ -190,7 +190,7 @@ export function AddressForm({
 						</FormItem>
 					)}
 				/>
-				<div className='flex w-full gap-2 media-md:gap-4'>
+				<div className='media-md:gap-4 flex w-full gap-2'>
 					<FormField
 						control={form.control}
 						name='phone'
@@ -226,7 +226,7 @@ export function AddressForm({
 						)}
 					/>
 				</div>
-				<div className='flex flex-col gap-4 media-md:w-3/4 media-md:flex-row'>
+				<div className='media-md:w-3/4 media-md:flex-row flex flex-col gap-4'>
 					<FormField
 						control={form.control}
 						name='governorate'
@@ -405,7 +405,7 @@ export function AddressForm({
 						</FormItem>
 					)}
 				/>
-				<div className='flex gap-2 media-md:gap-4'>
+				<div className='media-md:gap-4 flex gap-2'>
 					<FormField
 						control={form.control}
 						name='buildingNo'
@@ -445,7 +445,7 @@ export function AddressForm({
 			<div className='flex'>
 				<Button
 					type='submit'
-					className='me-2 w-full media-md:w-auto'
+					className='media-md:w-auto me-2 w-full'
 					disabled={
 						isAddAddressPending ||
 						isUpdateAddressPending ||
@@ -464,7 +464,7 @@ export function AddressForm({
 				</Button>
 				{isUserHasAddress && (
 					<Button
-						className='w-full media-md:w-auto'
+						className='media-md:w-auto w-full'
 						onClick={() => {
 							setAddressToEdit(undefined);
 							closeForm();

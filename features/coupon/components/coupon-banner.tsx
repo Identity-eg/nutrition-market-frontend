@@ -16,7 +16,7 @@ export default function CouponBanner({
 	return (
 		<div
 			className={cn(
-				'flex gap-2 rounded-md border border-green-light-200 bg-green-light-50 p-2 text-green-light-700 typography-M13',
+				'border-green-light-200 bg-green-light-50 text-green-light-700 typography-M13 flex gap-2 rounded-md border p-2',
 				className
 			)}>
 			<p>

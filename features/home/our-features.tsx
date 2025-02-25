@@ -35,8 +35,8 @@ export default function OurFeatures() {
 						<f.Icon className='size-[68px] object-contain' />
 					</div>
 					<div>
-						<p className='mb-1 typography-SB16'>{f.title}</p>
-						<p className='text-gray-200 typography-R13 media-md:max-w-[30ch]'>
+						<p className='typography-SB16 mb-1'>{f.title}</p>
+						<p className='typography-R13 media-md:max-w-[30ch] text-gray-200'>
 							{f.description}
 						</p>
 					</div>

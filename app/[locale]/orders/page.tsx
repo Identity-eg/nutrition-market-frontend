@@ -38,7 +38,7 @@ function OrderItem({
 	const locale = useLocale();
 	return (
 		<li className='flex w-full gap-4'>
-			<div className='relative size-20 flex-shrink-0 rounded-md bg-gray-30'>
+			<div className='bg-gray-30 relative size-20 shrink-0 rounded-md'>
 				<Image
 					src={variant.images[0].url}
 					width={64}
@@ -48,7 +48,7 @@ function OrderItem({
 				/>
 				<div
 					className={cn(
-						'absolute end-0 top-0 flex size-[18px] -translate-y-1/2 items-center justify-center rounded-full bg-gray-50 py-2 typography-M12',
+						'typography-M12 absolute end-0 top-0 flex size-[18px] -translate-y-1/2 items-center justify-center rounded-full bg-gray-50 py-2',
 						{
 							'translate-x-1/2': locale === 'ar',
 							'-translate-x-1/2': locale !== 'en',
@@ -58,14 +58,14 @@ function OrderItem({
 				</div>
 			</div>
 
-			<div className='flex w-full flex-col text-gray-400 typography-M16'>
+			<div className='typography-M16 flex w-full flex-col text-gray-400'>
 				<h4 className='line-clamp-2'>
 					{locale === 'ar' ? variant.name_ar : variant.name_en}
 				</h4>
 				<div className='flex h-full justify-between'>
-					<span className='mt-2 typography-R14'>{variant.unitCount} Caps</span>
+					<span className='typography-R14 mt-2'>{variant.unitCount} Caps</span>
 					<Price
-						className='mb-0 ms-auto'
+						className='ms-auto mb-0'
 						finalPriceClassName='typography-M14 text-gray-400'
 						price={Number(totalProductPriceAfterCoupon ?? totalProductPrice)}
 					/>
@@ -84,9 +84,9 @@ export default async function Orders() {
 
 	return (
 		<div className='container flex min-h-screen flex-col py-14'>
-			<h3 className='mb-6 flex items-center gap-2 typography-M20'>
+			<h3 className='typography-M20 mb-6 flex items-center gap-2'>
 				{t('myOrders')}
-				<div className='flex size-6 items-center justify-center rounded-md bg-gray-30 typography-M16'>
+				<div className='bg-gray-30 typography-M16 flex size-6 items-center justify-center rounded-md'>
 					<span>{ordersNumber}</span>
 				</div>
 			</h3>
@@ -101,18 +101,18 @@ export default async function Orders() {
 						className='relative mb-8 max-w-[800px] overflow-hidden'>
 						<div className='flex items-center justify-between p-4'>
 							<div className='flex flex-col'>
-								<span className='text-gray-200 typography-R14'>
+								<span className='typography-R14 text-gray-200'>
 									{t('orderId')}
 								</span>
 								<span className='typography-M18'>{order._id}</span>
 							</div>
 							<div
 								className={cn(
-									'max-w-fit rounded-md px-2 py-1 capitalize text-white typography-R13',
+									'typography-R13 max-w-fit rounded-md px-2 py-1 text-white capitalize',
 									{
 										'border border-orange-100 bg-orange-50 text-orange-500':
 											order.status === ORDER_STATUS.processing,
-										'border border-green-light-200 bg-green-light-50 text-green-light-600':
+										'border-green-light-200 bg-green-light-50 text-green-light-600 border':
 											order.status === ORDER_STATUS.delivered,
 										'bg-[#1640d60f] text-[#1640D6]':
 											order.status === ORDER_STATUS.shipped,
@@ -134,18 +134,18 @@ export default async function Orders() {
 							))}
 						</ul>
 						{/* {isOrdersItemExceedLimit && (
-								<div className='absolute inset-x-0 bottom-0 h-[150px] w-full bg-gradient-to-t from-white to-[rgba(255,255,255,0)]' />
+								<div className='absolute inset-x-0 bottom-0 h-[150px] w-full bg-linear-to-t from-white to-[rgba(255,255,255,0)]' />
 							)} */}
 						{/* </div> */}
-						<div className='flex items-center gap-x-12 border-t border-gray-40 bg-gray-20 p-4'>
+						<div className='border-gray-40 bg-gray-20 flex items-center gap-x-12 border-t p-4'>
 							<div className='flex flex-col'>
-								<span className='capitalize text-gray-200 typography-R14'>
+								<span className='typography-R14 text-gray-200 capitalize'>
 									{t('orderDate')}
 								</span>
 								<span>{formattedCreatedAtDate}</span>
 							</div>
 							<div className='flex flex-col'>
-								<span className='capitalize text-gray-200 typography-R14'>
+								<span className='typography-R14 text-gray-200 capitalize'>
 									{t('total')}
 								</span>
 								<Price

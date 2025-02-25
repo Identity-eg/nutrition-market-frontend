@@ -13,8 +13,8 @@ export default function CardAuthWrapper({
 	children,
 }: TCardAuthWrapper) {
 	return (
-		<Card className='w-full border-0 p-0 media-md:max-w-[500px] media-md:border media-md:p-8'>
-			<CardTitle className='mb-[12px] typography-B24'>{title}</CardTitle>
+		<Card className='media-md:max-w-[500px] media-md:border media-md:p-8 w-full border-0 p-0'>
+			<CardTitle className='typography-B24 mb-[12px]'>{title}</CardTitle>
 			<CardDescription className='mb-[32px]'>{description}</CardDescription>
 			{children}
 		</Card>

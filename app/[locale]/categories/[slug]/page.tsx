@@ -41,10 +41,10 @@ export default async function CategoryPage(props: TProps) {
 	};
 	return (
 		<section>
-			<div className='relative flex h-48 w-full items-center justify-center bg-gray-30'>
-				<div className='absolute inset-0 z-[2] bg-gradient-to-r from-[#00000023] from-10% via-[#01210c96] via-30% to-[#00000023] to-90% bg-blend-multiply mix-blend-multiply' />
-				<div className='z-[4] text-center text-white [&>p]:leading-normal [&>p]:text-gray-200 [&>p]:typography-R14'>
-					<h3 className='mb-1 capitalize typography-B28'>
+			<div className='bg-gray-30 relative flex h-48 w-full items-center justify-center'>
+				<div className='absolute inset-0 z-2 bg-linear-to-r from-[#00000023] from-10% via-[#01210c96] via-30% to-[#00000023] to-90% bg-blend-multiply mix-blend-multiply' />
+				<div className='[&>p]:typography-R14 z-4 text-center text-white [&>p]:leading-normal [&>p]:text-gray-200'>
+					<h3 className='typography-B28 mb-1 capitalize'>
 						{locale === 'ar' ? category.name_ar : category.name_en}
 					</h3>
 					<span className='text-white'>
@@ -64,7 +64,7 @@ export default async function CategoryPage(props: TProps) {
 				/>
 			</div>
 			<div className='container -mt-8'>
-				<div className='grid gap-x-6 gap-y-8 py-12 media-md:grid-cols-[278px,1fr]'>
+				<div className='media-md:grid-cols-[278px_1fr] grid gap-x-6 gap-y-8 py-12'>
 					<FilterProducts />
 					<Suspense
 						key={JSON.stringify(newSearchParams)}

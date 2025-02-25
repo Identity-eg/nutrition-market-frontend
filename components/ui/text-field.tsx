@@ -12,7 +12,7 @@ export interface InputProps
 }
 
 const inputVariants = cva(
-	'text-N500 w-full placeholder:text-gray-100 rounded-md border-[1px] px-3 gap-2 outline-none outline-[1.5px] -outline-offset-[1.5px] transition-all placeholder:typography-R14 focus-within:outline-green-300 hover:border-gray-40 focus:outline-green-300 focus-visible:border-green-300 disabled:bg-gray-20 disabled:placeholder:text-gray-50 disabled:border-gray-40 flex truncate ',
+	'text-N500 w-full placeholder:text-gray-100 rounded-md border-[1px] px-3 gap-2 outline-hidden outline-[1.5px] -outline-offset-[1.5px] transition-all placeholder:typography-R14 focus-within:outline-green-300 hover:border-gray-40 focus:outline-green-300 focus-visible:border-green-300 disabled:bg-gray-20 disabled:placeholder:text-gray-50 disabled:border-gray-40 flex truncate ',
 	{
 		variants: {
 			variant: {
@@ -44,7 +44,7 @@ const TextField = forwardRef<HTMLInputElement, InputProps>(
 				)}
 				<input
 					ref={ref}
-					className='h-full w-full border-none bg-[transparent] outline-none'
+					className='h-full w-full border-none bg-[transparent] outline-hidden'
 					{...props}
 				/>
 				{suffexIcon && (

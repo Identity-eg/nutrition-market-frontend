@@ -17,7 +17,7 @@ export default function CheckoutCartItem({
 		<li
 			key={_id}
 			className='flex gap-4'>
-			<div className='relative size-16 flex-shrink-0 rounded-md border border-gray-40'>
+			<div className='border-gray-40 relative size-16 shrink-0 rounded-md border'>
 				<Image
 					src={variant.images[0].url}
 					width={50}
@@ -27,7 +27,7 @@ export default function CheckoutCartItem({
 				/>
 				<div
 					className={cn(
-						'absolute end-0 top-0 flex size-[18px] -translate-y-1/2 items-center justify-center rounded-full bg-gray-50 py-2 typography-M12',
+						'typography-M12 absolute end-0 top-0 flex size-[18px] -translate-y-1/2 items-center justify-center rounded-full bg-gray-50 py-2',
 						{
 							'-translate-x-1/2': locale === 'ar',
 							'translate-x-1/2': locale === 'en',
@@ -37,13 +37,13 @@ export default function CheckoutCartItem({
 				</div>
 			</div>
 
-			<div className='flex w-full flex-col justify-between text-gray-400 typography-M14'>
+			<div className='typography-M14 flex w-full flex-col justify-between text-gray-400'>
 				<div className='flex justify-between'>
 					<h3 className='line-clamp-2 text-left'>
 						{locale === 'ar' ? variant.name_ar : variant.name_en}
 					</h3>
 					{totalProductPriceAfterCoupon && (
-						<div className='flex aspect-square size-5 items-center justify-center rounded-full bg-green-light-600'>
+						<div className='bg-green-light-600 flex aspect-square size-5 items-center justify-center rounded-full'>
 							<TicketIcon
 								size={14}
 								className='text-white'
@@ -52,7 +52,7 @@ export default function CheckoutCartItem({
 					)}
 				</div>
 				<Price
-					className='mb-0 ms-auto'
+					className='ms-auto mb-0'
 					finalPriceClassName='typography-M14 text-gray-200'
 					price={totalProductPriceAfterCoupon ?? totalProductPrice}
 				/>

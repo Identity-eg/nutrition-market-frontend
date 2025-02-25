@@ -35,7 +35,7 @@ export const DeleteCartItemBtn = React.forwardRef<
 				},
 				className
 			)}>
-			{isPending ? <LoadingDots className='[&>*]:bg-white' /> : <X size={14} />}
+			{isPending ? <LoadingDots className='*:bg-white' /> : <X size={14} />}
 		</button>
 	);
 });

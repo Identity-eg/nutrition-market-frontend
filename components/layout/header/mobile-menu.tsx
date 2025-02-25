@@ -36,7 +36,7 @@ function MobileNavLink({
 	return (
 		<SheetClose asChild>
 			<Link href={link.to}>
-				<li className='rounded-md px-2 py-4 text-green-800 typography-R16 hover:bg-green-50'>
+				<li className='typography-R16 rounded-md px-2 py-4 text-green-800 hover:bg-green-50'>
 					{link.label}
 				</li>
 			</Link>
@@ -98,7 +98,7 @@ export async function MobileMenu({ user }: { user?: TUser }) {
 			</SheetTrigger>
 
 			<SheetContent className='flex w-full flex-col'>
-				<SheetHeader className='border-b border-gray-40 pb-4'>
+				<SheetHeader className='border-gray-40 border-b pb-4'>
 					<SheetTitle>{t('menu')}</SheetTitle>
 				</SheetHeader>
 
@@ -122,7 +122,7 @@ export async function MobileMenu({ user }: { user?: TUser }) {
 									key={link.label}
 									asChild>
 									<Link href={link.to}>
-										<li className='flex items-center gap-2 rounded-md px-2 py-4 text-green-800 typography-R16 hover:bg-green-50'>
+										<li className='typography-R16 flex items-center gap-2 rounded-md px-2 py-4 text-green-800 hover:bg-green-50'>
 											<link.Icon className='text-green-500' />
 											{link.label}
 										</li>
@@ -130,7 +130,7 @@ export async function MobileMenu({ user }: { user?: TUser }) {
 								</SheetClose>
 							))}
 							<SheetClose className='w-full'>
-								<LogoutButton className='gap-2 rounded-md px-2 py-4 text-green-800 typography-R16 hover:bg-green-50'>
+								<LogoutButton className='typography-R16 gap-2 rounded-md px-2 py-4 text-green-800 hover:bg-green-50'>
 									<LogOutIcon className='text-green-500' />
 									{t('logout')}
 								</LogoutButton>
@@ -139,7 +139,7 @@ export async function MobileMenu({ user }: { user?: TUser }) {
 					) : (
 						<SheetClose asChild>
 							<Link href={AUTH_ROUTES.login}>
-								<li className='flex items-center gap-2 rounded-md px-2 py-4 text-green-800 typography-R16 hover:bg-green-50'>
+								<li className='typography-R16 flex items-center gap-2 rounded-md px-2 py-4 text-green-800 hover:bg-green-50'>
 									<CircleUserRoundIcon className='text-green-500' />
 									{t('login')}
 								</li>

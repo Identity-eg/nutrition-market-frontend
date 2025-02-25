@@ -67,7 +67,7 @@ export function InputsFacet() {
 				<div className='flex flex-col gap-[4px]'>
 					<label
 						htmlFor='from'
-						className='text-gray-200 typography-R13'>
+						className='typography-R13 text-gray-200'>
 						{t('from')}
 					</label>
 					<NumericField
@@ -82,7 +82,7 @@ export function InputsFacet() {
 				<div className='flex flex-col gap-[4px]'>
 					<label
 						htmlFor='to'
-						className='text-gray-200 typography-R13'>
+						className='typography-R13 text-gray-200'>
 						{t('to')}
 					</label>
 					<NumericField

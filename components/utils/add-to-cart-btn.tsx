@@ -65,7 +65,7 @@ export const AddToCartButton = React.forwardRef<HTMLButtonElement, ButtonProps>(
 				<Button
 					disabled
 					variant='secondary-gray'
-					className='relative w-full flex-1 gap-2 capitalize text-red-500'>
+					className='relative w-full flex-1 gap-2 text-red-500 capitalize'>
 					<CircleX size={16} />
 					Out of stock
 				</Button>

@@ -20,10 +20,10 @@ export async function Products({
 		return (
 			<div className='flex flex-col items-center justify-center pt-6'>
 				<NoResultFound />
-				<span className='mt-4 text-center typography-M16'>
+				<span className='typography-M16 mt-4 text-center'>
 					No Matches Found
 				</span>
-				<span className='mt-2 max-w-[43ch] text-center text-gray-200 typography-R14'>
+				<span className='typography-R14 mt-2 max-w-[43ch] text-center text-gray-200'>
 					We couldn&apos;t find any supplement that match your filters Try
 					adjusting your search criteria
 				</span>
@@ -33,7 +33,7 @@ export async function Products({
 
 	return (
 		<article>
-			<div className='grid grid-cols-2 gap-2 self-baseline overflow-hidden media-sm:grid-cols-[repeat(auto-fill,minmax(200px,1fr))] media-sm:gap-4'>
+			<div className='media-sm:grid-cols-[repeat(auto-fill,minmax(200px,1fr))] media-sm:gap-4 grid grid-cols-2 gap-2 self-baseline overflow-hidden'>
 				{products.map(product => (
 					<CardItem
 						key={product._id}

@@ -8,7 +8,7 @@ export function RatingField({
 }: ControllerRenderProps<{ [key: string]: string | number }, 'rating'>) {
 	return (
 		<>
-			<div className='mb-1 flex gap-2 text-gray-40'>
+			<div className='text-gray-40 mb-1 flex gap-2'>
 				{[...Array(5)].map((_, i) => {
 					const ratingValue = i + 1;
 					return (
@@ -35,7 +35,7 @@ export function RatingField({
 					);
 				})}
 			</div>
-			<div className='mb-6 text-gray-400 typography-R12'>
+			<div className='typography-R12 mb-6 text-gray-400'>
 				{value ? <p>Your rating is {value} star</p> : <p>Click To Rate</p>}
 			</div>
 		</>

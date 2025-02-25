@@ -24,7 +24,7 @@ export default function NotFound() {
 	return (
 		<div className='container flex min-h-[calc(100vh-150px)] flex-col items-center justify-center'>
 			<NotFoundIcon />
-			<span className='mb-2 mt-8 text-black typography-SB24'>{t('title')}</span>
+			<span className='typography-SB24 mt-8 mb-2 text-black'>{t('title')}</span>
 			<p className='mb-4 max-w-[40ch] text-center text-gray-200'>
 				{t('description')}
 			</p>

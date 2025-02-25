@@ -21,12 +21,12 @@ export default function SectionWrapper({
 	return (
 		<section className='container space-y-4 py-10'>
 			<div className='flex items-end justify-between'>
-				<h3 className='flex flex-col items-center text-center text-green-800 typography-B18 media-sm:gap-4 media-md:flex-row'>
+				<h3 className='typography-B18 media-sm:gap-4 media-md:flex-row flex flex-col items-center text-center text-green-800'>
 					{title}
-					<span className='text-gray-100 typography-R14'>{description}</span>
+					<span className='typography-R14 text-gray-100'>{description}</span>
 				</h3>
 				<Button
-					className='h-auto shrink-0 gap-2 px-0 media-md:flex'
+					className='media-md:flex h-auto shrink-0 gap-2 px-0'
 					variant='link'
 					asChild>
 					<Link href={href}>

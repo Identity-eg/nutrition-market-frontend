@@ -16,10 +16,10 @@ export function ProductInfo({
 	NFSA_REG_NO: string;
 }) {
 	return (
-		<div className='mb-2 flex items-center gap-2 text-gray-200 typography-R14'>
+		<div className='typography-R14 mb-2 flex items-center gap-2 text-gray-200'>
 			<RatingStars averageRating={averageRating} />
 
-			<span className='rounded-md border border-gray-50 px-1 typography-R14'>
+			<span className='typography-R14 rounded-md border border-gray-50 px-1'>
 				{numReviews}
 			</span>
 
@@ -32,7 +32,7 @@ export function ProductInfo({
 				Store:{' '}
 				<Link
 					href={`/companies/${companySlug}`}
-					className='text-green-500 underline typography-SB13'>
+					className='typography-SB13 text-green-500 underline'>
 					{companyName}
 				</Link>
 			</p>

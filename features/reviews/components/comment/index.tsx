@@ -47,13 +47,13 @@ export function Comment({
 	return (
 		<li className='flex gap-2 px-4 pb-4 [&:has(button[data-state=deleting])]:animate-pulse'>
 			<Avatar className='size-10'>
-				<AvatarFallback className='bg-gray-30 capitalize text-gray-400 typography-R14'>
+				<AvatarFallback className='bg-gray-30 typography-R14 text-gray-400 capitalize'>
 					{user.firstName?.[0]}
 				</AvatarFallback>
 			</Avatar>
 			<div className='flex-1'>
-				<div className='mb-4 mt-2 flex items-center gap-2'>
-					<p className='capitalize typography-M16'>{user.firstName}</p>
+				<div className='mt-2 mb-4 flex items-center gap-2'>
+					<p className='typography-M16 capitalize'>{user.firstName}</p>
 
 					<TooltipProvider>
 						<Tooltip delayDuration={0}>
@@ -75,14 +75,14 @@ export function Comment({
 					averageRating={rating}
 				/>
 
-				<p className='mb-1 capitalize text-[#bc6c25] typography-SB16'>
+				<p className='typography-SB16 mb-1 text-[#bc6c25] capitalize'>
 					{title}
 				</p>
 
-				<p className='mb-3 text-gray-200 typography-R12'>{formattedDate}</p>
+				<p className='typography-R12 mb-3 text-gray-200'>{formattedDate}</p>
 
-				<div className='flex flex-col justify-between gap-4 media-md:flex-row media-md:items-center'>
-					<p className='flex-wrap typography-R16'>{comment}</p>
+				<div className='media-md:flex-row media-md:items-center flex flex-col justify-between gap-4'>
+					<p className='typography-R16 flex-wrap'>{comment}</p>
 
 					{isMyReview && (
 						<CommentBtns

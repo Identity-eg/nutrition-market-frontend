@@ -31,7 +31,7 @@ export default function Container({
 	governorates: TGovernorate[];
 	addresses: TAddress[];
 }) {
-	const t = useTranslations('CheckoutPage')
+	const t = useTranslations('CheckoutPage');
 	const [addressId, setAddressId] = useState(addresses[0]?._id ?? '');
 	const [paymentMethodId, setPaymentMethodId] = useState('1');
 
@@ -56,8 +56,8 @@ export default function Container({
 					cart={cart}
 				/>
 			</div>
-			<div className='fixed inset-x-0 bottom-0 flex w-full items-center justify-between border-t border-gray-40 bg-white p-6 shadow-2xl media-md:hidden'>
-				<span className='flex flex-col typography-B16'>
+			<div className='border-gray-40 media-md:hidden fixed inset-x-0 bottom-0 flex w-full items-center justify-between border-t bg-white p-6 shadow-2xl'>
+				<span className='typography-B16 flex flex-col'>
 					{t('total')}
 					<Price
 						finalPriceClassName='typography-SB18'

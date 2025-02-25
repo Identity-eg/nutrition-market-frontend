@@ -44,20 +44,20 @@ export async function MobileFilter() {
 		<Sheet>
 			<SheetTrigger
 				asChild
-				className='relative flex items-center gap-2 text-green-500 media-md:hidden'>
+				className='media-md:hidden relative flex items-center gap-2 text-green-500'>
 				<Button
 					variant='secondary-gray'
 					size='icon'>
-					<FilterIcon className='flex-shrink-0' />
+					<FilterIcon className='shrink-0' />
 				</Button>
 			</SheetTrigger>
 
 			<SheetContent className='flex w-full flex-col'>
-				<SheetHeader className='flex-row items-center justify-between border-b border-gray-40 pb-4'>
+				<SheetHeader className='border-gray-40 flex-row items-center justify-between border-b pb-4'>
 					<SheetTitle>Filters</SheetTitle>
 					<ClearAllBtn />
 				</SheetHeader>
-				<article className='h-full overflow-y-auto overflow-x-hidden border-gray-50 media-md:hidden'>
+				<article className='media-md:hidden h-full overflow-x-hidden overflow-y-auto border-gray-50'>
 					<Accordion
 						defaultValue={Object.keys(FilterKeys)}
 						type='multiple'

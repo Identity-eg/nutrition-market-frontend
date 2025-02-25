@@ -25,7 +25,7 @@ export function Price({
 		<div className={cn('mb-4 flex flex-wrap items-center gap-2', className)}>
 			<span
 				className={cn(
-					'flex justify-start gap-1 text-[#bc6c25] typography-SB20',
+					'typography-SB20 flex justify-start gap-1 text-[#bc6c25]',
 					finalPriceClassName
 				)}>
 				{convertToReadableNumber(priceAfterDiscount || price)} {t('currency')}
@@ -33,7 +33,7 @@ export function Price({
 			{priceAfterDiscount ? (
 				<span
 					className={cn(
-						'flex items-start gap-1 text-gray-800 line-through underline-offset-2 typography-R16',
+						'typography-R16 flex items-start gap-1 text-gray-800 line-through underline-offset-2',
 						previousPriceClassName
 					)}>
 					{convertToReadableNumber(price)} {t('currency')}

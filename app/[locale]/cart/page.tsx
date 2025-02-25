@@ -28,14 +28,14 @@ export default async function Cart() {
 
 	return (
 		<div className='relative'>
-			<div className='absolute inset-x-0 top-0 -z-10 h-56 bg-gray-20' />
+			<div className='bg-gray-20 absolute inset-x-0 top-0 -z-10 h-56' />
 			<div className='container flex flex-col gap-4 py-10'>
 				<div>
-					<h3 className='text-gray-800 typography-B24'>{t('cart')}</h3>
-					<p className='mb-8 text-gray-200 typography-R16'>{t('cartDesc')}</p>
+					<h3 className='typography-B24 text-gray-800'>{t('cart')}</h3>
+					<p className='typography-R16 mb-8 text-gray-200'>{t('cartDesc')}</p>
 				</div>
 				<div className='flex gap-8'>
-					<div className='flex-1 self-start rounded-lg border border-gray-40 bg-white'>
+					<div className='border-gray-40 flex-1 self-start rounded-lg border bg-white'>
 						{isCartEmpty ? (
 							<div className='flex flex-col items-center justify-center gap-4 p-8'>
 								<NoCartFound />

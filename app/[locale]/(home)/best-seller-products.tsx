@@ -15,7 +15,7 @@ export default async function BestSellerProducts() {
 			title={t('bestSeller.title')}
 			description={t('bestSeller.description')}
 			href='/shop?sort=-sold'>
-			<div className='grid grid-cols-2 gap-2 self-baseline overflow-hidden media-sm:grid-cols-[repeat(auto-fill,minmax(200px,1fr))] media-sm:gap-4'>
+			<div className='media-sm:grid-cols-[repeat(auto-fill,minmax(200px,1fr))] media-sm:gap-4 grid grid-cols-2 gap-2 self-baseline overflow-hidden'>
 				{products.products.map(product => (
 					<CardItem
 						key={product._id}

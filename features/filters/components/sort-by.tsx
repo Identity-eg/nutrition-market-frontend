@@ -53,7 +53,7 @@ export function SortBy() {
 
 	return (
 		<article className='flex items-center gap-4'>
-			<span className={'text-gray-100 typography-M13'}>{t('sortBy')} :</span>
+			<span className={'typography-M13 text-gray-100'}>{t('sortBy')} :</span>
 			<Select
 				value={facet}
 				onValueChange={v => {

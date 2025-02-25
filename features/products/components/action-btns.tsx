@@ -31,7 +31,7 @@ export default function ActionBtns({
 	};
 
 	return (
-		<div className='mt-auto flex gap-2 media-md:w-[80%]'>
+		<div className='media-md:w-[80%] mt-auto flex gap-2'>
 			<AddToCartButton
 				quantity={quantity}
 				resetCount={resetCount}

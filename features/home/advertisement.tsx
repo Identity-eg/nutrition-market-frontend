@@ -11,7 +11,7 @@ const Advertisement = React.forwardRef<
 		<div
 			ref={ref}
 			className={cn(
-				'grid-cols-2 items-center rounded-md media-md:grid',
+				'media-md:grid grid-cols-2 items-center rounded-md',
 				className
 			)}
 			{...props}
@@ -38,7 +38,7 @@ const AdvertisementTitle = React.forwardRef<
 >(({ className, ...props }, ref) => (
 	<h3
 		ref={ref}
-		className={cn('mb-2 typography-B28', className)}
+		className={cn('typography-B28 mb-2', className)}
 		{...props}
 	/>
 ));

@@ -4,10 +4,10 @@ import { BeanOffIcon, DnaOffIcon, WheatOffIcon } from 'lucide-react';
 export function Allergen() {
 	return (
 		<div>
-			<p className='mb-4 typography-B16'>Allergen notice</p>
-			<div className='flex gap-2 text-green-500 media-md:gap-4'>
+			<p className='typography-B16 mb-4'>Allergen notice</p>
+			<div className='media-md:gap-4 flex gap-2 text-green-500'>
 				<div className='flex flex-col items-center justify-center'>
-					<div className='mb-2 rounded-full border border-green-500 p-4 media-md:p-6'>
+					<div className='media-md:p-6 mb-2 rounded-full border border-green-500 p-4'>
 						<BeanOffIcon />
 					</div>
 					<span className='typography-M14 media-md:typography-M16'>
@@ -15,7 +15,7 @@ export function Allergen() {
 					</span>
 				</div>
 				<div className='flex flex-col items-center justify-center'>
-					<div className='mb-2 rounded-full border border-green-500 p-4 media-md:p-6'>
+					<div className='media-md:p-6 mb-2 rounded-full border border-green-500 p-4'>
 						<WheatOffIcon />
 					</div>
 					<span className='typography-M14 media-md:typography-M16'>
@@ -23,7 +23,7 @@ export function Allergen() {
 					</span>
 				</div>
 				<div className='flex flex-col items-center justify-center'>
-					<div className='mb-2 rounded-full border border-green-500 p-4 media-md:p-6'>
+					<div className='media-md:p-6 mb-2 rounded-full border border-green-500 p-4'>
 						<DnaOffIcon />
 					</div>
 					<span className='typography-M14 media-md:typography-M16'>No-gmo</span>

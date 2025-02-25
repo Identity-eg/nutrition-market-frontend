@@ -54,7 +54,7 @@ export async function CartSidebar({
 				{isCartEmpty ? (
 					<div className='mt-8 flex flex-col items-center justify-center gap-y-4'>
 						<NoCartFound />
-						<h1 className='text-center text-gray-800 typography-M16'>
+						<h1 className='typography-M16 text-center text-gray-800'>
 							{t('emptyCart')}
 						</h1>
 					</div>
@@ -77,12 +77,12 @@ export async function CartSidebar({
 							<div className='flex items-start justify-between gap-2 text-base font-medium text-gray-900'>
 								<div>
 									<p>{t('subtotal')}</p>
-									<p className='mt-0.5 text-gray-300 typography-R14'>
+									<p className='typography-R14 mt-0.5 text-gray-300'>
 										{t('taxesCalc')}
 									</p>
 								</div>
 								<Price
-									className='mb-0 flex-shrink-0'
+									className='mb-0 shrink-0'
 									finalPriceClassName='typography-B18'
 									price={cart.totalPriceAfterCoupon ?? cart.totalPrice}
 								/>
@@ -108,7 +108,7 @@ export async function CartSidebar({
 									<SheetClose asChild>
 										<Link
 											href='/shop'
-											className='text-neutral-800 hover:text-neutral-700 flex items-center gap-x-2 font-medium underline'>
+											className='flex items-center gap-x-2 font-medium text-neutral-800 underline hover:text-neutral-700'>
 											{t('continueShopping')}
 											{locale === 'ar' ? (
 												<MoveLeftIcon size={18} />

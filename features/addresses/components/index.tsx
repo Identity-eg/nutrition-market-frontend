@@ -27,7 +27,7 @@ export default function ShippingAddress({
 	governorates: TGovernorate[];
 	addresses: TAddress[];
 }) {
-	const t = useTranslations('CheckoutPage')
+	const t = useTranslations('CheckoutPage');
 	const isUserHasAddress = addresses.length !== 0;
 	const [isInFormMode, setIsInFormMode] = useState(!isUserHasAddress);
 	const [addressToEdit, setAddressToEdit] = useState<TAddress | undefined>(
@@ -39,7 +39,7 @@ export default function ShippingAddress({
 
 	return (
 		<Card>
-			<div className='flex justify-between border-b border-gray-40 p-6 typography-SB20'>
+			<div className='border-gray-40 typography-SB20 flex justify-between border-b p-6'>
 				{t('shippingAddress')}
 				{!isInFormMode && (
 					<Button

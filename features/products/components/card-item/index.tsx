@@ -22,16 +22,16 @@ export const CardItem = ({
 	const variantPath = `/shop/${slug}?variant=${variants._id}`;
 
 	return (
-		<div className='group relative flex flex-col rounded-md border border-gray-50 p-2 media-sm:p-4'>
+		<div className='group media-sm:p-4 relative flex flex-col rounded-md border border-gray-50 p-2'>
 			<Sale
 				price={variants.price}
 				priceAfterDiscount={variants.priceAfterDiscount}
 			/>
 
-			<div className='relative mb-2 flex w-full items-center justify-center self-center overflow-hidden rounded-sm'>
+			<div className='relative mb-2 flex w-full items-center justify-center self-center overflow-hidden rounded-xs'>
 				<Link
 					href={variantPath}
-					className='flex aspect-square h-40 w-40 items-center justify-center media-md:h-48 media-md:w-48'>
+					className='media-md:h-48 media-md:w-48 flex aspect-square h-40 w-40 items-center justify-center'>
 					<Image
 						className='aspect-square w-full cursor-pointer object-contain p-2 mix-blend-multiply transition duration-300 group-hover:scale-110'
 						src={primaryImage.url}
@@ -95,7 +95,7 @@ export const CardItem = ({
 			/>
 
 			<Link
-				className='mb-4 line-clamp-2 underline-offset-1 typography-M14 hover:underline'
+				className='typography-M14 mb-4 line-clamp-2 underline-offset-1 hover:underline'
 				href={variantPath}>
 				{locale === 'ar' ? variants.name_ar : variants.name_en}
 			</Link>

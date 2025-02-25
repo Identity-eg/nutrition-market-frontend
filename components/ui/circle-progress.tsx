@@ -42,7 +42,7 @@ export function CircleProgress({
 					cy={circleSize / 2}
 				/>
 			</svg>
-			<div className='absolute bottom-1/2 end-1/2 translate-x-1/2 translate-y-1/2'>
+			<div className='absolute end-1/2 bottom-1/2 translate-x-1/2 translate-y-1/2'>
 				{children}
 			</div>
 		</div>

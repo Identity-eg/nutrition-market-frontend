@@ -15,7 +15,7 @@ export default function PaymentMethod({
 
 	return (
 		<Card>
-			<div className='border-b border-gray-40 p-6 typography-SB20'>
+			<div className='border-gray-40 typography-SB20 border-b p-6'>
 				{t('paymentMethod')}
 			</div>
 			<RadioGroup

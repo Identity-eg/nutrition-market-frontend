@@ -138,7 +138,7 @@ export function LoginForm() {
 			</Button>
 			<div className='relative'>
 				<Separator />
-				<span className='absolute start-1/2 top-1/2 -translate-y-1/2 translate-x-1/2 bg-white px-3 text-gray-200 typography-M13'>
+				<span className='typography-M13 absolute start-1/2 top-1/2 -translate-y-1/2 translate-x-1/2 bg-white px-3 text-gray-200'>
 					{t('or')}
 				</span>
 			</div>
@@ -161,7 +161,7 @@ export function LoginForm() {
 			<p className='text-gray-6 typography-R14'>
 				{t("don'tHaveAccount")}{' '}
 				<Link
-					className='text-black-3 underline typography-M14'
+					className='text-black-3 typography-M14 underline'
 					href='/signup'>
 					{t('register')}
 				</Link>

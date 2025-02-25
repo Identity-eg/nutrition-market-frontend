@@ -56,7 +56,7 @@ function OrderLabel({
 	const color = orderLabel[orderState]?.color;
 
 	return (
-		<div className={cn('rounded-md px-4 text-white typography-M14', color)}>
+		<div className={cn('typography-M14 rounded-md px-4 text-white', color)}>
 			{t(label)}
 		</div>
 	);
@@ -94,8 +94,8 @@ function OrderDetails({
 	return Object.entries(orderDetails).map(([key, value]) => (
 		<p
 			key={key}
-			className='flex items-center gap-2 typography-R14'>
-			<span className='capitalize text-gray-200'>{value.label}:</span>
+			className='typography-R14 flex items-center gap-2'>
+			<span className='text-gray-200 capitalize'>{value.label}:</span>
 			{value.text}
 		</p>
 	));
@@ -109,8 +109,8 @@ function OrderItem({
 }: TOrderItem) {
 	const locale = useLocale();
 	return (
-		<li className='flex w-full gap-4 border-b border-gray-40 pb-6 last:border-0 last:pb-0'>
-			<div className='relative size-20 flex-shrink-0 rounded-md bg-gray-30'>
+		<li className='border-gray-40 flex w-full gap-4 border-b pb-6 last:border-0 last:pb-0'>
+			<div className='bg-gray-30 relative size-20 shrink-0 rounded-md'>
 				<Image
 					src={variant.images[0].url}
 					width={64}
@@ -118,19 +118,19 @@ function OrderItem({
 					alt={variant.name_en}
 					className='h-full w-full object-contain object-center p-2 mix-blend-multiply'
 				/>
-				<div className='absolute end-0 top-0 flex size-[18px] -translate-y-1/2 translate-x-1/2 items-center justify-center rounded-full bg-gray-50 py-2 typography-M12'>
+				<div className='typography-M12 absolute end-0 top-0 flex size-[18px] -translate-y-1/2 translate-x-1/2 items-center justify-center rounded-full bg-gray-50 py-2'>
 					{amount}
 				</div>
 			</div>
 
-			<div className='flex w-full flex-col text-gray-400 typography-M16'>
+			<div className='typography-M16 flex w-full flex-col text-gray-400'>
 				<h4 className='line-clamp-2 h-8'>
 					{locale === 'ar' ? variant.name_ar : variant.name_en}
 				</h4>
 				<div className='flex h-full justify-between'>
-					<span className='mt-2 typography-R14'>{variant.unitCount} Caps</span>
+					<span className='typography-R14 mt-2'>{variant.unitCount} Caps</span>
 					<Price
-						className='mb-0 ms-auto'
+						className='ms-auto mb-0'
 						finalPriceClassName='typography-M14 text-gray-400'
 						price={Number(totalProductPriceAfterCoupon ?? totalProductPrice)}
 					/>
@@ -148,10 +148,10 @@ function OrderSummary({ order }: { order: TOrder }) {
 
 	return (
 		<Card className='flex max-w-[380px] flex-1 flex-col justify-between self-start overflow-hidden p-6'>
-			<h3 className='mb-4 capitalize text-gray-800 typography-SB16'>
+			<h3 className='typography-SB16 mb-4 text-gray-800 capitalize'>
 				{t('delivery')}
 			</h3>
-			<div className='mb-4 border-b border-gray-40 pb-4'>
+			<div className='border-gray-40 mb-4 border-b pb-4'>
 				<div className='mb-4 flex items-start gap-2'>
 					<MapPinIcon
 						className='mt-[2px] text-gray-200'
@@ -159,7 +159,7 @@ function OrderSummary({ order }: { order: TOrder }) {
 					/>
 					<div>
 						<p className='typography-M14'>{t('address')}</p>
-						<p className='text-gray-200 typography-R13'>
+						<p className='typography-R13 text-gray-200'>
 							{`${order.shippingAddress.street} - ${order.shippingAddress.city} - ${order.shippingAddress.governorate}`}
 						</p>
 					</div>
@@ -172,7 +172,7 @@ function OrderSummary({ order }: { order: TOrder }) {
 					/>
 					<div>
 						<p className='typography-M14'>{t('phone')}</p>
-						<p className='text-gray-200 typography-R13'>
+						<p className='typography-R13 text-gray-200'>
 							{order.shippingAddress.phone}
 						</p>
 					</div>
@@ -185,17 +185,17 @@ function OrderSummary({ order }: { order: TOrder }) {
 					/>
 					<div>
 						<p className='typography-M14'>{t('paymentMethod')}</p>
-						<p className='text-gray-200 typography-R13'>
+						<p className='typography-R13 text-gray-200'>
 							{t(paymentMethod.name)}
 						</p>
 					</div>
 				</div>
 			</div>
 
-			<h3 className='mb-4 capitalize text-gray-800 typography-SB16'>
+			<h3 className='typography-SB16 mb-4 text-gray-800 capitalize'>
 				{t('summary')}
 			</h3>
-			<div className='mb-4 border-b border-gray-40 pb-4 text-gray-200 typography-R14'>
+			<div className='border-gray-40 typography-R14 mb-4 border-b pb-4 text-gray-200'>
 				<div className='mb-2 flex items-center justify-between'>
 					<p>{t('subtotal')}</p>
 					<Price
@@ -213,7 +213,7 @@ function OrderSummary({ order }: { order: TOrder }) {
 					/>
 				</div>
 			</div>
-			<div className='flex items-center justify-between text-green-light-700 typography-SB16'>
+			<div className='text-green-light-700 typography-SB16 flex items-center justify-between'>
 				<p className='text-green-800'>{t('total')}</p>
 				<Price
 					finalPriceClassName='typography-SB18'
@@ -234,7 +234,7 @@ export function OrderTracker({ status }: { status: TOrderStatus }) {
 				pending: t('processing'),
 				completed: t('processed'),
 			},
-			icon: <UnplugIcon className='flex-shrink-0' />,
+			icon: <UnplugIcon className='shrink-0' />,
 		},
 		[ORDER_STATUS.shipped]: {
 			order: 2,
@@ -242,7 +242,7 @@ export function OrderTracker({ status }: { status: TOrderStatus }) {
 				pending: t('shipping'),
 				completed: t('shipped'),
 			},
-			icon: <PackageCheckIcon className='flex-shrink-0' />,
+			icon: <PackageCheckIcon className='shrink-0' />,
 		},
 		[ORDER_STATUS.delivered]: {
 			order: 3,
@@ -250,7 +250,7 @@ export function OrderTracker({ status }: { status: TOrderStatus }) {
 				pending: t('delivering'),
 				completed: t('delivered'),
 			},
-			icon: <TruckIcon className='flex-shrink-0' />,
+			icon: <TruckIcon className='shrink-0' />,
 		},
 		cancelled: undefined,
 	};
@@ -270,27 +270,27 @@ export function OrderTracker({ status }: { status: TOrderStatus }) {
 
 				return (
 					<>
-						<div className='flex flex-shrink-0 flex-col items-center justify-center'>
+						<div className='flex shrink-0 flex-col items-center justify-center'>
 							<div className='relative mb-3 flex size-[48px] items-center justify-center'>
 								<div
 									className={cn(
-										'absolute inset-0 z-[1] flex items-center justify-center rounded-full border-2',
+										'absolute inset-0 z-1 flex items-center justify-center rounded-full border-2',
 										{
 											'border-gray-80 text-gray-80': isInFuture,
-											'border-green-light-600 bg-white p-4 text-green-light-600':
+											'border-green-light-600 text-green-light-600 bg-white p-4':
 												isPending,
 											'border-green-light-600 bg-green-light-600 text-white':
 												isCompleted,
 										}
 									)}>
 									{isCompleted ? (
-										<CheckIcon className='flex-shrink-0' />
+										<CheckIcon className='shrink-0' />
 									) : (
 										value.icon
 									)}
 								</div>
 								{isPending && !isCompleted && (
-									<div className='absolute inset-0 scale-125 animate-ping rounded-full bg-green-light-100' />
+									<div className='bg-green-light-100 absolute inset-0 scale-125 animate-ping rounded-full' />
 								)}
 							</div>
 							<span
@@ -298,7 +298,7 @@ export function OrderTracker({ status }: { status: TOrderStatus }) {
 								{isCompleted ? value.label.completed : value.label.pending}
 							</span>
 						</div>
-						<Separator className='-mt-7 h-[2px] w-auto flex-1 flex-shrink last:hidden' />
+						<Separator className='-mt-7 h-[2px] w-auto flex-1 shrink last:hidden' />
 					</>
 				);
 			})}
@@ -321,7 +321,7 @@ export default async function Order(props: {
 		<div className='container flex min-h-screen flex-col py-14'>
 			<div className='flex gap-6'>
 				<Card className='flex flex-1 flex-col self-start bg-white p-6'>
-					<h4 className='mb-4 flex items-center gap-4 text-green-700 typography-SB24'>
+					<h4 className='typography-SB24 mb-4 flex items-center gap-4 text-green-700'>
 						{t('orderId')} : {params.orderId}{' '}
 						<OrderLabel
 							status={order.status}
@@ -341,7 +341,7 @@ export default async function Order(props: {
 						/>
 					</div>
 
-					<ul className='flex flex-col items-center gap-6 border-t border-gray-40 pt-6'>
+					<ul className='border-gray-40 flex flex-col items-center gap-6 border-t pt-6'>
 						{order.orderItems.map(item => (
 							<OrderItem
 								key={item._id}
@@ -358,7 +358,7 @@ export default async function Order(props: {
 					<OrderSummary order={order} />
 
 					{order.status === ORDER_STATUS.processing && (
-						<div className='mt-6 rounded-[12px] border border-orange-80 bg-orange-40 p-4 text-orange-600 typography-R13'>
+						<div className='border-orange-80 bg-orange-40 typography-R13 mt-6 rounded-[12px] border p-4 text-orange-600'>
 							<div className='mb-4 flex gap-2'>
 								<CircleAlertIcon size={20} />
 								<p>{t('cancelDesc')}</p>

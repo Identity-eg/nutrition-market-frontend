@@ -34,11 +34,11 @@ export default async function CheckoutPage() {
 
 	return (
 		<div className='relative'>
-			<div className='absolute inset-x-0 top-0 -z-10 h-56 bg-gray-20' />
+			<div className='bg-gray-20 absolute inset-x-0 top-0 -z-10 h-56' />
 			<div className='container flex min-h-screen flex-col gap-4 py-10'>
 				<div>
-					<h3 className='text-gray-800 typography-B24'>{t('checkout')}</h3>
-					<p className='mb-8 text-gray-200 typography-R16'>
+					<h3 className='typography-B24 text-gray-800'>{t('checkout')}</h3>
+					<p className='typography-R16 mb-8 text-gray-200'>
 						{t('checkoutDesc')}
 					</p>
 				</div>

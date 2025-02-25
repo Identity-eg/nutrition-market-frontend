@@ -76,8 +76,8 @@ export const AddForm = ({
 	if (hasUserReview) {
 		return hasSucceeded ? (
 			<div>
-				<Separator className='mb-4 mt-8' />
-				<span className='flex gap-2 text-green-light-700 typography-M16'>
+				<Separator className='mt-8 mb-4' />
+				<span className='text-green-light-700 typography-M16 flex gap-2'>
 					<CheckCircle2 />
 					Your review added successfully
 				</span>
@@ -92,7 +92,7 @@ export const AddForm = ({
 
 				<p className='typography-SB18'>
 					Review this product <br />
-					<span className='text-gray-200 typography-R14'>
+					<span className='typography-R14 text-gray-200'>
 						Share your thoughts with other customers
 					</span>
 				</p>
@@ -110,9 +110,9 @@ export const AddForm = ({
 		<div className='space-y-8'>
 			<Separator />
 
-			<p className='mb-8 typography-SB18'>
+			<p className='typography-SB18 mb-8'>
 				Review this product <br />
-				<span className='text-gray-200 typography-R14'>
+				<span className='typography-R14 text-gray-200'>
 					Share your thoughts with other customers
 				</span>
 			</p>
@@ -187,7 +187,7 @@ export const AddForm = ({
 				</Form>
 			</form>
 			{hasErrored && (
-				<h1 className='-mt-2 mb-4 border-t border-gray-40 pt-2 text-red-500'>
+				<h1 className='border-gray-40 -mt-2 mb-4 border-t pt-2 text-red-500'>
 					{result.serverError}
 				</h1>
 			)}

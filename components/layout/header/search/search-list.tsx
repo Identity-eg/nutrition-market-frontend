@@ -37,11 +37,11 @@ export const SearchList = forwardRef<
 					return (
 						<li
 							key={p._id}
-							className='flex h-[100px] select-none items-center rounded-sm p-2 transition-all hover:bg-gray-20'>
+							className='hover:bg-gray-20 flex h-[100px] items-center rounded-xs p-2 transition-all select-none'>
 							<Link
 								className='flex w-full gap-2'
 								href={`/shop/${p._id}?variant=${p.variants._id}`}>
-								<div className='aspect-square size-20 rounded-md border border-gray-40 bg-white p-2'>
+								<div className='border-gray-40 aspect-square size-20 rounded-md border bg-white p-2'>
 									<Image
 										src={p.variants.images[0].url}
 										alt=''
@@ -51,7 +51,7 @@ export const SearchList = forwardRef<
 									/>
 								</div>
 								<div>
-									<span className='line-clamp-1 text-green-500 typography-SB14'>
+									<span className='typography-SB14 line-clamp-1 text-green-500'>
 										{locale === 'ar' ? p.variants.name_ar : p.variants.name_en}
 									</span>
 									<Price

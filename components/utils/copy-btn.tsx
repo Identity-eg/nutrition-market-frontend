@@ -19,7 +19,7 @@ export function CopyBtn({ copyText }: { copyText: string }) {
 	if (isCopied) {
 		return (
 			<CheckIcon
-				className='flex-shrink-0 text-gray-300'
+				className='shrink-0 text-gray-300'
 				size={16}
 			/>
 		);
@@ -27,7 +27,7 @@ export function CopyBtn({ copyText }: { copyText: string }) {
 	return (
 		<CopyIcon
 			onClick={copy}
-			className='flex-shrink-0 cursor-pointer text-gray-300'
+			className='shrink-0 cursor-pointer text-gray-300'
 			size={16}
 		/>
 	);

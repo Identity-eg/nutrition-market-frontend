@@ -24,7 +24,7 @@ export function CartSideItem({
 			key={_id}
 			className='flex gap-4 py-6'>
 			<div className='w-24 space-y-2'>
-				<div className='relative aspect-square h-auto w-full flex-shrink-0 rounded-md bg-gray-30'>
+				<div className='bg-gray-30 relative aspect-square h-auto w-full shrink-0 rounded-md'>
 					<Image
 						src={variant.images[0]?.url}
 						width={70}
@@ -45,12 +45,12 @@ export function CartSideItem({
 					<SheetClose asChild>
 						<Link
 							href={`/shop/${product.slug}?variant=${variant._id}`}
-							className='line-clamp-2 text-green-700 typography-M16'>
+							className='typography-M16 line-clamp-2 text-green-700'>
 							{locale === 'ar' ? variant.name_ar : variant.name_en}
 						</Link>
 					</SheetClose>
 					{totalProductPriceAfterCoupon && (
-						<div className='flex aspect-square size-6 items-center justify-center rounded-full bg-green-light-600'>
+						<div className='bg-green-light-600 flex aspect-square size-6 items-center justify-center rounded-full'>
 							<TicketIcon
 								size={16}
 								className='text-white'

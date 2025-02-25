@@ -13,7 +13,7 @@ export function TrendingCategory() {
 
 	return (
 		<div className='bg-white p-4'>
-			<h6 className='mb-4 text-gray-200 typography-SB13'>Trending</h6>
+			<h6 className='typography-SB13 mb-4 text-gray-200'>Trending</h6>
 			{isPending ? (
 				<div className='flex flex-wrap items-center gap-2'>
 					{[40, 20, 25, 15, 22.5, 19].map(el => (
@@ -31,7 +31,7 @@ export function TrendingCategory() {
 							key={cat._id}
 							asChild
 							variant='outline'
-							className='rounded-md border border-gray-40 px-4 py-1 text-gray-500'>
+							className='border-gray-40 rounded-md border px-4 py-1 text-gray-500'>
 							<Link href={`/categories/${cat.category.slug}`}>
 								{cat.category.name}
 							</Link>

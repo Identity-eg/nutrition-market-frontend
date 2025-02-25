@@ -24,7 +24,7 @@ export function InputContainer() {
 				</InputOTPGroup>
 			</InputOTP>
 			{(result.serverError || result.validationErrors?._errors) && (
-				<span className='text-red-500 typography-R14'>
+				<span className='typography-R14 text-red-500'>
 					{result.serverError || result.validationErrors?._errors}
 				</span>
 			)}

@@ -57,7 +57,7 @@ export default async function ProductPage(props: TProps) {
 		product.variants[0];
 
 	const productDetailsDesktop = (
-		<div className='hidden grid-cols-2 media-md:grid'>
+		<div className='media-md:grid hidden grid-cols-2'>
 			<div className='flex flex-col justify-center gap-4 self-baseline border-r border-gray-50 pe-6'>
 				<ProductImages images={variant.images} />
 				<Allergen />
@@ -65,7 +65,7 @@ export default async function ProductPage(props: TProps) {
 
 			<div className='p-6'>
 				<div className='mb-4 border-b border-gray-50'>
-					<h2 className='mb-4 items-center justify-center text-green-500 typography-SB32'>
+					<h2 className='typography-SB32 mb-4 items-center justify-center text-green-500'>
 						{locale === 'ar' ? variant.name_ar : variant.name_en}
 						<Circle
 							size={14}
@@ -106,14 +106,14 @@ export default async function ProductPage(props: TProps) {
 					/>
 
 					<div className='mb-10'>
-						<h6 className='mb-2 typography-SB14'>Category: </h6>
+						<h6 className='typography-SB14 mb-2'>Category: </h6>
 						<ul className='flex flex-wrap items-center gap-2'>
 							{product.category.map(cat => (
 								<Button
 									key={cat._id}
 									asChild
 									variant='outline'
-									className='rounded-md border border-gray-40 px-4 py-1 text-gray-500'>
+									className='border-gray-40 rounded-md border px-4 py-1 text-gray-500'>
 									<Link href={`/categories/${cat.slug}`}>
 										{locale === 'ar' ? cat.name_ar : cat.name_en}
 									</Link>
@@ -138,7 +138,7 @@ export default async function ProductPage(props: TProps) {
 		<div className='media-md:hidden'>
 			<div className='mt-2'>
 				<div className='mb-4 border-b border-gray-50'>
-					<h2 className='mb-2 items-center justify-center text-green-500 typography-SB24'>
+					<h2 className='typography-SB24 mb-2 items-center justify-center text-green-500'>
 						{locale === 'ar' ? variant.name_ar : variant.name_en}
 						<Circle
 							size={10}
@@ -183,14 +183,14 @@ export default async function ProductPage(props: TProps) {
 					/>
 
 					<div className='mb-10'>
-						<h6 className='mb-2 typography-SB14'>Category: </h6>
+						<h6 className='typography-SB14 mb-2'>Category: </h6>
 						<ul className='flex flex-wrap items-center gap-2'>
 							{product.category.map(cat => (
 								<Button
 									key={cat._id}
 									asChild
 									variant='outline'
-									className='rounded-md border border-gray-40 px-4 py-1 text-gray-500'>
+									className='border-gray-40 rounded-md border px-4 py-1 text-gray-500'>
 									<Link href={`/categories/${cat.slug}`}>
 										{locale === 'ar' ? cat.name_ar : cat.name_en}
 									</Link>
@@ -221,19 +221,19 @@ export default async function ProductPage(props: TProps) {
 
 			{productDetailsMobile}
 
-			<Separator className='mb-6 mt-20' />
+			<Separator className='mt-20 mb-6' />
 
 			<Suspense
 				fallback={
 					<div className=''>
-						<h3 className='mb-6 typography-M16'>Related products</h3>
+						<h3 className='typography-M16 mb-6'>Related products</h3>
 						<ProductsLoading number={5} />
 					</div>
 				}>
 				<SimilarProducts productId={product._id} />
 			</Suspense>
 
-			<Separator className='mb-6 mt-20' />
+			<Separator className='mt-20 mb-6' />
 
 			<Suspense fallback='Loading'>
 				<Reviews

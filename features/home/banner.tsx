@@ -10,7 +10,7 @@ const Banner = React.forwardRef<
 		<div
 			ref={ref}
 			className={cn(
-				'relative flex flex-col items-center justify-between gap-6 overflow-hidden rounded-md border p-4 text-center media-md:flex-row media-md:text-start',
+				'media-md:flex-row media-md:text-start relative flex flex-col items-center justify-between gap-6 overflow-hidden rounded-md border p-4 text-center',
 				className
 			)}
 			{...props}
@@ -49,7 +49,7 @@ const BannerDescription = React.forwardRef<
 >(({ className, ...props }, ref) => (
 	<span
 		ref={ref}
-		className={cn('text-gray-200 typography-R14', className)}
+		className={cn('typography-R14 text-gray-200', className)}
 		{...props}
 	/>
 ));
@@ -62,7 +62,7 @@ const BannerImage = React.forwardRef<HTMLImageElement, ImageProps>(
 			src={src}
 			alt={alt}
 			className={cn(
-				'-top-10 end-4 w-[300px] media-md:absolute media-lg:w-[500px]',
+				'media-md:absolute media-lg:w-[500px] end-4 -top-10 w-[300px]',
 				className
 			)}
 			{...props}

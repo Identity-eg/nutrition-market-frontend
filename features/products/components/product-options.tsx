@@ -95,7 +95,7 @@ export function ProductOptions({
 			<div
 				className='mb-4'
 				key={category}>
-				<h6 className='mb-2 capitalize typography-SB14'>{category}</h6>
+				<h6 className='typography-SB14 mb-2 capitalize'>{category}</h6>
 				<div className='flex items-center gap-[8px]'>
 					{Object.entries(optionsObject).map(([option, variantsIds]) => {
 						const similarId = variantsIds.find(id =>
@@ -119,7 +119,7 @@ export function ProductOptions({
 											}
 											className={cn(
 												!similarId &&
-													'border-0 bg-gray-30 text-gray-90 hover:bg-gray-30'
+													'bg-gray-30 text-gray-90 hover:bg-gray-30 border-0'
 											)}>
 											<Link
 												prefetch
@@ -129,7 +129,7 @@ export function ProductOptions({
 											</Link>
 										</Button>
 									</TooltipTrigger>
-									<TooltipContent className='bg-[#5e548e] typography-R12'>
+									<TooltipContent className='typography-R12 bg-[#5e548e]'>
 										Available on other {oppositCategory}
 									</TooltipContent>
 								</Tooltip>

@@ -23,11 +23,11 @@ export default async function Hero() {
 					<CarouselItem
 						key={img._id}
 						className='relative h-[45vh] ps-0'>
-						<div className='container absolute inset-0 flex flex-col justify-center p-10 media-sm:p-16'>
-							<h3 className='mb-2 max-w-[20ch] leading-tight text-green-700 typo-SB-32-48'>
+						<div className='media-sm:p-16 absolute inset-0 container flex flex-col justify-center p-10'>
+							<h3 className='mb-2 max-w-[20ch] text-[clamp(2rem,0.23rem+1.02vw,2rem)] leading-tight font-semibold text-green-700'>
 								{img.title}
 							</h3>
-							<span className='mb-8 max-w-[40ch] opacity-80 typo-R-[16-18]'>
+							<span className='mb-8 max-w-[40ch] text-[clamp(1rem,0.09rem+0.12vw,1.125rem)] opacity-80'>
 								{parse(img.description)}
 							</span>
 							{img.relatedProduct && (

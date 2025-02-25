@@ -16,7 +16,7 @@ export default async function SimilarProducts({
 			<div className='mb-6 flex items-center justify-between'>
 				<h3 className='typography-M16'>Related products</h3>
 			</div>
-			<div className='mb-10 grid grid-cols-2 gap-2 media-sm:grid-cols-[repeat(auto-fill,minmax(200px,1fr))] media-sm:gap-4'>
+			<div className='media-sm:grid-cols-[repeat(auto-fill,minmax(200px,1fr))] media-sm:gap-4 mb-10 grid grid-cols-2 gap-2'>
 				{products.map(product => (
 					<CardItem
 						key={product._id}
