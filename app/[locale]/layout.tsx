@@ -10,6 +10,7 @@ import { Topbar } from 'components/layout/topbar';
 import { Footer } from 'components/layout/footer';
 import RTLdirection from 'components/layout/RTL-direction';
 
+import { Providers } from 'app/providers';
 import { routing } from 'i18n/routing';
 import type { TLocale } from 'i18n/config';
 import { cn } from 'lib/utils';
@@ -42,16 +43,18 @@ export default async function LocaleLayout({
 					[notoKufiArabic.className]: locale === 'ar',
 					[inter.className]: locale !== 'ar',
 				})}>
-				<NextIntlClientProvider messages={messages}>
-					<RTLdirection>
-						<Topbar />
-						<Header />
-						<Linksbar />
-						<main className='min-h-[calc(100vh-150px)]'>{children}</main>
-						<Footer />
-						<Toaster />
-					</RTLdirection>
-				</NextIntlClientProvider>
+				<Providers>
+					<NextIntlClientProvider messages={messages}>
+						<RTLdirection>
+							<Topbar />
+							<Header />
+							<Linksbar />
+							<main className='min-h-[calc(100vh-150px)]'>{children}</main>
+							<Footer />
+							<Toaster />
+						</RTLdirection>
+					</NextIntlClientProvider>
+				</Providers>
 			</body>
 		</html>
 	);

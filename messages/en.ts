@@ -32,6 +32,10 @@ const en = {
 			previous: 'Previous',
 			next: 'Next',
 		},
+		posterTitle: 'Sales up to 50%',
+		posterText: 'Shop the vitamins and <br /> supplements',
+		posterDescription:
+			'We have prepared special discounts for you on grocery products...',
 	},
 	OfferPage: {
 		pageMetadata: { title: 'Offer' },

@@ -32,6 +32,9 @@ const ar = {
 			previous: 'السابق',
 			next: 'التالي',
 		},
+		posterTitle: 'تخفيضات تصل إلى 50%',
+		posterText: 'تسوق الفيتامينات <br/>والمكملات الغذائية',
+		posterDescription: 'لقد أعددنا لك خصومات خاصة على منتجات البقالة ...',
 	},
 	OfferPage: {
 		pageMetadata: { title: 'العروض' },

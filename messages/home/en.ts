@@ -1,6 +1,7 @@
 const homeEn = {
 	pageMetadata: { title: 'Home' },
 	searchbarPlaceholder: 'Explore vitamins, supplements, ...etc',
+	trending: 'trending',
 	banners: {
 		title1: 'Your health & safety is our top priority',
 		description1:

@@ -1,6 +1,7 @@
 const homeAr = {
 	pageMetadata: { title: 'الصفحة الرئيسية' },
 	searchbarPlaceholder: 'إبحث عن الفيتامينات والمكملات الغذائية ...',
+	trending: 'الإختيارات الرائجة',
 	banners: {
 		title1: 'صحتك وسلامتك هي أولويتنا القصوى',
 		description1:

@@ -2,6 +2,7 @@ import { Suspense } from 'react';
 import type { Metadata } from 'next';
 import Image from 'next/image';
 import { getTranslations } from 'next-intl/server';
+import parse from 'html-react-parser';
 
 import { Filters } from 'features/filters';
 import { SortBy } from 'features/filters/components/sort-by';
@@ -31,6 +32,7 @@ export default async function ShopPage(props: {
 	searchParams: Promise<TSearchParams>;
 }) {
 	const searchParams = await props.searchParams;
+	const t = await getTranslations('ShopPage');
 	return (
 		<section className='media-md:grid container h-full grid-cols-[278px_1fr] gap-x-6 gap-y-8 py-12'>
 			<Filters />
@@ -38,13 +40,13 @@ export default async function ShopPage(props: {
 				<div className='media-sm:flex-row mb-4 flex min-h-56 flex-col items-center justify-between gap-6 rounded-md bg-[#d9f3fa] p-6 pe-10'>
 					<div>
 						<span className='typography-R12 mb-2 inline-block rounded-md bg-gray-500 px-2 py-1 text-white'>
-							Sale up to 50%
+							{t('posterTitle')}
 						</span>
 						<div className='text-[clamp(2rem,0.23rem+1.02vw,2rem)] leading-tight font-semibold tracking-tight text-balance text-gray-500'>
-							Shop the vitamins and <br /> supplements
+							{parse(t('posterText'))}
 						</div>
 						<span className='typography-R14 text-gray-200'>
-							We have prepared special discounts for you on grocery products...
+							{t('posterDescription')}
 						</span>
 					</div>
 					<div>
